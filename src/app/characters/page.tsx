@@ -1,8 +1,44 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 function Characters() {
-  const characters = [1, 2, 3, 4, 5, 6, 7, 8];
+  const [characterName, setCharacterName] = useState("");
+  const [selectedAttribute, setSelectedAttribute] = useState(null);
+  const [selectedRarity, setSelectedRarity] = useState(null);
+  const [selectedRace, setSelectedRace] = useState(null);
+
+  const characters = [
+    {
+      name: "Monwar",
+      imageUrl:
+        "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
+      attribute: "Speed",
+      rarity: "Laptop",
+      race: "Human",
+    },
+    {
+      name: "Michael",
+      imageUrl:
+        "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
+      attribute: "HP",
+      rarity: "UR",
+      race: "Fairy",
+    },
+    {
+      name: "Husky",
+      imageUrl:
+        "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
+      attribute: "Dark",
+      rarity: "SSR",
+      race: "Demon",
+    },
+  ];
+
+  const filteredCharacters = characters.filter((x) =>
+    x.name.toLowerCase().includes(characterName.toLowerCase())
+  );
 
   const attributes = ["Dark", "HP", "Light", "Speed", "Strength"];
   const rarity = ["LR", "R", "SR", "SSR", "UR"];
@@ -29,6 +65,7 @@ function Characters() {
             id="username"
             type="text"
             placeholder="Characters names..."
+            onChange={(e) => setCharacterName(e.target.value)}
           />
         </div>
 
@@ -81,28 +118,28 @@ function Characters() {
             </tr>
           </thead>
           <tbody>
-            {characters.map((character) => (
+            {filteredCharacters.map((character) => (
               <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   <div className="grid place-items-center cursor-pointer hover:animate-pulse">
-                    <Link href={`/characters/${character}`}>
+                    <Link href={`/characters/${character.name}`}>
                       <>
                         <img
                           className="w-20 h-20 object-cover mb-2"
-                          src="https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png"
+                          src={character.imageUrl}
                           alt=""
                         />
-                        <p>Monwar</p>
+                        <p>{character.name}</p>
                       </>
                     </Link>
                   </div>
                 </th>
-                <td className="px-6 py-4">HP</td>
-                <td className="px-6 py-4">SSR</td>
-                <td className="px-6 py-4">Giant</td>
+                <td className="px-6 py-4">{character.attribute}</td>
+                <td className="px-6 py-4">{character.rarity}</td>
+                <td className="px-6 py-4">{character.race}</td>
               </tr>
             ))}
           </tbody>
