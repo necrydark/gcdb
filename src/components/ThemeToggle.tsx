@@ -8,16 +8,22 @@ import { FaMoon } from "react-icons/fa";
 const ThemeToggle = () => {
   const [darkMode, setDarkMode] = useState(true);
 
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
+  const toggleTheme = () => setDarkMode(!darkMode);
+  const setupTheme = () => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   };
+  setupTheme();
 
   //theme toggle does not work
-
-  useEffect(() => {
-    const theme = localStorage.getItem("theme");
-    if (theme === "dark") setDarkMode(true);
-  }, []);
+  useEffect(() => setupTheme, [[], darkMode]);
 
   useEffect(() => {
     if (darkMode) {
