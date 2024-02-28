@@ -1,7 +1,11 @@
 "use client";
 
+import { Attributes } from "@/utils/traits/attributes";
+import characters from "@/utils/dummy/characters";
 import Link from "next/link";
 import React, { useState } from "react";
+import { Rarity } from "@/utils/traits/rarity";
+import { Race } from "@/utils/traits/race";
 
 function Characters() {
   const [characterName, setCharacterName] = useState("");
@@ -9,48 +13,9 @@ function Characters() {
   const [selectedRarity, setSelectedRarity] = useState(null);
   const [selectedRace, setSelectedRace] = useState(null);
 
-  const characters = [
-    {
-      name: "Monwar",
-      imageUrl:
-        "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
-      attribute: "Speed",
-      rarity: "Laptop",
-      race: "Human",
-    },
-    {
-      name: "Michael",
-      imageUrl:
-        "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
-      attribute: "HP",
-      rarity: "UR",
-      race: "Fairy",
-    },
-    {
-      name: "Husky",
-      imageUrl:
-        "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
-      attribute: "Dark",
-      rarity: "SSR",
-      race: "Demon",
-    },
-  ];
-
   const filteredCharacters = characters.filter((x) =>
     x.name.toLowerCase().includes(characterName.toLowerCase())
   );
-
-  const attributes = ["Dark", "HP", "Light", "Speed", "Strength"];
-  const rarity = ["LR", "R", "SR", "SSR", "UR"];
-  const race = [
-    "Demon",
-    "Fairy",
-    "Giant",
-    "Goddess",
-    "Human",
-    "Human/Giant",
-    "Unknown",
-  ];
 
   return (
     <div className="p-10 space-y-5">
@@ -73,7 +38,7 @@ function Characters() {
           <div>
             <select className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <option>Clear</option>
-              {attributes.map((attribute) => (
+              {Object.keys(Attributes).map((attribute) => (
                 <option>{attribute}</option>
               ))}
             </select>
@@ -82,7 +47,7 @@ function Characters() {
           <div>
             <select className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <option>Clear</option>
-              {rarity.map((rarity) => (
+              {Object.keys(Rarity).map((rarity) => (
                 <option>{rarity}</option>
               ))}
             </select>
@@ -91,7 +56,7 @@ function Characters() {
           <div>
             <select className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <option>Clear</option>
-              {race.map((race) => (
+              {Object.keys(Race).map((race) => (
                 <option>{race}</option>
               ))}
             </select>
