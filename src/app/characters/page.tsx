@@ -3,19 +3,34 @@
 import { Attributes } from "@/utils/traits/attributes";
 import characters from "@/utils/dummy/characters";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Rarity } from "@/utils/traits/rarity";
 import { Race } from "@/utils/traits/race";
 
 function Characters() {
+  const [filteredCharacters, setFilteredCharacters] = useState(characters);
   const [characterName, setCharacterName] = useState("");
-  const [selectedAttribute, setSelectedAttribute] = useState(null);
-  const [selectedRarity, setSelectedRarity] = useState(null);
-  const [selectedRace, setSelectedRace] = useState(null);
+  const [selectedAttribute, setSelectedAttribute] = useState("");
+  const [selectedRarity, setSelectedRarity] = useState("");
+  const [selectedRace, setSelectedRace] = useState("");
 
-  const filteredCharacters = characters.filter((x) =>
-    x.name.toLowerCase().includes(characterName.toLowerCase())
-  );
+  useEffect(() => {
+    setFilteredCharacters(
+      characters.filter((x) => {
+        const characterFilter = x.name
+          .toLowerCase()
+          .includes(characterName.toLowerCase());
+        const attributeFilter = x.attribute.includes(selectedAttribute);
+        const rarityFilter = x.rarity.includes(selectedRarity);
+        const raceFilter = x.race.includes(selectedRace);
+
+        if (characterFilter && attributeFilter && rarityFilter && raceFilter)
+          return true;
+
+        return false;
+      })
+    );
+  }, [characterName, selectedAttribute, selectedRarity, selectedRace]);
 
   return (
     <div className="p-10 space-y-5">
@@ -36,28 +51,37 @@ function Characters() {
 
         <div className="flex space-x-5">
           <div>
-            <select className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-              <option>Clear</option>
+            <select
+              onChange={(e) => setSelectedAttribute(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Clear</option>
               {Object.keys(Attributes).map((attribute) => (
-                <option>{attribute}</option>
+                <option value={attribute}>{attribute}</option>
               ))}
             </select>
           </div>
 
           <div>
-            <select className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-              <option>Clear</option>
+            <select
+              onChange={(e) => setSelectedRarity(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Clear</option>
               {Object.keys(Rarity).map((rarity) => (
-                <option>{rarity}</option>
+                <option value={rarity}>{rarity}</option>
               ))}
             </select>
           </div>
 
           <div>
-            <select className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-              <option>Clear</option>
+            <select
+              onChange={(e) => setSelectedRace(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Clear</option>
               {Object.keys(Race).map((race) => (
-                <option>{race}</option>
+                <option value={race}>{race}</option>
               ))}
             </select>
           </div>
@@ -93,7 +117,7 @@ function Characters() {
                     <Link href={`/characters/${character.name}`}>
                       <>
                         <img
-                          className="w-20 h-20 object-cover mb-2"
+                          className="w-20 h-20 object-cover mb-2 mx-auto"
                           src={character.imageUrl}
                           alt=""
                         />
