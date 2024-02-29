@@ -13,6 +13,7 @@ function Characters() {
   const [selectedAttribute, setSelectedAttribute] = useState("");
   const [selectedRarity, setSelectedRarity] = useState("");
   const [selectedRace, setSelectedRace] = useState("");
+  const [selectedCrossover, setSelectedCrossover] = useState("");
 
   const filteredCharacters = characters.filter((x) => {
     const characterFilter = x.name
@@ -23,8 +24,17 @@ function Characters() {
       : true;
     const rarityFilter = selectedRarity ? x.rarity === selectedRarity : true;
     const raceFilter = selectedRace ? x.race === selectedRace : true;
+    const crossoverFilter = selectedCrossover
+      ? x.Crossover === selectedCrossover
+      : true;
 
-    if (characterFilter && attributeFilter && rarityFilter && raceFilter)
+    if (
+      characterFilter &&
+      attributeFilter &&
+      rarityFilter &&
+      raceFilter &&
+      crossoverFilter
+    )
       return true;
 
     return false;
@@ -90,7 +100,7 @@ function Characters() {
           <div>
             <p>Crossover</p>
             <select
-              onChange={(e) => setSelectedRace(e.target.value)}
+              onChange={(e) => setSelectedCrossover(e.target.value)}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="">Clear</option>

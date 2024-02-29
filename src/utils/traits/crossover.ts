@@ -1,4 +1,4 @@
 export enum Crossover {
-    Not = "Not Crossover",
+    Not = "Not",
     Crossover = "Crossover"
 }
