@@ -20,9 +20,13 @@ function Characters() {
         const characterFilter = x.name
           .toLowerCase()
           .includes(characterName.toLowerCase());
-        const attributeFilter = x.attribute.includes(selectedAttribute);
-        const rarityFilter = x.rarity.includes(selectedRarity);
-        const raceFilter = x.race.includes(selectedRace);
+        const attributeFilter = selectedAttribute
+          ? x.attribute === selectedAttribute
+          : true;
+        const rarityFilter = selectedRarity
+          ? x.rarity === selectedRarity
+          : true;
+        const raceFilter = selectedRace ? x.race === selectedRace : true;
 
         if (characterFilter && attributeFilter && rarityFilter && raceFilter)
           return true;
