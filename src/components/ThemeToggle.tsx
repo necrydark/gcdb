@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { BsSunFill } from "react-icons/bs";
 import { FaMoon } from "react-icons/fa";
@@ -9,6 +10,7 @@ const ThemeToggle = () => {
   const [darkMode, setDarkMode] = useState(true);
 
   const toggleTheme = () => setDarkMode(!darkMode);
+
   const setupTheme = () => {
     if (
       localStorage.theme === "dark" ||
@@ -22,8 +24,7 @@ const ThemeToggle = () => {
   };
   setupTheme();
 
-  //theme toggle does not work
-  useEffect(() => setupTheme, [[], darkMode]);
+  useEffect(() => setupTheme, []);
 
   useEffect(() => {
     if (darkMode) {

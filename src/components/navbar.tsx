@@ -28,7 +28,7 @@ function Navbar() {
   });
 
   return (
-    <div className="w-full bg-slate-600">
+    <div className="w-full bg-slate-600 text-white">
       <div className="max-w-[1280px] mx-auto flex justify-between px-2">
         <div className="flex">
           <Link
