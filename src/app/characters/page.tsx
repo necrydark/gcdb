@@ -46,16 +46,19 @@ function Characters() {
       <div>
         <h1 className="uppercase text-3xl font-bold mb-10">Character List</h1>
       </div>
-      <div className="flex justify-between md:flex-row flex-col gap-3">
-        <div>
-          <p>Search</p>
+      <div className="flex justify-between items-center md:flex-row flex-col gap-3">
+        <div className="relative z-0  group">
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            id="character_name"
             type="text"
-            placeholder="Characters name..."
+            placeholder=""
+            name="character_name"
             onChange={(e) => setCharacterName(e.target.value)}
           />
+          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Search a character...
+          </label>
         </div>
 
         <div className="flex space-x-5 md:justify-normal justify-between">
@@ -63,7 +66,7 @@ function Characters() {
             <p>Attribute</p>
             <select
               onChange={(e) => setSelectedAttribute(e.target.value)}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
               {Object.keys(Attributes).map((attribute) => (
@@ -76,7 +79,7 @@ function Characters() {
             <p>Rarity</p>
             <select
               onChange={(e) => setSelectedRarity(e.target.value)}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
               {Object.keys(Rarity).map((rarity) => (
@@ -89,7 +92,7 @@ function Characters() {
             <p>Race</p>
             <select
               onChange={(e) => setSelectedRace(e.target.value)}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
               {Object.keys(Race).map((race) => (
@@ -101,7 +104,7 @@ function Characters() {
             <p>Crossover</p>
             <select
               onChange={(e) => setSelectedCrossover(e.target.value)}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
               {Object.keys(Crossover).map((crossover) => (
