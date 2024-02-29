@@ -1,4 +1,5 @@
 import { Attributes } from "../traits/attributes";
+import { Crossover } from "../traits/crossover";
 import { Races } from "../traits/race";
 import { Rarities } from "../traits/rarity";
 
@@ -11,6 +12,7 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.SSR,
     race: Races.Giant,
+    Crossover: Crossover.Not,
   },
   {
     name: "Jue Viole Grace",
@@ -20,6 +22,7 @@ export default [
     attribute: Attributes.Strength,
     rarity: Rarities.SSR,
     race: Races.Human,
+    Crossover: Crossover.Crossover,
   },
   {
     name: "Alioni",
@@ -29,5 +32,6 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.R,
     race: Races.Human,
+    Crossover: Crossover.Not,
   },
 ];

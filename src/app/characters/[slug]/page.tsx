@@ -1,5 +1,5 @@
-import React from "react";
 import characters from "@/utils/dummy/characters";
+import React from "react";
 
 export default function CharacterPage({ params: { slug } }: any) {
   const character = characters.find((x) => x.slug === slug);
@@ -18,6 +18,9 @@ export default function CharacterPage({ params: { slug } }: any) {
         <div className="space-y-4 text-lg">
           <p>[Whatever]</p>
           <p>{character?.name}</p>
+          {character?.Crossover === "Crossover" && (
+            <p>{character?.Crossover}</p>
+          )}
         </div>
       </div>
 
