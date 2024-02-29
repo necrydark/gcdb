@@ -8,33 +8,26 @@ import { Rarity } from "@/utils/traits/rarity";
 import { Race } from "@/utils/traits/race";
 
 function Characters() {
-  const [filteredCharacters, setFilteredCharacters] = useState(characters);
   const [characterName, setCharacterName] = useState("");
   const [selectedAttribute, setSelectedAttribute] = useState("");
   const [selectedRarity, setSelectedRarity] = useState("");
   const [selectedRace, setSelectedRace] = useState("");
 
-  useEffect(() => {
-    setFilteredCharacters(
-      characters.filter((x) => {
-        const characterFilter = x.name
-          .toLowerCase()
-          .includes(characterName.toLowerCase());
-        const attributeFilter = selectedAttribute
-          ? x.attribute === selectedAttribute
-          : true;
-        const rarityFilter = selectedRarity
-          ? x.rarity === selectedRarity
-          : true;
-        const raceFilter = selectedRace ? x.race === selectedRace : true;
+  const filteredCharacters = characters.filter((x) => {
+    const characterFilter = x.name
+      .toLowerCase()
+      .includes(characterName.toLowerCase());
+    const attributeFilter = selectedAttribute
+      ? x.attribute === selectedAttribute
+      : true;
+    const rarityFilter = selectedRarity ? x.rarity === selectedRarity : true;
+    const raceFilter = selectedRace ? x.race === selectedRace : true;
 
-        if (characterFilter && attributeFilter && rarityFilter && raceFilter)
-          return true;
+    if (characterFilter && attributeFilter && rarityFilter && raceFilter)
+      return true;
 
-        return false;
-      })
-    );
-  }, [characterName, selectedAttribute, selectedRarity, selectedRace]);
+    return false;
+  });
 
   return (
     <div className="p-10 space-y-5">
