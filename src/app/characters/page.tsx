@@ -1,17 +1,19 @@
 "use client";
 
-import { Attributes } from "@/utils/traits/attributes";
 import characters from "@/utils/dummy/characters";
+import { Attributes } from "@/utils/traits/attributes";
+import { Crossover } from "@/utils/traits/crossover";
+import { Race } from "@/utils/traits/race";
+import { Rarity } from "@/utils/traits/rarity";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Rarity } from "@/utils/traits/rarity";
-import { Race } from "@/utils/traits/race";
 
 function Characters() {
   const [characterName, setCharacterName] = useState("");
   const [selectedAttribute, setSelectedAttribute] = useState("");
   const [selectedRarity, setSelectedRarity] = useState("");
   const [selectedRace, setSelectedRace] = useState("");
+  const [selectedCrossover, setSelectedCrossover] = useState("");
 
   const filteredCharacters = characters.filter((x) => {
     const characterFilter = x.name
@@ -22,35 +24,49 @@ function Characters() {
       : true;
     const rarityFilter = selectedRarity ? x.rarity === selectedRarity : true;
     const raceFilter = selectedRace ? x.race === selectedRace : true;
+    const crossoverFilter = selectedCrossover
+      ? x.Crossover === selectedCrossover
+      : true;
 
-    if (characterFilter && attributeFilter && rarityFilter && raceFilter)
+    if (
+      characterFilter &&
+      attributeFilter &&
+      rarityFilter &&
+      raceFilter &&
+      crossoverFilter
+    )
       return true;
 
     return false;
   });
 
   return (
-    <div className="p-10 space-y-5">
+    <div className="container mx-auto p-10 space-y-5">
+      {/* Add background colour to this. */}
       <div>
         <h1 className="uppercase text-3xl font-bold mb-10">Character List</h1>
       </div>
-
-      <div className="flex justify-between">
-        <div>
+      <div className="flex justify-between items-center md:flex-row flex-col gap-3">
+        <div className="relative z-0  group">
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            id="character_name"
             type="text"
-            placeholder="Characters names..."
+            placeholder=""
+            name="character_name"
             onChange={(e) => setCharacterName(e.target.value)}
           />
+          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+            Search a character...
+          </label>
         </div>
 
-        <div className="flex space-x-5">
+        <div className="flex space-x-5 md:justify-normal justify-between">
           <div>
+            <p>Attribute</p>
             <select
               onChange={(e) => setSelectedAttribute(e.target.value)}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
               {Object.keys(Attributes).map((attribute) => (
@@ -60,9 +76,10 @@ function Characters() {
           </div>
 
           <div>
+            <p>Rarity</p>
             <select
               onChange={(e) => setSelectedRarity(e.target.value)}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
               {Object.keys(Rarity).map((rarity) => (
@@ -72,9 +89,10 @@ function Characters() {
           </div>
 
           <div>
+            <p>Race</p>
             <select
               onChange={(e) => setSelectedRace(e.target.value)}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
               {Object.keys(Race).map((race) => (
@@ -82,9 +100,20 @@ function Characters() {
               ))}
             </select>
           </div>
+          <div>
+            <p>Crossover</p>
+            <select
+              onChange={(e) => setSelectedCrossover(e.target.value)}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">Clear</option>
+              {Object.keys(Crossover).map((crossover) => (
+                <option value={crossover}>{crossover}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -100,6 +129,9 @@ function Characters() {
               </th>
               <th scope="col" className="px-6 py-3">
                 Race
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Crossover
               </th>
             </tr>
           </thead>
@@ -126,6 +158,7 @@ function Characters() {
                 <td className="px-6 py-4">{character.attribute}</td>
                 <td className="px-6 py-4">{character.rarity}</td>
                 <td className="px-6 py-4">{character.race}</td>
+                <td className="px-6 py-4">{character.Crossover}</td>
               </tr>
             ))}
           </tbody>

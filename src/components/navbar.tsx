@@ -35,7 +35,7 @@ function Navbar() {
             href="/"
             className="p-5 hover:opacity-60 transition-all duration-300"
           >
-            GCDB
+            GCWIki
           </Link>
         </div>
         <div className="md:flex items-center hidden">
