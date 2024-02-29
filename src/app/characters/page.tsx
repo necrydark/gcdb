@@ -118,7 +118,7 @@ function Characters() {
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   <div className="grid place-items-center cursor-pointer hover:animate-pulse">
-                    <Link href={`/characters/${character.name}`}>
+                    <Link href={`/characters/${character.slug}`}>
                       <>
                         <img
                           className="w-20 h-20 object-cover mb-2 mx-auto"
