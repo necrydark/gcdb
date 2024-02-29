@@ -1,11 +1,12 @@
 "use client";
 
-import { Attributes } from "@/utils/traits/attributes";
 import characters from "@/utils/dummy/characters";
+import { Attributes } from "@/utils/traits/attributes";
+import { Crossover } from "@/utils/traits/crossover";
+import { Race } from "@/utils/traits/race";
+import { Rarity } from "@/utils/traits/rarity";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Rarity } from "@/utils/traits/rarity";
-import { Race } from "@/utils/traits/race";
 
 function Characters() {
   const [characterName, setCharacterName] = useState("");
@@ -30,24 +31,26 @@ function Characters() {
   });
 
   return (
-    <div className="p-10 space-y-5">
+    <div className="container mx-auto p-10 space-y-5">
+      {/* Add background colour to this. */}
       <div>
         <h1 className="uppercase text-3xl font-bold mb-10">Character List</h1>
       </div>
-
-      <div className="flex justify-between">
+      <div className="flex justify-between md:flex-row flex-col gap-3">
         <div>
+          <p>Search</p>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="text"
-            placeholder="Characters names..."
+            placeholder="Characters name..."
             onChange={(e) => setCharacterName(e.target.value)}
           />
         </div>
 
-        <div className="flex space-x-5">
+        <div className="flex space-x-5 md:justify-normal justify-between">
           <div>
+            <p>Attribute</p>
             <select
               onChange={(e) => setSelectedAttribute(e.target.value)}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -60,6 +63,7 @@ function Characters() {
           </div>
 
           <div>
+            <p>Rarity</p>
             <select
               onChange={(e) => setSelectedRarity(e.target.value)}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -72,6 +76,7 @@ function Characters() {
           </div>
 
           <div>
+            <p>Race</p>
             <select
               onChange={(e) => setSelectedRace(e.target.value)}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -82,9 +87,20 @@ function Characters() {
               ))}
             </select>
           </div>
+          <div>
+            <p>Crossover</p>
+            <select
+              onChange={(e) => setSelectedRace(e.target.value)}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Clear</option>
+              {Object.keys(Crossover).map((crossover) => (
+                <option value={crossover}>{crossover}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -100,6 +116,9 @@ function Characters() {
               </th>
               <th scope="col" className="px-6 py-3">
                 Race
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Crossover
               </th>
             </tr>
           </thead>
@@ -126,6 +145,7 @@ function Characters() {
                 <td className="px-6 py-4">{character.attribute}</td>
                 <td className="px-6 py-4">{character.rarity}</td>
                 <td className="px-6 py-4">{character.race}</td>
+                <td className="px-6 py-4">{character.Crossover}</td>
               </tr>
             ))}
           </tbody>
