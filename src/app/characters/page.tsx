@@ -1,11 +1,11 @@
 "use client";
 
-import { Attributes } from "@/utils/traits/attributes";
+import { Attribute, Attributes } from "@/utils/traits/attributes";
 import characters from "@/utils/dummy/characters";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Rarity } from "@/utils/traits/rarity";
-import { Race } from "@/utils/traits/race";
+import { Rarities, Rarity } from "@/utils/traits/rarity";
+import { Race, Races } from "@/utils/traits/race";
 
 function Characters() {
   const [characterName, setCharacterName] = useState("");
@@ -54,7 +54,9 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Attributes).map((attribute) => (
-                <option value={attribute}>{attribute}</option>
+                <option value={attribute}>
+                  {Attributes[attribute as Attribute]}
+                </option>
               ))}
             </select>
           </div>
@@ -65,8 +67,8 @@ function Characters() {
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="">Clear</option>
-              {Object.keys(Rarity).map((rarity) => (
-                <option value={rarity}>{rarity}</option>
+              {Object.keys(Rarities).map((rarity: any) => (
+                <option value={rarity}>{Rarities[rarity as Rarity]}</option>
               ))}
             </select>
           </div>
@@ -77,8 +79,8 @@ function Characters() {
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="">Clear</option>
-              {Object.keys(Race).map((race) => (
-                <option value={race}>{race}</option>
+              {Object.keys(Races).map((race) => (
+                <option value={race}>{Races[race as Race]}</option>
               ))}
             </select>
           </div>

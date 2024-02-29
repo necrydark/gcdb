@@ -1,6 +1,6 @@
 import { Attributes } from "../traits/attributes";
-import { Race } from "../traits/race";
-import { Rarity } from "../traits/rarity";
+import { Races } from "../traits/race";
+import { Rarities } from "../traits/rarity";
 
 export default [
   {
@@ -9,8 +9,8 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
     attribute: Attributes.HP,
-    rarity: Rarity.SSR,
-    race: Race.Giant,
+    rarity: Rarities.SSR,
+    race: Races.Giant,
   },
   {
     name: "Jue Viole Grace",
@@ -18,8 +18,8 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
     attribute: Attributes.Strength,
-    rarity: Rarity.SSR,
-    race: Race.Human,
+    rarity: Rarities.SSR,
+    race: Races.Human,
   },
   {
     name: "Alioni",
@@ -27,7 +27,7 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
     attribute: Attributes.HP,
-    rarity: Rarity.R,
-    race: Race.Human,
+    rarity: Rarities.R,
+    race: Races.Human,
   },
 ];
