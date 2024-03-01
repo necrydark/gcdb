@@ -1,6 +1,6 @@
 import { Attributes } from "../traits/attributes";
-import { Games } from "../traits/game";
 import { Crossovers } from "../traits/crossover";
+import { Games } from "../traits/game";
 import { Races } from "../traits/race";
 import { Rarities } from "../traits/rarity";
 
@@ -13,7 +13,7 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.SSR,
     race: Races.Giant,
-    crossover: Crossover.Not,
+    crossover: Crossovers.NotCrossover,
     game: Games.Base
   },
   {
@@ -46,7 +46,7 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.R,
     race: Races.Human,
-    crossover: Crossover.Not,
+    crossover: Crossovers.NotCrossover,
     tag: "Beard Of The Mountain Cat",
     game: Games.Base
   },
@@ -56,9 +56,8 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
     attribute: Attributes.HP,
-    crossover: Crossover.Crossover,
     tag: "Beard Of The Mountain Cat",
-    game: Games.AOT
+    game: Games.AOT,
     rarity: Rarities.SSR,
     race: Races.HumanGiant,
     Crossover: Crossovers.NotCrossover,

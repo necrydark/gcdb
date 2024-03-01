@@ -7,7 +7,7 @@ export default function CharacterPage({ params: { slug } }: any) {
   return (
     <div className="p-10 container mx-auto">
       {/* Header */}
-      <div className="flex justify-between items-center gap-5">
+      <div className="flex justify-between gap-5">
         <div className="flex flex-row">
           <img
             className="w-28"
