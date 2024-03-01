@@ -40,7 +40,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="px-4 py-6 bg-slate-800 dark:border-t-white dark:border-t-[1px] transition-all duration-300 md:flex md:items-center md:justify-between">
+        <div className="px-4 py-6 bg-slate-800  md:flex md:items-center md:justify-between">
           <span className="text-md text-white dark:text-gray-300 sm:text-center">
             GCWiki, we are not affliated with or endorsed by Netmarble.
           </span>

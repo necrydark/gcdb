@@ -25,7 +25,7 @@ function Characters() {
     const rarityFilter = selectedRarity ? x.rarity === selectedRarity : true;
     const raceFilter = selectedRace ? x.race === selectedRace : true;
     const crossoverFilter = selectedCrossover
-      ? x.Crossover === selectedCrossover
+      ? x.crossover === selectedCrossover
       : true;
 
     if (
@@ -163,7 +163,7 @@ function Characters() {
                 <td className="px-6 py-4">{character.attribute}</td>
                 <td className="px-6 py-4">{character.rarity}</td>
                 <td className="px-6 py-4">{character.race}</td>
-                <td className="px-6 py-4">{character.Crossover}</td>
+                <td className="px-6 py-4">{character.crossover}</td>
               </tr>
             ))}
           </tbody>

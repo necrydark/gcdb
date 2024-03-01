@@ -1,4 +1,5 @@
 import { Attributes } from "../traits/attributes";
+import { Games } from "../traits/game";
 import { Crossovers } from "../traits/crossover";
 import { Races } from "../traits/race";
 import { Rarities } from "../traits/rarity";
@@ -12,6 +13,18 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.SSR,
     race: Races.Giant,
+    crossover: Crossover.Not,
+    game: Games.Base
+  },
+  {
+    name: "Queen Diane",
+    slug: "queen_diane_2",
+    imageUrl:
+      "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png",
+    attribute: Attributes.Strength,
+    game: Games.Base,
+    rarity: Rarities.SSR,
+    race: Races.Giant,
     Crossover: Crossovers.NotCrossover,
   },
   {
@@ -20,6 +33,7 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
     attribute: Attributes.Strength,
+    game: Games.TOG,
     rarity: Rarities.SSR,
     race: Races.Human,
     Crossover: Crossovers.Crossover,
@@ -32,6 +46,21 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.R,
     race: Races.Human,
+    crossover: Crossover.Not,
+    tag: "Beard Of The Mountain Cat",
+    game: Games.Base
+  },
+  {
+    name: "Eren Yeager",
+    slug: "eren_yeager",
+    imageUrl:
+      "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
+    attribute: Attributes.HP,
+    crossover: Crossover.Crossover,
+    tag: "Beard Of The Mountain Cat",
+    game: Games.AOT
+    rarity: Rarities.SSR,
+    race: Races.HumanGiant,
     Crossover: Crossovers.NotCrossover,
   },
 ];
