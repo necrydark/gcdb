@@ -1,8 +1,8 @@
 import { Attributes } from "../traits/attributes";
-import { Crossover } from "../traits/crossover";
 import { Games } from "../traits/game";
-import { Race } from "../traits/race";
-import { Rarity } from "../traits/rarity";
+import { Crossovers } from "../traits/crossover";
+import { Races } from "../traits/race";
+import { Rarities } from "../traits/rarity";
 
 export default [
   {
@@ -11,8 +11,8 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
     attribute: Attributes.HP,
-    rarity: Rarity.SSR,
-    race: Race.Giant,
+    rarity: Rarities.SSR,
+    race: Races.Giant,
     crossover: Crossover.Not,
     game: Games.Base
   },
@@ -22,10 +22,10 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png",
     attribute: Attributes.Strength,
-    rarity: Rarity.SSR,
-    race: Race.Giant,
-    crossover: Crossover.Not,
-    game: Games.Base
+    game: Games.Base,
+    rarity: Rarities.SSR,
+    race: Races.Giant,
+    Crossover: Crossovers.NotCrossover,
   },
   {
     name: "Jue Viole Grace",
@@ -33,10 +33,10 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
     attribute: Attributes.Strength,
-    rarity: Rarity.SSR,
-    race: Race.Human,
-    crossover: Crossover.Crossover,
     game: Games.TOG,
+    rarity: Rarities.SSR,
+    race: Races.Human,
+    Crossover: Crossovers.Crossover,
   },
   {
     name: "Alioni",
@@ -44,8 +44,8 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
     attribute: Attributes.HP,
-    rarity: Rarity.R,
-    race: Race.Human,
+    rarity: Rarities.R,
+    race: Races.Human,
     crossover: Crossover.Not,
     tag: "Beard Of The Mountain Cat",
     game: Games.Base
@@ -56,10 +56,11 @@ export default [
     imageUrl:
       "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
     attribute: Attributes.HP,
-    rarity: Rarity.SSR,
-    race: Race.HumanGiant,
     crossover: Crossover.Crossover,
     tag: "Beard Of The Mountain Cat",
     game: Games.AOT
+    rarity: Rarities.SSR,
+    race: Races.HumanGiant,
+    Crossover: Crossovers.NotCrossover,
   },
 ];
