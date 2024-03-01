@@ -2,7 +2,7 @@
 
 import { Attribute, Attributes } from "@/utils/traits/attributes";
 import characters from "@/utils/dummy/characters";
-import { Crossover } from "@/utils/traits/crossover";
+import { Crossovers, Crossovers, IsCrossover } from "@/utils/traits/crossover";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Rarities, Rarity } from "@/utils/traits/rarity";
@@ -102,6 +102,7 @@ function Characters() {
               ))}
             </select>
           </div>
+
           <div>
             <p>Crossover</p>
             <select
@@ -109,8 +110,10 @@ function Characters() {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="">Clear</option>
-              {Object.keys(Crossover).map((crossover) => (
-                <option value={crossover}>{crossover}</option>
+              {Object.keys(Crossovers).map((crossover) => (
+                <option value={Crossovers[crossover as IsCrossover]}>
+                  {Crossovers[crossover as IsCrossover]}
+                </option>
               ))}
             </select>
           </div>
