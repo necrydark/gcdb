@@ -3,6 +3,7 @@
 import characters from "@/utils/dummy/characters";
 import { Attributes } from "@/utils/traits/attributes";
 import { Crossover } from "@/utils/traits/crossover";
+import { Game, Games } from "@/utils/traits/game";
 import { Race } from "@/utils/traits/race";
 import { Rarity } from "@/utils/traits/rarity";
 import Link from "next/link";
@@ -25,7 +26,7 @@ function Characters() {
     const rarityFilter = selectedRarity ? x.rarity === selectedRarity : true;
     const raceFilter = selectedRace ? x.race === selectedRace : true;
     const crossoverFilter = selectedCrossover
-      ? x.Crossover === selectedCrossover
+      ? x.crossover === selectedCrossover
       : true;
 
     if (
@@ -158,7 +159,7 @@ function Characters() {
                 <td className="px-6 py-4">{character.attribute}</td>
                 <td className="px-6 py-4">{character.rarity}</td>
                 <td className="px-6 py-4">{character.race}</td>
-                <td className="px-6 py-4">{character.Crossover}</td>
+                <td className="px-6 py-4">{character.crossover}</td>
               </tr>
             ))}
           </tbody>
