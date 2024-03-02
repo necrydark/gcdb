@@ -4,7 +4,7 @@ export type Race =
   | "Giant"
   | "Goddess"
   | "Human"
-  | "HumanGiant"
+  | "Human/Giant"
   | "Unknown";
 
 export enum Races {

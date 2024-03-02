@@ -49,6 +49,7 @@ export type Character = {
   // jpName: string;
   // jpTag: string;
   slug: string;
+  game?: string;
   imageUrl: string;
   attribute: Attribute;
   rarity: Rarity;
