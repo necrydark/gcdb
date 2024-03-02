@@ -1,12 +1,12 @@
 "use client";
 
-import { Attribute, Attributes } from "@/utils/traits/attributes";
+import { Attribute, Attributes } from "@/types/attributes";
 import characters from "@/utils/dummy/characters";
-import { Crossovers, Crossovers, IsCrossover } from "@/utils/traits/crossover";
+import { Crossovers, IsCrossover } from "@/types/crossover";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Rarities, Rarity } from "@/utils/traits/rarity";
-import { Race, Races } from "@/utils/traits/race";
+import { Rarities, Rarity } from "@/types/rarity";
+import { Race, Races } from "@/types/race";
 
 function Characters() {
   const [characterName, setCharacterName] = useState("");

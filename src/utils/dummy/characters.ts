@@ -1,9 +1,10 @@
-import { Attributes } from "../traits/attributes";
-import { Crossovers } from "../traits/crossover";
-import { Races } from "../traits/race";
-import { Rarities } from "../traits/rarity";
+import { Character } from "@/types/character";
+import { Attributes } from "../../types/attributes";
+import { Crossovers } from "../../types/crossover";
+import { Races } from "../../types/race";
+import { Rarities } from "../../types/rarity";
 
-export default [
+export const characters: Character[] = [
   {
     name: "Queen Diane",
     slug: "queen_diane",
@@ -12,7 +13,7 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.SSR,
     race: Races.Giant,
-    Crossover: Crossovers.NotCrossover,
+    crossover: Crossovers.NotCrossover,
   },
   {
     name: "Jue Viole Grace",
@@ -22,7 +23,7 @@ export default [
     attribute: Attributes.Strength,
     rarity: Rarities.SSR,
     race: Races.Human,
-    Crossover: Crossovers.Crossover,
+    crossover: Crossovers.Crossover,
   },
   {
     name: "Alioni",
@@ -32,6 +33,8 @@ export default [
     attribute: Attributes.HP,
     rarity: Rarities.R,
     race: Races.Human,
-    Crossover: Crossovers.NotCrossover,
+    crossover: Crossovers.NotCrossover,
   },
 ];
+
+export default characters;
