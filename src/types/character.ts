@@ -45,9 +45,9 @@ export type CharacterMiscInfo = {
 
 export type Character = {
   name: string;
-  // tag: string;
-  // jpName: string;
-  // jpTag: string;
+  tag: string;
+  jpName: string;
+  jpTag: string;
   slug: string;
   game?: string;
   imageUrl: string;

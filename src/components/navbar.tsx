@@ -16,6 +16,10 @@ function Navbar() {
       name: "Characters",
       url: "/characters",
     },
+    {
+      name: "Cooking",
+      url: "/cooking",
+    },
   ];
 
   const handleResize = () => {
@@ -60,7 +64,7 @@ function Navbar() {
         </div>
         {isMenuOpen && (
           <>
-            <div className="fixed top-0 right-0 left-0 bottom-0 lg:bottom-auto bg-slate-600">
+            <div className="fixed top-0 right-0 left-0 bottom-0 lg:bottom-auto z-10 bg-slate-600">
               <div
                 className="hidden max-lg:block fixed right-0  px-8 py-4 cursor-pointer"
                 onClick={() => {

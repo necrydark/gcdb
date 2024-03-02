@@ -47,7 +47,7 @@ function Characters() {
         <h1 className="uppercase text-3xl font-bold mb-10">Character List</h1>
       </div>
       <div className="flex justify-between items-center md:flex-row flex-col gap-3">
-        <div className="relative z-0  group">
+        <div className="relative z-0 md:w-48 w-full group">
           <input
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="character_name"
@@ -61,7 +61,7 @@ function Characters() {
           </label>
         </div>
 
-        <div className="flex space-x-5 md:justify-normal justify-between">
+        <div className="flex space-x-5 md:w-[420px] w-full md:pt-0 pt-3 md:justify-normal justify-between">
           <div>
             <p>Attribute</p>
             <select
