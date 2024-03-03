@@ -1,6 +1,8 @@
+import { Association } from "./associtations";
 import { Attribute } from "./attributes";
 import { IsCrossover } from "./crossover";
 import { Food } from "./food";
+import { Gift } from './gift';
 import { Race } from "./race";
 import { Rarity } from "./rarity";
 import { CharacterSkills } from "./skill";
@@ -59,8 +61,9 @@ export type Character = {
   // stats: CharacterStats;
   // misc: {
   //   info: CharacterMiscInfo;
-  //   gift?: string;
+  //   gift?: Gift;
   //   food?: Food[];
   // };
   // skills: CharacterSkills;
+  //associations?: Association[];
 };

@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
 import { Attribute, Attributes } from "@/types/attributes";
 import { Crossovers, IsCrossover } from "@/types/crossover";
-import { Rarities, Rarity } from "@/types/rarity";
 import { Race, Races } from "@/types/race";
+import { Rarities, Rarity } from "@/types/rarity";
 import characters from "@/utils/dummy/characters";
+import { motion } from "framer-motion";
 import Link from "next/link";
+import React, { useState } from "react";
 
 function Characters() {
   const [characterName, setCharacterName] = useState("");
@@ -41,13 +42,24 @@ function Characters() {
   });
 
   return (
-    <div className="container mx-auto p-10 space-y-5">
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="container mx-auto p-10 space-y-5"
+    >
       {/* Add background colour to this. */}
       <div>
         <h1 className="uppercase text-3xl font-bold mb-10">Character List</h1>
       </div>
       <div className="flex justify-between items-center md:flex-row flex-col gap-3">
-        <div className="relative z-0 md:w-48 w-full group">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1 }}
+          className="relative z-0 md:w-48 w-full group"
+        >
           <input
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="character_name"
@@ -59,10 +71,14 @@ function Characters() {
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
             Search a character...
           </label>
-        </div>
+        </motion.div>
 
         <div className="flex space-x-5 md:w-[420px] w-full md:pt-0 pt-3 md:justify-normal justify-between">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
             <p>Attribute</p>
             <select
               onChange={(e) => setSelectedAttribute(e.target.value)}
@@ -75,9 +91,13 @@ function Characters() {
                 </option>
               ))}
             </select>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.35 }}
+          >
             <p>Rarity</p>
             <select
               onChange={(e) => setSelectedRarity(e.target.value)}
@@ -88,9 +108,13 @@ function Characters() {
                 <option value={rarity}>{Rarities[rarity as Rarity]}</option>
               ))}
             </select>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
             <p>Race</p>
             <select
               onChange={(e) => setSelectedRace(e.target.value)}
@@ -101,9 +125,13 @@ function Characters() {
                 <option value={race}>{Races[race as Race]}</option>
               ))}
             </select>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.65 }}
+          >
             <p>Crossover</p>
             <select
               onChange={(e) => setSelectedCrossover(e.target.value)}
@@ -116,10 +144,15 @@ function Characters() {
                 </option>
               ))}
             </select>
-          </div>
+          </motion.div>
         </div>
       </div>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.8 }}
+        className="relative overflow-x-auto shadow-md sm:rounded-lg"
+      >
         <table className="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -168,8 +201,8 @@ function Characters() {
             ))}
           </tbody>
         </table>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
