@@ -1,5 +1,6 @@
 "use client";
 import characters from "@/utils/dummy/characters";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -67,13 +68,59 @@ export default function CharacterPage({ params: { slug } }: any) {
       </div>
       <div className="grid md:grid-cols-3 grid-cols-1 justify-items-center pt-[25px]">
         <div>
-          <h1 className="font-bold text-xl">YEssirs</h1>
+          <h1 className="font-bold text-xl">
+            Character Stats
+          </h1>
+          <div>
+            {Object.entries(character?.stats).map(([key, value]) => (
+              <div key={key} className="flex justify-between">
+                <p>{key}</p>
+                <p>{value}</p>
+              </div>
+            ))}
+          </div>
         </div>
         <div>
-          <h1 className="font-bold text-xl">XXXTENTACION!!</h1>
+          <h1 className="font-bold text-xl pb-3">Skills</h1>
+          <div className="flex flex-col gap-4 justify-center 
+          items-center text-center">
+            {/* {character?.associations?.map((x) => (
+                // eslint-disable-next-line react/jsx-key
+                <div>
+                  <Link href={x.slug}>
+                  <img className=" w-20 mx-auto" src={x.imageUrl} alt={x.name} />
+                  <p>{x.name}</p>
+                  </Link>
+                
+                </div>
+
+              ))} */}
+          </div>
         </div>
         <div>
-          <h1 className="font-bold text-xl">tempted</h1>
+          <h1 className="font-bold text-xl">Passive</h1>
+        </div>
+        <div>Stuff</div>
+        <div>Gift</div>
+        <div>
+          <h1 className="text-xl font-bold text-center pb-4 underline underline-offset-2 ">Associations</h1>
+          <div className="flex flex-col gap-4 justify-center 
+          items-center text-center">
+            {character?.associations?.map((x) => (
+              <div key={x.slug}>
+                <Link href={x.slug}>
+                  <img
+                    className=" w-20 mx-auto"
+                    src={x.imageUrl}
+                    alt={x.name}
+                  />
+                <p>{x.name}</p>
+                <p>{x.bonus}</p>
+                </Link>
+
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

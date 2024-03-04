@@ -58,12 +58,12 @@ export type Character = {
   race: Race;
   crossover: IsCrossover;
   // basicInfo: BasicInfo;
-  // stats: CharacterStats;
+  stats: CharacterStats;
   // misc: {
   //   info: CharacterMiscInfo;
   //   gift?: Gift;
   //   food?: Food[];
   // };
   // skills: CharacterSkills;
-  //associations?: Association[];
+  associations?: Association[];
 };

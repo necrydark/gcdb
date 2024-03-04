@@ -1,4 +1,6 @@
 export type Association = {
     name: string;
-    imageUrl: string;
+    slug: string,
+    imageUrl: string,
+    bonus: string,
 }
