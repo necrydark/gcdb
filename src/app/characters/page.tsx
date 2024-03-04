@@ -53,12 +53,12 @@ function Characters() {
       <div>
         <h1 className="uppercase text-3xl font-bold mb-10">Character List</h1>
       </div>
-      <div className="flex justify-between items-center md:flex-row flex-col gap-3">
+      <div className="flex justify-between items-center lg:flex-row flex-col gap-3">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.1 }}
-          className="relative z-0 md:w-48 w-full group"
+          className="relative z-0 lg:w-48 w-full group"
         >
           <input
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -73,7 +73,7 @@ function Characters() {
           </label>
         </motion.div>
 
-        <div className="flex space-x-5 md:w-[420px] w-full md:pt-0 pt-3 md:justify-normal justify-between">
+        <div className="flex space-x-5 lg:w-auto w-full lg:pt-0 pt-3 lg:justify-normal justify-between">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -180,7 +180,7 @@ function Characters() {
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  <div className="grid place-items-center cursor-pointer hover:animate-pulse">
+                  <div className="grid place-items-center cursor-pointer hover:animate-pulse hover:text-blue-400 transition-all duration-200">
                     <Link href={`/characters/${character.slug}`}>
                       <>
                         <img

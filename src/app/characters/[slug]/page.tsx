@@ -106,9 +106,9 @@ export default function CharacterPage({ params: { slug } }: any) {
         {character?.holyRelic && (
           <div>
             <h1 className="text-xl font-bold text-center">Holy Relic</h1>
-            {character?.holyRelic.map((x) => (
-              <div className="flex flex-col text-center items-center">
-                <img className=" w-20 m-2 !mb-0" src={x.imageUrl}/>
+            {character?.holyRelic.map((x, idx) => (
+              <div key={idx} className="flex flex-col text-center items-center">
+                <img alt={x.name} className=" w-20 m-2 !mb-0" src={x.imageUrl}/>
                 <p className="p-2">{x.name}</p>
                 <p className="text-sm p-1">Attack: {x.stats[0]?.attack}</p>
                 <p className="text-sm p-1">Defense: {x.stats[0]?.defense}</p>
