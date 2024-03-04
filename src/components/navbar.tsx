@@ -21,6 +21,10 @@ function Navbar() {
       name: "Cooking",
       url: "/cooking",
     },
+    {
+      name: "Gear",
+      url: "/gear",
+    },
   ];
 
   const handleResize = () => {

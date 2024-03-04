@@ -39,7 +39,10 @@ export default function CharacterPage({ params: { slug } }: any) {
               {isEnglish ? `${character.name}` : `${character.jpName}`}
             </p>
             <p className="lg:text-lg text-sm">
-              {isEnglish ? `${character.tag}` : `${character.jpTag}`}
+              {isEnglish
+                ? `[${character.tag}]`
+                : `【${character.jpTag}】
+              `}
             </p>
             {/* <p className="font-bold">[{character?.tag}]</p>
             <p className="font-bold">{character?.name}</p> */}
@@ -79,15 +82,15 @@ export default function CharacterPage({ params: { slug } }: any) {
             Character Stats
           </h1>
           <div>
-            <table className="w-full text-sm rtl:text-right text-gray-500 dark:text-gray-400">
+            <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
               {Object.entries(character?.stats).map(([key, value]) => (
-                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                  <td className="px-2 py-4">
+                <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                  <td className="p-4 text-lg">
                     {splitBySlash(
-                      capitalise(splitByCapitalizationAndJoin(key))
+                      capitalise(splitByCapitalizationAndJoin(`${key}: `))
                     )}
                   </td>
-                  <td className="px-2 py-4">{value}</td>
+                  <td className="p-4 text-base">{value}</td>
                 </tr>
               ))}
             </table>
@@ -115,8 +118,10 @@ export default function CharacterPage({ params: { slug } }: any) {
 
             <table className="w-full text-sm rtl:text-right text-white-500 text-center">
               <thead>
-                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 font-bold text-gray-900 dark:text-white">
-                  <th className="px-6 py-4 whitespace-nowrap">Character</th>
+                <tr className="odd:bg-white odd:dark:bg-gray-900  text-lg even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500 font-bold text-gray-900 dark:text-white">
+                  <th className="px-6 border-r-[1px] border-gray-500 py-4 whitespace-nowrap">
+                    Character
+                  </th>
                   <th className="px-6 py-4 whitespace-nowrap">Bonus</th>
                 </tr>
               </thead>
@@ -125,8 +130,8 @@ export default function CharacterPage({ params: { slug } }: any) {
                   const char = findCharacterFromSlug(x.slug);
 
                   return (
-                    <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                      <td className="px-2 py-4">
+                    <tr className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500">
+                      <td className="p-4 border border-gray-500">
                         <Link className="space-y-3" href={char.slug}>
                           <img
                             className="w-20 mx-auto"
@@ -136,7 +141,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                           <p>{char.name}</p>
                         </Link>
                       </td>
-                      <td className="px-2 py-4">{x.bonus}</td>
+                      <td className="p-4">{x.bonus}</td>
                     </tr>
                   );
                 })}
@@ -149,12 +154,14 @@ export default function CharacterPage({ params: { slug } }: any) {
         <div>Gift</div>
         <div>
           {character?.holyRelic && (
-            <div>
-              <h1 className="text-xl font-bold text-center">Holy Relic</h1>
+            <div className="dark:bg-gray-900  border border-gray-500  p-4">
+              <h1 className="text-xl font-bold text-center underline underline-offset-2">
+                Holy Relic
+              </h1>
               {character?.holyRelic.map((x, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col text-center items-center"
+                  className="flex flex-col text-center space-y-2 items-center"
                 >
                   <img
                     alt={x.name}

@@ -1,0 +1,1754 @@
+fetch("https://forum.netmarble.com/7ds_en/view/1/289273", {
+    "headers": {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "cache-control": "max-age=0",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-user": "?1",
+        "sec-gpc": "1",
+        "upgrade-insecure-requests": "1",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/font/css/font-1.0.6.css?v=180425", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/pc/css/daterangepicker.css", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/pc/css/forum.css?v=5c85a5d19b4eb94a40ab39399bff2fd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/skin/prod/nanagb/pc/css/skin_1630909752698.css", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/font/fonts/NotoSans/GLOBAL/v01/NotoSans-Regular.woff2?_=180425", {
+    "referrer": "",
+    "referrerPolicy": "no-referrer",
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/font/fonts/NotoSans/GLOBAL/v01/NotoSans-Bold.woff2?_=180425", {
+    "referrer": "",
+    "referrerPolicy": "no-referrer",
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/font/fonts/NotoSans/Lang/v01/global.woff2?_=180425", {
+    "referrer": "",
+    "referrerPolicy": "no-referrer",
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/lib/require-2.3.2.min.js", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/main.js?v=bb0b74889c89630063f21711b83db39e", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/gnb.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/lnb.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20240227/kqkz1708995735988.jpg", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20240227/hncb1708995744551.jpg", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/lib/moment-2.13.0.min.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/lib/daterangepicker-2.1.25.min.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20240227/kl1c1708996739221.ICO", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://www.googletagmanager.com/gtm.js?id=GTM-P69WZ6B", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/locales/en.js?v=96aa68fa0c5a00412a13288dc56aa44f", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "x-requested-with": "XMLHttpRequest",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/common/cookie/NMCookieAgreed.min.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/gameProfileTemp/template.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/api/game/nanagb/notice/all?region=us&languageCd=en_US&defaultLang=en_US&_=1709581019601", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1",
+        "x-requested-with": "XMLHttpRequest",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/api/game/nanagb/official/forum/7ds_en/profile/meta?languageCd=en_US&_=1709581019602", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1",
+        "x-requested-with": "XMLHttpRequest",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/router/bbsContents.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/router/pc/bbsContents.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsSurvey.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsReply.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsSurvey.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsReply.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsReplyInput.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsReplyContents.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsReport.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsReplySticker.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsReplyInput.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsTagPlugin.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsReplyConfirmPopup.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/lib/ckeditor_pc/ckeditor.js?v=bb0b74889c89630063f21711b83db39e", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsReplyContents.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsReport.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsReplySticker.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsTagPlugin.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/pc/bbsReplyConfirmPopup.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20200228/2taf1582874213693.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/api/game/nanagb/official/forum/7ds_en/menu/list?languageCd=en_US&_=1709581019603", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1",
+        "x-requested-with": "XMLHttpRequest",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://frog.netmarble.com/feed?lis=4:forum.frog.Frog;&ui=bcc90037-e655-4c9b-9993-2122b3cef7f8&sr=961x935&vp=941x917&de=UTF-8&t=0&dl=https://forum.netmarble.com/7ds_en/view/1/289273&dp=/7ds_en/view/1/289273&dt=The%20Seven%20Deadly%20Sins:%20Grand%20Cross&h=19&m=36&s=59&dr=https://forum.netmarble.com/7ds_en&ct=5&cc=999&os=win&dv=pc&ln=en_US&lo=gb&f_gc=nanagb&f_i=7ds_en&f_t=0&f_r=us&f_l=en_US", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/pc/img/common/sp_common.png?v=231219", {
+    "referrer": "",
+    "referrerPolicy": "no-referrer",
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/pc/img/common/lnb_gradation.png", {
+    "referrer": "",
+    "referrerPolicy": "no-referrer",
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/lib/iscroll-5.2.0.min.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/api/game/nanagb/profilecard/custom?languageCd=en_US&_=1709581019604", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1",
+        "x-requested-with": "XMLHttpRequest",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/api/game/nanagb/official/forum/7ds_en/article/289273?menuSeq=1&viewFlag=false&_=1709581019605", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1",
+        "x-requested-with": "XMLHttpRequest",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/b7298fb257024999be4337b7b1d17db5_1709193757623_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 08:03:09 GMT",
+        "if-none-match": "\"31fc6972ee0511185bd7f48553e91d92\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/33f5606749834633b5a875be3f6fe096_1709182470406_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:50 GMT",
+        "if-none-match": "\"4abda4f335dacdaabf755e078d980ba9\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/5b5d43fe5b3f4085b01341157ee0ad50_1709182480599_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:54 GMT",
+        "if-none-match": "\"33195b3ce71ae8377bcba5dc24a66b26\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/1068b679bded4c37889e20a51b236800_1709182495678.gif", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:49 GMT",
+        "if-none-match": "\"27d12b01ddce3d00a744f5b447a609c5\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/e206de9c12494571b14200e14f68f95c_1709182516296_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:54 GMT",
+        "if-none-match": "\"f9d2e62a8fcdbb137960db94c4df6a6a\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/9c9aa4692f7d45bbb0dcfe1923420f6e_1709182527998_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:50 GMT",
+        "if-none-match": "\"d2eadccbf5f16aec6bb2957954adc83b\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/791a7501c45a4c81af38352541059db1_1709182553621_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:54 GMT",
+        "if-none-match": "\"b4896ed6c3166eda862b2d8744db5ec9\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/2ea509697430403589704026badb317e_1709182568590_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:54 GMT",
+        "if-none-match": "\"13816f577eaf603b732fed7d83d8db0c\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/522a2239e2084a0483fde4a822fa7fee_1709182578226_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:50 GMT",
+        "if-none-match": "\"363c1283aa92e1cafd7d8c563b51146c\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/a94a3e31ee5644899c75643d576f926c_1709182594820_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:54 GMT",
+        "if-none-match": "\"1ebf3597c7cf89dc0675d4486b946f4b\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/e7bd2ece46804772a9c01b6433b4766e_1709182626092_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:54 GMT",
+        "if-none-match": "\"ae3139f189f9f1403ebb626845fb16d2\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/2ef5f379ca3b4d7d8916b916b40fb513_1709182641250_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 04:57:53 GMT",
+        "if-none-match": "\"52639102a3096647595a17dc667f3ba0\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/a1a60438182149588edddc478f2e4dcc_1709183797379_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:15 GMT",
+        "if-none-match": "\"b29727d947b9165ad15a43d12b8e54ab\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/a7c536b8391d42118a0ac3136b76cee3_1709183803678_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:15 GMT",
+        "if-none-match": "\"94e0a8284cc3d4da87d0d98d80c499a7\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/6b83ece40bbd4f6d8bebc5c75b03c3d0_1709183817846_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:12 GMT",
+        "if-none-match": "\"e30b4a7509deb4a842bb3c6e774c61a3\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/8b4fe0b8b8c64262adb176a6a8497375_1709183827918_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:15 GMT",
+        "if-none-match": "\"0e575ab4e4e30e3f0a1c19333fc14e03\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/d52ef31e6ae3453f90c6038bcb9455d0_1709183855437_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:15 GMT",
+        "if-none-match": "\"0f99be59f26a74b8deea6e880ea61cad\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/2e1b87ed572c43869e4ff3c08f768348_1709183864398_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:16 GMT",
+        "if-none-match": "\"712d25ceec085821cad1c196bae1a69f\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/faf6b3b9c6534d0faf59f1d3b1d093ba_1709183873189_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:12 GMT",
+        "if-none-match": "\"f67d3b044887c7179fd0679dd03e57e4\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/93cb5072b8494ced846e5f2ab0244bf9_1709183926215_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:16 GMT",
+        "if-none-match": "\"6bead905c3372730c2f6df8bbc1fc76f\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/d946351c60e549b9911ce8f3bcd5c22f_1709183937599_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:15 GMT",
+        "if-none-match": "\"2ab12405d34d7054ebedc0024945a0ed\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/39650870a3734273b8092bc97ab7efde_1709183982339_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"d94272e964b1c7267a3a90db8f51ed4d\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/bad5bc370bd24fd98d0d2bbfda2682af_1709184572648_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:29:38 GMT",
+        "if-none-match": "\"e14a906e4f19d6911da1947908f64f1f\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/1f55220eec9c461c839617ce4573b197_1709184024433_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"adf175ecc7f2cf687987d67d7dfad59e\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/006e2d275c794608b54dc7268f900ee0_1709184038501_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"33ee364374607a7e879ff8142a490735\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/adc74d6daf414ba19516b30b880e737d_1709184047131_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"3728da79755656b262f65b6bec165618\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/138f6c3db1c447288adb99cda45037e0_1709184073712_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"b30f5ae08d2b9e9fd3415045b3070f1c\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/22ad0e3771c64bd6a06d9fdcc3c384ce_1709184086272_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"f17db9fd8d6dc6bf85b3bf3d39501e0d\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/d89ae530aa764ceeae59d24f25204bca_1709184095420_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:13 GMT",
+        "if-none-match": "\"72defcaaa5d96a25e20270929176aa25\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/299cad9bc6484add9cafc51ba93cfdcd_1709184104624_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"89ef56b00c4446bcf0d37f782dd9d050\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/ef82fa9581c1410c9e788bfb144e9d01_1709184115447_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"1cb20ebc15e4d9a7a10f53f2edff0ae0\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/a2bb208c13874fb99aedb566bc643065_1709184129567_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:19 GMT",
+        "if-none-match": "\"829bdca6d22f57778003237a7b6b4d0f\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/509ca87345c248f6a896ac2339f469cd_1709184165435_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:19 GMT",
+        "if-none-match": "\"a9686a546de42fee0a883be5e3f6c5ad\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/3f29091734da47c99141c466bf4422c5_1709184174531_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:14 GMT",
+        "if-none-match": "\"e3640972f6f838760733b9580def3e39\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/293580621904415d8c75b577ff830864_1709184198384_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"5efec496c67f47347cb929d61c28d1c9\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/128a010932204311adbfbe28e5d39500_1709184212640_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:15 GMT",
+        "if-none-match": "\"1cac408137f7c63abb0f647ff02b335a\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/0daaae131dc64850b6a2711710893b84_1709184233682_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"b4587e8418bbdc4e876a38a2e7ac4140\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/9d3dd1b28fa049ed8cb9723ab7c5f926_1709184243026_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:19 GMT",
+        "if-none-match": "\"9808846ec011cd8e08837c29a81744b2\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/67e4a0169a6b42b8ab938c2b3aaf64bf_1709184253915_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:19 GMT",
+        "if-none-match": "\"eba5e4e89c548b30186aa8368298d50c\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/deab143ea6464debbcf7bb47da6bcd62_1709184278646_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"211301b617e9145a1c5adb633fde31a3\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/c844b400dc71450b975cef5553285ea1_1709184295470_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"df65ee7ad0fec96c0763f52a94dbecf9\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/12407a7b513d4452b47430893e8ee12f_1709184309396_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"28fbf0e8550a5e1cd3def36f2d1c251c\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/6d83d1a8ad0b41a1b2c23f6015a98f38_1709184325665_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"e599baac30515ddd6bd3a518ba99b84a\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/4272c09970b647f299d2d531de7c4c8b_1709184345489_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"77d6bc979fef21bb95872fa5f1d69a87\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/38f587492c844a4697779ee74f83bed5_1709184353370_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"414e8f212912f81ea56ea51cf785961c\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/d7c9b33ac04f4ff2a28cc3cae854715a_1709184380452.gif", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"2912717951e72f15d428ea8f5f325c69\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/5b01d2b78bc64e18850929f8a429271b_1709184399359_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"61bf84cb6a047f884b06260bfb4c21d6\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/0402513e3ec344a1bd657ee2f7d14064_1709184413538_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:18 GMT",
+        "if-none-match": "\"86435fc5d8025e91be81440651cfc70b\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/35db17cf63904be7be5f5e5805b67dcf_1709184424970_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:17 GMT",
+        "if-none-match": "\"80d6ffd468e5ed10caa2907d843808dd\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://hedwig-cf.netmarble.com/forum-common/nanagb/7ds_en/thumbnail/6eab406c68d44c948550e423b146cb4a_1709183777643_d.jpg", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "if-modified-since": "Thu, 29 Feb 2024 05:27:15 GMT",
+        "if-none-match": "\"d6441cd6229a2a3da5ccf63040cd2f22\"",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20200227/tdhm1582785770873.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20220726/dmo91658824775122.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20220805/oev81659662813730.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20231205/ktwv1701768633498.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20231205/naxk1701768671677.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/default/sticker/01_keke/sticker_thumb.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/default/sticker/02_tori/sticker_thumb.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/default/sticker/03_bob/sticker_thumb.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/netmarble/forum/v2/default/sticker/04_leon/sticker_thumb.png", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/api/game/nanagb/official/forum/7ds_en/article/289273/comment/list?start=0&rows=51&menuSeq=1&articleId=289273&sort=NEW&_=1709581019606", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1",
+        "x-requested-with": "XMLHttpRequest",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/api/game/nanagb/official/forum/7ds_en/member/1?type=1&_=1709581019607", {
+    "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1",
+        "x-requested-with": "XMLHttpRequest",
+        "cookie": "NMCookieAgreed=Y",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://frog.netmarble.com/feed?lis=4:forum.frog.Frog;&ui=bcc90037-e655-4c9b-9993-2122b3cef7f8&sr=961x935&vp=941x917&de=UTF-8&t=2&dl=https://forum.netmarble.com/7ds_en/view/1/289273&dp=/7ds_en/view/1/289273&dt=[Update]%2003/04%20Maintenance%20&%20Event%20Notice%20-%20The%20Seven%20Deadly%20Sins:%20Grand%20Cross&ec=article&ea=view&el=false&ev=289273&h=19&m=37&s=0&gt=344&dr=https://forum.netmarble.com/7ds_en&ct=5&cc=999&os=win&dv=pc&ln=en_US&lo=gb&f_gc=nanagb&f_i=7ds_en&f_t=0&f_r=us&f_l=en_US&els=1", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://sgimage.netmarble.com/images/netmarble/nanagb/20200825/ulrl1598336650473.jpg", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://frog.netmarble.com/feed?lis=4:forum.frog.Frog;&ui=bcc90037-e655-4c9b-9993-2122b3cef7f8&sr=961x935&vp=941x917&de=UTF-8&t=2&dl=https://forum.netmarble.com/7ds_en/view/1/289273&dp=/7ds_en/view/1/289273&dt=[Update]%2003/04%20Maintenance%20&%20Event%20Notice%20-%20The%20Seven%20Deadly%20Sins:%20Grand%20Cross&ec=member&ea=view&el=1&ev=1&h=19&m=37&s=0&gt=249&dr=https://forum.netmarble.com/7ds_en&ct=5&cc=999&os=win&dv=pc&ln=en_US&lo=gb&f_gc=nanagb&f_i=7ds_en&f_t=0&f_r=us&f_l=en_US", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://frog.netmarble.com/feed?lis=4:forum.frog.Frog;&ui=bcc90037-e655-4c9b-9993-2122b3cef7f8&sr=961x935&vp=941x917&de=UTF-8&t=2&dl=https://forum.netmarble.com/7ds_en/view/1/289273&dp=/7ds_en/view/1/289273&dt=[Update]%2003/04%20Maintenance%20&%20Event%20Notice%20-%20The%20Seven%20Deadly%20Sins:%20Grand%20Cross&ec=comment&ea=list&h=19&m=37&s=0&gt=279&dr=https://forum.netmarble.com/7ds_en&ct=5&cc=999&os=win&dv=pc&ln=en_US&lo=gb&f_gc=nanagb&f_i=7ds_en&f_t=0&f_r=us&f_l=en_US", {
+    "headers": {
+        "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "accept-language": "en;q=0.5",
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "image",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://forum.netmarble.com/",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/js/controller/view/bbsError.js?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});;
+fetch("https://forum.netmarble.com/resources/_build/template/view/bbsError.html?v=2c810988df5750633186ae0a01f96dd5", {
+    "headers": {
+        "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Brave\";v=\"122\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Referer": "https://forum.netmarble.com/7ds_en/view/1/289273",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+});
