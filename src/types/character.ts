@@ -6,6 +6,7 @@ import { Gift } from './gift';
 import { Race } from "./race";
 import { Rarity } from "./rarity";
 import { CharacterSkills } from "./skill";
+import { HolyRelic } from "./holyrelic";
 
 export type BasicInfo = {
   rarity: Rarity;
@@ -66,4 +67,5 @@ export type Character = {
   // };
   // skills: CharacterSkills;
   associations?: Association[];
+  holyRelic?: HolyRelic[];
 };

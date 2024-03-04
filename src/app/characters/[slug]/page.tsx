@@ -66,25 +66,25 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         </div>
       </div>
-      <div className="grid md:grid-cols-3 grid-cols-1 justify-items-center pt-[25px]">
+      <div className="grid md:grid-cols-3 grid-cols-1 justify-items-center pt-[50px] gap-6">
+      <div>
+        <h1 className="font-bold text-xl">
+          Character Stats
+        </h1>
         <div>
-          <h1 className="font-bold text-xl">
-            Character Stats
-          </h1>
-          <div>
-            {Object.entries(character?.stats).map(([key, value]) => (
-              <div key={key} className="flex justify-between">
-                <p>{key}</p>
-                <p>{value}</p>
-              </div>
-            ))}
-          </div>
+          {Object.entries(character?.stats).map(([key, value]) => (
+            <div key={key} className="flex justify-between">
+              <p>{key}</p>
+              <p>{value}</p>
+            </div>
+          ))}
         </div>
-        <div>
-          <h1 className="font-bold text-xl pb-3">Skills</h1>
-          <div className="flex flex-col gap-4 justify-center 
+      </div>
+      <div>
+        <h1 className="font-bold text-xl pb-3">Skills</h1>
+        <div className="flex flex-col gap-4 justify-center 
           items-center text-center">
-            {/* {character?.associations?.map((x) => (
+          {/* {character?.associations?.map((x) => (
                 // eslint-disable-next-line react/jsx-key
                 <div>
                   <Link href={x.slug}>
@@ -95,36 +95,32 @@ export default function CharacterPage({ params: { slug } }: any) {
                 </div>
 
               ))} */}
-          </div>
         </div>
-        <div>
-          <h1 className="font-bold text-xl">Passive</h1>
-        </div>
-        <div>Stuff</div>
-        <div>Gift</div>
-        <div>
-          <h1 className="text-xl font-bold text-center pb-4 underline underline-offset-2 ">Associations</h1>
-          <div className="flex flex-col gap-4 justify-center 
-          items-center text-center">
-            {character?.associations?.map((x) => (
-              <div key={x.slug}>
-                <Link href={x.slug}>
-                  <img
-                    className=" w-20 mx-auto"
-                    src={x.imageUrl}
-                    alt={x.name}
-                  />
-                <p>{x.name}</p>
-                <p>{x.bonus}</p>
-                </Link>
-
+      </div>
+      <div>
+        <h1 className="font-bold text-xl">Passive</h1>
+      </div>
+      <div>Stuff</div>
+      <div>Gift</div>
+      <div>
+        {character?.holyRelic && (
+          <div>
+            <h1 className="text-xl font-bold text-center">Holy Relic</h1>
+            {character?.holyRelic.map((x) => (
+              <div className="flex flex-col text-center items-center">
+                <img className=" w-20 m-2 !mb-0" src={x.imageUrl}/>
+                <p className="p-2">{x.name}</p>
+                <p className="text-sm p-1">Attack: {x.stats[0]?.attack}</p>
+                <p className="text-sm p-1">Defense: {x.stats[0]?.defense}</p>
+                <p className="text-sm p-1">HP: {x.stats[0]?.hp}</p>
+                <p className="p-2">{x.effect}</p>
               </div>
             ))}
           </div>
-        </div>
+   
+        )}
       </div>
-
-      {/* Basic Info */}
+    </div>
     </div>
   );
 }

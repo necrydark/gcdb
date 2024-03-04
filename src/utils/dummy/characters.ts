@@ -137,6 +137,20 @@ export const characters: Character[] = [
     race: Races.Human,
     crossover: Crossovers.NotCrossover,
     game: Games.Base,
+    holyRelic: [
+     {
+      name: 'Double-edged Sword of the Einherjar',
+      imageUrl: 'https://gcdatabase.com/images/relics/alioni_relic.png',
+      effect: 'Decreases the hero’s damage taken from enemies by 40%.',
+      stats: [
+        {
+          attack: "+140",
+          defense: "+300",
+          hp: "+3100"
+        }
+      ]
+     }
+    ]
   },
   {
     name: "Eren Yeager",
@@ -165,7 +179,7 @@ export const characters: Character[] = [
     game: Games.AOT,
     rarity: Rarities.SSR,
     race: Races.HumanGiant,
-    crossover: Crossovers.NotCrossover,
+    crossover: Crossovers.Crossover,
   },
 ];
 
