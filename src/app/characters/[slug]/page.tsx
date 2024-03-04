@@ -1,5 +1,6 @@
 "use client";
 import characters from "@/utils/dummy/characters";
+import { findCharacterFromSlug } from "@/utils/findCharacter";
 import {
   capitalise,
   splitByCapitalizationAndJoin,
@@ -99,25 +100,50 @@ export default function CharacterPage({ params: { slug } }: any) {
           <div
             className="flex flex-col gap-4 justify-center 
           items-center text-center"
-          >
-            {/* {character?.associations?.map((x) => (
-                // eslint-disable-next-line react/jsx-key
-                <div>
-                  <Link href={x.slug}>
-                  <img className=" w-20 mx-auto" src={x.imageUrl} alt={x.name} />
-                  <p>{x.name}</p>
-                  </Link>
-                
-                </div>
-
-              ))} */}
-          </div>
+          ></div>
         </div>
 
         {/* Passive */}
         <div>
           <h1 className="font-bold text-xl">Passive</h1>
         </div>
+
+        {/* Association */}
+        {character.associations && (
+          <div>
+            <h1 className="font-bold text-xl pb-5">Associations</h1>
+
+            <table className="w-full text-sm rtl:text-right text-white-500 text-center">
+              <thead>
+                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 font-bold text-gray-900 dark:text-white">
+                  <th className="px-6 py-4 whitespace-nowrap">Character</th>
+                  <th className="px-6 py-4 whitespace-nowrap">Bonus</th>
+                </tr>
+              </thead>
+              <tbody>
+                {character?.associations?.map((x) => {
+                  const char = findCharacterFromSlug(x.slug);
+
+                  return (
+                    <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                      <td className="px-2 py-4">
+                        <Link className="space-y-3" href={char.slug}>
+                          <img
+                            className="w-20 mx-auto"
+                            src={char.imageUrl}
+                            alt={char.name}
+                          />
+                          <p>{char.name}</p>
+                        </Link>
+                      </td>
+                      <td className="px-2 py-4">{x.bonus}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         <div>Stuff</div>
         <div>Gift</div>

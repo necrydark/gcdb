@@ -36,18 +36,12 @@ export const characters: Character[] = [
     game: Games.Base,
     associations: [
       {
-        name: "Alioni",
         slug: "alioni",
-        imageUrl:
-          "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
         bonus: "HP +5%",
       },
       {
-        name: "Jue Viole Grace",
         slug: "jue_viole_grace",
         bonus: "Attack +280",
-        imageUrl:
-          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
       },
     ],
   },
