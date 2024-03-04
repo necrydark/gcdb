@@ -2,7 +2,7 @@ import { Association } from "./associtations";
 import { Attribute } from "./attributes";
 import { IsCrossover } from "./crossover";
 import { Food } from "./food";
-import { Gift } from './gift';
+import { Gift } from "./gift";
 import { Race } from "./race";
 import { Rarity } from "./rarity";
 import { CharacterSkills } from "./skill";
@@ -15,7 +15,7 @@ export type BasicInfo = {
 };
 
 export type CharacterStats = {
-  combatClass_CP: number;
+  combatClass_Cp: number;
   attack: number;
   defense: number;
   hp: number;

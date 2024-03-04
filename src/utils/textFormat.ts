@@ -12,3 +12,7 @@ export function splitByCapitalizationAndJoin(str: string) {
   // Join the parts with a space to get a single string.
   return parts.join(" ");
 }
+
+export function splitBySlash(str: string) {
+  return str.replace(/_/g, "/");
+}

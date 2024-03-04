@@ -13,7 +13,7 @@ export const characters: Character[] = [
     jpName: "ディアンヌ",
     jpTag: "恋の伝令",
     stats: {
-      combatClass_CP: 3327,
+      combatClass_Cp: 3327,
       attack: 520,
       defense: 752,
       hp: 1254,
@@ -39,15 +39,15 @@ export const characters: Character[] = [
         name: "Alioni",
         slug: "alioni",
         imageUrl:
-        "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
-        bonus: "HP +5%"
+          "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
+        bonus: "HP +5%",
       },
       {
         name: "Jue Viole Grace",
         slug: "jue_viole_grace",
         bonus: "Attack +280",
         imageUrl:
-        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
       },
     ],
   },
@@ -58,7 +58,7 @@ export const characters: Character[] = [
     jpTag: "永遠の約束",
     jpName: "聖騎士 ディアンヌ",
     stats: {
-      combatClass_CP: 0,
+      combatClass_Cp: 0,
       attack: 0,
       defense: 0,
       hp: 0,
@@ -87,7 +87,7 @@ export const characters: Character[] = [
     jpTag: "ジュ・ビオレ・グレイス",
     jpName: "スレイヤー候補",
     stats: {
-      combatClass_CP: 0,
+      combatClass_Cp: 0,
       attack: 0,
       defense: 0,
       hp: 0,
@@ -103,11 +103,11 @@ export const characters: Character[] = [
     },
     imageUrl:
       "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-      attribute: Attributes.Strength,
-      rarity: Rarities.SSR,
-      race: Races.Human,
-      crossover: Crossovers.Crossover,
-      game: Games.TOG,
+    attribute: Attributes.Strength,
+    rarity: Rarities.SSR,
+    race: Races.Human,
+    crossover: Crossovers.Crossover,
+    game: Games.TOG,
   },
   {
     name: "Alioni",
@@ -116,7 +116,7 @@ export const characters: Character[] = [
     jpTag: "〈山猫の髭〉騎士団",
     jpName: "団員 アリオーニ",
     stats: {
-      combatClass_CP: 0,
+      combatClass_Cp: 0,
       attack: 0,
       defense: 0,
       hp: 0,
@@ -138,19 +138,19 @@ export const characters: Character[] = [
     crossover: Crossovers.NotCrossover,
     game: Games.Base,
     holyRelic: [
-     {
-      name: 'Double-edged Sword of the Einherjar',
-      imageUrl: 'https://gcdatabase.com/images/relics/alioni_relic.png',
-      effect: 'Decreases the hero’s damage taken from enemies by 40%.',
-      stats: [
-        {
-          attack: "+140",
-          defense: "+300",
-          hp: "+3100"
-        }
-      ]
-     }
-    ]
+      {
+        name: "Double-edged Sword of the Einherjar",
+        imageUrl: "https://gcdatabase.com/images/relics/alioni_relic.png",
+        effect: "Decreases the hero’s damage taken from enemies by 40%.",
+        stats: [
+          {
+            attack: "+140",
+            defense: "+300",
+            hp: "+3100",
+          },
+        ],
+      },
+    ],
   },
   {
     name: "Eren Yeager",
@@ -159,7 +159,7 @@ export const characters: Character[] = [
     jpName: "エレン・イェーガー",
     jpTag: "巨人化能力",
     stats: {
-      combatClass_CP: 0,
+      combatClass_Cp: 0,
       attack: 0,
       defense: 0,
       hp: 0,
