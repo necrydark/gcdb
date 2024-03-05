@@ -1,7 +1,7 @@
 "use client";
 
 import { Attribute, Attributes } from "@/types/attributes";
-import { Crossovers, IsCrossover } from "@/types/crossover";
+import { Crossover, Crossovers } from "@/types/crossover";
 import { Race, Races } from "@/types/race";
 import { Rarities, Rarity } from "@/types/rarity";
 import characters from "@/utils/dummy/characters";
@@ -86,7 +86,7 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Attributes).map((attribute) => (
-                <option value={attribute}>
+                <option key={attribute} value={attribute}>
                   {Attributes[attribute as Attribute]}
                 </option>
               ))}
@@ -105,7 +105,7 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Rarities).map((rarity: any) => (
-                <option value={rarity}>{Rarities[rarity as Rarity]}</option>
+                <option key={rarity} value={rarity}>{Rarities[rarity as Rarity]}</option>
               ))}
             </select>
           </motion.div>
@@ -122,7 +122,7 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Races).map((race) => (
-                <option value={race}>{Races[race as Race]}</option>
+                <option key={race} value={race}>{Races[race as Race]}</option>
               ))}
             </select>
           </motion.div>
@@ -139,8 +139,8 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Crossovers).map((crossover) => (
-                <option value={Crossovers[crossover as IsCrossover]}>
-                  {Crossovers[crossover as IsCrossover]}
+                <option key={crossover} value={Crossovers[crossover as Crossover]}>
+                  {Crossovers[crossover as Crossover]}
                 </option>
               ))}
             </select>
@@ -174,8 +174,8 @@ function Characters() {
             </tr>
           </thead>
           <tbody>
-            {filteredCharacters.map((character) => (
-              <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+            {filteredCharacters.map((character, idx) => (
+              <tr key={idx} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"

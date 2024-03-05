@@ -1,4 +1,4 @@
-export type IsCrossover = "Crossover" | "Not Crossover";
+export type Crossover = "Crossover" | "Not Crossover";
 
 export enum Crossovers {
   NotCrossover = "Not Crossover",

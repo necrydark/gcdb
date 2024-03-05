@@ -104,7 +104,7 @@ export default function CharacterPage({ params: { slug } }: any) {
             <h2 className="text-sm font-semibold pb-1">Level 1 Stats:</h2>
             <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
               {Object.entries(character?.stats).map(([key, value]) => (
-                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500    border-b dark:border-gray-700">
+                <tr key={key} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500    border-b dark:border-gray-700">
                   <td className="p-4 text-lg">
                     {splitBySlash(
                       capitalise(splitByCapitalizationAndJoin(`${key}: `))
@@ -146,11 +146,11 @@ export default function CharacterPage({ params: { slug } }: any) {
                 </tr>
               </thead>
               <tbody>
-                {character?.associations?.map((x) => {
+                {character?.associations?.map((x, idx) => {
                   const char = findCharacterFromSlug(x.slug);
 
                   return (
-                    <tr className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500">
+                    <tr key={idx} className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500">
                       <td className="p-4 border border-gray-500">
                         <Link className="space-y-3" href={char.slug}>
                           <img
@@ -174,7 +174,7 @@ export default function CharacterPage({ params: { slug } }: any) {
           <h1 className="font-bold text-center lg:text-left text-xl pb-5">Misc Info</h1>
           <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
             {Object.entries(character?.misc.info).map(([key, value]) => (
-              <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              <tr key={key} className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <td className="p-4 text-lg">
                   {splitBySlash(
                     capitalise(splitByCapitalizationAndJoin(`${key}: `))
@@ -194,7 +194,7 @@ export default function CharacterPage({ params: { slug } }: any) {
               </h1>
               <div className="bg-gray-900 flex items-center border border-gray-500 border-b dark:border-gray-700 p-2">
                 {character?.gift.map((x, idx) => (
-                  <div className="text-center">
+                  <div key={idx} className="text-center">
                     <img
                       alt={x.name}
                       className=" w-20  m-2 !mb-0"
@@ -218,7 +218,7 @@ export default function CharacterPage({ params: { slug } }: any) {
               </h1>
               <div className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b dark:border-gray-700 p-2">
                 {character?.food.map((x, idx) => (
-                  <div className="text-center">
+                  <div key={idx} className="text-center">
                     <img
                       alt={x.name}
                       className=" w-20 mx-auto"
