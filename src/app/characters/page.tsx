@@ -79,7 +79,7 @@ function Characters() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <p>Attribute</p>
+            <p className="lg:p-0 pl-1 pb-1">Attribute</p>
             <select
               onChange={(e) => setSelectedAttribute(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -98,7 +98,7 @@ function Characters() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.35 }}
           >
-            <p>Rarity</p>
+            <p className="lg:p-0 pl-1 pb-1">Rarity</p>
             <select
               onChange={(e) => setSelectedRarity(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -115,7 +115,7 @@ function Characters() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            <p>Race</p>
+            <p className="lg:p-0 pl-1 pb-1">Race</p>
             <select
               onChange={(e) => setSelectedRace(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -132,7 +132,7 @@ function Characters() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.65 }}
           >
-            <p>Crossover</p>
+            <p className="lg:p-0 pl-1 pb-1">Crossover</p>
             <select
               onChange={(e) => setSelectedCrossover(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

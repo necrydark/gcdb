@@ -44,7 +44,7 @@ function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="w-full bg-slate-600 text-white"
+          className="w-full bg-gray-900 text-white"
         >
           <div className="max-w-[1280px] mx-auto flex justify-between px-2">
             <div className="flex">
