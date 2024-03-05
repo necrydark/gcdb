@@ -6,6 +6,7 @@ import {
   splitByCapitalizationAndJoin,
   splitBySlash,
 } from "@/utils/textFormat";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -29,38 +30,55 @@ export default function CharacterPage({ params: { slug } }: any) {
       {/* Header */}
       <div className="flex lg:flex-row flex-col justify-between lg:gap-5 gap-10">
         <div className="flex flex-col items-center lg:flex-row">
-          <img
+          <motion.img
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
             className="w-40"
             src={character?.imageUrl}
             alt={character?.name}
           />
           <div className="space-y-2 lg:pl-2 pt-2 flex flex-col lg:text-start text-center lg:justify-normal justify-center text-xl">
-            <p className="lg:text-lg text-sm">
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.25 }}
+              className="lg:text-lg text-sm">
               {isEnglish ? `${character.name}` : `${character.jpName}`}
-            </p>
-            <p className="lg:text-lg text-sm">
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              className="lg:text-lg text-sm">
               {isEnglish
                 ? `[${character.tag}]`
                 : `【${character.jpTag}】
               `}
-            </p>
+            </motion.p>
             {/* <p className="font-bold">[{character?.tag}]</p>
             <p className="font-bold">{character?.name}</p> */}
             {character?.crossover === "Crossover" && (
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.6 }}>
                 <p className="text-sm font-bold">{character?.crossover}</p>
                 <p className="text-sm">{character?.game}</p>
-              </div>
+              </motion.div>
             )}
-            <button
+            <motion.button
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
               className="cursor-pointer text-center w-[12rem] lg:text-left text-xs font-bold p-0 lg:bg-transparent lg:border-0 border border-white lg:w-[50px]"
               onClick={toggleLanguage}
             >
               EN/JP
-            </button>
+            </motion.button>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-3 text-center gap-4"> {/* TODO: Decide whether to keep old way or new way */}
           {/* {character?.basicInfo?.map((x) => {
                   const char = findCharacterFromSlug(x.slug);
@@ -82,18 +100,29 @@ export default function CharacterPage({ params: { slug } }: any) {
                   );
                 })} */}
           {/* Character Info */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.25 }}
+          >
             <h1 className="lg:text-xl font-bold">Attribute</h1>
             <p className="lg:text-lg">{character?.basicInfo.attribute}</p>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}>
             <h1 className="lg:text-xl font-bold">Race</h1>
             <p className="lg:text-lg">{character?.basicInfo.race}</p>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6 }}
+          >
             <h1 className="lg:text-xl font-bold">Rarity</h1>
             <p className="lg:text-lg">{character?.basicInfo.rarity}</p>
-          </div>
+          </motion.div>
         </div>
       </div>
       <div className="grid lg:grid-cols-4 grid-cols-1 gap-6">
@@ -191,7 +220,7 @@ export default function CharacterPage({ params: { slug } }: any) {
 
         </div>
         {/* Gifts */}
-        
+
         <div>
           {character?.gift && (
             <>
