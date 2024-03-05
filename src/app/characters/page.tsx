@@ -21,10 +21,10 @@ function Characters() {
       .toLowerCase()
       .includes(characterName.toLowerCase());
     const attributeFilter = selectedAttribute
-      ? x.attribute === selectedAttribute
+      ? x.basicInfo.attribute === selectedAttribute
       : true;
-    const rarityFilter = selectedRarity ? x.rarity === selectedRarity : true;
-    const raceFilter = selectedRace ? x.race === selectedRace : true;
+    const rarityFilter = selectedRarity ? x.basicInfo.rarity === selectedRarity : true;
+    const raceFilter = selectedRace ? x.basicInfo.race === selectedRace : true;
     const crossoverFilter = selectedCrossover
       ? x.crossover === selectedCrossover
       : true;
@@ -193,9 +193,9 @@ function Characters() {
                     </Link>
                   </div>
                 </th>
-                <td className="px-6 py-4">{character.attribute}</td>
-                <td className="px-6 py-4">{character.rarity}</td>
-                <td className="px-6 py-4">{character.race}</td>
+                <td className="px-6 py-4">{character.basicInfo.attribute}</td>
+                <td className="px-6 py-4">{character.basicInfo.rarity}</td>
+                <td className="px-6 py-4">{character.basicInfo.race}</td>
                 <td className="px-6 py-4">{character.crossover}</td>
               </tr>
             ))}
