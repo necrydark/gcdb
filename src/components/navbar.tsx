@@ -25,6 +25,10 @@ function Navbar() {
       name: "Gear",
       url: "/gear",
     },
+    {
+      name: "Holy Relics",
+      url: "/relics",
+    }
   ];
 
   const handleResize = () => {
