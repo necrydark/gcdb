@@ -60,7 +60,8 @@ export default function CharacterPage({ params: { slug } }: any) {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-3 text-center gap-4">
+        
+        <div className="grid grid-cols-3 text-center gap-4"> {/* TODO: Decide whether to keep old way or new way */}
           {/* {character?.basicInfo?.map((x) => {
                   const char = findCharacterFromSlug(x.slug);
 
@@ -80,6 +81,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                     </tr>
                   );
                 })} */}
+          {/* Character Info */}
           <div>
             <h1 className="lg:text-xl font-bold">Attribute</h1>
             <p className="lg:text-lg">{character?.basicInfo.attribute}</p>
@@ -117,7 +119,7 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         </div>
 
-        {/* Skills */}
+        {/* TODO: Add Skills + Ultimate */}
         <div className="lg:col-span-2">
           <h1 className="font-bold text-xl text-center lg:text-left pb-5">Skills</h1>
           <div
@@ -126,7 +128,7 @@ export default function CharacterPage({ params: { slug } }: any) {
           ></div>
         </div>
 
-        {/* Passive */}
+        {/* TODO: Add Passive */}
         <div>
           <h1 className="font-bold text-center lg:text-left pb-5 text-xl">Passive</h1>
         </div>
@@ -170,6 +172,8 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         )}
 
+        {/* Character Misc Info */}
+        {/* TODO: Fix table on smaller resolutions */}
         <div>
           <h1 className="font-bold text-center lg:text-left text-xl pb-5">Misc Info</h1>
           <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
@@ -186,13 +190,15 @@ export default function CharacterPage({ params: { slug } }: any) {
           </table>
 
         </div>
+        {/* Gifts */}
+        
         <div>
           {character?.gift && (
             <>
               <h1 className="text-xl pb-5 font-bold text-center lg:text-left ">
                 Gift
               </h1>
-              <div className="bg-gray-900 flex items-center border border-gray-500 border-b dark:border-gray-700 p-2">
+              <div className="bg-gray-900 justify-center flex items-center border border-gray-500 border-b dark:border-gray-700 p-2">
                 {character?.gift.map((x, idx) => (
                   <div key={idx} className="text-center">
                     <img
@@ -201,7 +207,6 @@ export default function CharacterPage({ params: { slug } }: any) {
                       src={x.imageUrl}
                     />
                     <p className="p-2 text-sm" >{x.name}</p>
-                    <p className="text-xs">{x.description}</p>
                   </div>
 
                 ))}
@@ -210,10 +215,11 @@ export default function CharacterPage({ params: { slug } }: any) {
 
           )}
         </div>
+        {/* Character Food */}
         <div>
-              {character?.food && (
-                <>
-                 <h1 className="text-xl pb-5 font-bold text-center lg:text-left ">
+          {character?.food && (
+            <>
+              <h1 className="text-xl pb-5 font-bold text-center lg:text-left ">
                 Food
               </h1>
               <div className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b dark:border-gray-700 p-2">
@@ -229,9 +235,10 @@ export default function CharacterPage({ params: { slug } }: any) {
 
                 ))}
               </div>
-                </>
-              )}
+            </>
+          )}
         </div>
+        {/* Holy Relics */}
         <div>
           {character?.holyRelic && (
             <>
