@@ -3,9 +3,19 @@ import React, { useState } from "react";
 interface CookingProps {
   tabCount: number;
   town: string[];
+  food : Food[];
 }
 
-const Cooking: React.FC<CookingProps> = ({ tabCount, town }) => {
+type Food = {
+  name: string;
+  ingredients: string;
+  effects: string;
+  characters: string;
+};
+
+
+
+const Cooking: React.FC<CookingProps> = ({ tabCount, town, food}) => {
   const [openTab, setOpenTab] = useState(1);
 
   return (
@@ -36,12 +46,13 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town }) => {
                     return (
                       <div key={i} className="block">
                         <h2 className="text-xl font-bold mb-2">{townName}</h2>
-                        <table className="table-auto">
+                        <table className="table-auto w-full">
                           <thead>
                             <tr>
-                              <th className="px-4 py-2">Column 1</th>
-                              <th className="px-4 py-2">Column 2</th>
-                              <th className="px-4 py-2">Column 3</th>
+                              <th className="px-4 py-2">Food</th>
+                              <th className="px-4 py-2">Ingredients</th>
+                              <th className="px-4 py-2">Effects</th>
+                              <th className="px-4 py-2">Characters</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -49,6 +60,8 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town }) => {
                               <td className="border px-4 py-2">Data 1</td>
                               <td className="border px-4 py-2">Data 2</td>
                               <td className="border px-4 py-2">Data 3</td>
+                              <td className="border px-4 py-2">Data 4</td> 
+                              
                             </tr>
                             {/* Add more rows as needed */}
                           </tbody>

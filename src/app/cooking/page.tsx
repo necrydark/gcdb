@@ -9,6 +9,10 @@ function CookingPage() {
     <>
       <Cooking
         tabCount={6}
+        food={[{  name: "Food",
+          ingredients: "Stuff",
+          effects: "HP +10%",
+          characters: "Diane"}]}
         town={[
           "Vanya",
           "Dalmally",
