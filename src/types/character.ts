@@ -1,4 +1,5 @@
 import { Association } from "./associtations";
+import { AssociationWith } from "./associated";
 import { Attribute } from "./attributes";
 import { Crossover } from "./crossover";
 import { Food } from "./food";
@@ -65,6 +66,7 @@ export type Character = {
   food?: Food[];
   skills?: CharacterSkills;
   associations?: Association[];
+  associationsWith?: AssociationWith[];
   holyRelic?: HolyRelic[];
   // attribute: Attribute;
   // rarity: Rarity;
