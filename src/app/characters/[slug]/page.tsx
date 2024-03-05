@@ -177,6 +177,14 @@ export default function CharacterPage({ params: { slug } }: any) {
         {/* TODO: Add Passive */}
         <div>
           <h1 className="font-bold text-center lg:text-left pb-5 text-xl">Passive</h1>
+          <div className="flex flex-col justify-center">
+                <img
+                src={character?.passive?.imageUrl}
+                alt={character?.passive?.name}
+                />
+                <p>{character?.passive?.name} | {character?.passive?.jpName}</p>
+                <p>{character?.passive?.description}</p>
+          </div>
         </div>
 
         {/* Association */}

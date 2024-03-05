@@ -10,12 +10,6 @@ export type CharacterSkill = {
   ranks: SkillRank[];
 };
 
-export type CharacterPassive = {
-  name: string;
-  jpName: string;
-  imageUrl: string;
-  description: string;
-};
 
 export type CharacterUltimate = {
   name: string;
@@ -26,7 +20,6 @@ export type CharacterUltimate = {
 };
 
 export type CharacterSkills = {
-  passive: CharacterPassive;
   regularSkills: CharacterSkill[];
   ultimate: CharacterUltimate;
 };

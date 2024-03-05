@@ -104,6 +104,13 @@ export const characters: Character[] = [
         description: "Its a ribbon"
       }
     ],
+    passive: 
+      {
+        name: "Queen's Authority",
+        imageUrl: "https://gcdatabase.com/images/passive/queen_diane.webp",
+        description: "Increases all allies' basic stats by 10% in PVP.",
+        jpName: "女王の権威",
+      },
     food: [
       {
         name: "Sweet Meat Pie",
