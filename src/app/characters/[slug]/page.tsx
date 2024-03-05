@@ -13,14 +13,19 @@ import React, { useState } from "react";
 
 export default function CharacterPage({ params: { slug } }: any) {
   const [isEnglish, setIsEnglish] = useState(true);
+  //find a character using custom handler
   const character = characters.find((x) => x.slug === slug);
   const router = useRouter();
-  // console.log(character);
+  // console.log(character); - USED FOR DEBUGGING
+
+
+  // If a character is not found then redirect to the characters page and display a message
   if (!character) {
     router.push("/characters");
     return <div>Character Not Found....</div>;
   }
 
+  // Toggle language between English and Japanese for character names and tags
   const toggleLanguage = () => {
     setIsEnglish(!isEnglish);
   };
@@ -295,7 +300,6 @@ export default function CharacterPage({ params: { slug } }: any) {
                 ))}
               </div>
             </>
-
           )}
         </div>
       </div>
