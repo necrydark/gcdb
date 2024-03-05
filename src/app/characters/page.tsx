@@ -5,7 +5,7 @@ import { Crossover, Crossovers } from "@/types/crossover";
 import { Race, Races } from "@/types/race";
 import { Rarities, Rarity } from "@/types/rarity";
 import characters from "@/utils/dummy/characters";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -23,7 +23,9 @@ function Characters() {
     const attributeFilter = selectedAttribute
       ? x.basicInfo.attribute === selectedAttribute
       : true;
-    const rarityFilter = selectedRarity ? x.basicInfo.rarity === selectedRarity : true;
+    const rarityFilter = selectedRarity
+      ? x.basicInfo.rarity === selectedRarity
+      : true;
     const raceFilter = selectedRace ? x.basicInfo.race === selectedRace : true;
     const crossoverFilter = selectedCrossover
       ? x.crossover === selectedCrossover
@@ -105,7 +107,9 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Rarities).map((rarity: any) => (
-                <option key={rarity} value={rarity}>{Rarities[rarity as Rarity]}</option>
+                <option key={rarity} value={rarity}>
+                  {Rarities[rarity as Rarity]}
+                </option>
               ))}
             </select>
           </motion.div>
@@ -122,7 +126,9 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Races).map((race) => (
-                <option key={race} value={race}>{Races[race as Race]}</option>
+                <option key={race} value={race}>
+                  {Races[race as Race]}
+                </option>
               ))}
             </select>
           </motion.div>
@@ -139,7 +145,10 @@ function Characters() {
             >
               <option value="">Clear</option>
               {Object.keys(Crossovers).map((crossover) => (
-                <option key={crossover} value={Crossovers[crossover as Crossover]}>
+                <option
+                  key={crossover}
+                  value={Crossovers[crossover as Crossover]}
+                >
                   {Crossovers[crossover as Crossover]}
                 </option>
               ))}
@@ -174,31 +183,46 @@ function Characters() {
             </tr>
           </thead>
           <tbody>
-            {filteredCharacters.map((character, idx) => (
-              <tr key={idx} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            <AnimatePresence>
+              {filteredCharacters.map((character, idx) => (
+                <motion.tr
+                  layout={"size"}
+                  exit={{ opacity: 0, maxHeight: 0 }}
+                  key={idx}
+                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                 >
-                  <div className="grid place-items-center cursor-pointer hover:animate-pulse hover:text-blue-400 transition-all duration-200">
-                    <Link href={`/characters/${character.slug}`}>
-                      <>
-                        <img
-                          className="w-20 h-20 object-cover mb-2 mx-auto"
-                          src={character.imageUrl}
-                          alt=""
-                        />
-                        <p>{character.name}</p>
-                      </>
-                    </Link>
-                  </div>
-                </th>
-                <td className="px-6 py-4">{character.basicInfo.attribute}</td>
-                <td className="px-6 py-4">{character.basicInfo.rarity}</td>
-                <td className="px-6 py-4">{character.basicInfo.race}</td>
-                <td className="px-6 py-4">{character.crossover}</td>
-              </tr>
-            ))}
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <div className="grid place-items-center cursor-pointer hover:animate-pulse hover:text-blue-400 transition-all duration-200">
+                      <Link href={`/characters/${character.slug}`}>
+                        <>
+                          <img
+                            className="w-20 h-20 object-cover mb-2 mx-auto"
+                            src={character.imageUrl}
+                            alt=""
+                          />
+                          <p>{character.name}</p>
+                        </>
+                      </Link>
+                    </div>
+                  </th>
+                  <motion.td layout={"size"} className="px-6 py-4">
+                    {character.basicInfo.attribute}
+                  </motion.td>
+                  <motion.td layout={"size"} className="px-6 py-4">
+                    {character.basicInfo.rarity}
+                  </motion.td>
+                  <motion.td layout={"size"} className="px-6 py-4">
+                    {character.basicInfo.race}
+                  </motion.td>
+                  <motion.td layout={"size"} className="px-6 py-4">
+                    {character.crossover}
+                  </motion.td>
+                </motion.tr>
+              ))}
+            </AnimatePresence>
           </tbody>
         </table>
       </motion.div>
