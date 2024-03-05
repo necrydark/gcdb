@@ -7,6 +7,6 @@ export type Ingredient = {
 export type Food = {
   name: string;
   imageUrl: string;
-  effect: string;
-  ingredients: Ingredient[];
+  effect?: string;
+  ingredients?: Ingredient[];
 };

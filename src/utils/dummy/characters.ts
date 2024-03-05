@@ -27,11 +27,15 @@ export const characters: Character[] = [
       recoveryRate: "110%",
       lifesteal: "5%",
     },
+
     imageUrl:
       "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
-    attribute: Attributes.HP,
-    rarity: Rarities.SSR,
-    race: Races.Giant,
+    basicInfo:
+    {
+      rarity: Rarities.SSR,
+      attribute: Attributes.Strength,
+      race: Races.Giant
+    },
     crossover: Crossovers.NotCrossover,
     game: Games.Base,
     misc: {
@@ -46,16 +50,31 @@ export const characters: Character[] = [
         CV: "Aoi Yuuki",
       }
     },
+    gift: [
+       { name: "Ribbon",
+        imageUrl: "https://gcdatabase.com/images/gift/diane.webp",
+        description: "Its a ribbon"}
+    ],
+    food: [
+      {
+        name: "Sweet Meat Pie",
+        imageUrl: "https://gcdatabase.com/images/food/sweet_meat_pie.webp",
+      },
+      {
+        name: "Honey-roasted Chicken Matango",
+        imageUrl: "https://gcdatabase.com/images/food/honey-roasted_chicken_matango.webp"
+      }
+    ],
     associations: [
       {
         slug: "alioni",
-        
+
         bonus: "HP +5%"
       },
       {
         slug: "jue_viole_grace",
         bonus: "Attack +280",
-       
+
       },
     ],
   },
@@ -94,10 +113,12 @@ export const characters: Character[] = [
     },
     imageUrl:
       "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png",
-    attribute: Attributes.Strength,
-    game: Games.Base,
-    rarity: Rarities.SSR,
-    race: Races.Giant,
+      game: Games.Base,
+    basicInfo: {
+      attribute: Attributes.Strength,
+      rarity: Rarities.SSR,
+      race: Races.Giant,
+    },
     crossover: Crossovers.NotCrossover,
   },
   {
@@ -133,14 +154,16 @@ export const characters: Character[] = [
         CV: "Daimu Mineta",
       }
     },
-    
+
     imageUrl:
       "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+    basicInfo: {
       attribute: Attributes.Strength,
-      rarity: Rarities.SSR,
-      race: Races.Human,
-      crossover: Crossovers.Crossover,
-      game: Games.TOG,
+    rarity: Rarities.SSR,
+    race: Races.Human,
+    },
+    crossover: Crossovers.Crossover,
+    game: Games.TOG,
   },
   {
     name: "Alioni",
@@ -177,24 +200,26 @@ export const characters: Character[] = [
     },
     imageUrl:
       "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
-    attribute: Attributes.HP,
-    rarity: Rarities.R,
-    race: Races.Human,
+    basicInfo: {
+      attribute: Attributes.HP,
+      rarity: Rarities.R,
+      race: Races.Human,
+    },
     crossover: Crossovers.NotCrossover,
     game: Games.Base,
     holyRelic: [
-     {
-      name: 'Double-edged Sword of the Einherjar',
-      imageUrl: 'https://gcdatabase.com/images/relics/alioni_relic.png',
-      effect: '',
-      stats: [
-        {
-          attack: "0",
-          defense: "0",
-          hp: "5%"
-        }
-      ]
-     }
+      {
+        name: 'Double-edged Sword of the Einherjar',
+        imageUrl: 'https://gcdatabase.com/images/relics/alioni_relic.png',
+        effect: '',
+        stats: [
+          {
+            attack: "0",
+            defense: "0",
+            hp: "5%"
+          }
+        ]
+      }
     ]
   },
   {
@@ -232,10 +257,12 @@ export const characters: Character[] = [
     },
     imageUrl:
       "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
-    attribute: Attributes.HP,
     game: Games.AOT,
-    rarity: Rarities.SSR,
-    race: Races.HumanGiant,
+    basicInfo: {
+      attribute: Attributes.HP,
+      rarity: Rarities.SSR,
+      race: Races.HumanGiant,
+    },
     crossover: Crossovers.NotCrossover,
   },
 ];

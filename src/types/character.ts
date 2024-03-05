@@ -55,17 +55,17 @@ export type Character = {
   slug: string;
   game?: string;
   imageUrl: string;
-  attribute: Attribute;
-  rarity: Rarity;
-  race: Race;
+  // attribute: Attribute;
+  // rarity: Rarity;
+  // race: Race;
   crossover: IsCrossover;
-  // basicInfo: BasicInfo[];
+  basicInfo: BasicInfo;
   stats: CharacterStats;
   misc: {
     info: CharacterMiscInfo;
-  //   gift?: Gift;
-  //   food?: Food[];
   };
+  gift?: Gift[];
+  food?: Food[];
   // skills: CharacterSkills;
   associations?: Association[];
   holyRelic?: HolyRelic[];

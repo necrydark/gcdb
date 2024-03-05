@@ -61,7 +61,7 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         </div>
         <div className="grid grid-cols-3 text-center gap-4">
-        {/* {character?.basicInfo?.map((x) => {
+          {/* {character?.basicInfo?.map((x) => {
                   const char = findCharacterFromSlug(x.slug);
 
                   return (
@@ -82,15 +82,15 @@ export default function CharacterPage({ params: { slug } }: any) {
                 })} */}
           <div>
             <h1 className="lg:text-xl font-bold">Attribute</h1>
-            <p className="lg:text-lg">{character?.attribute}</p>
+            <p className="lg:text-lg">{character?.basicInfo.attribute}</p>
           </div>
           <div>
             <h1 className="lg:text-xl font-bold">Race</h1>
-            <p className="lg:text-lg">{character?.race}</p>
+            <p className="lg:text-lg">{character?.basicInfo.race}</p>
           </div>
           <div>
             <h1 className="lg:text-xl font-bold">Rarity</h1>
-            <p className="lg:text-lg">{character?.rarity}</p>
+            <p className="lg:text-lg">{character?.basicInfo.rarity}</p>
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@ export default function CharacterPage({ params: { slug } }: any) {
             <h2 className="text-sm font-semibold pb-1">Level 1 Stats:</h2>
             <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
               {Object.entries(character?.stats).map(([key, value]) => (
-                <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500    border-b dark:border-gray-700">
                   <td className="p-4 text-lg">
                     {splitBySlash(
                       capitalise(splitByCapitalizationAndJoin(`${key}: `))
@@ -173,44 +173,93 @@ export default function CharacterPage({ params: { slug } }: any) {
         <div>
           <h1 className="font-bold text-center lg:text-left text-xl pb-5">Misc Info</h1>
           <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
-          {Object.entries(character?.misc.info).map(([key, value]) => (
-               <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-               <td className="p-4 text-lg">
-                 {splitBySlash(
-                   capitalise(splitByCapitalizationAndJoin(`${key}: `))
-                 )}
-               </td>
-               <td className="p-4 text-base">{value}</td>
-             </tr>
-          ))}
+            {Object.entries(character?.misc.info).map(([key, value]) => (
+              <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <td className="p-4 text-lg">
+                  {splitBySlash(
+                    capitalise(splitByCapitalizationAndJoin(`${key}: `))
+                  )}
+                </td>
+                <td className="p-4 text-base">{value}</td>
+              </tr>
+            ))}
           </table>
-        
+
         </div>
-        <div>Gift</div>
+        <div>
+          {character?.gift && (
+            <>
+              <h1 className="text-xl pb-5 font-bold text-center lg:text-left ">
+                Gift
+              </h1>
+              <div className="bg-gray-900 flex items-center border border-gray-500 border-b dark:border-gray-700 p-2">
+                {character?.gift.map((x, idx) => (
+                  <div className="text-center">
+                    <img
+                      alt={x.name}
+                      className=" w-20  m-2 !mb-0"
+                      src={x.imageUrl}
+                    />
+                    <p className="p-2 text-sm" >{x.name}</p>
+                    <p className="text-xs">{x.description}</p>
+                  </div>
+
+                ))}
+              </div>
+            </>
+
+          )}
+        </div>
+        <div>
+              {character?.food && (
+                <>
+                 <h1 className="text-xl pb-5 font-bold text-center lg:text-left ">
+                Food
+              </h1>
+              <div className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b dark:border-gray-700 p-2">
+                {character?.food.map((x, idx) => (
+                  <div className="text-center">
+                    <img
+                      alt={x.name}
+                      className=" w-20 mx-auto"
+                      src={x.imageUrl}
+                    />
+                    <p className="p-2 text-sm" >{x.name}</p>
+                  </div>
+
+                ))}
+              </div>
+                </>
+              )}
+        </div>
         <div>
           {character?.holyRelic && (
-            <div className="dark:bg-gray-900  border border-gray-500  p-4">
-              <h1 className="text-xl font-bold text-center underline underline-offset-2">
+            <>
+              <h1 className="text-xl pb-5 font-bold text-center lg:text-left">
                 Holy Relic
               </h1>
-              {character?.holyRelic.map((x, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col text-center space-y-2 items-center"
-                >
-                  <img
-                    alt={x.name}
-                    className=" w-20 m-2 !mb-0"
-                    src={x.imageUrl}
-                  />
-                  <p className="p-2">{x.name}</p>
-                  <p className="text-sm p-1">Attack: {x.stats[0]?.attack}</p>
-                  <p className="text-sm p-1">Defense: {x.stats[0]?.defense}</p>
-                  <p className="text-sm p-1">HP: {x.stats[0]?.hp}</p>
-                  <p className="p-2">{x.effect}</p>
-                </div>
-              ))}
-            </div>
+              <div className="dark:bg-gray-900 border border-gray-500 border-b dark:border-gray-700  p-4">
+
+                {character?.holyRelic.map((x, idx) => (
+                  <div
+                    key={idx}
+                    className="flex flex-col text-center space-y-2 items-center"
+                  >
+                    <img
+                      alt={x.name}
+                      className=" w-20 m-2 !mb-0"
+                      src={x.imageUrl}
+                    />
+                    <p className="p-2">{x.name}</p>
+                    <p className="text-sm p-1">Attack: {x.stats[0]?.attack}</p>
+                    <p className="text-sm p-1">Defense: {x.stats[0]?.defense}</p>
+                    <p className="text-sm p-1">HP: {x.stats[0]?.hp}</p>
+                    <p className="p-2">{x.effect}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+
           )}
         </div>
       </div>
