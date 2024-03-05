@@ -63,7 +63,7 @@ export type Character = {
   };
   gift?: Gift[];
   food?: Food[];
-  // skills: CharacterSkills;
+  skills?: CharacterSkills;
   associations?: Association[];
   holyRelic?: HolyRelic[];
   // attribute: Attribute;
