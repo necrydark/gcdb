@@ -5,7 +5,55 @@ import { Crossovers } from "../../types/crossover";
 import { Races } from "../../types/race";
 import { Rarities } from "../../types/rarity";
 
+
+// BASIC TEMPLATE FOR CHARACTERS
+// {
+  //   name: "Eren Yeager",
+  //   tag: "Titan Form",
+  //   jpName: "エレン・イェーガー",
+  //   jpTag: "巨人化能力",
+  //   slug: "eren_yeager",
+  //   game: Games.AOT,
+  //   imageUrl:
+  //     "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
+  //   crossover: Crossovers.NotCrossover,
+
+  //   basicInfo: {
+  //     attribute: Attributes.HP,
+  //     rarity: Rarities.SSR,
+  //     race: Races.HumanGiant,
+  //   },
+  //   stats: {
+  //     combatClass: 0,
+  //     attack: 0,
+  //     defense: 0,
+  //     hp: 0,
+  //     pierceRate: "",
+  //     resistance: "",
+  //     regeneration: "",
+  //     critChance: "",
+  //     critDamage: "",
+  //     critResistance: "",
+  //     critDefense: "",
+  //     recoveryRate: "",
+  //     lifesteal: "",
+  //   },
+  //   misc: {
+  //     info: {
+  //       gender: "Male",
+  //       bloodType: "Unknown",
+  //       age: "Unknown",
+  //       birthday: "Unknown",
+  //       height: "Unknown",
+  //       weight: "Unknown",
+  //       location: "Unknown",
+  //       CV: "Unknown",
+  //     }
+  //   },
+  // }
 export const characters: Character[] = [
+
+
   {
     name: "Queen Diane",
     tag: "Love's Messenger",
@@ -268,7 +316,6 @@ export const characters: Character[] = [
         CV: "Unknown",
       }
     },
-
   },
 ];
 
