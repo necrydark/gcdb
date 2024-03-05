@@ -46,31 +46,39 @@ export default function Home() {
               Youtubers.
             </motion.p>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
+          <div
             className="grid pt-[25px] md:grid-cols-3 grid-cols-1 gap-5"
           >
-            <div className=" bg-slate-600 text-white shadow-slate-900 ">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+              className=" bg-slate-600 text-white shadow-slate-900 ">
               <h1 className="p-4 text-2xl font-bold">Latest News!</h1>
               <div className="flex flex-col justify-center border-t-2">
                 <h1 className="text-2xl p-2">News title!</h1>
               </div>
-            </div>
-            <div className="bg-slate-600 text-white">
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.2 }} className="bg-slate-600 text-white">
               <h1 className="p-4 text-2xl font-bold">Latest Characters!</h1>
               <div className="flex flex-col justify-center border-t-2">
                 <h1 className="text-2xl p-2">Character Name</h1>
               </div>
-            </div>
-            <div className="bg-slate-600 text-white">
+            </motion.div>
+            <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.4 }}
+            className="bg-slate-600 text-white">
               <h1 className="p-4 text-2xl font-bold">Latest Relics!</h1>
               <div className="flex flex-col justify-center border-t-2">
                 <h1 className="text-2xl p-2">Relic Name!</h1>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </AnimatePresence>
       </div>
     </motion.div>
