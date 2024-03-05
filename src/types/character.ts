@@ -55,9 +55,6 @@ export type Character = {
   slug: string;
   game?: string;
   imageUrl: string;
-  // attribute: Attribute;
-  // rarity: Rarity;
-  // race: Race;
   crossover: Crossover;
   basicInfo: BasicInfo;
   stats: CharacterStats;
@@ -69,4 +66,7 @@ export type Character = {
   // skills: CharacterSkills;
   associations?: Association[];
   holyRelic?: HolyRelic[];
+  // attribute: Attribute;
+  // rarity: Rarity;
+  // race: Race;
 };

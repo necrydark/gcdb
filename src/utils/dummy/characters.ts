@@ -8,10 +8,20 @@ import { Rarities } from "../../types/rarity";
 export const characters: Character[] = [
   {
     name: "Queen Diane",
-    slug: "queen_diane",
     tag: "Love's Messenger",
     jpName: "ディアンヌ",
     jpTag: "恋の伝令",
+    slug: "queen_diane",
+    game: Games.Base,
+    imageUrl:
+      "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
+    crossover: Crossovers.NotCrossover,
+    basicInfo:
+    {
+      rarity: Rarities.SSR,
+      attribute: Attributes.Strength,
+      race: Races.Giant
+    },
     stats: {
       combatClass: 4846,
       attack: 560,
@@ -27,17 +37,6 @@ export const characters: Character[] = [
       recoveryRate: "110%",
       lifesteal: "5%",
     },
-
-    imageUrl:
-      "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
-    basicInfo:
-    {
-      rarity: Rarities.SSR,
-      attribute: Attributes.Strength,
-      race: Races.Giant
-    },
-    crossover: Crossovers.NotCrossover,
-    game: Games.Base,
     misc: {
       info: {
         gender: "Female",
@@ -51,9 +50,11 @@ export const characters: Character[] = [
       }
     },
     gift: [
-       { name: "Ribbon",
+      {
+        name: "Ribbon",
         imageUrl: "https://gcdatabase.com/images/gift/diane.webp",
-        description: "Its a ribbon"}
+        description: "Its a ribbon"
+      }
     ],
     food: [
       {
@@ -80,10 +81,19 @@ export const characters: Character[] = [
   },
   {
     name: "Queen Diane",
-    slug: "queen_diane_2",
     tag: "Waves of the Earth",
     jpTag: "永遠の約束",
     jpName: "聖騎士 ディアンヌ",
+    slug: "queen_diane_2",
+    game: Games.Base,
+    imageUrl:
+      "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png",
+    crossover: Crossovers.NotCrossover,
+    basicInfo: {
+      attribute: Attributes.Strength,
+      rarity: Rarities.SSR,
+      race: Races.Giant,
+    },
     stats: {
       combatClass: 0,
       attack: 0,
@@ -111,22 +121,24 @@ export const characters: Character[] = [
         CV: "Aoi Yuuki",
       }
     },
-    imageUrl:
-      "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png",
-      game: Games.Base,
-    basicInfo: {
-      attribute: Attributes.Strength,
-      rarity: Rarities.SSR,
-      race: Races.Giant,
-    },
-    crossover: Crossovers.NotCrossover,
+
+
   },
   {
     name: "Jue Viole Grace",
-    slug: "jue_viole_grace",
     tag: "Slayer Candidate",
     jpTag: "ジュ・ビオレ・グレイス",
     jpName: "スレイヤー候補",
+    slug: "jue_viole_grace",
+    game: Games.TOG,
+    imageUrl:
+      "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+    crossover: Crossovers.Crossover,
+    basicInfo: {
+      attribute: Attributes.Strength,
+      rarity: Rarities.SSR,
+      race: Races.Human,
+    },
     stats: {
       combatClass: 0,
       attack: 0,
@@ -154,23 +166,23 @@ export const characters: Character[] = [
         CV: "Daimu Mineta",
       }
     },
-
-    imageUrl:
-      "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-    basicInfo: {
-      attribute: Attributes.Strength,
-    rarity: Rarities.SSR,
-    race: Races.Human,
-    },
-    crossover: Crossovers.Crossover,
-    game: Games.TOG,
   },
   {
     name: "Alioni",
-    slug: "alioni",
     tag: "Beard Of The Mountain Cat",
     jpTag: "〈山猫の髭〉騎士団",
     jpName: "団員 アリオーニ",
+    slug: "alioni",
+    game: Games.Base,
+    imageUrl:
+      "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
+    crossover: Crossovers.NotCrossover,
+    basicInfo: {
+      attribute: Attributes.HP,
+      rarity: Rarities.R,
+      race: Races.Human,
+    },
+
     stats: {
       combatClass: 0,
       attack: 0,
@@ -198,15 +210,6 @@ export const characters: Character[] = [
         CV: "Unknown",
       }
     },
-    imageUrl:
-      "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
-    basicInfo: {
-      attribute: Attributes.HP,
-      rarity: Rarities.R,
-      race: Races.Human,
-    },
-    crossover: Crossovers.NotCrossover,
-    game: Games.Base,
     holyRelic: [
       {
         name: 'Double-edged Sword of the Einherjar',
@@ -224,10 +227,20 @@ export const characters: Character[] = [
   },
   {
     name: "Eren Yeager",
-    slug: "eren_yeager",
     tag: "Titan Form",
     jpName: "エレン・イェーガー",
     jpTag: "巨人化能力",
+    slug: "eren_yeager",
+    game: Games.AOT,
+    imageUrl:
+      "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
+    crossover: Crossovers.NotCrossover,
+
+    basicInfo: {
+      attribute: Attributes.HP,
+      rarity: Rarities.SSR,
+      race: Races.HumanGiant,
+    },
     stats: {
       combatClass: 0,
       attack: 0,
@@ -255,15 +268,7 @@ export const characters: Character[] = [
         CV: "Unknown",
       }
     },
-    imageUrl:
-      "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
-    game: Games.AOT,
-    basicInfo: {
-      attribute: Attributes.HP,
-      rarity: Rarities.SSR,
-      race: Races.HumanGiant,
-    },
-    crossover: Crossovers.NotCrossover,
+
   },
 ];
 
