@@ -8,13 +8,21 @@ import { Race } from "./race";
 import { Rarity } from "./rarity";
 import { CharacterSkills } from "./skill";
 import { HolyRelic } from "./holyrelic";
-import { CharacterPassive } from "./passive";
+// import { Passive } from "./passive";
 
 export type BasicInfo = {
   rarity: Rarity;
   attribute: Attribute;
   race: Race;
 };
+
+export type Passive = {
+  name: string;
+  imageUrl: string;
+  jpName: string;
+  description: string;
+};
+
 
 export type CharacterStats = {
   combatClass: number;
@@ -65,7 +73,7 @@ export type Character = {
   };
   gift?: Gift[];
   food?: Food[];
-  passive? : CharacterPassive;
+  passive? : Passive;
   skills?: CharacterSkills;
   associations?: Association[];
   associationsWith?: AssociationWith[];

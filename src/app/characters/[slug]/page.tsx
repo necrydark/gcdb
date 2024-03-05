@@ -174,17 +174,26 @@ export default function CharacterPage({ params: { slug } }: any) {
           ></div>
         </div>
 
-        {/* TODO: Add Passive */}
+        {/* TODO: Fix passive so that it displays the data and image */}
         <div>
-          <h1 className="font-bold text-center lg:text-left pb-5 text-xl">Passive</h1>
-          <div className="flex flex-col justify-center">
+          <motion.h1
+           initial={{ opacity: 0, y: -20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 1, delay: 0.8 }}
+          className="font-bold text-center lg:text-left pb-5 text-xl">Passive</motion.h1>
+          <motion.div
+           initial={{ opacity: 0, y: -20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 1, delay: 1 }}
+          className="flex text-center flex-col justify-center">
                 <img
+                 className="w-28 mx-auto"
                 src={character?.passive?.imageUrl}
                 alt={character?.passive?.name}
                 />
-                <p>{character?.passive?.name} | {character?.passive?.jpName}</p>
-                <p>{character?.passive?.description}</p>
-          </div>
+                <h2 className="p-2">{character?.passive?.name} | {character?.passive?.jpName}</h2>
+                <p className="text-sm">{character?.passive?.description}</p>
+          </motion.div>
         </div>
 
         {/* Association */}

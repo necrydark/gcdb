@@ -1,7 +1,7 @@
-export type CharacterPassive = {
+export type Passive = {
     name: string;
-    jpName: string;
     imageUrl: string;
+    jpName: string;
     description: string;
   };
   

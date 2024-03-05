@@ -107,7 +107,7 @@ export const characters: Character[] = [
     passive: 
       {
         name: "Queen's Authority",
-        imageUrl: "https://gcdatabase.com/images/passive/queen_diane.webp",
+        imageUrl: "https://gcdatabase.com/images/characters/queen_diane/ssrg_passive.png",
         description: "Increases all allies' basic stats by 10% in PVP.",
         jpName: "女王の権威",
       },
