@@ -13,19 +13,19 @@ export const characters: Character[] = [
     jpName: "ディアンヌ",
     jpTag: "恋の伝令",
     stats: {
-      combatClass_Cp: 3327,
-      attack: 520,
-      defense: 752,
-      hp: 1254,
-      pierceRate: "20%",
-      resistance: "20%",
-      regeneration: "20%",
-      critChance: "20%",
-      critDamage: "20%",
-      critResistance: "20%",
-      critDefense: "20%",
-      recoveryRate: "20%",
-      lifesteal: "20%",
+      combatClass: 4846,
+      attack: 560,
+      defense: 420,
+      hp: 6700,
+      pierceRate: "70%",
+      resistance: "60%",
+      regeneration: "10%",
+      critChance: "50%",
+      critDamage: "160%",
+      critResistance: "85%",
+      critDefense: "70%",
+      recoveryRate: "110%",
+      lifesteal: "5%",
     },
     imageUrl:
       "https://gcdatabase.com/images/characters/queen_diane/ssrg_portrait.png",
@@ -34,14 +34,28 @@ export const characters: Character[] = [
     race: Races.Giant,
     crossover: Crossovers.NotCrossover,
     game: Games.Base,
+    misc: {
+      info: {
+        gender: "Female",
+        bloodType: "O",
+        age: "~750",
+        birthday: "24th December",
+        height: "915m",
+        weight: "Secret",
+        location: "Unknown",
+        CV: "Aoi Yuuki",
+      }
+    },
     associations: [
       {
         slug: "alioni",
-        bonus: "HP +5%",
+        
+        bonus: "HP +5%"
       },
       {
         slug: "jue_viole_grace",
         bonus: "Attack +280",
+       
       },
     ],
   },
@@ -52,7 +66,7 @@ export const characters: Character[] = [
     jpTag: "永遠の約束",
     jpName: "聖騎士 ディアンヌ",
     stats: {
-      combatClass_Cp: 0,
+      combatClass: 0,
       attack: 0,
       defense: 0,
       hp: 0,
@@ -65,6 +79,18 @@ export const characters: Character[] = [
       critDefense: "",
       recoveryRate: "",
       lifesteal: "",
+    },
+    misc: {
+      info: {
+        gender: "Female",
+        bloodType: "O",
+        age: "~750",
+        birthday: "24th December",
+        height: "Unknown",
+        weight: "Secret",
+        location: "Pub",
+        CV: "Aoi Yuuki",
+      }
     },
     imageUrl:
       "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png",
@@ -81,7 +107,7 @@ export const characters: Character[] = [
     jpTag: "ジュ・ビオレ・グレイス",
     jpName: "スレイヤー候補",
     stats: {
-      combatClass_Cp: 0,
+      combatClass: 0,
       attack: 0,
       defense: 0,
       hp: 0,
@@ -95,13 +121,26 @@ export const characters: Character[] = [
       recoveryRate: "",
       lifesteal: "",
     },
+    misc: {
+      info: {
+        gender: "Male",
+        bloodType: "Unknown",
+        age: "Unknown",
+        birthday: "Unknown",
+        height: "Unknown",
+        weight: "Unknown",
+        location: "Unknown",
+        CV: "Daimu Mineta",
+      }
+    },
+    
     imageUrl:
       "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-    attribute: Attributes.Strength,
-    rarity: Rarities.SSR,
-    race: Races.Human,
-    crossover: Crossovers.Crossover,
-    game: Games.TOG,
+      attribute: Attributes.Strength,
+      rarity: Rarities.SSR,
+      race: Races.Human,
+      crossover: Crossovers.Crossover,
+      game: Games.TOG,
   },
   {
     name: "Alioni",
@@ -110,7 +149,7 @@ export const characters: Character[] = [
     jpTag: "〈山猫の髭〉騎士団",
     jpName: "団員 アリオーニ",
     stats: {
-      combatClass_Cp: 0,
+      combatClass: 0,
       attack: 0,
       defense: 0,
       hp: 0,
@@ -123,6 +162,18 @@ export const characters: Character[] = [
       critDefense: "",
       recoveryRate: "",
       lifesteal: "",
+    },
+    misc: {
+      info: {
+        gender: "Male",
+        bloodType: "Unknown",
+        age: "Unknown",
+        birthday: "22nd February",
+        height: "170cm",
+        weight: "Secret",
+        location: "Bernia Village",
+        CV: "Unknown",
+      }
     },
     imageUrl:
       "https://gcdatabase.com/images/characters/alioni/rg_portrait.webp",
@@ -132,19 +183,19 @@ export const characters: Character[] = [
     crossover: Crossovers.NotCrossover,
     game: Games.Base,
     holyRelic: [
-      {
-        name: "Double-edged Sword of the Einherjar",
-        imageUrl: "https://gcdatabase.com/images/relics/alioni_relic.png",
-        effect: "Decreases the hero’s damage taken from enemies by 40%.",
-        stats: [
-          {
-            attack: "+140",
-            defense: "+300",
-            hp: "+3100",
-          },
-        ],
-      },
-    ],
+     {
+      name: 'Double-edged Sword of the Einherjar',
+      imageUrl: 'https://gcdatabase.com/images/relics/alioni_relic.png',
+      effect: '',
+      stats: [
+        {
+          attack: "0",
+          defense: "0",
+          hp: "5%"
+        }
+      ]
+     }
+    ]
   },
   {
     name: "Eren Yeager",
@@ -153,7 +204,7 @@ export const characters: Character[] = [
     jpName: "エレン・イェーガー",
     jpTag: "巨人化能力",
     stats: {
-      combatClass_Cp: 0,
+      combatClass: 0,
       attack: 0,
       defense: 0,
       hp: 0,
@@ -167,13 +218,25 @@ export const characters: Character[] = [
       recoveryRate: "",
       lifesteal: "",
     },
+    misc: {
+      info: {
+        gender: "Male",
+        bloodType: "Unknown",
+        age: "Unknown",
+        birthday: "Unknown",
+        height: "Unknown",
+        weight: "Unknown",
+        location: "Unknown",
+        CV: "Unknown",
+      }
+    },
     imageUrl:
       "https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp",
     attribute: Attributes.HP,
     game: Games.AOT,
     rarity: Rarities.SSR,
     race: Races.HumanGiant,
-    crossover: Crossovers.Crossover,
+    crossover: Crossovers.NotCrossover,
   },
 ];
 

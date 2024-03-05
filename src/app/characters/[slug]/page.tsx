@@ -61,6 +61,25 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         </div>
         <div className="grid grid-cols-3 text-center gap-4">
+        {/* {character?.basicInfo?.map((x) => {
+                  const char = findCharacterFromSlug(x.slug);
+
+                  return (
+                    <tr className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500">
+                      <td className="p-4 border border-gray-500">
+                        <Link className="space-y-3" href={char.slug}>
+                          <img
+                            className="w-20 mx-auto"
+                            src={char.imageUrl}
+                            alt={char.name}
+                          />
+                          <p className="font-bold text-base hover:opacity-60 transition-all duration-300">{char.name}</p>
+                        </Link>
+                      </td>
+                      <td className="p-4 text-base font-semibold">{x.bonus}</td>
+                    </tr>
+                  );
+                })} */}
           <div>
             <h1 className="lg:text-xl font-bold">Attribute</h1>
             <p className="lg:text-lg">{character?.attribute}</p>
@@ -78,10 +97,11 @@ export default function CharacterPage({ params: { slug } }: any) {
       <div className="grid lg:grid-cols-4 grid-cols-1 gap-6">
         {/* Character Stats */}
         <div className="gap-5 flex flex-col justify-center">
-          <h1 className="font-bold text-xl mb-4 text-center lg:text-left">
+          <h1 className="font-bold text-xl pb-5 text-center lg:text-left">
             Character Stats
           </h1>
           <div>
+            <h2 className="text-sm font-semibold pb-1">Level 1 Stats:</h2>
             <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
               {Object.entries(character?.stats).map(([key, value]) => (
                 <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -99,7 +119,7 @@ export default function CharacterPage({ params: { slug } }: any) {
 
         {/* Skills */}
         <div className="lg:col-span-2">
-          <h1 className="font-bold text-xl pb-3">Skills</h1>
+          <h1 className="font-bold text-xl text-center lg:text-left pb-5">Skills</h1>
           <div
             className="flex flex-col gap-4 justify-center 
           items-center text-center"
@@ -108,13 +128,13 @@ export default function CharacterPage({ params: { slug } }: any) {
 
         {/* Passive */}
         <div>
-          <h1 className="font-bold text-xl">Passive</h1>
+          <h1 className="font-bold text-center lg:text-left pb-5 text-xl">Passive</h1>
         </div>
 
         {/* Association */}
         {character.associations && (
           <div>
-            <h1 className="font-bold text-xl pb-5">Associations</h1>
+            <h1 className="font-bold text-center lg:text-left text-xl pb-5">Associations</h1>
 
             <table className="w-full text-sm rtl:text-right text-white-500 text-center">
               <thead>
@@ -138,10 +158,10 @@ export default function CharacterPage({ params: { slug } }: any) {
                             src={char.imageUrl}
                             alt={char.name}
                           />
-                          <p>{char.name}</p>
+                          <p className="font-bold text-base hover:opacity-60 transition-all duration-300">{char.name}</p>
                         </Link>
                       </td>
-                      <td className="p-4">{x.bonus}</td>
+                      <td className="p-4 text-base font-semibold">{x.bonus}</td>
                     </tr>
                   );
                 })}
@@ -150,7 +170,22 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         )}
 
-        <div>Stuff</div>
+        <div>
+          <h1 className="font-bold text-center lg:text-left text-xl pb-5">Misc Info</h1>
+          <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
+          {Object.entries(character?.misc.info).map(([key, value]) => (
+               <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+               <td className="p-4 text-lg">
+                 {splitBySlash(
+                   capitalise(splitByCapitalizationAndJoin(`${key}: `))
+                 )}
+               </td>
+               <td className="p-4 text-base">{value}</td>
+             </tr>
+          ))}
+          </table>
+        
+        </div>
         <div>Gift</div>
         <div>
           {character?.holyRelic && (

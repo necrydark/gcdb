@@ -15,7 +15,7 @@ export type BasicInfo = {
 };
 
 export type CharacterStats = {
-  combatClass_Cp: number;
+  combatClass: number;
   attack: number;
   defense: number;
   hp: number;
@@ -39,11 +39,12 @@ export type CharacterPreview = {
 export type CharacterMiscInfo = {
   gender: string;
   bloodType?: string;
-  age?: number;
+  age?: string;
   birthday?: string;
   height?: string;
   weight?: string;
   location: string;
+  CV?: string;
 };
 
 export type Character = {
@@ -58,13 +59,13 @@ export type Character = {
   rarity: Rarity;
   race: Race;
   crossover: IsCrossover;
-  // basicInfo: BasicInfo;
+  // basicInfo: BasicInfo[];
   stats: CharacterStats;
-  // misc: {
-  //   info: CharacterMiscInfo;
+  misc: {
+    info: CharacterMiscInfo;
   //   gift?: Gift;
   //   food?: Food[];
-  // };
+  };
   // skills: CharacterSkills;
   associations?: Association[];
   holyRelic?: HolyRelic[];
