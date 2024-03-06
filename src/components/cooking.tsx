@@ -3,7 +3,7 @@ import React, { useState } from "react";
 interface CookingProps {
   tabCount: number;
   town: string[];
-  food : Food[];
+  food: Food[];
 }
 
 type Food = {
@@ -13,9 +13,7 @@ type Food = {
   characters: string;
 };
 
-
-
-const Cooking: React.FC<CookingProps> = ({ tabCount, town, food}) => {
+const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
   const [openTab, setOpenTab] = useState(1);
 
   return (
@@ -29,7 +27,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food}) => {
             {town.map((townName, i) => (
               <li
                 key={i}
-                className={`text-md font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
+                className={` cursor-pointer text-md font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
                   openTab === i + 1 ? "bg-gray-900" : "bg-gray-800"
                 }`}
                 onClick={() => setOpenTab(i + 1)}
@@ -57,11 +55,16 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food}) => {
                           </thead>
                           <tbody>
                             <tr>
-                              <td className="border px-4 py-2">Data 1</td>
-                              <td className="border px-4 py-2">Data 2</td>
-                              <td className="border px-4 py-2">Data 3</td>
-                              <td className="border px-4 py-2">Data 4</td> 
-                              
+                              {food.map((food, i) => (
+                                <>
+                                  <td key={i} className="px-6 py-4">
+                                    {food.name}
+                                  </td>
+                                  <td>{food.ingredients}</td>
+                                  <td>{food.effects}</td>
+                                  <td>{food.characters}</td>
+                                </>
+                              ))}
                             </tr>
                             {/* Add more rows as needed */}
                           </tbody>
