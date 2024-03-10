@@ -104,13 +104,6 @@ export const characters: Character[] = [
         description: "Its a ribbon"
       }
     ],
-    passive: 
-      {
-        name: "Queen's Authority",
-        imageUrl: "https://gcdatabase.com/images/characters/queen_diane/ssrg_passive.png",
-        description: "Increases all allies' basic stats by 10% in PVP.",
-        jpName: "女王の権威",
-      },
     food: [
       {
         name: "Sweet Meat Pie",
@@ -121,6 +114,64 @@ export const characters: Character[] = [
         imageUrl: "https://gcdatabase.com/images/food/honey-roasted_chicken_matango.webp"
       }
     ],
+    passive: 
+      {
+        name: "Queen's Authority",
+        imageUrl: "https://gcdatabase.com/images/characters/queen_diane/ssrg_passive.png",
+        description: "Applies Symbol of Love on the hero at the start of the battle. While assuming a Stance, the hero's HP-Related Stats are increased by 20%. When the hero's Stance is removed, allies' Crit Defense is increased by 30% for 2 turns. In addition, when the hero uses a skill in PVE, allies' Attack-Related Stats are increased by 10% for 2 turns.",
+        jpName: "女王の権威",
+      },
+    skills: {
+      regularSkills: [
+        {
+          name: "Sweet Impact",
+          imageUrl: "https://gcdatabase.com/images/characters/queen_diane/ssrg_1.png",
+          jpName: "スイート・インパクト",
+          ranks: [
+            {
+              description: "Inflicts Pierce damage equal to 200% of Attack on one enemy.",
+              type: "attack"
+            },
+            {
+              description: "Inflicts Pierce damage equal to 300% of Attack on one enemy.",
+              type: "attack"
+            },
+            {
+              description: "Inflicts Pierce damage equal to 500% of Attack on one enemy.",
+              type: "attack"
+            }
+          ]
+        },
+        {
+          name: "Diamond Shield",
+          imageUrl: "https://gcdatabase.com/images/characters/queen_diane/ssrg_2.png",
+          jpName: "金剛の盾",
+          ranks: [
+            {
+              description: "Assumes a Stance which Taunts enemies and decreases damage taken by 40% when attacked for 2 turn(s).",
+              type: "stance"
+            },
+            {
+              description: "Assumes a Stance which Taunts enemies and decreases damage taken by 50% when attacked for 2 turn(s). Depletes the Ultimate Move Gauge of the enemy who used the skill by 1 orb(s).",
+              type: "stance"
+            },
+            {
+              description: "Assumes a Stance which Taunts enemies and decreases damage taken by 60% when attacked for 2 turn(s). Depletes the Ultimate Move Gauge of the enemy who used the skill by 2 orb(s).",
+              type: "stance"
+            }
+          ]
+        }
+      ],
+      ultimate: {
+        name: "Shy Confession",
+        jpName: "クイーン・エンブレイス",
+        description: "Inflicts Quell damage equal to 380% of Attack on all enemies, then Heals HP of all allies by 3% of damage dealt.",
+        imageUrl: "https://gcdatabase.com/images/characters/queen_diane/ssrg_ult.png",
+        extraInfo: [
+          "Extra Info"
+        ]
+      }
+    },
     associations: [
       {
         slug: "alioni",
