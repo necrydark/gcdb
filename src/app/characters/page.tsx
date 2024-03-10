@@ -5,7 +5,7 @@ import { Crossover, Crossovers } from "@/types/crossover";
 import { Race, Races } from "@/types/race";
 import { Rarities, Rarity } from "@/types/rarity";
 import characters from "@/utils/dummy/characters";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, spring } from "framer-motion";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -162,7 +162,7 @@ function Characters() {
         transition={{ duration: 1, delay: 0.8 }}
         className="relative overflow-x-auto shadow-md sm:rounded-lg"
       >
-        <table className="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+        <table className="w-full text-sm text-center rtl:text-right table-fixed text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -186,7 +186,8 @@ function Characters() {
             <AnimatePresence>
               {filteredCharacters.map((character, idx) => (
                 <motion.tr
-                  layout={"size"}
+                  layout
+                  transition={spring}
                   exit={{ opacity: 0, maxHeight: 0 }}
                   key={idx}
                   className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
@@ -208,17 +209,17 @@ function Characters() {
                       </Link>
                     </div>
                   </th>
-                  <motion.td layout={"size"} className="px-6 py-4">
-                    {character.basicInfo.attribute}
+                  <motion.td layout transition={spring} className="px-6 py-4">
+                    <p>{character.basicInfo.attribute}</p>
                   </motion.td>
-                  <motion.td layout={"size"} className="px-6 py-4">
-                    {character.basicInfo.rarity}
+                  <motion.td layout transition={spring} className="px-6 py-4">
+                    <p>{character.basicInfo.rarity}</p>
                   </motion.td>
-                  <motion.td layout={"size"} className="px-6 py-4">
-                    {character.basicInfo.race}
+                  <motion.td layout transition={spring} className="px-6 py-4">
+                    <p>{character.basicInfo.race}</p>
                   </motion.td>
-                  <motion.td layout={"size"} className="px-6 py-4">
-                    {character.crossover}
+                  <motion.td layout transition={spring} className="px-6 py-4">
+                    <p>{character.crossover}</p>
                   </motion.td>
                 </motion.tr>
               ))}

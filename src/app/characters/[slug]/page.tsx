@@ -137,7 +137,7 @@ export default function CharacterPage({ params: { slug } }: any) {
       </div>
       <div className="grid lg:grid-cols-4 grid-cols-1 gap-6">
         {/* Character Stats */}
-        <div className="gap-5 flex flex-col justify-center">
+        <div className="gap-5 flex flex-col">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -179,22 +179,80 @@ export default function CharacterPage({ params: { slug } }: any) {
         </div>
 
         {/* TODO: Add Skills + Ultimate */}
-        <div className="lg:col-span-2">
-          <h1 className="font-bold text-xl text-center lg:text-left pb-5">
-            Skills
-          </h1>
-          <div
-            className="flex flex-col gap-4 justify-center 
-          items-center text-center"
-          ></div>
-        </div>
-
-        {/* TODO: Fix passive so that it displays the data and image */}
-        <div>
+        <div className="lg:col-span-2 flex flex-col gap-5 justify-center">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="font-bold text-xl text-center lg:text-left pb-5"
+          >
+            Skills
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b text-center gap-5 dark:border-gray-700 p-4"
+          >
+            {character?.skills?.regularSkills.map((x, idx) => {
+              return (
+                <div
+                  className="flex gap-2 flex-col justify-center w-full"
+                  key={idx}
+                >
+                  <div>
+                    <img className="mx-auto" src={x.imageUrl} alt={x.name} />
+                  </div>
+                  <div key={idx}>
+                    <h1 className="text-lg font-bold">
+                      {x.name} | {x.jpName}
+                    </h1>
+                  </div>
+                  <table className="w-full text-sm  table-auto rtl:text-right text-gray-500 dark:text-white font-bold">
+                    <thead>
+                      <tr className="odd:bg-white odd:dark:bg-gray-900  text-lg even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500 font-bold text-gray-900 dark:text-white">
+                        <th className="px-6 border border-gray-500 py-4 whitespace-nowrap">
+                          Rank
+                        </th>
+                        <th className="px-6 border border-gray-500 py-4 whitespace-nowrap">
+                          Description
+                        </th>
+                        <th className="px-6 border border-gray-500 py-4 whitespace-nowrap">
+                          Type
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {x.ranks.map((y, idx) => (
+                        <tr
+                          key={idx}
+                          className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500"
+                        >
+                          <td className="p-4 border border-gray-500">
+                            {idx + 1}
+                          </td>
+                          <td className="p-4 text-base font-semibold">
+                            {y.description}
+                          </td>
+                          <td className="p-4 border border-gray-500">
+                            {y.type}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            })}
+          </motion.div>
+        </div>
+
+        {/* TODO: Fix passive so that it displays the data and image */}
+        <div className="flex flex-col  gap-5">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9 }}
             className="font-bold text-center lg:text-left pb-5 text-xl"
           >
             Passive
@@ -202,25 +260,22 @@ export default function CharacterPage({ params: { slug } }: any) {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 1, delay: 1 }}
             className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b dark:border-gray-700 p-4"
           >
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="flex text-center flex-col justify-center"
-            >
+            <div className="flex text-center flex-col justify-center">
               <img
                 className="w-28 mx-auto"
                 src={character?.passive?.imageUrl}
                 alt={character?.passive?.name}
               />
-              <h2 className="p-4">
+              <h2 className="p-4 font-bold">
                 {character?.passive?.name} | {character?.passive?.jpName}
               </h2>
-              <p className="text-sm">{character?.passive?.description}</p>
-            </motion.div>
+              <p className="text-base p-4 border-t-[1px] border-t-white">
+                {character?.passive?.description}
+              </p>
+            </div>
           </motion.div>
         </div>
 
@@ -372,7 +427,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b dark:border-gray-700 p-2"
               >
                 {character?.food.map((x, idx) => (
-                  <div key={idx} className="text-center">
+                  <div key={idx} className="text-center w-full">
                     <img
                       alt={x.name}
                       className=" w-20 mx-auto"

@@ -2,7 +2,6 @@ import Table from "@/components/table";
 import React from "react";
 
 function page() {
-
   const gears = [
     {
       gear: "Menacing Moon",
@@ -18,13 +17,10 @@ function page() {
       set: "Moon",
       setBonus: "HP +10%",
     },
-  ]
+  ];
   return (
     <div className="container mx-auto p-10 space-y-5">
-      <Table
-        headers={["Gear", "JP", "EN", "Set", "Set Bonus"]}
-        data={gears}
-      />
+      <Table headers={["Gear", "JP", "EN", "Set", "Set Bonus"]} data={gears} />
     </div>
   );
 }

@@ -21,7 +21,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
       <div className="flex flex-wrap">
         <div className="w-full">
           <ul
-            className="flex mb-0 list-none flex-wrap pt-3 gap-3 pb-4 flex-row"
+            className="grid md:grid-cols-6 text-center grid-cols-2 pt-3 gap-3 pb-4"
             role="tablist"
           >
             {town.map((townName, i) => (
