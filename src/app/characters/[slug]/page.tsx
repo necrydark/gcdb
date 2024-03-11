@@ -47,7 +47,7 @@ export default function CharacterPage({ params: { slug } }: any) {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.25 }}
-              className="lg:text-lg text-sm"
+              className="lg:text-lg text-sm font-bold"
             >
               {isEnglish ? `${character.name}` : `${character.jpName}`}
             </motion.p>
@@ -55,7 +55,7 @@ export default function CharacterPage({ params: { slug } }: any) {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
-              className="lg:text-lg text-sm"
+              className="lg:text-lg text-sm font-bold"
             >
               {isEnglish
                 ? `[${character.tag}]`
@@ -86,14 +86,18 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 text-center gap-4">
+        <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.6 }}
+        className="grid grid-cols-3 text-center gap-4 bg-gray-900 h-fit p-5">
           {" "}
           {/* TODO: Decide whether to keep old way or new way */}
           {/* {character?.basicInfo?.map((x) => {
                   const char = findCharacterFromSlug(x.slug);
 
                   return (
-                    <tr className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500">
+                    <tr className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-700 border border-gray-500">
                       <td className="p-4 border border-gray-500">
                         <Link className="space-y-3" href={char.slug}>
                           <img
@@ -112,7 +116,7 @@ export default function CharacterPage({ params: { slug } }: any) {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.25 }}
+            transition={{ duration: 1, delay: 0.8 }}
           >
             <h1 className="lg:text-xl font-bold">Attribute</h1>
             <p className="lg:text-lg">{character?.basicInfo.attribute}</p>
@@ -120,7 +124,7 @@ export default function CharacterPage({ params: { slug } }: any) {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
+            transition={{ duration: 1, delay: 0.9 }}
           >
             <h1 className="lg:text-xl font-bold">Race</h1>
             <p className="lg:text-lg">{character?.basicInfo.race}</p>
@@ -128,12 +132,12 @@ export default function CharacterPage({ params: { slug } }: any) {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
+            transition={{ duration: 1, delay: 1 }}
           >
             <h1 className="lg:text-xl font-bold">Rarity</h1>
             <p className="lg:text-lg">{character?.basicInfo.rarity}</p>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
       <div className="grid lg:grid-cols-4 grid-cols-1 gap-6">
         {/* Character Stats */}
@@ -164,7 +168,7 @@ export default function CharacterPage({ params: { slug } }: any) {
               {Object.entries(character?.stats).map(([key, value]) => (
                 <tr
                   key={key}
-                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500    border-b dark:border-gray-700"
+                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-700 border border-gray-500    border-b dark:border-gray-700"
                 >
                   <td className="p-4 text-lg">
                     {splitBySlash(
@@ -192,12 +196,12 @@ export default function CharacterPage({ params: { slug } }: any) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
-            className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b text-center gap-5 dark:border-gray-700 p-4"
+            className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b gap-5 dark:border-gray-700 p-4"
           >
             {character?.skills?.regularSkills.map((x, idx) => {
               return (
                 <div
-                  className="flex gap-2 flex-col justify-center w-full"
+                  className="flex gap-2 flex-col justify-center text-center w-full"
                   key={idx}
                 >
                   <div>
@@ -210,7 +214,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                   </div>
                   <table className="w-full text-sm  table-auto rtl:text-right text-gray-500 dark:text-white font-bold">
                     <thead>
-                      <tr className="odd:bg-white odd:dark:bg-gray-900  text-lg even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500 font-bold text-gray-900 dark:text-white">
+                      <tr className="odd:bg-white odd:dark:bg-gray-900  text-lg even:bg-gray-50 even:dark:bg-gray-700 border border-gray-500 font-bold text-gray-900 dark:text-white">
                         <th className="px-6 border border-gray-500 py-4 whitespace-nowrap">
                           Rank
                         </th>
@@ -226,7 +230,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                       {x.ranks.map((y, idx) => (
                         <tr
                           key={idx}
-                          className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500"
+                          className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-700 border border-gray-500"
                         >
                           <td className="p-4 border border-gray-500">
                             {idx + 1}
@@ -244,6 +248,20 @@ export default function CharacterPage({ params: { slug } }: any) {
                 </div>
               );
             })}
+            <div className="w-full justify-center p-4 flex flex-col">
+              <h1 className="font-bold text-xl text-center lg:text-left pb-5">Ultimate</h1>
+              <img
+              className="mx-auto"
+              src={character?.skills?.ultimate.imageUrl}
+              alt={character?.skills?.ultimate.name}
+              />
+              <h2 className="text-lg p-4 text-center font-bold">
+                {character?.skills?.ultimate.name} | {character?.skills?.ultimate.jpName}
+              </h2>
+              <p className="text-base p-4 border-t-[1px] text-center border-t-white">
+                {character?.skills?.ultimate.description}
+                </p>
+            </div>
           </motion.div>
         </div>
 
@@ -286,7 +304,7 @@ export default function CharacterPage({ params: { slug } }: any) {
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.7 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               className="font-bold text-center lg:text-left text-xl pb-5"
             >
               Associations
@@ -295,12 +313,12 @@ export default function CharacterPage({ params: { slug } }: any) {
             <motion.table
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.8 }}
               className="w-full text-sm rtl:text-right text-white-500 text-center"
             >
               <thead>
-                <tr className="odd:bg-white odd:dark:bg-gray-900  text-lg even:bg-gray-50 even:dark:bg-gray-800 border border-gray-500 font-bold text-gray-900 dark:text-white">
+                <tr className="odd:bg-white odd:dark:bg-gray-900  text-lg even:bg-gray-50 even:dark:bg-gray-700 border border-gray-500 font-bold text-gray-900 dark:text-white">
                   <th className="px-6 border-r-[1px] border-gray-500 py-4 whitespace-nowrap">
                     Character
                   </th>
@@ -314,7 +332,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                   return (
                     <tr
                       key={idx}
-                      className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-800 border border-gray-500"
+                      className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-700 border border-gray-500"
                     >
                       <td className="p-4 border border-gray-500">
                         <Link className="space-y-3" href={char.slug}>
@@ -344,7 +362,7 @@ export default function CharacterPage({ params: { slug } }: any) {
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             className="font-bold text-center lg:text-left text-xl pb-5"
           >
             Misc Info
@@ -353,13 +371,13 @@ export default function CharacterPage({ params: { slug } }: any) {
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold"
           >
             {Object.entries(character?.misc.info).map(([key, value]) => (
               <tr
                 key={key}
-                className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700"
               >
                 <td className="p-4 text-lg">
                   {splitBySlash(
@@ -380,7 +398,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.7 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 className="text-xl pb-5 font-bold text-center lg:text-left "
               >
                 Gift
@@ -389,7 +407,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 className="bg-gray-900 justify-center flex items-center border border-gray-500 border-b dark:border-gray-700 p-2"
               >
                 {character?.gift.map((x, idx) => (
@@ -414,7 +432,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.7 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 className="text-xl pb-5 font-bold text-center lg:text-left "
               >
                 Food
@@ -423,7 +441,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 className="bg-gray-900 flex flex-col items-center border border-gray-500 border-b dark:border-gray-700 p-2"
               >
                 {character?.food.map((x, idx) => (
@@ -448,7 +466,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.7 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 className="text-xl pb-5 font-bold text-center lg:text-left"
               >
                 Holy Relic
@@ -457,7 +475,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 className="dark:bg-gray-900 border border-gray-500 border-b dark:border-gray-700  p-4"
               >
                 {character?.holyRelic.map((x, idx) => (

@@ -5,7 +5,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 transition-all duration-300">
+    <footer className="bg-gray-900 transition-all duration-300">
       <div className="mx-auto w-full">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 max-w-screen-lg mx-auto">
           <div>
@@ -40,7 +40,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="px-4 py-6 bg-gray-900  md:flex md:items-center md:justify-between">
+        <div className="px-4 py-6  bg-gray-800  md:flex md:items-center md:justify-between">
           <span className="text-md text-white dark:text-gray-300 sm:text-center">
             GCWiki, we are not affliated with or endorsed by Netmarble.
           </span>
