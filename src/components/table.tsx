@@ -24,7 +24,7 @@ const Table = ({
           {data.map((row) => (
         <tr key={row.id} className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
           
-            <td className="px-6 py-4" key={row.id}>{row.gear}</td>
+            <td className="px-6 py-4" key={row.id}>{row.gearIcon}</td>
             <td className="px-6 py-4" key={row.id}>{row.name}</td>
             <td className="px-6 py-4" key={row.id}>{row.jpName}</td>
             <td className="px-6 py-4" key={row.id}>{row.set}</td>

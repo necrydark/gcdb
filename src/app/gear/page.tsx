@@ -5,7 +5,7 @@ function page() {
   const gears = [
     {
       id: 1,
-      gear: "Menacing Moon",
+      gearIcon: "Menacing Moon",
       name: "Attack",
       jpName: "猛攻",
       set: "4",
@@ -13,7 +13,7 @@ function page() {
     },
     {
       id: 2,
-      gear: "Menacing Moon",
+      gearIcon: "Menacing Moon",
       name: "Menacing Moon",
       jpName: "脅威の月",
       set: "Moon",
