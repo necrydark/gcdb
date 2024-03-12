@@ -41,10 +41,10 @@ function Footer() {
           </div>
         </div>
         <div className="px-4 py-6  bg-gray-800  md:flex md:items-center md:justify-between">
-          <span className="text-md text-white dark:text-gray-300 sm:text-center">
+          <span className="text-md text-white dark:text-gray-300">
             GCWiki, we are not affliated with or endorsed by Netmarble.
           </span>
-          <div className="flex mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse">
+          <div className="flex mt-4 md:mt-0 space-x-5 justify-center rtl:space-x-reverse">
             <Link
               href="https://twitter.com/necrydark"
               target="_blank"
