@@ -98,7 +98,7 @@ export default function CharacterPage({ params: { slug } }: any) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6 }}
-        className="grid grid-cols-3 text-center gap-5 bg-gray-900 h-fit p-5">
+        className="grid grid-cols-3 text-center gap-5  h-fit p-5">
           {" "}
           {/* TODO: Decide whether to keep old way or new way */}
           {/* {character?.basicInfo?.map((x) => {
@@ -392,7 +392,7 @@ export default function CharacterPage({ params: { slug } }: any) {
        <Accordion   type="multiple"  className="flex flex-col text-center gap-5">
           <AccordionItem value={"item-1"}>
             <AccordionTrigger>Passive</AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="bg-gray-900 p-5 border border-gray-500   border-b dark:border-gray-700">
             <img
                 className="w-28 mx-auto"
                 src={character?.passive?.imageUrl}
@@ -558,7 +558,7 @@ export default function CharacterPage({ params: { slug } }: any) {
             {Object.entries(character?.misc.info).map(([key, value]) => (
               <tr
                 key={key}
-                className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700"
+                className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-700 border border-gray-500   border-b dark:border-gray-700"
               >
                 <td className="p-4 text-lg">
                   {splitBySlash(
@@ -612,7 +612,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                <Accordion type="multiple">
             <AccordionItem value={"item-5"}>
               <AccordionTrigger>Gift</AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="bg-gray-900 p-5 border border-gray-500   border-b dark:border-gray-700">
                 <div className="flex flex-col justify-center items-center">
                 {character?.gift.map((x, idx) => (
                   <div key={idx} className="text-center">
@@ -669,7 +669,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                   <Accordion type="multiple">
             <AccordionItem value={"item-6"}>
               <AccordionTrigger>Food</AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="bg-gray-900 p-5 border border-gray-500   border-b dark:border-gray-700">
                 <div className="flex flex-col justify-center items-center">
                 {character?.food.map((x, idx) => (
                   <div key={idx} className="text-center w-full">
