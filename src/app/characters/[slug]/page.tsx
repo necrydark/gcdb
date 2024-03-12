@@ -147,7 +147,11 @@ export default function CharacterPage({ params: { slug } }: any) {
           </motion.div>
         </motion.div>
       </div>
-      <div className="grid lg:grid-cols-4 grid-cols-1 gap-6">
+      <motion.div 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.7 }}
+      className="grid lg:grid-cols-4 grid-cols-1 gap-6">
         <Accordion type="multiple">
                 <AccordionItem value={"item-2"}>
                   <AccordionTrigger>Character Stats</AccordionTrigger>
@@ -217,7 +221,11 @@ export default function CharacterPage({ params: { slug } }: any) {
 
 
         {/* TODO: Add Skills + Ultimate */}
-        <div className="lg:col-span-2 flex flex-col gap-5">
+        <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.8 }}
+        className="lg:col-span-2 flex flex-col gap-5">
           <Accordion type="multiple">
             <AccordionItem value={"item-1"}>
               <AccordionTrigger>Skills</AccordionTrigger>
@@ -373,7 +381,7 @@ export default function CharacterPage({ params: { slug } }: any) {
                 </p>
             </div>
           </motion.div> */}
-        </div>
+        </motion.div>
 
         {/* TODO: Fix passive so that it displays the data and image */}
        <motion.div
@@ -434,7 +442,10 @@ export default function CharacterPage({ params: { slug } }: any) {
 
         {/* Association */}
         {character.associations && (
-          <div>
+          <motion.div
+          initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1 }}>
             <Accordion type="multiple">
               <AccordionItem value={"item-3"}>
               <AccordionTrigger>Associations</AccordionTrigger>
@@ -530,12 +541,15 @@ export default function CharacterPage({ params: { slug } }: any) {
                 })}
               </tbody>
             </motion.table> */}
-          </div>
+          </motion.div>
         )}
 
         {/* Character Misc Info */}
         {/* TODO: Fix table on smaller resolutions */}
-        <div>
+        <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.1 }}>
         <Accordion type="multiple">
             <AccordionItem value={"item-4"}>
               <AccordionTrigger>Misc Info</AccordionTrigger>
@@ -588,12 +602,13 @@ export default function CharacterPage({ params: { slug } }: any) {
               </tr>
             ))}
           </motion.table> */}
-        </div>
+        </motion.div>
         {/* Gifts */}
-
-        <div>
           {character?.gift && (
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.1 }}>
                <Accordion type="multiple">
             <AccordionItem value={"item-5"}>
               <AccordionTrigger>Gift</AccordionTrigger>
@@ -641,13 +656,16 @@ export default function CharacterPage({ params: { slug } }: any) {
                   </div>
                 ))}
               </motion.div> */}
-            </div>
+            </motion.div>
           )}
-        </div>
         {/* Character Food */}
-        <div>
+
           {character?.food && (
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.2 }}
+            >
                   <Accordion type="multiple">
             <AccordionItem value={"item-6"}>
               <AccordionTrigger>Food</AccordionTrigger>
@@ -695,13 +713,16 @@ export default function CharacterPage({ params: { slug } }: any) {
                   </div>
                 ))}
               </motion.div> */}
-            </div>
+            </motion.div>
           )}
-        </div>
+
         {/* Holy Relics */}
-        <div>
+
           {character?.holyRelic && (
-            <div>
+            <motion.div
+            initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.4 }}>
                 <Accordion type="multiple">
             <AccordionItem value={"item-6"}>
               <AccordionTrigger>Holy Relic</AccordionTrigger>
@@ -767,10 +788,10 @@ export default function CharacterPage({ params: { slug } }: any) {
                   </div>
                 ))}
               </motion.div> */}
-            </div>
+            </motion.div>
           )}
+          
+        </motion.div>
         </div>
-        </div>
-      </div>
   );
 }
