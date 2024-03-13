@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 // cooking page
 function CookingPage() {
-  const [openTab, setOpenTab] = useState(1);
   return (
     <>
       <Cooking

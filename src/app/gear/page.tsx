@@ -4,14 +4,16 @@ import React from "react";
 function page() {
   const gears = [
     {
-      gear: "Menacing Moon",
-      name: "Menacing Moon",
-      jpName: "脅威の月",
-      set: "Moon",
-      setBonus: "HP +10%",
+      id: 1,
+      gearIcon: "Menacing Moon",
+      name: "Attack",
+      jpName: "猛攻",
+      set: "4",
+      setBonus: "+20% Attack",
     },
     {
-      gear: "Menacing Moon",
+      id: 2,
+      gearIcon: "Menacing Moon",
       name: "Menacing Moon",
       jpName: "脅威の月",
       set: "Moon",
