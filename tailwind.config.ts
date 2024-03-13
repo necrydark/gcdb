@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const {nextui} = require("@nextui-org/react");
 
 const config = {
   darkMode: ["class"],
@@ -7,7 +8,9 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
+ 
   prefix: "",
   theme: {
     extend: {
@@ -67,7 +70,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/line-clamp")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/line-clamp"), nextui()],
 } satisfies Config;
 
 export default config;

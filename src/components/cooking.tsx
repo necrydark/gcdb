@@ -1,4 +1,5 @@
 import { Food } from "@/types/food";
+import { Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -65,19 +66,29 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                                   </td>
                                   <td>
                                     <div className="flex justify-center flex-wrap space-x-3">
-                                      {food.ingredients?.map((ingredient) => (
-                                        <img
-                                          src={ingredient.imageUrl}
-                                          alt={ingredient.name}
-                                        />
-                                      ))}
+                                      {food.ingredients?.map(
+                                        (ingredient, i) => (
+                                          <Tooltip
+                                            offset={-7}
+                                            key={i}
+                                            content={ingredient.name}
+                                          >
+                                            <img
+                                              key={i}
+                                              src={ingredient.imageUrl}
+                                              alt={ingredient.name}
+                                            />
+                                          </Tooltip>
+                                        )
+                                      )}
                                     </div>
                                   </td>
                                   <td>{food.effect}</td>
                                   <td>
                                     <div className="flex justify-center flex-wrap space-x-3">
-                                      {food.characters?.map((character) => (
+                                      {food.characters?.map((character, i) => (
                                         <Link
+                                          key={i}
                                           href={`/characters/${character.slug}`}
                                         >
                                           <img

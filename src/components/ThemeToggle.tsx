@@ -8,41 +8,47 @@ import { FaMoon } from "react-icons/fa";
 
 const ThemeToggle = () => {
   const [darkMode, setDarkMode] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-  const toggleTheme = () => setDarkMode(!darkMode);
-
-  const setupTheme = () => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
-  setupTheme();
-
-  useEffect(() => setupTheme, []);
-
+  // const toggleTheme = () => setDarkMode(!darkMode);
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  // const setupTheme = () => {
+  //   if (
+  //     localStorage.theme === "dark" ||
+  //     (!("theme" in localStorage) &&
+  //       window.matchMedia("(prefers-color-scheme: dark)").matches)
+  //   ) {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  // };
+  // setupTheme();
+
+  // useEffect(() => setupTheme, []);
+
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.documentElement.classList.add("dark");
+  //     localStorage.setItem("theme", "dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //     localStorage.setItem("theme", "light");
+  //   }
+  // }, [darkMode]);
 
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.button
         style={{
-          backgroundColor: darkMode ? "#372664" : "#FFCC33",
+          backgroundColor: theme === "dark" ? "#372664" : "#FFCC33",
           padding: "5px 10px 5px 10px",
-          color: darkMode ? "#fff" : "#000",
+          color: theme === "dark" ? "#fff" : "#000",
           fontSize: "14px",
           display: "block",
           borderRadius: "0.375rem",
@@ -51,10 +57,10 @@ const ThemeToggle = () => {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}
         transition={{ duration: 0.2 }}
-        key={darkMode ? "dark" : "light"}
-        onClick={toggleTheme}
+        key={theme === "dark" ? "dark" : "light"}
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
-        {darkMode ? (
+        {theme === "dark" ? (
           <BsSunFill className="icon" />
         ) : (
           <FaMoon className="icon text-white " />

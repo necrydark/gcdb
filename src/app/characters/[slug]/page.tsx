@@ -683,11 +683,11 @@ export default function CharacterPage({ params: { slug } }: any) {
                     {character?.food.map((x, idx) => (
                       <div key={idx} className="text-center w-full">
                         <img
-                          alt={x.name}
+                          alt={x.meal.name}
                           className=" w-20 mx-auto"
-                          src={x.imageUrl}
+                          src={x.meal.imageUrl}
                         />
-                        <p className="p-2 text-sm">{x.name}</p>
+                        <p className="p-2 text-sm">{x.meal.name}</p>
                       </div>
                     ))}
                   </div>

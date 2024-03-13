@@ -14,6 +14,6 @@ export type Meal = {
 export type Food = {
   meal: Meal;
   ingredients?: Ingredient[];
-  effect: string;
-  characters: CharacterPreview[];
+  effect?: string;
+  characters?: CharacterPreview[];
 };

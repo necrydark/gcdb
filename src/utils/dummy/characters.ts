@@ -106,12 +106,16 @@ export const characters: Character[] = [
     ],
     food: [
       {
-        name: "Sweet Meat Pie",
-        imageUrl: "https://gcdatabase.com/images/food/sweet_meat_pie.webp",
+        meal: {
+          name: "Sweet Meat Pie",
+          imageUrl: "https://gcdatabase.com/images/food/sweet_meat_pie.webp",
+        }
       },
       {
-        name: "Honey-roasted Chicken Matango",
-        imageUrl: "https://gcdatabase.com/images/food/honey-roasted_chicken_matango.webp"
+        meal: {
+          name: "Honey-roasted Chicken Matango",
+          imageUrl: "https://gcdatabase.com/images/food/honey-roasted_chicken_matango.webp"
+        }
       }
     ],
     passive: 
