@@ -1,3 +1,5 @@
+import { Food } from "@/types/food";
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface CookingProps {
@@ -6,20 +8,13 @@ interface CookingProps {
   food: Food[];
 }
 
-type Food = {
-  name: string;
-  ingredients: string;
-  effects: string;
-  characters: string;
-};
-
 const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
   const [openTab, setOpenTab] = useState(1);
 
   return (
     <div className="container p-10 mx-auto">
       <div className="flex flex-wrap">
-        <div className="w-full">
+        <div className="w-full text-center">
           <ul
             className="grid md:grid-cols-6 text-center grid-cols-2 pt-3 gap-3 pb-4"
             role="tablist"
@@ -27,7 +22,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
             {town.map((townName, i) => (
               <li
                 key={i}
-                className={` cursor-pointer text-md font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
+                className={`cursor-pointer line-clamp-1 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
                   openTab === i + 1 ? "bg-gray-900" : "bg-gray-800"
                 }`}
                 onClick={() => setOpenTab(i + 1)}
@@ -43,7 +38,6 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                   if (openTab === i + 1) {
                     return (
                       <div key={i} className="block">
-                        <h2 className="text-xl font-bold mb-2">{townName}</h2>
                         <table className="table-auto w-full">
                           <thead>
                             <tr>
@@ -58,11 +52,43 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                               {food.map((food, i) => (
                                 <>
                                   <td key={i} className="px-6 py-4">
-                                    {food.name}
+                                    <div>
+                                      <img
+                                        className="mx-auto"
+                                        src={food.meal.imageUrl}
+                                        alt={food.meal.name}
+                                      />
+                                      <p className="text-xs">
+                                        {food.meal.name}
+                                      </p>
+                                    </div>
                                   </td>
-                                  <td>{food.ingredients}</td>
-                                  <td>{food.effects}</td>
-                                  <td>{food.characters}</td>
+                                  <td>
+                                    <div className="flex justify-center flex-wrap space-x-3">
+                                      {food.ingredients?.map((ingredient) => (
+                                        <img
+                                          src={ingredient.imageUrl}
+                                          alt={ingredient.name}
+                                        />
+                                      ))}
+                                    </div>
+                                  </td>
+                                  <td>{food.effect}</td>
+                                  <td>
+                                    <div className="flex justify-center flex-wrap space-x-3">
+                                      {food.characters?.map((character) => (
+                                        <Link
+                                          href={`/characters/${character.slug}`}
+                                        >
+                                          <img
+                                            className="w-10 cursor-pointer"
+                                            src={character.imageUrl}
+                                            alt={character.name}
+                                          />
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  </td>
                                 </>
                               ))}
                             </tr>

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@trpc/client": "^11.0.0-next-beta.315",
     "@trpc/server": "^11.0.0-next-beta.315",
     "axios": "^1.6.7",
