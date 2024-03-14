@@ -272,6 +272,8 @@ function page() {
 
       <div>
         {/* TODO: Make table unique */}
+        <h1 className="text-xl p-4 pl-0">Gear Substats</h1>
+
         <table className="w-full text-sm mt-[15px] rtl:text-right text-gray-500 dark:text-white font-bold">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700">
