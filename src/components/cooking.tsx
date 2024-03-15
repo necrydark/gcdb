@@ -1,5 +1,6 @@
 import { Food } from "@/types/food";
 import { Tooltip } from "@nextui-org/react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -12,8 +13,18 @@ interface CookingProps {
 const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
   const [openTab, setOpenTab] = useState(1);
 
+  const variants = {
+    open: { opacity: 1, y: 0 },
+    closed: { opacity: 0, y: -20 },
+  };
+
   return (
-    <div className="container p-10 mx-auto">
+    <motion.div
+      className="container p-10 mx-auto"
+      initial="closed"
+      animate="open"
+      variants={variants}
+    >
       <div className="flex flex-wrap">
         <div className="w-full text-center">
           <ul
@@ -21,15 +32,17 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
             role="tablist"
           >
             {town.map((townName, i) => (
-              <li
+              <motion.li
                 key={i}
                 className={`cursor-pointer line-clamp-1 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
                   openTab === i + 1 ? "bg-gray-900" : "bg-gray-800"
                 }`}
                 onClick={() => setOpenTab(i + 1)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 {townName}
-              </li>
+              </motion.li>
             ))}
           </ul>
           <div className="relative flex flex-col min-w-0 break-words bg-gray-900 w-full mb-6 shadow-lg rounded">
@@ -38,7 +51,14 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                 {town.map((townName, i) => {
                   if (openTab === i + 1) {
                     return (
-                      <div key={i} className="block">
+                      <motion.div
+                        key={i}
+                        className="block"
+                        initial="closed"
+                        animate="open"
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        variants={variants}
+                      >
                         <table className="table-auto w-full">
                           <thead>
                             <tr>
@@ -101,10 +121,9 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                                 </td>
                               </tr>
                             ))}
-                            {/* Add more rows as needed */}
                           </tbody>
                         </table>
-                      </div>
+                      </motion.div>
                     );
                   }
                   return null;
@@ -114,7 +133,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
