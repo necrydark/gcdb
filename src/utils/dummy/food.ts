@@ -329,4 +329,40 @@ export const meal = {
     name: "Chicken and Egg Risotto",
     imageUrl: "https://gcdatabase.com/images/food/chicken_and_egg_risotto.webp",
   },
+  vegApplePie: {
+    name: "Vegetable Apple Pie",
+    imageUrl: "https://gcdatabase.com/images/food/vegetable_apple_pie.webp",
+  },
+  sweetApplePie: {
+    name: "Sweet Apple Pie",
+    imageUrl: "https://gcdatabase.com/images/food/sweet_apple_pie.webp",
+  },
+  honeyApplePie: {
+    name: "Honey Apple Pie",
+    imageUrl: "https://gcdatabase.com/images/food/honey_apple_pie.webp",
+  },
+  herbCiabatta: {
+    name: "Herb Ciabatta",
+    imageUrl: "https://gcdatabase.com/images/food/herb_ciabatta.webp",
+  },
+  pepperBread: {
+    name: "Pepper Bread",
+    imageUrl: "https://gcdatabase.com/images/food/pepper_bread.webp",
+  },
+  eggSandwich: {
+    name: "Egg Sandwich",
+    imageUrl: "https://gcdatabase.com/images/food/egg_sandwich.webp",
+  },
+  seafoodStew: {
+    name: "Seafood Stew",
+    imageUrl: "https://gcdatabase.com/images/food/seafood_stew.webp",
+  },
+  seafoodPasta: {
+    name: "Seafood Pasta",
+    imageUrl: "https://gcdatabase.com/images/food/seafood_pasta.webp",
+  },
+  seafoodPot: {
+    name: "Seafood Pot",
+    imageUrl: "https://gcdatabase.com/images/food/seafood_pot.webp",
+  },
 };

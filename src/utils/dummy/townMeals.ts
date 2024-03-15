@@ -608,4 +608,148 @@ const town4 = [
   },
 ];
 
-export const Meals = [town1, town2, town3, town4, [], [], []];
+const town5 = [
+  {
+    meal: meal.vegApplePie,
+    ingredients: [
+      ingredients.flour,
+      ingredients.vegetables,
+      ingredients.apples,
+    ],
+    effect: "Ultimate Move Gauge + 1",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.sweetApplePie,
+    ingredients: [ingredients.flour, ingredients.sugar, ingredients.apples],
+    effect: "Ultimate Move Gauge + 1",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.honeyApplePie,
+    ingredients: [ingredients.flour, ingredients.honey, ingredients.apples],
+    effect: "Ultimate Move Gauge + 1",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.herbCiabatta,
+    ingredients: [
+      ingredients.flour,
+      ingredients.vegetables,
+      ingredients.driedFruits,
+    ],
+    effect: "Crit Resistance +30%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.pepperBread,
+    ingredients: [
+      ingredients.flour,
+      ingredients.pepper,
+      ingredients.driedFruits,
+    ],
+    effect: "Crit Resistance +30%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.eggSandwich,
+    ingredients: [ingredients.flour, ingredients.eggs, ingredients.driedFruits],
+    effect: "Crit Resistance +30%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.seafoodStew,
+    ingredients: [
+      ingredients.flour,
+      ingredients.milk,
+      ingredients.assortedShellfish,
+    ],
+    effect: "Crit Defense +30%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.seafoodPasta,
+    ingredients: [
+      ingredients.flour,
+      ingredients.butter,
+      ingredients.assortedShellfish,
+    ],
+    effect: "Crit Defense +30%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.seafoodPot,
+    ingredients: [
+      ingredients.flour,
+      ingredients.salt,
+      ingredients.assortedShellfish,
+    ],
+    effect: "Crit Defense +30%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+];
+
+export const Meals = [town1, town2, town3, town4, town5, []];
