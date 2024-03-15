@@ -6,7 +6,7 @@ import React, { useState } from "react";
 interface CookingProps {
   tabCount: number;
   town: string[];
-  food: Food[];
+  food: Food[][];
 }
 
 const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
@@ -49,60 +49,54 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              {food.map((food, i) => (
-                                <>
-                                  <td key={i} className="px-6 py-4">
-                                    <div>
-                                      <img
-                                        className="mx-auto"
-                                        src={food.meal.imageUrl}
-                                        alt={food.meal.name}
-                                      />
-                                      <p className="text-xs">
-                                        {food.meal.name}
-                                      </p>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div className="flex justify-center flex-wrap space-x-3">
-                                      {food.ingredients?.map(
-                                        (ingredient, i) => (
-                                          <Tooltip
-                                            offset={-7}
-                                            key={i}
-                                            content={ingredient.name}
-                                          >
-                                            <img
-                                              key={i}
-                                              src={ingredient.imageUrl}
-                                              alt={ingredient.name}
-                                            />
-                                          </Tooltip>
-                                        )
-                                      )}
-                                    </div>
-                                  </td>
-                                  <td>{food.effect}</td>
-                                  <td>
-                                    <div className="flex justify-center flex-wrap space-x-3">
-                                      {food.characters?.map((character, i) => (
-                                        <Link
+                            {food[openTab - 1].map((food, i) => (
+                              <tr>
+                                <td key={i} className="px-6 py-4">
+                                  <div>
+                                    <img
+                                      className="mx-auto"
+                                      src={food.meal.imageUrl}
+                                      alt={food.meal.name}
+                                    />
+                                    <p className="text-xs">{food.meal.name}</p>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="flex justify-center flex-wrap space-x-3">
+                                    {food.ingredients?.map((ingredient, i) => (
+                                      <Tooltip
+                                        offset={-7}
+                                        key={i}
+                                        content={ingredient.name}
+                                      >
+                                        <img
                                           key={i}
-                                          href={`/characters/${character.slug}`}
-                                        >
-                                          <img
-                                            className="w-10 cursor-pointer"
-                                            src={character.imageUrl}
-                                            alt={character.name}
-                                          />
-                                        </Link>
-                                      ))}
-                                    </div>
-                                  </td>
-                                </>
-                              ))}
-                            </tr>
+                                          src={ingredient.imageUrl}
+                                          alt={ingredient.name}
+                                        />
+                                      </Tooltip>
+                                    ))}
+                                  </div>
+                                </td>
+                                <td>{food.effect}</td>
+                                <td>
+                                  <div className="flex justify-center flex-wrap space-x-3">
+                                    {food.characters?.map((character, i) => (
+                                      <Link
+                                        key={i}
+                                        href={`/characters/${character.slug}`}
+                                      >
+                                        <img
+                                          className="w-10 cursor-pointer"
+                                          src={character.imageUrl}
+                                          alt={character.name}
+                                        />
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
                             {/* Add more rows as needed */}
                           </tbody>
                         </table>
