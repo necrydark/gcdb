@@ -70,7 +70,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                           </thead>
                           <tbody>
                             {food[openTab - 1].map((food, i) => (
-                              <tr>
+                              <tr key={i}>
                                 <td key={i} className="px-6 py-4">
                                   <div>
                                     <img

@@ -1,11 +1,24 @@
-import React from 'react'
+"use client";
+import Relics from "@/components/Tables/relics";
+import { bossRelics } from "@/utils/dummy/bossRelics";
+import React from "react";
 
 function HolyRelicsPage() {
   return (
-    <div className='container mx-auto p-10 space-y-5'>
-      <h1>hehehehehehe</h1>
-    </div>
-  )
+    <>
+      <Relics
+        tabCount={5}
+        relics={bossRelics}
+        bosses={[
+          "Hraesvelgr",
+          "Eikthyrnir",
+          "Skoll and Hati",
+          "Nidhoggr",
+          "Collab",
+        ]}
+      />
+    </>
+  );
 }
 
-export default HolyRelicsPage
+export default HolyRelicsPage;

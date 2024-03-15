@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useState } from "react";
 
-interface CookingProps {
+interface RelicProps {
   tabCount: number;
-  town: string[];
-  food: HolyRelic[][];
+  bosses: string[];
+  relics: HolyRelic[][];
 }
 
-const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
+const Relics: React.FC<RelicProps> = ({ tabCount, bosses, relics }) => {
   const [openTab, setOpenTab] = useState(1);
 
   const variants = {
@@ -32,7 +32,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
             className="grid md:grid-cols-6 text-center grid-cols-2 pt-3 gap-3 pb-4"
             role="tablist"
           >
-            {town.map((townName, i) => (
+            {bosses.map((bossName, i) => (
               <motion.li
                 key={i}
                 className={`cursor-pointer line-clamp-1 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
@@ -42,14 +42,14 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                {townName}
+                {bossName}
               </motion.li>
             ))}
           </ul>
           <div className="relative flex flex-col min-w-0 break-words bg-gray-900 w-full mb-6 shadow-lg rounded">
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
-                {town.map((townName, i) => {
+                {bosses.map((bossName, i) => {
                   if (openTab === i + 1) {
                     return (
                       <motion.div
@@ -63,56 +63,54 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                         <table className="table-auto w-full">
                           <thead>
                             <tr>
-                              <th className="px-4 py-2">Food</th>
-                              <th className="px-4 py-2">Ingredients</th>
+                              <th className="px-4 py-2">Relic</th>
+                              <th className="px-4 py-2">Materials</th>
                               <th className="px-4 py-2">Effects</th>
                               <th className="px-4 py-2">Characters</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {food[openTab - 1].map((food, i) => (
-                              <tr>
+                            {relics[openTab - 1].map((relics, i) => (
+                              <tr key={i}>
                                 <td key={i} className="px-6 py-4">
                                   <div>
                                     <img
                                       className="mx-auto"
-                                      src={food.meal.imageUrl}
-                                      alt={food.meal.name}
+                                      src={relics.relic.imageUrl}
+                                      alt={relics.relic.name}
                                     />
-                                    <p className="text-xs">{food.meal.name}</p>
+                                    <p className="text-xs">
+                                      {relics.relic.name}
+                                    </p>
                                   </div>
                                 </td>
                                 <td>
                                   <div className="flex justify-center flex-wrap space-x-3">
-                                    {food.ingredients?.map((ingredient, i) => (
+                                    {relics.materials?.map((material, i) => (
                                       <Tooltip
                                         offset={-7}
                                         key={i}
-                                        content={
-                                          ingredient.name +
-                                          " - " +
-                                          ingredient.location
-                                        }
+                                        content={material.name}
                                       >
                                         <img
                                           key={i}
-                                          src={ingredient.imageUrl}
-                                          alt={ingredient.name}
+                                          src={material.imageUrl}
+                                          alt={material.name}
                                         />
                                       </Tooltip>
                                     ))}
                                   </div>
                                 </td>
-                                <td>{food.effect}</td>
+                                <td>{relics.effect}</td>
                                 <td>
                                   <div className="flex justify-center flex-wrap space-x-3">
-                                    {food.characters?.map((character, i) => (
+                                    {relics.characters?.map((character, i) => (
                                       <Link
                                         key={i}
                                         href={`/characters/${character.slug}`}
                                       >
                                         <img
-                                          className="w-10 cursor-pointer"
+                                          className="w-20 cursor-pointer"
                                           src={character.imageUrl}
                                           alt={character.name}
                                         />
@@ -138,4 +136,4 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
   );
 };
 
-export default Cooking;
+export default Relics;
