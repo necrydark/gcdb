@@ -365,4 +365,40 @@ export const meal = {
     name: "Seafood Pot",
     imageUrl: "https://gcdatabase.com/images/food/seafood_pot.webp",
   },
+  saltDragonSkewer: {
+    name: "Salt Dragon Skewer",
+    imageUrl: "https://gcdatabase.com/images/food/salt_dragon_skewer.webp",
+  },
+  pepperDragonSkewer: {
+    name: "Pepper Dragon Skewer",
+    imageUrl: "https://gcdatabase.com/images/food/pepper_dragon_skewer.webp",
+  },
+  butterDragonSkewer: {
+    name: "Butter Dragon Skewer",
+    imageUrl: "https://gcdatabase.com/images/food/butter_dragon_skewer.webp",
+  },
+  milkCaviarCanape: {
+    name: "Milk Caviar Canape",
+    imageUrl: "https://gcdatabase.com/images/food/milk_caviar_canape.webp",
+  },
+  sugarCaviarCanape: {
+    name: "Sugar Caviar Canape",
+    imageUrl: "https://gcdatabase.com/images/food/sugar_caviar_canape.webp",
+  },
+  honeyCaviarCanape: {
+    name: "Honey Caviar Canape",
+    imageUrl: "https://gcdatabase.com/images/food/honey_caviar_canape.webp",
+  },
+  eggChips: {
+    name: "Egg and Chips",
+    imageUrl: "https://gcdatabase.com/images/food/egg_and_chips.webp",
+  },
+  fishChips: {
+    name: "Fish and Chips",
+    imageUrl: "https://gcdatabase.com/images/food/fish_and_chips.webp",
+  },
+  steakChips: {
+    name: "Steak and Chips",
+    imageUrl: "https://gcdatabase.com/images/food/steak_and_chips.webp",
+  },
 };

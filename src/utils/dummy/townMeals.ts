@@ -752,4 +752,160 @@ const town5 = [
   },
 ];
 
-export const Meals = [town1, town2, town3, town4, town5, []];
+const town6 = [
+  {
+    meal: meal.saltDragonSkewer,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.salt,
+      ingredients.dragonFruit,
+    ],
+    effect: "Recovery +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.pepperDragonSkewer,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.pepper,
+      ingredients.dragonFruit,
+    ],
+    effect: "Recovery +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.butterDragonSkewer,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.vegetables,
+      ingredients.dragonFruit,
+    ],
+    effect: "Recovery +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.milkCaviarCanape,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.milk,
+      ingredients.caviar,
+    ],
+    effect: "Lifesteal +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.sugarCaviarCanape,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.sugar,
+      ingredients.caviar,
+    ],
+    effect: "Lifesteal +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.honeyCaviarCanape,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.honey,
+      ingredients.caviar,
+    ],
+    effect: "Lifesteal +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.eggChips,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.eggs,
+      ingredients.potato,
+    ],
+    effect: "Evade + 1",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.fishChips,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.butter,
+      ingredients.potato,
+    ],
+    effect: "Evade + 1",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.steakChips,
+    ingredients: [
+      ingredients.driedSmokedMeat,
+      ingredients.herbs,
+      ingredients.potato,
+    ],
+    effect: "Evade + 1",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+];
+
+export const Meals = [town1, town2, town3, town4, town5, town6];
