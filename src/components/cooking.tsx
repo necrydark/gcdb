@@ -62,7 +62,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                                   </div>
                                 </td>
                                 <td>
-                                  <div className="flex justify-center flex-wrap space-x-3">
+                                  <div className="flex justify-center flex-wrap space-x-1">
                                     {food.ingredients?.map((ingredient, i) => (
                                       <Tooltip
                                         offset={-7}
@@ -82,7 +82,7 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                                     ))}
                                   </div>
                                 </td>
-                                <td>{food.effect}</td>
+                                <td className="text-xs">{food.effect}</td>
                                 <td>
                                   <div className="flex justify-center flex-wrap space-x-3">
                                     {food.characters?.map((character, i) => (
