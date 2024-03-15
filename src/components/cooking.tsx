@@ -67,7 +67,11 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                                       <Tooltip
                                         offset={-7}
                                         key={i}
-                                        content={ingredient.name}
+                                        content={
+                                          ingredient.name +
+                                          " - " +
+                                          ingredient.location
+                                        }
                                       >
                                         <img
                                           key={i}
