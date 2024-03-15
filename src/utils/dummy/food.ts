@@ -288,4 +288,45 @@ export const meal = {
     name: "Honey Salad",
     imageUrl: "https://gcdatabase.com/images/food/honey_salad.webp",
   },
+  friedChicken: {
+    name: "Fried Chicken",
+    imageUrl: "https://gcdatabase.com/images/food/fried_chicken.webp",
+  },
+  chickenSteak: {
+    name: "Chicken Steak",
+    imageUrl: "https://gcdatabase.com/images/food/chicken_steak.webp",
+  },
+  glazedChicken: {
+    name: "Glazed Chicken",
+    imageUrl: "https://gcdatabase.com/images/food/glazed_chicken.webp",
+  },
+  sugarGrilledChickenWings: {
+    name: "Sugar Grilled Chicken Wings",
+    imageUrl:
+      "https://gcdatabase.com/images/food/sugar_grilled_chicken_wings.webp",
+  },
+  pepperGrilledChickenWings: {
+    name: "Pepper Grilled Chicken Wings",
+    imageUrl:
+      "https://gcdatabase.com/images/food/pepper_grilled_chicken_wings.webp",
+  },
+  saltGrilledChickenWings: {
+    name: "Salt Grilled Chicken Wings",
+    imageUrl:
+      "https://gcdatabase.com/images/food/salt_grilled_chicken_wings.webp",
+  },
+  chickenRiceBallButter: {
+    name: "Chicken Rice Ball with Butter",
+    imageUrl:
+      "https://gcdatabase.com/images/food/chicken_rice_ball_with_butter.webp",
+  },
+  chickenVeggieFriedRice: {
+    name: "Chicken Veggie Fried Rice",
+    imageUrl:
+      "https://gcdatabase.com/images/food/chicken_veggie_fried_rice.webp",
+  },
+  chickenEggRisotto: {
+    name: "Chicken and Egg Risotto",
+    imageUrl: "https://gcdatabase.com/images/food/chicken_and_egg_risotto.webp",
+  },
 };

@@ -452,4 +452,160 @@ const town3 = [
   },
 ];
 
-export const Meals = [town1, town2, town3, [], [], [], []];
+const town4 = [
+  {
+    meal: meal.friedChicken,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.milk,
+      ingredients.teryakiSauce,
+    ],
+    effect: "PvP Coins +1000%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.chickenSteak,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.honey,
+      ingredients.teryakiSauce,
+    ],
+    effect: "PvP Coins +1000%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.glazedChicken,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.herbs,
+      ingredients.teryakiSauce,
+    ],
+    effect: "PvP Coins +1000%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.sugarGrilledChickenWings,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.sugar,
+      ingredients.mozzarellaCheese,
+    ],
+    effect: "Crit Chance +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.pepperGrilledChickenWings,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.pepper,
+      ingredients.mozzarellaCheese,
+    ],
+    effect: "Crit Chance +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.saltGrilledChickenWings,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.salt,
+      ingredients.mozzarellaCheese,
+    ],
+    effect: "Crit Chance +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.chickenRiceBallButter,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.butter,
+      ingredients.lionesRices,
+    ],
+    effect: "Crit Damage +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.chickenVeggieFriedRice,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.vegetables,
+      ingredients.lionesRices,
+    ],
+    effect: "Crit Damage +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+  {
+    meal: meal.chickenEggRisotto,
+    ingredients: [
+      ingredients.luxuryChicken,
+      ingredients.eggs,
+      ingredients.lionesRices,
+    ],
+    effect: "Crit Damage +20%",
+    characters: [
+      {
+        name: "Ice Spice",
+        imageUrl:
+          "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+        slug: "queen_diane",
+      },
+    ],
+  },
+];
+
+export const Meals = [town1, town2, town3, town4, [], [], []];
