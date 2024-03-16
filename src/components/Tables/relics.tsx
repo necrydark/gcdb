@@ -21,7 +21,7 @@ const Relics: React.FC<RelicProps> = ({ tabCount, bosses, relics }) => {
 
   return (
     <motion.div
-      className="container p-10 mx-auto"
+      className="container p-10 mx-auto space-y-5"
       initial="closed"
       animate="open"
       variants={variants}
@@ -29,14 +29,16 @@ const Relics: React.FC<RelicProps> = ({ tabCount, bosses, relics }) => {
       <div className="flex flex-wrap">
         <div className="w-full text-center">
           <ul
-            className="grid md:grid-cols-6 text-center grid-cols-2 pt-3 gap-3 pb-4"
+            className="grid md:grid-cols-5 text-center grid-cols-1 pt-3 gap-3 pb-4"
             role="tablist"
           >
             {bosses.map((bossName, i) => (
               <motion.li
                 key={i}
                 className={`cursor-pointer line-clamp-1 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
-                  openTab === i + 1 ? "bg-gray-900" : "bg-gray-800"
+                  openTab === i + 1
+                    ? "bg-gray-900 border border-white"
+                    : "bg-gray-900"
                 }`}
                 onClick={() => setOpenTab(i + 1)}
                 whileHover={{ scale: 1.1 }}
@@ -60,10 +62,10 @@ const Relics: React.FC<RelicProps> = ({ tabCount, bosses, relics }) => {
                         transition={{ duration: 0.5, delay: 0.5 }}
                         variants={variants}
                       >
-                        <table className="table-auto w-full">
-                          <thead>
-                            <tr>
-                              <th className="px-4 py-2">Relic</th>
+                        <table className="table-auto w-full text-sm  rtl:text-right text-gray-500 dark:text-white">
+                          <thead className="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+                            <tr className="odd:bg-white odd:dark:bg-gray-900 font-bold   even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700">
+                              <th className="px-6 py-3">Relic</th>
                               <th className="px-4 py-2">Materials</th>
                               <th className="px-4 py-2">Effects</th>
                               <th className="px-4 py-2">Characters</th>
@@ -71,7 +73,10 @@ const Relics: React.FC<RelicProps> = ({ tabCount, bosses, relics }) => {
                           </thead>
                           <tbody>
                             {relics[openTab - 1].map((relics, i) => (
-                              <tr key={i}>
+                              <tr
+                                key={i}
+                                className="odd:bg-white text-center odd:dark:bg-gray-900    even:bg-gray-50 even:dark:bg-gray-700"
+                              >
                                 <td key={i} className="px-6 py-4">
                                   <div>
                                     <img
@@ -79,12 +84,12 @@ const Relics: React.FC<RelicProps> = ({ tabCount, bosses, relics }) => {
                                       src={relics.relic.imageUrl}
                                       alt={relics.relic.name}
                                     />
-                                    <p className="text-xs">
+                                    <p className="text-sm font-bold">
                                       {relics.relic.name}
                                     </p>
                                   </div>
                                 </td>
-                                <td>
+                                <td className="px-6 py-4">
                                   <div className="flex justify-center flex-wrap space-x-3">
                                     {relics.materials?.map((material, i) => (
                                       <Tooltip
@@ -101,8 +106,8 @@ const Relics: React.FC<RelicProps> = ({ tabCount, bosses, relics }) => {
                                     ))}
                                   </div>
                                 </td>
-                                <td>{relics.effect}</td>
-                                <td>
+                                <td className="px-6 py-4">{relics.effect}</td>
+                                <td className="px-6 py-4">
                                   <div className="flex justify-center flex-wrap space-x-3">
                                     {relics.characters?.map((character, i) => (
                                       <Link

@@ -1,13 +1,14 @@
-import { Association } from "./associtations";
+import { Event } from "./Event";
 import { AssociationWith } from "./associated";
+import { Association } from "./associtations";
 import { Attribute } from "./attributes";
 import { Crossover } from "./crossover";
 import { Food } from "./food";
 import { Gift } from "./gift";
+import { HolyRelic } from "./holyrelic";
 import { Race } from "./race";
 import { Rarity } from "./rarity";
 import { CharacterSkills } from "./skill";
-import { HolyRelic } from "./holyrelic";
 // import { Passive } from "./passive";
 
 export type BasicInfo = {
@@ -78,6 +79,7 @@ export type Character = {
   associations?: Association[];
   associationsWith?: AssociationWith[];
   holyRelic?: HolyRelic[];
+  event?: Event;
   // attribute: Attribute;
   // rarity: Rarity;
   // race: Race;

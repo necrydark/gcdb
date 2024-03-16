@@ -322,16 +322,18 @@ export const characters: Character[] = [
     },
     holyRelic: [
       {
-        name: 'Double-edged Sword of the Einherjar',
-        imageUrl: 'https://gcdatabase.com/images/relics/alioni_relic.png',
+        relic: {
+          name: 'Double-edged Sword of the Einherjar',
+          imageUrl: 'https://gcdatabase.com/images/relics/alioni_relic.png',
+        },
         effect: '',
-        stats: [
+        stats: 
           {
             attack: "0",
             defense: "0",
             hp: "5%"
           }
-        ]
+        
       }
     ]
   },

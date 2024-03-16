@@ -21,5 +21,5 @@ export type HolyRelic = {
     effect: string;
     characters?: CharacterPreview[];
     materials?: Materials[];
-    stats?: Stats[];
+    stats?: Stats;
 }

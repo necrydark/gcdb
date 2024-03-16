@@ -80,6 +80,15 @@ export default function CharacterPage({ params: { slug } }: any) {
                 <p className="text-sm">{character?.game}</p>
               </motion.div>
             )}
+            {character?.event && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.6 }}
+              >
+                <p className="text-sm font-bold">{character?.event}</p>
+              </motion.div>
+            )}
             <motion.button
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -743,18 +752,16 @@ export default function CharacterPage({ params: { slug } }: any) {
                         className="flex flex-col text-center space-y-2 items-center"
                       >
                         <img
-                          alt={x.name}
+                          alt={x.relic.name}
                           className=" w-20 m-2 !mb-0"
-                          src={x.imageUrl}
+                          src={x.relic.imageUrl}
                         />
-                        <p className="p-2">{x.name}</p>
+                        <p className="p-2">{x.relic.name}</p>
+                        <p className="text-sm p-1">Attack: {x.stats?.attack}</p>
                         <p className="text-sm p-1">
-                          Attack: {x.stats[0]?.attack}
+                          Defense: {x.stats?.defense}
                         </p>
-                        <p className="text-sm p-1">
-                          Defense: {x.stats[0]?.defense}
-                        </p>
-                        <p className="text-sm p-1">HP: {x.stats[0]?.hp}</p>
+                        <p className="text-sm p-1">HP: {x.stats?.hp}</p>
                         <p className="p-2">{x.effect}</p>
                       </div>
                     ))}

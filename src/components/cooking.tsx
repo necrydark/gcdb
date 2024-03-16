@@ -35,7 +35,9 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
               <motion.li
                 key={i}
                 className={`cursor-pointer line-clamp-1 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white ${
-                  openTab === i + 1 ? "bg-gray-900" : "bg-gray-800"
+                  openTab === i + 1
+                    ? "bg-gray-900 border border-white"
+                    : "bg-gray-900"
                 }`}
                 onClick={() => setOpenTab(i + 1)}
                 whileHover={{ scale: 1.1 }}
@@ -59,18 +61,21 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                         transition={{ duration: 0.5, delay: 0.5 }}
                         variants={variants}
                       >
-                        <table className="table-auto w-full">
-                          <thead>
-                            <tr>
-                              <th className="px-4 py-2">Food</th>
-                              <th className="px-4 py-2">Ingredients</th>
-                              <th className="px-4 py-2">Effects</th>
-                              <th className="px-4 py-2">Characters</th>
+                        <table className="table-auto w-full text-sm  rtl:text-right text-gray-500 dark:text-white">
+                          <thead className="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+                            <tr className="odd:bg-white odd:dark:bg-gray-900 font-bold   even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700">
+                              <th className="px-6 py-3">Food</th>
+                              <th className="px-6 py-3">Ingredients</th>
+                              <th className="px-6 py-3">Effects</th>
+                              <th className="px-6 py-3">Characters</th>
                             </tr>
                           </thead>
                           <tbody>
                             {food[openTab - 1].map((food, i) => (
-                              <tr key={i}>
+                              <tr
+                                key={i}
+                                className="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-700"
+                              >
                                 <td key={i} className="px-6 py-4">
                                   <div>
                                     <img
@@ -81,8 +86,8 @@ const Cooking: React.FC<CookingProps> = ({ tabCount, town, food }) => {
                                     <p className="text-xs">{food.meal.name}</p>
                                   </div>
                                 </td>
-                                <td>
-                                  <div className="flex justify-center flex-wrap space-x-1">
+                                <td className="px-6 py-4">
+                                  <div className="flex justify-center flex-wrap space-x-3">
                                     {food.ingredients?.map((ingredient, i) => (
                                       <Tooltip
                                         offset={-7}
