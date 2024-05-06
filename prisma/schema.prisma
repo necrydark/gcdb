@@ -1,0 +1,282 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Character {
+  id               String              @id @default(cuid())
+  name             String
+  tag              String
+  jpName           String
+  jpTag            String
+  slug             String
+  game             String?
+  imageUrl         String
+  crossover        Crossover[]
+  basicInfo        BasicInfo[]
+  stats            CharacterStats[]
+  misc             CharacterMiscInfo[]
+  gift             Gift[]
+  food             Food[]
+  passive          Passive[]
+  skills           CharacterSkills[]
+  associations     Association[]
+  associationsWith AssociationWith[]
+  holyRelic        HolyRelic[]
+  event            Event[]
+  CharacterPreview CharacterPreview[]
+}
+
+model AssociationWith {
+  id          String     @id @default(cuid())
+  slug        String
+  bonus       String
+  character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
+}
+
+model Association {
+  id          String    @id @default(cuid())
+  slug        String
+  bonus       String
+  character   Character @relation(fields: [characterId], references: [id])
+  characterId String
+}
+
+enum Event {
+  Valentine
+  Summer
+  Christmas
+}
+
+enum Attribute {
+  Dark
+  HP
+  Light
+  Speed
+  Strength
+}
+
+enum Crossover {
+  NotCrossover
+  Crossover
+}
+
+model Passive {
+  id          String    @id @default(cuid())
+  name        String
+  imageUrl    String
+  jpName      String
+  description String
+  character   Character @relation(fields: [characterId], references: [id])
+  characterId String
+}
+
+model CharacterStats {
+  id             String    @id @default(cuid())
+  combatClass    Int
+  attack         Int
+  defense        Int
+  hp             Int
+  pierceRate     String
+  resistance     String
+  regeneration   String
+  critChance     String
+  critDamage     String
+  critResistance String
+  critDefense    String
+  recoveryRate   String
+  lifesteal      String
+  character      Character @relation(fields: [characterId], references: [id])
+  characterId    String
+}
+
+model CharacterPreview {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String
+  imageUrl    String
+  character   Character  @relation(fields: [characterId], references: [id])
+  food        Food?      @relation(fields: [foodId], references: [id])
+  holyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id])
+  characterId String
+  foodId      String?
+  holyRelicId String?
+}
+
+model CharacterMiscInfo {
+  id          String    @id @default(cuid())
+  gender      String
+  bloodType   String?
+  age         String?
+  birthday    String?
+  height      String?
+  weight      String?
+  location    String
+  CV          String?
+  character   Character @relation(fields: [characterId], references: [id])
+  characterId String
+}
+
+model Ingredient {
+  id       String @id @default(cuid())
+  name     String
+  imageUrl String
+  location String
+  food     Food?  @relation(fields: [foodId], references: [id])
+  foodId   String
+}
+
+model Meal {
+  id       String @id @default(cuid())
+  name     String
+  imageUrl String
+  food     Food?
+  foodId   String
+}
+
+model Food {
+  id          String             @id @default(cuid())
+  effect      String?
+  characters  CharacterPreview[]
+  meal        Meal               @relation(fields: [mealId], references: [id])
+  mealId      String             @unique
+  ingredients Ingredient[]
+  Character   Character?         @relation(fields: [characterId], references: [id])
+  characterId String?
+}
+
+enum Game {
+  Base
+  KOF
+  Tensura
+  AOT
+  StrangerThings
+  ReZero
+  ShieldHero
+  Mushoku
+  Mave
+  Overlord
+  TOG
+}
+
+model Gift {
+  id          String     @id @default(cuid())
+  name        String
+  description String
+  imageUrl    String
+  character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
+}
+
+model Stats {
+  id        String      @id @default(cuid())
+  attack    String?
+  defense   String?
+  hp        String?
+  HolyRelic HolyRelic[]
+}
+
+model Materials {
+  id          String     @id @default(cuid())
+  name        String
+  imageUrl    String
+  HolyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id])
+  holyRelicId String?
+}
+
+model Relic {
+  id        String      @id @default(cuid())
+  name      String
+  imageUrl  String
+  HolyRelic HolyRelic[]
+}
+
+model HolyRelic {
+  id          String             @id @default(cuid())
+  effect      String
+  relic       Relic              @relation(fields: [relicId], references: [id])
+  relicId     String
+  characters  CharacterPreview[]
+  materials   Materials[]
+  stats       Stats?             @relation(fields: [statsId], references: [id])
+  Character   Character?         @relation(fields: [characterId], references: [id])
+  characterId String?
+  statsId     String?
+}
+
+model BasicInfo {
+  id          String     @id @default(cuid())
+  rarity      Rarity
+  attribute   Attribute
+  race        Race
+  Character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
+}
+
+enum Race {
+  Demon
+  Fairy
+  Giant
+  Goddess
+  Human
+  HumanGiant
+  Unknown
+}
+
+enum Rarity {
+  LR
+  R
+  SR
+  SSR
+  UR
+}
+
+model SkillRank {
+  id                String          @id @default(cuid())
+  description       String
+  type              String
+  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id])
+  characterSkillsId String
+}
+
+model CharacterSkill {
+  id                String          @id @default(cuid())
+  name              String
+  jpName            String
+  imageUrl          String
+  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id])
+  characterSkillsId String
+}
+
+model CharacterUltimate {
+  id                String            @id @default(cuid())
+  name              String
+  jpName            String
+  imageUrl          String
+  description       String
+  extraInfo         String[]
+  character         CharacterSkills[]
+  characterSkillsId String
+}
+
+model CharacterSkills {
+  id                  String            @id @default(cuid())
+  regularSkills       CharacterSkill[]
+  ultimate            CharacterUltimate @relation(fields: [characterUltimateId], references: [id])
+  character           Character         @relation(fields: [characterId], references: [id])
+  characterId         String
+  SkillRank           SkillRank[]
+  characterUltimateId String
+}
