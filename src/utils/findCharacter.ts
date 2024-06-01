@@ -1,4 +1,4 @@
-import { Character } from "@/types/character";
+import { Character } from "@/src/types/character";
 import characters from "./dummy/characters";
 
 export function findCharacterFromSlug(charSlug: string) {

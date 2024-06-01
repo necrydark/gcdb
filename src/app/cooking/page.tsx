@@ -1,6 +1,6 @@
 "use client";
-import Cooking from "@/components/cooking";
-import { Meals } from "@/utils/dummy/townMeals";
+import Cooking from "@/src/components/cooking";
+import { Meals } from "@/src/utils/dummy/townMeals";
 import React, { useState } from "react";
 
 // cooking page

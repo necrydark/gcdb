@@ -1,6 +1,6 @@
 "use client";
-import Relics from "@/components/Tables/relics";
-import { bossRelics } from "@/utils/dummy/bossRelics";
+import Relics from "@/src/components/Tables/relics";
+import { bossRelics } from "@/src/utils/dummy/bossRelics";
 import React from "react";
 
 function HolyRelicsPage() {

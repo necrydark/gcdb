@@ -1,13 +1,19 @@
 "use client";
 
-import { Attribute, Attributes } from "@/types/attributes";
-import { Crossover, Crossovers } from "@/types/crossover";
-import { Race, Races } from "@/types/race";
-import { Rarities, Rarity } from "@/types/rarity";
-import characters from "@/utils/dummy/characters";
+import db from "@/src/lib/db";
+import { Attribute, Attributes } from "@/src/types/attributes";
+import { Crossover, Crossovers } from "@/src/types/crossover";
+import { Race, Races } from "@/src/types/race";
+import { Rarities, Rarity } from "@/src/types/rarity";
+import characters from "@/src/utils/dummy/characters";
 import { AnimatePresence, motion, spring } from "framer-motion";
 import Link from "next/link";
 import React, { useState } from "react";
+
+// async function getCharacters() {
+//   const characters = await db.character.findMany();
+//   console.log(characters);
+// }
 
 function Characters() {
   const [characterName, setCharacterName] = useState("");

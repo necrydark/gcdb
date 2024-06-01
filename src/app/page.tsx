@@ -1,8 +1,5 @@
 "use client";
-import ThemeToggle from "@/components/ThemeToggle";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   const visible = { opacity: 1, y: 0, transition: { duration: 0.5 } };
@@ -46,39 +43,42 @@ export default function Home() {
               Youtubers.
             </motion.p>
           </div>
-          <div
-            className="grid pt-[25px] md:grid-cols-3 grid-cols-1 gap-5"
-          >
+          <div className="grid pt-[25px] md:grid-cols-3 grid-cols-1 gap-5">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
-              className=" bg-slate-600 text-white shadow-slate-900 ">
+              className=" bg-slate-600 text-white shadow-slate-900 "
+            >
               <h1 className="p-4 text-2xl font-bold">Latest News!</h1>
               <div className="flex flex-col justify-center border-t-2">
                 <h1 className="text-2xl p-2">News title!</h1>
               </div>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.2 }} className="bg-slate-600 text-white">
+              transition={{ duration: 1, delay: 1.2 }}
+              className="bg-slate-600 text-white"
+            >
               <h1 className="p-4 text-2xl font-bold">Latest Characters!</h1>
               <div className="flex flex-col justify-center border-t-2">
                 <h1 className="text-2xl p-2">Character Name</h1>
               </div>
             </motion.div>
-            <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.4 }}
-            className="bg-slate-600 text-white">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.4 }}
+              className="bg-slate-600 text-white"
+            >
               <h1 className="p-4 text-2xl font-bold">Latest Relics!</h1>
               <div className="flex flex-col justify-center border-t-2">
                 <h1 className="text-2xl p-2">Relic Name!</h1>
               </div>
             </motion.div>
           </div>
+          {/* @TODO: Add most recent favourites here, if not display a paragraph and button to create an account */}
         </AnimatePresence>
       </div>
     </motion.div>

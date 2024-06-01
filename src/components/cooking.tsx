@@ -1,4 +1,4 @@
-import { Food } from "@/types/food";
+import { Food } from "@/src/types/food";
 import { Tooltip } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import Link from "next/link";

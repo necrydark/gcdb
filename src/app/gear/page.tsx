@@ -1,5 +1,5 @@
-import MaxStatsTable from "@/components/Tables/maxStats";
-import GearTable from "@/components/table";
+import MaxStatsTable from "@/src/components/Tables/maxStats";
+import GearTable from "@/src/components/table";
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/src/components/ui/table";
 import React from "react";
 
 function page() {

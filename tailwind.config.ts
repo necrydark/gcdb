@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
-const {nextui} = require("@nextui-org/react");
+import { withUt } from "uploadthing/tw";
+const { nextui } = require("@nextui-org/react");
 
 const config = {
   darkMode: ["class"],
@@ -10,7 +11,7 @@ const config = {
     "./src/**/*.{ts,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
- 
+
   prefix: "",
   theme: {
     extend: {
@@ -63,14 +64,23 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/line-clamp"), nextui()],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/forms"),
+    nextui(),
+  ],
 } satisfies Config;
 
-export default config;
+export default withUt(config);

@@ -4,14 +4,14 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import characters from "@/utils/dummy/characters";
-import { findCharacterFromSlug } from "@/utils/findCharacter";
+} from "@/src/components/ui/accordion";
+import characters from "@/src/utils/dummy/characters";
+import { findCharacterFromSlug } from "@/src/utils/findCharacter";
 import {
   capitalise,
   splitByCapitalizationAndJoin,
   splitBySlash,
-} from "@/utils/textFormat";
+} from "@/src/utils/textFormat";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
