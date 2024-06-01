@@ -252,6 +252,8 @@ model Food {
   ingredients Ingredient[]
   Character   Character?         @relation(fields: [characterId], references: [id])
   characterId String?
+  Favourites            Favourite[]
+
 }
 
 enum Game {
@@ -311,6 +313,7 @@ model HolyRelic {
   Character   Character?         @relation(fields: [characterId], references: [id])
   characterId String?
   statsId     String?
+  Favourites            Favourite[]
 }
 
 model BasicInfo {
@@ -382,6 +385,10 @@ model Favourite {
   id          String     @id @default(cuid())
   character   Character? @relation(fields: [characterId], references: [id])
   characterId String?
+  food        Food?      @relation(fields: [foodId], references: [id])
+  foodId      String?
+  holyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id])
+  holyRelicId String?
   user        User?      @relation(fields: [userId], references: [id])
   userId      String?
   createdAt   DateTime   @default(now())
