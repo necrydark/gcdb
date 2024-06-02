@@ -14,34 +14,24 @@ import testimg from "../../../../public/test-bg.png";
 import CardSection from "./card-section";
 import SmallCardSection from "./small-card-section";
 
-// import { getUsername } from "../../../prisma/queries";
+import { getUsername } from "@/prisma/queries";
 
-// async function getFavourites(userId: string) {
-//   const data = await db.favourite.findMany({
-//     where: {
-//       userId: userId,
-//     },
-//     select: {
-//       character: {
-//         select: {
-//           name: true,
-//           slug: true,
-//           tag: true,
-//           imageUrl: true,
-//           basicInfo: {
-//             select: {
-//               attribute: true,
-//               race: true,
-//               rarity: true,
-//             },
-//           },
-//         },
-//       },
-//     },
-//   });
+async function getFavourites(userId: string) {
+  const data = await db.character.findMany({
+    select: {
+      name: true,
+      imageUrl: true,
+      basicInfo: true,
+      Favourite: {
+        where: {
+          userId: userId,
+        }
+      }
+    }
+  })
 
-//   return data;
-// }
+  return data;
+}
 
 async function ProfilePage() {
   const user = await currentUser();

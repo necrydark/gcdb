@@ -17,7 +17,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
     from: "GCWiki Verification <onboarding@resend.dev>",
     to: email,
     subject: "Reset your password",
-    html: `<p>Click <a href="${resetLink}">here</a>to reset your password</p>`,
+    html: `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`,
   });
 };
 
@@ -28,7 +28,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
     from: "GCWiki Verification <onboarding@resend.dev>",
     to: email,
     subject: "Confirm Your Email",
-    html: `<p>Click <a href="${confirmLink}">here</a>to verify your email</p>`,
+    html: `<p>Click <a href="${confirmLink}">here</a> to verify your email</p>`,
   });
 };
 

@@ -61,14 +61,6 @@ function Footer() {
               <FaGithub className="text-[1.25rem]" />
               <span className="sr-only">github.com/necrydark</span>
             </Link>
-            <Link
-              href="https://github.com/MonwarK"
-              target="_blank"
-              className=" transition-all duration-300 text-foreground hover:text-foreground-600"
-            >
-              <FaGithub className="text-[1.25rem]" />
-              <span className="sr-only">github.com/MonwarK</span>
-            </Link>
           </div>
         </div>
       </div>

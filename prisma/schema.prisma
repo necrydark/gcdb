@@ -381,6 +381,15 @@ model CharacterSkills {
   characterUltimateId String?
 }
 
+model Gear {
+  id        String @id @default(cuid())
+  name      String
+  imageUrl  String
+  gearType String
+  gearEffect String
+  favourite Favourite[]
+}
+
 model Favourite {
   id          String     @id @default(cuid())
   character   Character? @relation(fields: [characterId], references: [id])
@@ -389,6 +398,8 @@ model Favourite {
   foodId      String?
   holyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id])
   holyRelicId String?
+  gear        Gear?      @relation(fields: [gearId], references: [id])
+  gearId      String?
   user        User?      @relation(fields: [userId], references: [id])
   userId      String?
   createdAt   DateTime   @default(now())

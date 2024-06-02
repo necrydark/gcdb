@@ -1,6 +1,14 @@
 import { ProfileColour, UserRole } from "@prisma/client";
 import { z } from "zod";
 
+export const adminSchema = z.object({
+  name: z.optional(z.string()),
+  username: z.optional(z.string()),
+  email: z.optional(z.string().email()),
+  role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER])),
+  isTwoFactorEnabled: z.optional(z.boolean()),
+})
+
 export const settingsSchema = z
   .object({
     name: z.optional(z.string()),
