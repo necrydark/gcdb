@@ -2,8 +2,6 @@
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { settings } from "@/src/actions/settings";
-import { FormError } from "@/src/components/auth/form-error";
-import { FormSuccess } from "@/src/components/auth/form-success";
 import { Button } from "@/src/components/ui/button";
 import {
   Card,
@@ -29,6 +27,7 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 import { Switch } from "@/src/components/ui/switch";
+import { Textarea } from "@/src/components/ui/textarea";
 import { useToast } from "@/src/components/ui/use-toast";
 import { UploadButton } from "@/src/lib/uploadthing";
 import { settingsSchema } from "@/src/schemas/schema";
@@ -45,7 +44,8 @@ const SettingsPage = () => {
   const { update } = useSession();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
-  const [image, setImage] = useState<string[] | undefined>();
+  const [profilePicture, setProfilePicture] = useState<string | undefined>("");
+  const [profileBanners, setProfileBanners] = useState<string | undefined>("");
 
   const [isPending, startTransition] = useTransition();
 
@@ -58,8 +58,9 @@ const SettingsPage = () => {
       password: undefined,
       newPassword: undefined,
       isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
-      image: user?.image || undefined,
-      banner: user?.banner || undefined,
+      image: user?.image as string,
+      banner: user?.banner,
+      bio: user?.bio || undefined,
       profileColour: user?.profileColor || undefined,
     },
   });
@@ -68,7 +69,8 @@ const SettingsPage = () => {
 
   const onSubmit = (values: z.infer<typeof settingsSchema>) => {
     startTransition(() => {
-      values.image = image?.[0] ?? undefined;
+      values.image = profilePicture as string;
+      values.banner = profileBanners as string;
       settings(values)
         .then((data) => {
           if (data.error) {
@@ -154,6 +156,28 @@ const SettingsPage = () => {
                           disabled={isPending}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="bio"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>About You</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          {...field}
+                          disabled={isPending}
+                          maxLength={255}
+                          placeholder="Tell us a little bit about yourself"
+                          className="resize-none"
+                        />
+                      </FormControl>
+                      <div className="text-right text-gray-500">
+                        {field.value?.length || 0}/255
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -273,9 +297,10 @@ const SettingsPage = () => {
                       </div>
                       <FormControl>
                         <UploadButton
+                          {...field}
                           endpoint="imageUploader"
                           onClientUploadComplete={(res) => {
-                            setImage(res.map((image) => image.url));
+                            setProfilePicture(res[0].url);
                             toast({
                               title: "Upload Complete",
                               description: "Image Uploaded!",
@@ -296,7 +321,7 @@ const SettingsPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="image"
+                  name="banner"
                   render={({ field }) => (
                     <FormItem className="flex flex-col items-center justify-center gap-4 rounded-lg border p-3 shadow-sm">
                       <div className="space-y-0.5 text-center">
@@ -306,8 +331,9 @@ const SettingsPage = () => {
                       <FormControl>
                         <UploadButton
                           endpoint="bannerUpload"
+                          {...field}
                           onClientUploadComplete={(res) => {
-                            setImage(res.map((image) => image.url));
+                            setProfileBanners(res[0].url);
                             toast({
                               title: "Upload Complete",
                               description: "Image Uploaded!",

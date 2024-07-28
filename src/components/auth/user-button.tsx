@@ -47,8 +47,6 @@ export const UserButton = ({ className }: Props) => {
         <DropdownMenuContent align="center" side="bottom" sideOffset={10}>
           <p className="text-center p-2">{user?.username}</p>
           <DropdownMenuSeparator />
-          <DropdownMenuLabel>Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <FaUser className="mr-2" />
@@ -62,13 +60,11 @@ export const UserButton = ({ className }: Props) => {
               <FaCog className="mr-2" />
               <Link href={"/settings"}>Settings</Link>
             </DropdownMenuItem>
-            {user?.role === "ADMIN" && (
-              <>
-                <DropdownMenuItem>
-                  <MdAdminPanelSettings className="mr-2" />
-                  <Link href={"/admin"}>Admin</Link>
-                </DropdownMenuItem>
-              </>
+            {(user?.role === "ADMIN" || user?.role === "OWNER") && (
+              <DropdownMenuItem>
+                <MdAdminPanelSettings className="mr-2" />
+                <Link href={"/admin"}>Admin</Link>
+              </DropdownMenuItem>
             )}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

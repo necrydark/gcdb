@@ -3,6 +3,7 @@ import { ProfileColour } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "../lib/utils";
+import { Badge } from "./ui/badge";
 
 type Props = {
   name: string;
@@ -57,9 +58,62 @@ function SmallCharacterCard({
           />
           <div className="flex flex-col gap-y-1">
             <h1 className="text-lg font-extrabold tracking-tight">{name}</h1>
-            <p className="text-sm">{attribute}</p>
-            <p className="text-sm">{race}</p>
-            <p className="text-sm">{rarity}</p>
+            <div className="flex flex-row gap-2 flex-wrap">
+              <Badge
+                className="text-sm text-white"
+                variant={
+                  colour as
+                    | "red"
+                    | "green"
+                    | "blue"
+                    | "yellow"
+                    | "orange"
+                    | "pink"
+                    | "cyan"
+                    | "purple"
+                    | null
+                    | undefined
+                }
+              >
+                {attribute}
+              </Badge>
+              <Badge
+                className="text-sm text-white"
+                variant={
+                  colour as
+                    | "red"
+                    | "green"
+                    | "blue"
+                    | "yellow"
+                    | "orange"
+                    | "pink"
+                    | "cyan"
+                    | "purple"
+                    | null
+                    | undefined
+                }
+              >
+                {race}
+              </Badge>
+              <Badge
+                className="text-sm text-white"
+                variant={
+                  colour as
+                    | "red"
+                    | "green"
+                    | "blue"
+                    | "yellow"
+                    | "orange"
+                    | "pink"
+                    | "cyan"
+                    | "purple"
+                    | null
+                    | undefined
+                }
+              >
+                {rarity}
+              </Badge>
+            </div>
           </div>
         </div>
         <Button

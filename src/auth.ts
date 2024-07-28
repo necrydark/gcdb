@@ -53,7 +53,9 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         session.user.email = token.email as string;
         session.user.name = token.name;
         session.user.profileColor = token.profileColour as ProfileColour;
+        session.user.image = token.image as string;
         session.user.banner = token.banner as string;
+        session.user.bio = token.bio as string;
       }
 
       return session;
@@ -65,11 +67,12 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
 
       token.name = user.name;
       token.email = user.email;
-      token.picture = user.image;
+      token.image = user.image;
       token.role = user.role;
       token.isTwoFactorEnabled = user.isTwoFactorEnabled;
       token.username = user.username;
       token.profileColour = user.profileColour;
+      token.bio = user.bio;
       token.banner = user.banner;
       return token;
     },

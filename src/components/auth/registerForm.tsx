@@ -27,7 +27,6 @@ export const RegisterForm = () => {
   const [err, setErr] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  const [image, setImage] = useState<string[] | undefined>();
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -161,6 +160,7 @@ export const RegisterForm = () => {
                   <Textarea
                     {...field}
                     disabled={isPending}
+                    maxLength={255}
                     placeholder="Tell us a little bit about yourself"
                     className="resize-none"
                   />

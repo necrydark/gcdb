@@ -17,6 +17,7 @@ datasource db {
 enum UserRole {
   ADMIN
   USER
+  OWNER
 }
 
 enum ProfileColour {
@@ -46,6 +47,7 @@ model User {
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   profileColour         ProfileColour          @default(PURPLE)
+  Comments              Comments[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -110,150 +112,89 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
+enum GameEvent {
+  None
+  Valentine
+  Summer
+  Christmas
+}
+
+enum Genders {
+  Male
+  Female
+  Unknown
+}
+
 model Character {
-  id               String              @id @default(cuid())
-  name             String
-  tag              String
-  jpName           String
-  jpTag            String
-  slug             String
-  game             Game                @default(Base)
-  imageUrl         String
-  crossover        Crossover[]
-  basicInfo        BasicInfo[]
-  stats            CharacterStats[]
-  misc             CharacterMiscInfo[]
-  gift             Gift[]
-  food             Food[]
-  passive          Passive[]
-  skills           CharacterSkills[]
-  associations     Association[]
-  associationsWith AssociationWith[]
-  holyRelic        HolyRelic[]
-  event            Event[]
-  CharacterPreview CharacterPreview[]
-  Favourite        Favourite[]
+  id                 String              @id
+  name               String?
+  tag                String?             @unique
+  jpName             String
+  jpTag              String
+  slug               String?             @unique
+  game               Game                @default(Base)
+  imageUrl           String
+  Crossover          Crossovers          @default(NotCrossover)
+  race               Race                @default(Human)
+  attribute          Attribute           @default(HP)
+  rarity             Rarity              @default(SSR)
+  event              GameEvent           @default(None)
+  combatClass        Int
+  attack             Int
+  defense            Int
+  hp                 Int
+  pierceRate         String
+  resistance         String
+  regeneration       String
+  critChance         String
+  critDamage         String
+  critResistance     String
+  critDefense        String
+  recoveryRate       String
+  lifesteal          String
+  gender             Genders             @default(Male)
+  bloodType          String?
+  age                String?
+  birthday           String?
+  height             String?
+  weight             String?
+  location           String
+  CV                 String?
+  gift               Gift[]
+  food               Food[]
+  passiveName        String
+  passiveImageUrl    String
+  passiveJpName      String
+  passiveDescription String
+  passiveCCNeeded    String?
+  releaseDate        DateTime
+  skills             CharacterSkills[]
+  associations       Association[]
+  associationsWith   AssociationWith[]
+  holyRelic          HolyRelic[]
+  ultimate           CharacterUltimate[]
+  Favourite          Favourite[]
+  Comments           Comments[]
 }
 
 model AssociationWith {
   id          String     @id @default(cuid())
+  imageUrl    String
+  tag         String
   slug        String
   bonus       String
-  character   Character? @relation(fields: [characterId], references: [id])
+  character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
 }
 
 model Association {
   id          String    @id @default(cuid())
   slug        String
+  imageUrl    String
+  tag         String
   bonus       String
-  character   Character @relation(fields: [characterId], references: [id])
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String
-}
-
-enum Event {
-  Valentine
-  Summer
-  Christmas
-}
-
-enum Attribute {
-  Dark
-  HP
-  Light
-  Speed
-  Strength
-}
-
-enum Crossover {
-  NotCrossover
-  Crossover
-}
-
-model Passive {
-  id          String    @id @default(cuid())
-  name        String
-  imageUrl    String
-  jpName      String
-  description String
-  character   Character @relation(fields: [characterId], references: [id])
-  characterId String
-}
-
-model CharacterStats {
-  id             String    @id @default(cuid())
-  combatClass    Int
-  attack         Int
-  defense        Int
-  hp             Int
-  pierceRate     String
-  resistance     String
-  regeneration   String
-  critChance     String
-  critDamage     String
-  critResistance String
-  critDefense    String
-  recoveryRate   String
-  lifesteal      String
-  character      Character @relation(fields: [characterId], references: [id])
-  characterId    String
-}
-
-model CharacterPreview {
-  id          String     @id @default(cuid())
-  name        String
-  slug        String
-  imageUrl    String
-  character   Character  @relation(fields: [characterId], references: [id])
-  food        Food?      @relation(fields: [foodId], references: [id])
-  holyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id])
-  characterId String
-  foodId      String?
-  holyRelicId String?
-}
-
-model CharacterMiscInfo {
-  id          String     @id @default(cuid())
-  gender      String?
-  bloodType   String?
-  age         String?
-  birthday    String?
-  height      String?
-  weight      String?
-  location    String
-  CV          String?
-  character   Character? @relation(fields: [characterId], references: [id])
-  characterId String?
-}
-
-model Ingredient {
-  id       String @id @default(cuid())
-  name     String
-  imageUrl String
-  location String
-  food     Food?  @relation(fields: [foodId], references: [id])
-  foodId   String
-}
-
-model Meal {
-  id       String @id @default(cuid())
-  name     String
-  imageUrl String
-  food     Food?
-  foodId   String
-}
-
-model Food {
-  id          String             @id @default(cuid())
-  effect      String?
-  characters  CharacterPreview[]
-  meal        Meal               @relation(fields: [mealId], references: [id])
-  mealId      String             @unique
-  ingredients Ingredient[]
-  Character   Character?         @relation(fields: [characterId], references: [id])
-  characterId String?
-  Favourites            Favourite[]
-
 }
 
 enum Game {
@@ -270,59 +211,83 @@ enum Game {
   TOG
 }
 
+enum Attribute {
+  Dark
+  HP
+  Light
+  Speed
+  Strength
+}
+
+enum Crossovers {
+  NotCrossover
+  Crossover
+}
+
+model Ingredient {
+  id       String   @id @default(cuid())
+  name     String
+  imageUrl String
+  location String[]
+  food     Food?    @relation(fields: [foodId], references: [id], onDelete: Cascade)
+  foodId   String
+}
+
+model Meal {
+  id       String @id @default(cuid())
+  name     String
+  imageUrl String
+  food     Food?
+  foodId   String
+}
+
+model Food {
+  id          String       @id @default(cuid())
+  effect      String?
+  meal        Meal         @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  mealId      String       @unique
+  ingredients Ingredient[]
+  Character   Character?   @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String?
+}
+
 model Gift {
   id          String     @id @default(cuid())
   name        String
   description String
   imageUrl    String
-  character   Character? @relation(fields: [characterId], references: [id])
+  character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
-}
-
-model Stats {
-  id        String      @id @default(cuid())
-  attack    String?
-  defense   String?
-  hp        String?
-  HolyRelic HolyRelic[]
 }
 
 model Materials {
   id          String     @id @default(cuid())
   name        String
   imageUrl    String
-  HolyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id])
+  HolyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id], onDelete: Cascade)
   holyRelicId String?
 }
 
-model Relic {
-  id        String      @id @default(cuid())
-  name      String
-  imageUrl  String
-  HolyRelic HolyRelic[]
-}
-
 model HolyRelic {
-  id          String             @id @default(cuid())
+  id          String      @id @default(cuid())
+  name        String
   effect      String
-  relic       Relic              @relation(fields: [relicId], references: [id])
-  relicId     String
-  characters  CharacterPreview[]
   materials   Materials[]
-  stats       Stats?             @relation(fields: [statsId], references: [id])
-  Character   Character?         @relation(fields: [characterId], references: [id])
+  attack      String
+  defense     String
+  hp          String
+  Character   Character?  @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
-  statsId     String?
-  Favourites            Favourite[]
+  beast       Beast       @default(Hraesvelgr)
 }
 
-model BasicInfo {
-  id          String     @id @default(cuid())
-  rarity      Rarity
-  attribute   Attribute
-  race        Race
-  Character   Character? @relation(fields: [characterId], references: [id])
-  characterId String?
+enum Beast {
+  Hraesvelgr
+  Eikthyrnir
+  SkollAndHati
+  Nidhoggr
+  Ratatoskr
+  Collab
 }
 
 enum Race {
@@ -343,11 +308,22 @@ enum Rarity {
   UR
 }
 
+model CharacterUltimate {
+  id          String     @id @default(cuid())
+  name        String
+  jpName      String
+  imageUrl    String
+  description String
+  extraInfo   String[]
+  character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String?
+}
+
 model SkillRank {
   id                String          @id @default(cuid())
   description       String
   type              String
-  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id])
+  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id], onDelete: Cascade)
   characterSkillsId String
 }
 
@@ -356,51 +332,43 @@ model CharacterSkill {
   name              String
   jpName            String
   imageUrl          String
-  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id])
-  characterSkillsId String
-}
-
-model CharacterUltimate {
-  id                String            @id @default(cuid())
-  name              String
-  jpName            String
-  imageUrl          String
-  description       String
-  extraInfo         String[]
-  character         CharacterSkills[]
+  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id], onDelete: Cascade)
   characterSkillsId String
 }
 
 model CharacterSkills {
-  id                  String             @id @default(cuid())
-  regularSkills       CharacterSkill[]
-  ultimate            CharacterUltimate? @relation(fields: [characterUltimateId], references: [id])
-  character           Character?         @relation(fields: [characterId], references: [id])
-  characterId         String?
-  SkillRank           SkillRank[]
-  characterUltimateId String?
+  id            String           @id @default(cuid())
+  regularSkills CharacterSkill[]
+  character     Character?       @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId   String
+  SkillRank     SkillRank[]
 }
 
 model Gear {
-  id        String @id @default(cuid())
-  name      String
-  imageUrl  String
-  gearType String
+  id         String @id @default(cuid())
+  name       String
+  imageUrl   String
+  gearType   String
   gearEffect String
-  favourite Favourite[]
 }
 
 model Favourite {
   id          String     @id @default(cuid())
-  character   Character? @relation(fields: [characterId], references: [id])
+  character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
-  food        Food?      @relation(fields: [foodId], references: [id])
-  foodId      String?
-  holyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id])
-  holyRelicId String?
-  gear        Gear?      @relation(fields: [gearId], references: [id])
-  gearId      String?
-  user        User?      @relation(fields: [userId], references: [id])
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
   createdAt   DateTime   @default(now())
+}
+
+model Comments {
+  id          String    @id @default(cuid())
+  comment     String
+  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  characterId String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  createdAt   DateTime  @default(now())
+
+  @@map("comments")
 }

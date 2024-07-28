@@ -1,7 +1,6 @@
 "use server";
 
 import { getUserByEmail, getUserById } from "@/data/user";
-import { ProfileColour } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { UTApi } from "uploadthing/server";
@@ -50,23 +49,34 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
 
     return { success: "Password Updated" };
   }
-  if (values.image) {
-    // Delete the image from the uploadthing server
-    if (dbUser?.image?.toString().includes("utfs.io")) {
-      const utApi = new UTApi();
-      await utApi.deleteFiles(dbUser?.image);
-      return { success: "Profile Picture Changed" };
-    }
 
-    return { success: "Profile Picture changed" };
+  // if (values.image) {
+  //   // Delete the image from the uploadthing server
+  //   if (dbUser?.image?.includes("ufts.io")) {
+  //     const utApi = new UTApi();
+  //     await utApi.deleteFiles(dbUser?.image?.split("/").pop() as string);
+  //     return { success: "Profile Picture Changed" };
+  //   }
+
+  //   return { success: "Profile Picture Changed", image: values.image };
+  // }
+
+  // if (values.banner) {
+  //   if (dbUser?.banner?.includes("ufts.io")) {
+  //     const utApi = new UTApi();
+  //     await utApi.deleteFiles(dbUser?.banner);
+  //     return { success: "Profile Picture Changed" };
+  //   }
+
+  //   return { success: "Banner Updated!", banner: values.banner };
+  // }
+
+  if (values.image == undefined || values.image == "") {
+    values.image = dbUser?.image as string;
   }
 
-  if (values.banner) {
-    if (dbUser?.banner?.toString().includes("utfs.io")) {
-      const utApi = new UTApi();
-      await utApi.deleteFiles(dbUser?.banner);
-      return { success: "Banner Changed" };
-    }
+  if (values.banner == undefined || values.banner == "") {
+    values.banner = dbUser?.banner as string;
   }
 
   const updatedUser = await db.user.update({
@@ -80,7 +90,7 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
     user: {
       name: updatedUser.name,
       email: updatedUser.email,
-      image: updatedUser.image,
+      image: updatedUser.image as string,
       isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
       username: updatedUser.username as string,
       role: updatedUser.role,
@@ -90,5 +100,6 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
   });
 
   revalidatePath("/src/app/(protected)/settings/");
+  revalidatePath("/src/components/auth/auth-nav.tsx");
   return { success: "Settings Updated" };
 };

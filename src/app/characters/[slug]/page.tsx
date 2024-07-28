@@ -1,4 +1,7 @@
 "use client";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import CharacterHeader from "@/src/components/characters/character-header";
+import CommentsForm from "@/src/components/characters/comments-form";
 import {
   Accordion,
   AccordionContent,
@@ -18,6 +21,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function CharacterPage({ params: { slug } }: any) {
+  const user = useCurrentUser();
   const [isEnglish, setIsEnglish] = useState(true);
   //find a character using custom handler
   const character = characters.find((x) => x.slug === slug);
@@ -38,122 +42,19 @@ export default function CharacterPage({ params: { slug } }: any) {
   return (
     <div className="p-10 container mx-auto space-y-10">
       {/* Header */}
-      <div className="flex lg:flex-row flex-col justify-between lg:gap-5 gap-10">
-        <div className="flex flex-col items-center lg:flex-row">
-          <motion.img
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="w-40"
-            src={character?.imageUrl}
-            alt={character?.name}
-          />
-          <div className="space-y-2 lg:pl-3 pt-2 flex flex-col lg:text-start text-center lg:justify-normal justify-center text-xl">
-            <motion.p
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.25 }}
-              className="lg:text-lg text-sm font-bold"
-            >
-              {isEnglish ? `${character.name}` : `${character.jpName}`}
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="lg:text-lg text-sm font-bold !m-0"
-            >
-              {isEnglish
-                ? `[${character.tag}]`
-                : `【${character.jpTag}】
-              `}
-            </motion.p>
-            {/* <p className="font-bold">[{character?.tag}]</p>
-            <p className="font-bold">{character?.name}</p> */}
-            {character?.crossover === "Crossover" && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.6 }}
-              >
-                <p className="text-sm font-bold">{character?.crossover}</p>
-                <p className="text-sm">{character?.game}</p>
-              </motion.div>
-            )}
-            {character?.event && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.6 }}
-              >
-                <p className="text-sm font-bold">{character?.event}</p>
-              </motion.div>
-            )}
-            <motion.button
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6 }}
-              className="cursor-pointer text-center w-[12rem] lg:text-left text-xs font-bold p-0 lg:bg-transparent lg:border-0 border border-white lg:w-[50px]"
-              onClick={toggleLanguage}
-            >
-              EN/JP
-            </motion.button>
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="grid grid-cols-3 text-center gap-5  h-fit p-5"
-        >
-          {/* TODO: Decide whether to keep old way or new way */}
-          {/* {character?.basicInfo?.map((x) => {
-                  const char = findCharacterFromSlug(x.slug);
-
-                  return (
-                    <tr className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-700 border border-gray-500">
-                      <td className="p-4 border border-gray-500">
-                        <Link className="space-y-3" href={char.slug}>
-                          <img
-                            className="w-20 mx-auto"
-                            src={char.imageUrl}
-                            alt={char.name}
-                          />
-                          <p className="font-bold text-base hover:opacity-60 transition-all duration-300">{char.name}</p>
-                        </Link>
-                      </td>
-                      <td className="p-4 text-base font-semibold">{x.bonus}</td>
-                    </tr>
-                  );
-                })} */}
-          {/* Character Info */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-          >
-            <h1 className="lg:text-xl font-bold">Attribute</h1>
-            <p className="lg:text-base">{character?.basicInfo.attribute}</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.9 }}
-          >
-            <h1 className="lg:text-xl font-bold">Race</h1>
-            <p className="lg:text-base">{character?.basicInfo.race}</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-          >
-            <h1 className="lg:text-xl font-bold">Rarity</h1>
-            <p className="lg:text-base">{character?.basicInfo.rarity}</p>
-          </motion.div>
-        </motion.div>
-      </div>
+      <CharacterHeader
+        imageUrl={character?.imageUrl}
+        name={character?.name}
+        tag={character?.tag}
+        jpName={character?.jpName}
+        jpTag={character?.jpTag}
+        crossover={character?.crossover}
+        game={character?.game}
+        event={character?.event}
+        attribute={character?.basicInfo.attribute}
+        rarity={character?.basicInfo.rarity}
+        race={character?.basicInfo.race}
+      />
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -806,6 +707,23 @@ export default function CharacterPage({ params: { slug } }: any) {
                 ))}
               </motion.div> */}
           </motion.div>
+        )}
+
+        {/* component */}
+        {user ? (
+          <div>
+            <h1 className="text-3xl leading-tight font-extrabold py-5">
+              Comments
+            </h1>
+            <CommentsForm
+              characterId={character?.id || 1}
+              slug={character?.slug}
+            />
+          </div>
+        ) : (
+          <div>
+            <h1>You need to be logged in!</h1>
+          </div>
         )}
       </motion.div>
     </div>

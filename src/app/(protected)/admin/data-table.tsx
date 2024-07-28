@@ -1,21 +1,19 @@
 "use client";
 
+import AddUserForm from "@/src/components/admin/add-user-form";
+import { Button } from "@/src/components/ui/button";
 import {
-  ColumnDef,
-  flexRender,
-  ColumnFiltersState,
-  getFilteredRowModel,
-  getCoreRowModel,
-  VisibilityState,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/src/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu"
+} from "@/src/components/ui/dropdown-menu";
+import { Input } from "@/src/components/ui/input";
 import {
   Table,
   TableBody,
@@ -24,10 +22,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/src/components/ui/table";
-import { Input } from "@/src/components/ui/input";
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { useState } from "react";
-import { Button } from "@/src/components/ui/button";
-
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -38,11 +43,9 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  )
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const table = useReactTable({
     data,
@@ -55,11 +58,8 @@ export function DataTable<TData, TValue>({
     state: {
       columnFilters,
       columnVisibility,
-    }
+    },
   });
-
-
-
 
   return (
     <div>
@@ -77,12 +77,24 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center py-4">
           <Input
             placeholder="Filter usernames..."
-            value={(table.getColumn("username")?.getFilterValue() as string) ?? ""}
+            value={
+              (table.getColumn("username")?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
               table.getColumn("username")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
+        </div>
+        <div className="flex items-center py-4">
+          <Dialog>
+            <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 ml-auto">
+              Add User
+            </DialogTrigger>
+            <DialogContent>
+              <AddUserForm />
+            </DialogContent>
+          </Dialog>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -93,9 +105,7 @@ export function DataTable<TData, TValue>({
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
-              .filter(
-                (column) => column.getCanHide()
-              )
+              .filter((column) => column.getCanHide())
               .map((column) => {
                 return (
                   <DropdownMenuCheckboxItem
@@ -108,7 +118,7 @@ export function DataTable<TData, TValue>({
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                )
+                );
               })}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -125,9 +135,9 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   );
                 })}
@@ -143,14 +153,20 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -159,7 +175,9 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <Button variant="outline" size="sm"
+        <Button
+          variant="outline"
+          size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >

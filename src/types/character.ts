@@ -24,7 +24,6 @@ export type Passive = {
   description: string;
 };
 
-
 export type CharacterStats = {
   combatClass: number;
   attack: number;
@@ -59,6 +58,7 @@ export type CharacterMiscInfo = {
 };
 
 export type Character = {
+  id?: number;
   name: string;
   tag: string;
   jpName: string;
@@ -74,13 +74,10 @@ export type Character = {
   };
   gift?: Gift[];
   food?: Food[];
-  passive? : Passive;
+  passive?: Passive;
   skills?: CharacterSkills;
   associations?: Association[];
   associationsWith?: AssociationWith[];
   holyRelic?: HolyRelic[];
   event?: Event;
-  // attribute: Attribute;
-  // rarity: Rarity;
-  // race: Race;
 };

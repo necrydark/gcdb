@@ -19,7 +19,7 @@ type Props = {
 };
 
 function SmallFoodCard({ name, imageUrl, slug, colour }: Props) {
-  const cardColour = colour.toLocaleUpperCase();
+  const cardColour = colour.toLowerCase();
   return (
     <div
       className={cn(

@@ -52,6 +52,7 @@ import { Rarities } from "../../types/rarity";
 // }
 export const characters: Character[] = [
   {
+    id: 1,
     name: "Queen Diane",
     tag: "Love's Messenger",
     jpName: "ディアンヌ",
@@ -185,7 +186,6 @@ export const characters: Character[] = [
     associations: [
       {
         slug: "alioni",
-
         bonus: "HP +5%",
       },
       {
