@@ -168,7 +168,7 @@ model Character {
   passiveDescription String
   passiveCCNeeded    String?
   releaseDate        DateTime
-  skills             CharacterSkills[]
+  skills             Skill[]
   associations       Association[]
   associationsWith   AssociationWith[]
   holyRelic          HolyRelic[]
@@ -319,29 +319,23 @@ model CharacterUltimate {
   characterId String?
 }
 
+model Skill {
+  id             String       @id @default(uuid())
+  name           String
+  jpName         String
+  imageUrl       String
+  character      Character    @relation(fields: [characterId], references: [id])
+  characterId    String
+  skillRanks     SkillRank[]
+}
+
 model SkillRank {
-  id                String          @id @default(cuid())
-  description       String
-  type              String
-  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id], onDelete: Cascade)
-  characterSkillsId String
-}
-
-model CharacterSkill {
-  id                String          @id @default(cuid())
-  name              String
-  jpName            String
-  imageUrl          String
-  character         CharacterSkills @relation(fields: [characterSkillsId], references: [id], onDelete: Cascade)
-  characterSkillsId String
-}
-
-model CharacterSkills {
-  id            String           @id @default(cuid())
-  regularSkills CharacterSkill[]
-  character     Character?       @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  characterId   String
-  SkillRank     SkillRank[]
+  id          String  @id @default(uuid())
+  rank        Int
+  description String
+  type        String
+  skill       Skill   @relation(fields: [skillId], references: [id])
+  skillId     String
 }
 
 model Gear {

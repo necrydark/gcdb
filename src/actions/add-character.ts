@@ -119,7 +119,7 @@ export const addCharacter = async (
       gender,
       bloodType,
       age,
-      birthday: birthday?.toString(),
+      birthday,
       height,
       weight,
       location,
@@ -152,22 +152,16 @@ export const addCharacter = async (
       // },
       skills: {
         create: skills.map((skill) => ({
-          regularSkills: {
-            create: skill.characterSkill.map((cs) => ({
-              name: cs.name,
-              jpName: cs.jpName,
-              characterSkillsId: cs.characterSkillsId,
-              imageUrl: cs.imageUrl,
-            })),
-          },
-          SkillRank: {
-            create: skill.skillRank.map((sr) => ({
+          name: skill.name,
+          jpName: skill.jpName,
+          imageUrl: skill.imageUrl,
+          skillRanks: {
+            create: skill.skillRanks.map((sr) => ({
+              rank: sr.rank,
               description: sr.description,
               type: sr.type,
-              characterSkillsId: sr.characterSkillId,
             })),
           },
-          characterId: id ?? "",
         })),
       },
       // associations: {

@@ -164,6 +164,19 @@ export const addFriendSchema = z.object({
   username: z.string().min(1, "Username is required"),
 });
 
+const skillRankSchema = z.object({
+  rank: z.coerce.number().min(1).max(3),
+  description: z.string().min(1, "Skill Rank Description is required"),
+  type: z.string().min(1, "Skill Rank Type is required"),
+});
+
+const skillSchema = z.object({
+  name: z.string().min(1, "Skill Name is required"),
+  jpName: z.string().min(1, "Skill Japanese Name is required"),
+  imageUrl: z.string().min(1, "Image URL is required"),
+  skillRanks: z.array(skillRankSchema).min(1, "At least one skill rank is required"),
+});
+
 // Add Character
 export const addCharacterSchema = z.object({
   id: z.optional(z.string().min(1, "ID is required")),
@@ -221,7 +234,7 @@ export const addCharacterSchema = z.object({
   gender: z.optional(z.enum([Genders.Male, Genders.Female, Genders.Unknown])),
   bloodType: z.optional(z.string()),
   age: z.optional(z.string()),
-  birthday: z.optional(z.coerce.date()),
+  birthday: z.optional(z.coerce.string()),
   height: z.optional(z.string()),
   weight: z.optional(z.string()),
   location: z.string().min(1, "Location is required"),
@@ -252,32 +265,7 @@ export const addCharacterSchema = z.object({
   passiveJpName: z.string().min(1, "Passive Japanese Name is required"),
   passiveDescription: z.string().min(1, "Passive Description is required"),
   passiveCCNeeded: z.optional(z.string()),
-  skills: z.array(
-    z.object({
-      characterId: z.optional(z.string()),
-      characterSkill: z
-        .array(
-          z.object({
-            name: z.string().min(1, "Skill Name is required"),
-            jpName: z.string().min(1, "Skill Japanese Name is required"),
-            imageUrl: z.string().min(1, "Image URL is required"),
-            characterSkillsId: z.coerce.string(),
-          })
-        )
-        .length(2),
-      skillRank: z
-        .array(
-          z.object({
-            description: z
-              .string()
-              .min(1, "Skill Rank Description is required"),
-            type: z.string().min(1, "Skill Rank Type is required"),
-            characterSkillId: z.coerce.string(),
-          })
-        )
-        .length(6),
-    })
-  ),
+  skills: z.array(skillSchema).min(1, "At least one skill is required"),  
   characterUltimate: z.object({
     ultimateId: z.string().min(1, "Ultimate ID is required"),
     characterId: z.optional(z.string()),
