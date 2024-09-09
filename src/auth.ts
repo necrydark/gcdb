@@ -56,6 +56,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         session.user.image = token.image as string;
         session.user.banner = token.banner as string;
         session.user.bio = token.bio as string;
+        session.user.boxCC = token.boxCC as string;
       }
 
       return session;
@@ -74,6 +75,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       token.profileColour = user.profileColour;
       token.bio = user.bio;
       token.banner = user.banner;
+      token.boxCC = user.boxCC;
       return token;
     },
   },

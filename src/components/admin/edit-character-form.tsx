@@ -1,15 +1,7 @@
 "use client";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { addCharacter } from "@/src/actions/add-character";
-import { addUser } from "@/src/actions/add-user";
+import { editCharacter } from "@/src/actions/edit-character";
 import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
 import {
   Form,
   FormControl,
@@ -27,12 +19,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
 import { useToast } from "@/src/components/ui/use-toast";
-import { UploadButton } from "@/src/lib/uploadthing";
 import { cn } from "@/src/lib/utils";
-import { addCharacterSchema, addNewUserSchema } from "@/src/schemas/schema";
+import { addNewUserSchema, editCharacterSchema } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Association,
@@ -40,19 +30,21 @@ import {
   Attribute,
   Beast,
   Character,
+  CharacterUltimate,
   Crossovers,
   Game,
   GameEvent,
   Genders,
   Gift,
-  HolyRelic,
   Meal,
   Race,
   Rarity,
+  Skill,
+  SkillRank,
 } from "@prisma/client";
 import cuid from "cuid";
 import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,14 +53,6 @@ import { useFieldArray, useForm } from "react-hook-form";
 import ReactSelect from "react-select";
 import * as z from "zod";
 import { Calendar } from "../ui/calendar";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "../ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
 
@@ -78,16 +62,22 @@ interface FormProps {
   Associations?: Association[];
   AssociatedWith?: AssociationWith[];
   Characters?: Character[];
-  Relics?: HolyRelic[];
+  CharacterEdit?: Character;
+  UltimateEdit?: CharacterUltimate;
+  SkillsEdit?: Skill[];
+  RanksEdit?: SkillRank[];
 }
 
-function AddCharacterForm({
+function EditCharacterForm({
   Gifts,
   Foods,
   Associations,
   AssociatedWith,
   Characters,
-  Relics,
+  CharacterEdit,
+  UltimateEdit,
+  SkillsEdit,
+  RanksEdit,
 }: FormProps) {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
@@ -95,8 +85,11 @@ function AddCharacterForm({
   const [uniqueId, setUniqueId] = useState<string>(cuid());
   const [isPending, startTransition] = useTransition();
   const [isSearchable, setIsSearchable] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+
+  const character = CharacterEdit;
+  const ultimate = UltimateEdit;
+  const skills = SkillsEdit;
+  const ranks = RanksEdit;
 
   const GiftOptions = Gifts?.map((gift) => ({
     name: gift.name,
@@ -164,47 +157,46 @@ function AddCharacterForm({
     ),
   }));
 
-  const form = useForm<z.infer<typeof addCharacterSchema>>({
-    resolver: zodResolver(addCharacterSchema),
+  const form = useForm<z.infer<typeof editCharacterSchema>>({
+    resolver: zodResolver(editCharacterSchema),
     defaultValues: {
-      id: undefined,
-      name: undefined,
-      tag: undefined,
-      jpName: undefined,
-      jpTag: undefined,
-      slug: undefined,
-      imageUrl: undefined,
-      releaseDate: undefined,
-      game: Game.Base,
-      crossover: Crossovers.NotCrossover,
-      race: Race.Human,
-      attribute: Attribute.HP,
-      rarity: Rarity.SSR,
-      combatClass: undefined,
-      attack: undefined,
-      defense: undefined,
-      hp: undefined,
-      pierceRate: undefined,
-      resistance: undefined,
-      regeneration: undefined,
-      critChance: undefined,
-      critDamage: undefined,
-      critResistance: undefined,
-      critDefense: undefined,
-      recoveryRate: undefined,
-      lifesteal: undefined,
-      gender: Genders.Male,
-      bloodType: undefined,
-      age: undefined,
-      birthday: undefined,
-      height: undefined,
-      weight: undefined,
-      passiveName: undefined,
-      passiveImageUrl: undefined,
-      passiveJpName: undefined,
-      passiveCCNeeded: undefined,
-      passiveDescription: undefined,
-      holyRelicId: undefined,
+      id: character?.id || undefined,
+      name: character?.name || undefined,
+      tag: character?.tag || undefined,
+      jpName: character?.jpName || undefined,
+      jpTag: character?.jpTag || undefined,
+      slug: character?.slug || undefined,
+      imageUrl: character?.imageUrl || undefined,
+      releaseDate: character?.releaseDate || undefined,
+      game: character?.game || Game.Base,
+      crossover: character?.Crossover || Crossovers.NotCrossover,
+      race: character?.race || Race.Demon,
+      attribute: character?.attribute || Attribute.HP,
+      rarity: character?.rarity || Rarity.R,
+      combatClass: character?.combatClass || undefined,
+      attack: character?.attack || undefined,
+      defense: character?.defense || undefined,
+      hp: character?.hp || undefined,
+      pierceRate: character?.pierceRate || undefined,
+      resistance: character?.resistance || undefined,
+      regeneration: character?.regeneration || undefined,
+      critChance: character?.critChance || undefined,
+      critDamage: character?.critDamage || undefined,
+      critResistance: character?.critResistance || undefined,
+      critDefense: character?.critDefense || undefined,
+      recoveryRate: character?.recoveryRate || undefined,
+      lifesteal: character?.lifesteal || undefined,
+      gender: character?.gender || Genders.Male,
+      bloodType: character?.bloodType || undefined,
+      age: character?.age || undefined,
+      birthday: character?.birthday ? character.birthday.toString() : undefined,
+      height: character?.height || undefined,
+      weight: character?.weight || undefined,
+      passiveName: character?.passiveName || undefined,
+      passiveImageUrl: character?.passiveImageUrl || undefined,
+      passiveJpName: character?.passiveJpName || undefined,
+      passiveCCNeeded: character?.passiveCCNeeded || undefined,
+      passiveDescription: character?.passiveDescription || undefined,
       // gifts: [
       //   {
       //     name: "Gift of the Sun",
@@ -223,34 +215,68 @@ function AddCharacterForm({
       // ],
       skills: [
         {
-          name: "",
-          jpName: "",
-          imageUrl: "",
+          id: (skills && skills[0].id) || undefined,
+          name: (skills && skills[0].name) || undefined,
+          jpName: (skills && skills[0].jpName) || undefined,
+          imageUrl: (skills && skills[0].imageUrl) || undefined,
           skillRanks: [
-            { rank: 1, description: "", type: "" },
-            { rank: 2, description: "", type: "" },
-            { rank: 3, description: "", type: "" },
+            {
+              id: ranks?.[0]?.id,
+              rank: ranks?.[0]?.rank ?? 1,
+              description: ranks?.[0]?.description ?? "",
+              type: ranks?.[0]?.type ?? "",
+            },
+            {
+              id: ranks?.[1]?.id,
+              rank: ranks?.[1]?.rank ?? 2,
+              description: ranks?.[1]?.description ?? "",
+              type: ranks?.[1]?.type ?? "",
+            },
+            {
+              id: ranks?.[2]?.id,
+              rank: ranks?.[2]?.rank ?? 3,
+              description: ranks?.[2]?.description ?? "",
+              type: ranks?.[2]?.type ?? "",
+            },
           ],
         },
         {
-          name: "",
-          jpName: "",
-          imageUrl: "",
+          id: (skills && skills[0].id) || undefined,
+          name: (skills && skills[1].name) || undefined,
+          jpName: (skills && skills[1].jpName) || undefined,
+          imageUrl: (skills && skills[1].imageUrl) || undefined,
           skillRanks: [
-            { rank: 1, description: "", type: "" },
-            { rank: 2, description: "", type: "" },
-            { rank: 3, description: "", type: "" },
+            {
+              id: ranks?.[3]?.id,
+              rank: ranks?.[3]?.rank ?? 1,
+              description: ranks?.[3]?.description ?? "",
+              type: ranks?.[3]?.type ?? "",
+            },
+            {
+              id: ranks?.[4]?.id,
+              rank: ranks?.[4]?.rank ?? 2,
+              description: ranks?.[4]?.description ?? "",
+              type: ranks?.[4]?.type ?? "",
+            },
+            {
+              id: ranks?.[5]?.id,
+              rank: ranks?.[5]?.rank ?? 3,
+              description: ranks?.[5]?.description ?? "",
+              type: ranks?.[5]?.type ?? "",
+            },
           ],
         },
       ],
       characterUltimate: {
-        ultimateId: undefined,
-        name: undefined,
-        jpName: undefined,
-        imageUrl: undefined,
-        description: undefined,
-        extraInfo: undefined,
-        characterId: undefined,
+        ultimateId: ultimate?.id || undefined,
+        name: ultimate?.name || undefined,
+        jpName: ultimate?.jpName || undefined,
+        imageUrl: ultimate?.imageUrl || undefined,
+        description: ultimate?.description || undefined,
+        extraInfo: ultimate?.extraInfo
+          ? JSON.stringify(ultimate.extraInfo)
+          : undefined,
+        characterId: character?.id || undefined,
       },
       // associations: [
       //   {
@@ -291,11 +317,11 @@ function AddCharacterForm({
   const { toast } = useToast();
   const { update } = useSession();
 
-  const onSubmit = (values: z.infer<typeof addCharacterSchema>) => {
+  const onSubmit = (values: z.infer<typeof editCharacterSchema>) => {
     values.id = uniqueId;
     values.slug = slug;
     startTransition(() => {
-      addCharacter(values)
+      editCharacter(values)
         .then((data) => {
           if (data.error) {
             setError(data.error);
@@ -321,15 +347,15 @@ function AddCharacterForm({
     });
   };
 
-  function generateSlug() {
-    const tag = form.getValues("tag");
-    const slug = tag?.toLowerCase().split(" ").join("-");
-    setSlug(slug);
-  }
+  // function generateSlug() {
+  //   const tag = form.getValues("tag");
+  //   const slug = tag?.toLowerCase().split(" ").join("-");
+  //   setSlug(slug);
+  // }
 
-  function generateCUID() {
-    setUniqueId(cuid());
-  }
+  // function generateCUID() {
+  //   setUniqueId(cuid());
+  // }
 
   return (
     <div className="container mx-auto p-10">
@@ -337,7 +363,7 @@ function AddCharacterForm({
         <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-row justify-between gap-5 items-center pb-10">
             <h1 className="text-3xl leading-tight font-extrabold pb-3">
-              Add Character
+              Edit Character - {character?.name}
             </h1>
             <Button variant="outline" size="sm" asChild>
               <Link href={"/admin/characters"}>Go Back</Link>
@@ -354,23 +380,12 @@ function AddCharacterForm({
                 <FormItem>
                   <FormLabel>Character ID</FormLabel>
                   <FormControl>
-                    <div className="relative w-full">
-                      <Input
-                        {...field}
-                        placeholder="CUID"
-                        type="text"
-                        disabled={true}
-                        value={uniqueId || ""}
-                        onChange={generateCUID}
-                      />
-                      <Button
-                        onClick={generateCUID}
-                        type="button"
-                        className="!absolute right-0 top-0 rounded"
-                      >
-                        Generate CUID
-                      </Button>
-                    </div>
+                    <Input
+                      {...field}
+                      placeholder="CUID"
+                      type="text"
+                      disabled={true}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -455,23 +470,12 @@ function AddCharacterForm({
                 <FormItem>
                   <FormLabel>Slug</FormLabel>
                   <FormControl>
-                    <div className="relative w-full">
-                      <Input
-                        {...field}
-                        placeholder="Queen Diane"
-                        type="text"
-                        disabled={isPending}
-                        value={slug || ""}
-                        onChange={generateSlug}
-                      />
-                      <Button
-                        onClick={generateSlug}
-                        type="button"
-                        className="!absolute right-0 top-0 rounded"
-                      >
-                        Generate Slug
-                      </Button>
-                    </div>
+                    <Input
+                      {...field}
+                      placeholder="Queen Diane"
+                      type="text"
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -1237,6 +1241,23 @@ function AddCharacterForm({
                   <div className="flex flex-col gap-4">
                     <FormField
                       control={form.control}
+                      name={`skills.${skillIndex}.id`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Skill ID</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              type="text"
+                              disabled
+                              placeholder="Skill ID"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
                       name={`skills.${skillIndex}.name`}
                       render={({ field }) => (
                         <FormItem>
@@ -1283,6 +1304,23 @@ function AddCharacterForm({
                     {[0, 1, 2].map((rankIndex) => (
                       <div className="flex flex-col gap-4" key={rankIndex}>
                         <h6>Rank {rankIndex + 1}</h6>
+                        <FormField
+                          control={form.control}
+                          name={`skills.${skillIndex}.skillRanks.${rankIndex}.id`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Skill Rank ID</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  type="number"
+                                  placeholder="ID"
+                                  disabled
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
                         <FormField
                           control={form.control}
                           name={`skills.${skillIndex}.skillRanks.${rankIndex}.rank`}
@@ -1367,9 +1405,6 @@ function AddCharacterForm({
                           {...field}
                           placeholder="Ultimate ID"
                           type="text"
-                          value={uniqueId || ""}
-                          onChange={generateCUID}
-                          disabled={isPending || true}
                         />
                       </FormControl>
                     </FormItem>
@@ -1466,62 +1501,15 @@ function AddCharacterForm({
             </div>
           </div>
           <Separator className="my-4 dark:bg-white bg-black" />
-          <h2 className="text-3xl leading-tight font-extrabold pb-3">
-            More Info
-          </h2>
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                className="w-[240px] justify-between"
-              >
-                {value
-                  ? Relics?.find((relic) => relic.id === value)?.name
-                  : "Select Relic..."}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <Command>
-                <CommandInput placeholder="Search Relic..." />
-                <CommandEmpty>No Relic Found.</CommandEmpty>
-                <CommandList>
-                  <CommandGroup>
-                    {Relics?.map((relic) => (
-                      <CommandItem
-                        key={relic.id}
-                        value={relic.id}
-                        onSelect={(currentValue) => {
-                          setValue(currentValue === value ? "" : currentValue);
-                          setOpen(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            value === relic.id ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        {relic.name}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-          <Separator className="my-4 dark:bg-white bg-black" />
 
-          <Button type="submit">Add Character</Button>
+          <Button type="submit">Edit Character</Button>
         </form>
       </Form>
     </div>
   );
 }
 
-export default AddCharacterForm;
+export default EditCharacterForm;
 
 {
   /* More Info (Associations / Meals / Gifts / etc) */

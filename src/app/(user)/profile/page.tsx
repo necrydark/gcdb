@@ -17,22 +17,22 @@ import { Badge } from "@/src/components/ui/badge";
 import CardSection from "./(slug)/[slug]/card-section";
 import SmallCardSection from "./(slug)/[slug]/small-card-section";
 
-async function getFavourites(userId: string) {
-  const data = await db.character.findMany({
-    select: {
-      name: true,
-      imageUrl: true,
-      basicInfo: true,
-      Favourite: {
-        where: {
-          userId: userId,
-        },
-      },
-    },
-  });
+// async function getFavourites(userId: string) {
+//   const data = await db.character.findMany({
+//     select: {
+//       name: true,
+//       imageUrl: true,
+//       basicInfo: true,
+//       Favourite: {
+//         where: {
+//           userId: userId,
+//         },
+//       },
+//     },
+//   });
 
-  return data;
-}
+//   return data;
+// }
 
 async function ProfilePage() {
   const user = await currentUser();
@@ -46,6 +46,8 @@ async function ProfilePage() {
   const [data] = await Promise.all([userData]);
 
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
+
+  const randomName = names[Math.floor(Math.random() * names.length)];
 
   // const userData = await getData(user.id as string);
   // const userFavourites = await getFavourites(user.id as string);
@@ -80,7 +82,7 @@ async function ProfilePage() {
         {/* Username */}
         <div className="flex flex-row justify-center items-center">
           <h1 className="text-3xl pr-[10px] font-extrabold text-center -translate-y-[25px] tracking-tight">
-            {data?.username ?? names.map((name) => name)}
+            {data?.username ?? randomName}
           </h1>
           <Badge
             className=" -translate-y-[20px] border-transparent text-white "

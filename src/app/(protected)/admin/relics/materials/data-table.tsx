@@ -34,7 +34,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function CharacterDataTable<TData, TValue>({
+export function MaterialDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -61,10 +61,10 @@ export function CharacterDataTable<TData, TValue>({
       <div className="flex items-center flex-row gap-5">
         <div className="flex items-center py-4">
           <Input
-            placeholder="Filter slugs..."
-            value={(table.getColumn("slug")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter names..."
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("slug")?.setFilterValue(event.target.value)
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -125,7 +125,7 @@ export function CharacterDataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell className="text-center" key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -141,7 +141,12 @@ export function CharacterDataTable<TData, TValue>({
                   className="h-24 text-center"
                 >
                   No results.
-                  <Link href={"/admin/characters/add"}>Add A Character</Link>
+                  <Link
+                    href={"/admin/relics/materials/add"}
+                    className="pl-2 underline underline-offset-2"
+                  >
+                    Add A Material
+                  </Link>
                 </TableCell>
               </TableRow>
             )}

@@ -27,3 +27,38 @@ export const getCharacterByTag = async (tag: string) => {
     return null;
   }
 };
+
+export const getSkillsById = async (id: string) => {
+  try {
+    const skills = await db.skill.findMany({ where: { characterId: id } });
+    return skills;
+  } catch {
+    return null;
+  }
+};
+
+export const getSkillRanksById = async (ids: string[]) => {
+  try {
+    const skillRanks = await db.skillRank.findMany({
+      where: {
+        skillId: {
+          in: ids,
+        },
+      },
+    });
+    return skillRanks;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getUltimateByCharacterId = async (id: string) => {
+  try {
+    const ultimate = await db.characterUltimate.findFirst({
+      where: { characterId: id },
+    });
+    return ultimate;
+  } catch {
+    return null;
+  }
+};

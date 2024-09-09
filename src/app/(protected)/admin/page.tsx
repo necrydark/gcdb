@@ -38,9 +38,14 @@ const AdminPage = async () => {
         <h1 className="text-3xl leading-tight font-extrabold pb-5">
           Users Page
         </h1>
-        <Button size="sm" variant="outline" asChild>
-          <Link href={"/admin/characters"}>Characters Page</Link>
-        </Button>
+        <div className="flex items-center flex-row gap-5">
+          <Button size="sm" variant="outline" asChild>
+            <Link href={"/admin/characters"}>Characters Page</Link>
+          </Button>
+          <Button size="sm" variant="outline" asChild>
+            <Link href={"/admin/relics"}>Relics Page</Link>
+          </Button>
+        </div>
       </div>
       <DataTable columns={columns} data={data} />
     </div>

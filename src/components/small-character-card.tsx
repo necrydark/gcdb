@@ -24,7 +24,7 @@ function SmallCharacterCard({
   slug,
   colour,
 }: Props) {
-  const cardColour = colour.toLocaleUpperCase();
+  const cardColour = colour?.toUpperCase();
   return (
     <div
       className={cn(

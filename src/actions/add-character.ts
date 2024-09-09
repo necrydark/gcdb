@@ -67,7 +67,7 @@ export const addCharacter = async (
     passiveDescription,
     passiveCCNeeded,
     skills,
-    // holyRelic,
+    holyRelicId,
     characterUltimate,
   } = validatedFields.data;
 
@@ -163,6 +163,9 @@ export const addCharacter = async (
             })),
           },
         })),
+      },
+      holyRelic: {
+        connect: { id: holyRelicId },
       },
       // associations: {
       //   create:

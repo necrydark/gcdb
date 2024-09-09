@@ -47,6 +47,7 @@ model User {
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   profileColour         ProfileColour          @default(PURPLE)
+  boxCC                 String?
   Comments              Comments[]
 
   createdAt DateTime @default(now())
@@ -171,7 +172,8 @@ model Character {
   skills             Skill[]
   associations       Association[]
   associationsWith   AssociationWith[]
-  holyRelic          HolyRelic[]
+  holyRelic          HolyRelic?          @relation(fields: [holyRelicId], references: [id])
+  holyRelicId        String?
   ultimate           CharacterUltimate[]
   Favourite          Favourite[]
   Comments           Comments[]
@@ -269,16 +271,16 @@ model Materials {
 }
 
 model HolyRelic {
-  id          String      @id @default(cuid())
-  name        String
-  effect      String
-  materials   Materials[]
-  attack      String
-  defense     String
-  hp          String
-  Character   Character?  @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  characterId String?
-  beast       Beast       @default(Hraesvelgr)
+  id         String      @id @default(cuid())
+  name       String
+  imageUrl   String
+  effect     String
+  materials  Materials[]
+  attack     String
+  defense    String
+  hp         String
+  characters Character[]
+  beast      Beast       @default(Hraesvelgr)
 }
 
 enum Beast {
@@ -320,21 +322,21 @@ model CharacterUltimate {
 }
 
 model Skill {
-  id             String       @id @default(uuid())
-  name           String
-  jpName         String
-  imageUrl       String
-  character      Character    @relation(fields: [characterId], references: [id])
-  characterId    String
-  skillRanks     SkillRank[]
+  id          String      @id @default(uuid())
+  name        String
+  jpName      String
+  imageUrl    String
+  character   Character   @relation(fields: [characterId], references: [id])
+  characterId String
+  skillRanks  SkillRank[]
 }
 
 model SkillRank {
-  id          String  @id @default(uuid())
+  id          String @id @default(uuid())
   rank        Int
   description String
   type        String
-  skill       Skill   @relation(fields: [skillId], references: [id])
+  skill       Skill  @relation(fields: [skillId], references: [id])
   skillId     String
 }
 

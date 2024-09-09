@@ -15,17 +15,16 @@ import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
-export type Character = {
+export type HolyRelic = {
   id: string;
   name: string;
-  tag: string;
-  jpName: string;
-  jpTag: string;
-  slug: string;
-  game?: Game;
+  effect: string;
+  attack: string;
+  defense: string;
+  hp: string;
 };
 
-export const columns: ColumnDef<Character>[] = [
+export const columns: ColumnDef<HolyRelic>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -35,30 +34,27 @@ export const columns: ColumnDef<Character>[] = [
     header: "Name",
   },
   {
-    accessorKey: "tag",
-    header: "Tag",
+    accessorKey: "effect",
+    header: "Effect",
   },
   {
-    accessorKey: "jpName",
-    header: "JP Name",
+    accessorKey: "attack",
+    header: "Attack",
   },
   {
-    accessorKey: "jpTag",
-    header: "JP Tag",
+    accessorKey: "defense",
+    header: "Defense",
   },
   {
-    accessorKey: "slug",
-    header: "Slug",
+    accessorKey: "hp",
+    header: "HP",
   },
-  {
-    accessorKey: "game",
-    header: "Game",
-  },
+
   {
     id: "actions",
     enableHiding: true,
     cell: ({ row }) => {
-      const character = row.original;
+      const relic = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -70,7 +66,7 @@ export const columns: ColumnDef<Character>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer" asChild>
-              <Link href={`/admin/characters/edit/${character.id}`}>Edit</Link>
+              <Link href={`/admin/characters/edit/${relic.id}`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
