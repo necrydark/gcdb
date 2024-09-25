@@ -62,3 +62,13 @@ export const getUltimateByCharacterId = async (id: string) => {
     return null;
   }
 };
+
+
+export const getCharacterCount = async () => {
+  try {
+    const count = await db.character.count();
+    return count;
+  } catch {
+    return null;
+  }
+}

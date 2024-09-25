@@ -34,7 +34,7 @@ export const UserButton = ({ className }: Props) => {
     signOut();
   };
   return (
-    <div className={cn("h-[30px]", className)}>
+    <div className={cn(" cursor-pointer", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar>

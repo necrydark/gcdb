@@ -1,7 +1,13 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
+import { SessionProvider } from "next-auth/react";
+import Navbar from "../components/navbar";
+import Footer from "../components/footer";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import AuthNavbar from "../components/auth/auth-nav";
 
 export default function Home() {
+  const user = useCurrentUser();
   const visible = { opacity: 1, y: 0, transition: { duration: 0.5 } };
   const hidden = { opacity: 0, y: -10 };
   return (
@@ -10,8 +16,11 @@ export default function Home() {
       animate="visible"
       exit={{ opacity: 0, transition: { duration: 1 } }}
       variants={{ hidden, visible }}
+      className="min-h-screen flex flex-col text-gray-900 bg-background transition-all duration-300 dark:text-white"
     >
-      <div className="container mx-auto p-5 pt-[100px] text-center">
+      {user && <AuthNavbar />}
+      {!user && <Navbar />}
+      <div className="container mx-auto p-5 pt-[100px] h-[65vh] text-center">
         <AnimatePresence>
           <div>
             <motion.h1
@@ -81,6 +90,7 @@ export default function Home() {
           {/* @TODO: Add most recent favourites here, if not display a paragraph and button to create an account */}
         </AnimatePresence>
       </div>
+      <Footer />
     </motion.div>
   );
 }

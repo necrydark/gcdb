@@ -7,10 +7,8 @@ const Logo = () => {
   const pathname = usePathname();
 
   return (
-    <Link href="/">
-      <h1 className="text-2xl font-extrabold tracking-wide text-foreground">
+    <Link className="text-2xl font-extrabold tracking-wide hover:text-foreground/80 duration-300 text-foreground" href="/">
         GCWiki
-      </h1>
     </Link>
   );
 };

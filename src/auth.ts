@@ -57,6 +57,8 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         session.user.banner = token.banner as string;
         session.user.bio = token.bio as string;
         session.user.boxCC = token.boxCC as string;
+        session.user.ingameRank = token.ingameRank as string;
+
       }
 
       return session;
@@ -76,6 +78,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       token.bio = user.bio;
       token.banner = user.banner;
       token.boxCC = user.boxCC;
+      token.ingameRank = user.ingameRank
       return token;
     },
   },

@@ -7,9 +7,8 @@ import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import { extractRouterConfig } from "uploadthing/server";
-import AuthNavbar from "../components/auth/auth-nav";
-import "./globals.css";
-import { Providers } from "./providers";
+import AuthNavbar from "@/src/components/auth/auth-nav";
+import { Providers } from "@/src/app/providers";
 
 import { ourFileRouter } from "@/src/app/api/uploadthing/core";
 
@@ -31,8 +30,10 @@ export default async function RootLayout({
       <html lang="en" className="dark">
         <body className={inter.className}>
           <Providers>
-            <div>
-              <div  suppressHydrationWarning>
+            <div className="min-h-screen flex flex-col text-gray-900 bg-background transition-all duration-300 dark:text-white">
+              {session && <AuthNavbar />}
+              {!session && <Navbar />}
+              <div className="flex-1" suppressHydrationWarning>
                 <NextSSRPlugin
                   /**
                    * The `extractRouterConfig` will extract **only** the route configs
@@ -45,6 +46,7 @@ export default async function RootLayout({
                 {children}
               </div>
               <Toaster />
+              <Footer />
             </div>
           </Providers>
         </body>

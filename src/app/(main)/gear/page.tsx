@@ -263,12 +263,14 @@ function page() {
   ];
 
   return (
-    <div className="container mx-auto p-10 space-y-5">
+    <div className="container mx-auto md:p-10 py-5 space-y-5">
+      <div>
       <h1 className="text-xl p-4 pl-0">Gear Sets</h1>
       <GearTable
         headers={["Gear", "JP", "EN", "Set", "Set Bonus"]}
         data={gearData}
       />
+      </div>
 
       <div>
         {/* TODO: Make table unique */}

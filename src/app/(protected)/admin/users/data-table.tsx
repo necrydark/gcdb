@@ -32,6 +32,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import Link from "next/link";
 import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
@@ -85,16 +86,6 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm"
           />
-        </div>
-        <div className="flex items-center py-4">
-          <Dialog>
-            <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 ml-auto">
-              Add User
-            </DialogTrigger>
-            <DialogContent>
-              <AddUserForm />
-            </DialogContent>
-          </Dialog>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -168,6 +159,12 @@ export function DataTable<TData, TValue>({
                   className="h-24 text-center"
                 >
                   No results.
+                  <Link
+                    href={"/admin/users/add"}
+                    className="pl-2 underline underline-offset-2"
+                  >
+                    Add A User
+                  </Link>
                 </TableCell>
               </TableRow>
             )}

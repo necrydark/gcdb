@@ -10,7 +10,7 @@ const UserLayout: React.FC<Props> = ({ user, children }: Props) => {
   return (
     <main
       className={cn(
-        " transition-all duration-300",
+        " transition-all duration-300 pb-[10rem]",
         user?.profileColor === "RED" && "bg-red-400 text-white dark:bg-red-800",
         user?.profileColor === "BLUE" &&
           "bg-blue-400 text-white dark:bg-blue-800",

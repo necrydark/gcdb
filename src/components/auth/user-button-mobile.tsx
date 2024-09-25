@@ -30,7 +30,7 @@ export const UserButtonMobile = () => {
   };
 
   return (
-    <div className="flex flex-row gap-5">
+    <div className="flex flex-row gap-5 cursor-pointer">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar>

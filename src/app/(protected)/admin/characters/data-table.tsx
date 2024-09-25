@@ -141,7 +141,9 @@ export function CharacterDataTable<TData, TValue>({
                   className="h-24 text-center"
                 >
                   No results.
-                  <Link href={"/admin/characters/add"}>Add A Character</Link>
+                  <Link href={"/admin/characters/add"}
+                    className="pl-2 underline underline-offset-2"
+                    >Add A Character</Link>
                 </TableCell>
               </TableRow>
             )}

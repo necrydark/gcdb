@@ -9,6 +9,7 @@ export type ExtendedUser = DefaultSession["user"] & {
   banner: string;
   bio: string;
   boxCC: string;
+  ingameRank: string;
 };
 
 declare module "next-auth" {

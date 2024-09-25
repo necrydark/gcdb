@@ -26,3 +26,12 @@ export const getRelicByName = (name: string) => {
     return null;
   }
 };
+
+export const getRelicCount = async () => {
+  try {
+    const count = await db.holyRelic.count();
+    return count;
+  } catch {
+    return null;
+  }
+}

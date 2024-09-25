@@ -75,6 +75,8 @@ export const settingsSchema = z
       .string()
       .min(10, "Bio must be at least 10 characters long")
       .max(255, "Bio must be at most 255 characters"),
+    boxCC: z.optional(z.string()),
+    ingameRank: z.optional(z.string()),
     profileColour: z.enum([
       ProfileColour.RED,
       ProfileColour.BLUE,
@@ -150,6 +152,8 @@ export const registerSchema = z
     name: z.string().min(1, "First name is required"),
     email: z.string().email().min(1, "Email is required"),
     confirm_password: z.string().min(6, "Minimum of 6 characters is required"),
+    boxCC: z.optional(z.string()),
+    ingameRank: z.optional(z.string()),
     bio: z
       .string()
       .min(10, "Bio must be at least 10 characters long")

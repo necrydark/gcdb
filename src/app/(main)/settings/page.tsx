@@ -34,12 +34,18 @@ import { settingsSchema } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProfileColour, UserRole } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const SettingsPage = () => {
   const user = useCurrentUser();
+
+  if(!user) {
+    redirect("/");
+  }
 
   const { update } = useSession();
   const [error, setError] = useState<string | undefined>();
@@ -62,6 +68,8 @@ const SettingsPage = () => {
       banner: user?.banner,
       bio: user?.bio || undefined,
       profileColour: user?.profileColor || undefined,
+      boxCC: user?.boxCC || undefined,
+      ingameRank: user?.ingameRank || undefined,
     },
   });
 
@@ -239,6 +247,44 @@ const SettingsPage = () => {
                     </FormItem>
                   )}
                 />
+                <h1 className="text-2xl font-extrabold pl-0 p-6">Extra Info </h1>
+                <FormField
+                  control={form.control}
+                  name="boxCC"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Box CC</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="100000"
+                          type="text"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+             <FormField
+                  control={form.control}
+                  name="ingameRank"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>In Game Rank</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="110"
+                          type="text"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+             
                 <FormField
                   control={form.control}
                   name="profileColour"

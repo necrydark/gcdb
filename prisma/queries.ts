@@ -30,6 +30,7 @@ export const getUserData = cache(async ({ userId }: { userId: string }) => {
   return data;
 });
 
+
 export const getUserDataByUsername = cache(
   async ({ username }: { username: string }) => {
     const data = await db.user.findUnique({

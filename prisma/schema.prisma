@@ -48,6 +48,7 @@ model User {
   twoFactorConfirmation TwoFactorConfirmation?
   profileColour         ProfileColour          @default(PURPLE)
   boxCC                 String?
+  ingameRank String?
   Comments              Comments[]
 
   createdAt DateTime @default(now())
@@ -266,6 +267,7 @@ model Materials {
   id          String     @id @default(cuid())
   name        String
   imageUrl    String
+  location String?
   HolyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id], onDelete: Cascade)
   holyRelicId String?
 }

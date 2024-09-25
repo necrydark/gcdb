@@ -50,7 +50,7 @@ async function ProfilePage({ params }: PageProps) {
   return (
     <div
       className={cn(
-        " flex flex-col pb-[10rem]",
+        " flex flex-col",
         colour === "red" && "bg-red-400 text-white dark:bg-red-800",
         colour === "blue" && "bg-blue-400 text-white dark:bg-blue-800",
         colour === "green" && "bg-green-400 text-white dark:bg-green-800",
