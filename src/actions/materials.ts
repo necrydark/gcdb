@@ -47,7 +47,7 @@ export const updateMaterial = async (
     return { error: "Invalid Fields!" };
   }
 
-  const { name, imageUrl } = validatedFields.data;
+  const { name, imageUrl, location } = validatedFields.data;
 
   if (!name || !imageUrl) {
     return { error: "A field is not valid" };
@@ -56,8 +56,7 @@ export const updateMaterial = async (
   await db.materials.update({
     where: { id },
     data: {
-      name,
-      imageUrl,
+      ...values
     },
   });
 

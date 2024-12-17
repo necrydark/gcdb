@@ -10,7 +10,7 @@ import { User, columns } from "./users/columns";
 import { DataTable } from "./users/data-table";
 import { getUserCount } from "@/data/user";
 import { getCharacterCount } from "@/data/character";
-import { getRelicCount } from "@/data/relics";
+import { getMaterialCount, getRelicCount } from "@/data/relics";
 
 async function getUsers(): Promise<User[]> {
   const data = await db.user.findMany({
@@ -37,6 +37,7 @@ const AdminPage = async () => {
   const count = await getUserCount();
   const charCount = await getCharacterCount();
   const relicCount = await getRelicCount();
+  const materialCount = await getMaterialCount();
 
   return (
     <div className="max-w-[1400px] px-10 container mx-auto py-20">
@@ -46,7 +47,7 @@ const AdminPage = async () => {
         </h1>
    
       </div>
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
       <div className="border rounded-lg p-6">
         <h1 className="font-bold">Total Users:</h1>
         <p>{count}</p>
@@ -58,6 +59,10 @@ const AdminPage = async () => {
       <div className="border rounded-lg p-6">
         <h1 className="font-bold">Total Relics:</h1>
         <p>{relicCount}</p>
+      </div>
+       <div className="border rounded-lg p-6">
+        <h1 className="font-bold">Total Materials:</h1>
+        <p>{materialCount}</p>
       </div>
       </div>
       {/* <DataTable columns={columns} data={data} /> */}

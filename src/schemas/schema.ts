@@ -360,11 +360,19 @@ export const addHolyRelic = z.object({
       imageUrl: z.string(),
     })
   ),
+  characters: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      imageUrl: z.string(),
+    })
+  ),
 });
 
 export const addRelicMaterials = z.object({
-  name: z.optional(z.string().min(1, "Material Name is required")),
-  imageUrl: z.optional(z.string().min(1, "Image URL is required")),
+  name: z.optional(z.string()),
+  imageUrl: z.optional(z.string()),
+  location: z.optional(z.string()),
 });
 
 // role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER])),

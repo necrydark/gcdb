@@ -264,26 +264,45 @@ model Gift {
 }
 
 model Materials {
-  id          String     @id @default(cuid())
-  name        String
-  imageUrl    String
-  location String?
-  HolyRelic   HolyRelic? @relation(fields: [holyRelicId], references: [id], onDelete: Cascade)
-  holyRelicId String?
+  id        String        @id @default(cuid())
+  name      String
+  imageUrl  String
+  location  String?
+  holyRelics HolyRelicMaterials[]
 }
 
 model HolyRelic {
-  id         String      @id @default(cuid())
+  id         String             @id @default(cuid())
   name       String
   imageUrl   String
   effect     String
-  materials  Materials[]
+  materials  HolyRelicMaterials[]
+
   attack     String
   defense    String
   hp         String
   characters Character[]
-  beast      Beast       @default(Hraesvelgr)
+  beast      Beast              @default(Hraesvelgr)
 }
+
+model HolyRelicMaterials {
+  holyRelic   HolyRelic @relation(fields: [holyRelicId], references: [id], onDelete: Cascade)
+  holyRelicId String
+  material    Materials @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  materialId  String
+
+  @@id([holyRelicId, materialId]) // This creates a composite key for the many-to-many relationship
+}
+
+// model HolyRelicCharacters {
+//   holyRelic   HolyRelic @relation(fields: [holyRelicId], references: [id], onDelete: Cascade)
+//   holyRelicId String
+//   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+//   characterId String
+
+//   @@id([holyRelicId, characterId]) // This creates a composite key for the many-to-many relationship
+// }
+
 
 enum Beast {
   Hraesvelgr

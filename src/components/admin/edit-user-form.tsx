@@ -211,6 +211,7 @@ function EditUserForm({
                   <FormLabel>Reset Image</FormLabel>
                   <FormControl>
                     <Button
+                    className="ml-2"
                       {...field}
                       onClick={() =>
                         setProfilePicture(
@@ -218,7 +219,7 @@ function EditUserForm({
                         )
                       }
                     >
-                      Reset Banner
+                      Reset Image
                     </Button>
                   </FormControl>
                   <FormMessage />
@@ -234,6 +235,7 @@ function EditUserForm({
                   <FormControl>
                     <Button
                       {...field}
+                      className="ml-2"
                       onClick={() =>
                         setProfileBanners(
                           "https://utfs.io/f/77555729-337d-465d-8651-c4986d7191b2-rmj2b0.png"

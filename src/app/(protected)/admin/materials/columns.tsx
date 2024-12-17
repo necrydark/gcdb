@@ -61,8 +61,8 @@ export const columns: ColumnDef<Material>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer" asChild>
-              <Link href={`/admin/relics/materials/edit/${material.id}`}>
-                Edit
+              <Link href={`/admin/materials/edit/${material.id}`}>
+                Edit Material
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" asChild>
@@ -83,7 +83,7 @@ export const columns: ColumnDef<Material>[] = [
                 deleteMaterial(row.original.id);
               }}
             >
-              Delete
+              Delete Material
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

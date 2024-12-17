@@ -93,6 +93,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
       defense: undefined,
       hp: undefined,
       materials: [],
+      characters: []
     },
   });
 
@@ -101,6 +102,8 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
 
   const onSubmit = (values: z.infer<typeof addHolyRelic>) => {
     startTransition(() => {
+      console.log("Called")
+      console.log(values);
       addRelic(values)
         .then((data) => {
           if (data.error) {
@@ -316,6 +319,38 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                       (materials?.length ?? 0) >= 1
                         ? "Select materials!"
                         : "No materials Available!"
+                    }
+                  />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <FormField
+              control={form.control}
+              name="characters"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Characters</FormLabel>
+                  <ReactSelect
+                    name="characters"
+                    isMulti
+                    className="text-black bg-background"
+                    options={characterOptions}
+                    isSearchable={isSearchable}
+                    isDisabled={isPending || !characters?.length}
+                    onChange={(selectedOptions) => {
+                      field.onChange(
+                        selectedOptions.map((option) => ({
+                          id: option.characterId,
+                          name: option.name,
+                          imageUrl: option.imageUrl,
+                        }))
+                      );
+                    }}
+                    placeholder={
+                      (characters?.length ?? 0) >= 1
+                        ? "Select characters!"
+                        : "No characters Available!"
                     }
                   />
                   <FormMessage />

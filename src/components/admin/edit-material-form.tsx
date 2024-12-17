@@ -36,8 +36,9 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
   const form = useForm<z.infer<typeof addRelicMaterials>>({
     resolver: zodResolver(addRelicMaterials),
     defaultValues: {
-      name: materialsEdit[0].name,
-      imageUrl: materialsEdit[0].imageUrl,
+      name: materialsEdit[0].name ?? undefined,
+      imageUrl: materialsEdit[0].imageUrl ?? undefined,
+      location: materialsEdit[0].location ?? undefined,
     },
   });
 
@@ -81,7 +82,7 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
           Add Material
         </h1>
         <Button variant="outline" size="sm" asChild>
-          <Link href={"/admin/relics/materials"}>Go Back</Link>
+          <Link href={"/admin/materials"}>Go Back</Link>
         </Button>
       </div>
       <Form {...form}>
@@ -115,6 +116,24 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
                     <Input
                       {...field}
                       placeholder="image URL"
+                      type="text"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Material Location</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Location"
                       type="text"
                       disabled={isPending}
                     />

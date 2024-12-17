@@ -164,6 +164,8 @@ function AddCharacterForm({
     ),
   }));
 
+  console.log(Relics);
+
   const form = useForm<z.infer<typeof addCharacterSchema>>({
     resolver: zodResolver(addCharacterSchema),
     defaultValues: {

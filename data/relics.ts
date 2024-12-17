@@ -35,3 +35,12 @@ export const getRelicCount = async () => {
     return null;
   }
 }
+
+export const getMaterialCount = async () => {
+  try {
+    const count = await db.materials.count();
+    return count;
+  } catch {
+    return null;
+  }
+}
