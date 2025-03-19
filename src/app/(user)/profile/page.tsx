@@ -13,9 +13,13 @@ import React from "react";
 import testimg from "../../../../public/test-bg.png";
 
 import { getUsername } from "@/prisma/queries";
-import { Badge } from "@/src/components/ui/badge";
 import CardSection from "./(slug)/[slug]/card-section";
 import SmallCardSection from "./(slug)/[slug]/small-card-section";
+import { Badge } from "@/src/components/ui/badge"
+import { Card, CardContent } from "@/src/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar"
+import { UserBanner } from "@/src/components/profile/user-banner";
+
 
 // async function getFavourites(userId: string) {
 //   const data = await db.character.findMany({
@@ -33,6 +37,38 @@ import SmallCardSection from "./(slug)/[slug]/small-card-section";
 
 //   return data;
 // }
+
+const profile = {
+  favoriteCharacters: [
+    {
+      name: "Meliodas",
+      attribute: "Strength",
+      race: "Demon",
+      rarity: "SSR",
+      imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+    },
+    {
+      name: "Elizabeth",
+      attribute: "HP",
+      race: "Goddess",
+      rarity: "UR",
+      imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+    },
+    { name: "Ban", attribute: "HP", race: "Human", rarity: "SSR", imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png" },
+    {
+      name: "King",
+      attribute: "Strength",
+      race: "Fairy",
+      rarity: "SSR",
+      imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+    },
+  ],
+  recentComments: [
+    { text: "Just pulled the new Escanor! Can't wait to try him out in PvP!", timestamp: "2 hours ago" },
+    { text: "Anyone have tips for clearing the latest story chapter?", timestamp: "1 day ago" },
+    { text: "Looking for active guild members. DM if interested!", timestamp: "3 days ago" },
+  ],
+}
 
 async function ProfilePage() {
   const user = await currentUser();
@@ -55,132 +91,184 @@ async function ProfilePage() {
   const colour = cardColour?.toLocaleLowerCase();
 
   return (
-    <div className=" flex flex-col pb-20">
-      {/* Banner */}
-      <div>
-        <Image
-          alt={`${data?.username}'s Banner`}
-          priority
-          width={1920}
-          height={200}
-          src={data?.banner ?? testimg}
-          className="h-[200px] w-full object-cover border-b-[1px] border-b-white"
-        />
+    <div className="container mx-auto p-4">
+    {/* Banner, Avatar, and User Info */}
+    <div className="mb-8">
+      <UserBanner username={data?.username || randomName} imageUrl={data?.image || undefined} role={data?.role} colour={colour} />
 
-        {/* Profile Picture */}
-        <Image
-          src={
-            data?.image ??
-            "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
-          }
-          alt="User profile picture"
-          priority
-          width={75}
-          height={75}
-          className="rounded-full aspect-[1] border mx-auto -translate-y-[35px] border-white"
-        />
-        {/* Username */}
-        <div className="flex flex-row justify-center items-center">
-          <h1 className="text-3xl pr-[10px] font-extrabold text-center -translate-y-[25px] tracking-tight">
-            {data?.username ?? randomName}
-          </h1>
-          <Badge
-            className=" -translate-y-[20px] border-transparent text-white "
-            variant={
-              colour as
-                | "red"
-                | "green"
-                | "blue"
-                | "yellow"
-                | "orange"
-                | "pink"
-                | "cyan"
-                | "purple"
-                | null
-                | undefined
-            }
-          >
-            {data?.role === "USER"
-              ? "User"
-              : data?.role === "ADMIN"
-              ? "Admin"
-              : data?.role === "OWNER"
-              ? "Owner"
-              : null}
-          </Badge>
-        </div>
-      </div>
-
-      {/* Profile Section */}
-      <div className="max-w-[1200px] md:mx-auto md:px-0 px-8">
-        <p className="py-4 px-2">{data?.bio ?? "No Bio Found"}</p>
-        <div className="flex justify-between items-center mt-6 flex-row">
-          <h1 className="md:text-3xl text-2xl font-extrabold tracking-tight">
-            Your Recent Favourites
-          </h1>
-          <Button
-            className="hover-btn"
-            variant={
-              colour as
-                | "red"
-                | "green"
-                | "blue"
-                | "yellow"
-                | "orange"
-                | "pink"
-                | "cyan"
-                | "purple"
-                | null
-                | undefined
-            }
-            asChild
-          >
-            <Link href={"/profile/favourites"}>View All Favourites</Link>
-          </Button>
-        </div>
-        <CardSection sectionColour={cardColour as ProfileColour}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
-            {/* @TODO: Add recent favourites from DB */}
-            <SmallCharacterCard
-              attribute="Strength"
-              imageUrl="https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
-              name="Queen Diane"
-              race="Giant"
-              rarity="SSR"
-              slug="queen_diane_2"
-              colour={colour as ProfileColour}
-            />
-            <SmallCharacterCard
-              attribute="Strength"
-              imageUrl="https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png"
-              name="Jue Viole Grace"
-              race="Human"
-              rarity="SSR"
-              slug="jue_viole_grace"
-              colour={colour as ProfileColour}
-            />
-            <SmallCharacterCard
-              attribute="HP"
-              imageUrl="https://gcdatabase.com/images/characters/alioni/rg_portrait.webp"
-              name="Alioni"
-              race="Human"
-              rarity="R"
-              slug="alioni"
-              colour={colour as ProfileColour}
-            />
-            <SmallCharacterCard
-              attribute="HP"
-              imageUrl="https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp"
-              name="Eren Yeager"
-              race="Human / Giant"
-              rarity="SSR"
-              slug="eren_yeager"
-              colour={colour as ProfileColour}
-            />
-          </div>
-        </CardSection>
-      </div>
     </div>
+
+    {/* Favorite Characters */}
+    <div className="mb-8">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Favorite Characters</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {profile.favoriteCharacters.map((character, index) => (
+            <Card key={index} className="dark:bg-purple-950 bg-purple-800 border-0 rounded-[5px]">
+              <CardContent className="p-4">
+                <div className="flex flex-col items-center space-y-4">
+                  <Image
+                    src={character.imageUrl || "/placeholder.svg"}
+                    alt={character.name}
+                    width={80}
+                    height={80}
+                    // className="rounded-full"
+                  />
+                  <div className="text-center">
+                    <h3 className="font-semibold text-white">{character.name}</h3>
+                    <p className="text-sm text-gray-400 dark:text-muted-foreground">{character.attribute}</p>
+                    <p className="text-sm text-gray-400 dark:text-muted-foreground">{character.race}</p>
+                    <Badge className="mt-1 bg-purple-500 hover:bg-purple-600 dark:bg-purple-800 dark:hover:bg-purple-900 text-white">{character.rarity}</Badge>
+                  </div>
+                  <Button className="w-full mt-2 bg-purple-500  hover:bg-purple-600 dark:bg-purple-800 text-white dark:hover:bg-purple-900 rounded-[5px] ">View</Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+    {/* Recent Comments */}
+    <div>
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Recent Comments</h2>
+        <div className="space-y-4">
+          {profile.recentComments.map((comment, index) => (
+            <Card key={index} className="dark:bg-purple-950 bg-purple-800 border-0">
+              <CardContent className="p-4">
+                <p className="text-white">{comment.text}</p>
+                <p className="text-sm text-gray-400 dark:text-muted-foreground mt-2">{comment.timestamp}</p>
+                <Button className="mt-4 rounded-[5px] bg-purple-500 hover:bg-purple-600 dark:bg-purple-800 text-white dark:hover:bg-purple-900">View</Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+  </div>
+    // <div className=" flex flex-col pb-20">
+    //   {/* Banner */}
+    //   <div>
+    //     <Image
+    //       alt={`${data?.username}'s Banner`}
+    //       priority
+    //       width={1920}
+    //       height={200}
+    //       src={data?.banner ?? testimg}
+    //       className="h-[200px] w-full object-cover border-b-[1px] border-b-white"
+    //     />
+
+    //     {/* Profile Picture */}
+    //     <Image
+    //       src={
+    //         data?.image ??
+    //         "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
+    //       }
+    //       alt="User profile picture"
+    //       priority
+    //       width={75}
+    //       height={75}
+    //       className="rounded-full aspect-[1] border mx-auto -translate-y-[35px] border-white"
+    //     />
+    //     {/* Username */}
+    //     <div className="flex flex-row justify-center items-center">
+    //       <h1 className="text-3xl pr-[10px] font-extrabold text-center -translate-y-[25px] tracking-tight">
+    //         {data?.username ?? randomName}
+    //       </h1>
+    //       <Badge
+    //         className=" -translate-y-[20px] border-transparent text-white "
+    //         variant={
+    //           colour as
+    //             | "red"
+    //             | "green"
+    //             | "blue"
+    //             | "yellow"
+    //             | "orange"
+    //             | "pink"
+    //             | "cyan"
+    //             | "purple"
+    //             | null
+    //             | undefined
+    //         }
+    //       >
+    //         {data?.role === "USER"
+    //           ? "User"
+    //           : data?.role === "ADMIN"
+    //           ? "Admin"
+    //           : data?.role === "OWNER"
+    //           ? "Owner"
+    //           : null}
+    //       </Badge>
+    //     </div>
+    //   </div>
+
+    //   {/* Profile Section */}
+    //   <div className="max-w-[1200px] md:mx-auto md:px-0 px-8">
+    //     <p className="py-4 px-2">{data?.bio ?? "No Bio Found"}</p>
+    //     <div className="flex justify-between items-center mt-6 flex-row">
+    //       <h1 className="md:text-3xl text-2xl font-extrabold tracking-tight">
+    //         Your Recent Favourites
+    //       </h1>
+    //       <Button
+    //         className="hover-btn"
+    //         variant={
+    //           colour as
+    //             | "red"
+    //             | "green"
+    //             | "blue"
+    //             | "yellow"
+    //             | "orange"
+    //             | "pink"
+    //             | "cyan"
+    //             | "purple"
+    //             | null
+    //             | undefined
+    //         }
+    //         asChild
+    //       >
+    //         <Link href={"/profile/favourites"}>View All Favourites</Link>
+    //       </Button>
+    //     </div>
+    //     <CardSection sectionColour={cardColour as ProfileColour}>
+    //       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
+    //         {/* @TODO: Add recent favourites from DB */}
+    //         <SmallCharacterCard
+    //           attribute="Strength"
+    //           imageUrl="https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
+    //           name="Queen Diane"
+    //           race="Giant"
+    //           rarity="SSR"
+    //           slug="queen_diane_2"
+    //           colour={colour as ProfileColour}
+    //         />
+    //         <SmallCharacterCard
+    //           attribute="Strength"
+    //           imageUrl="https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png"
+    //           name="Jue Viole Grace"
+    //           race="Human"
+    //           rarity="SSR"
+    //           slug="jue_viole_grace"
+    //           colour={colour as ProfileColour}
+    //         />
+    //         <SmallCharacterCard
+    //           attribute="HP"
+    //           imageUrl="https://gcdatabase.com/images/characters/alioni/rg_portrait.webp"
+    //           name="Alioni"
+    //           race="Human"
+    //           rarity="R"
+    //           slug="alioni"
+    //           colour={colour as ProfileColour}
+    //         />
+    //         <SmallCharacterCard
+    //           attribute="HP"
+    //           imageUrl="https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp"
+    //           name="Eren Yeager"
+    //           race="Human / Giant"
+    //           rarity="SSR"
+    //           slug="eren_yeager"
+    //           colour={colour as ProfileColour}
+    //         />
+    //       </div>
+    //     </CardSection>
+    //   </div>
+    // </div>
   );
 }
 

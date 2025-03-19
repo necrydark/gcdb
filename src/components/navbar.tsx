@@ -33,7 +33,7 @@ export default async function Navbar() {
 
   return (
     <>
-      <div className="w-full bg-card border-b-[1px] border-b-divider">
+      <div className="w-full bg-purple-600 dark:bg-purple-950 border-b-[1px] border-b-divider">
         <div className="max-w-[1280px] mx-auto flex justify-between px-2">
           <div className="flex">
             <Link

@@ -9,24 +9,7 @@ type Props = {
 const UserLayout: React.FC<Props> = ({ user, children }: Props) => {
   return (
     <main
-      className={cn(
-        " transition-all duration-300 pb-[10rem]",
-        user?.profileColor === "RED" && "bg-red-400 text-white dark:bg-red-800",
-        user?.profileColor === "BLUE" &&
-          "bg-blue-400 text-white dark:bg-blue-800",
-        user?.profileColor === "GREEN" &&
-          "bg-green-400 text-white dark:bg-green-800",
-        user?.profileColor === "YELLOW" &&
-          "bg-yellow-400 text-white dark:bg-yellow-800",
-        user?.profileColor === "PURPLE" &&
-          "bg-purple-400 text-white dark:bg-purple-800",
-        user?.profileColor === "ORANGE" &&
-          "bg-orange-400 text-white dark:bg-orange-800",
-        user?.profileColor === "PINK" &&
-          "bg-pink-400 text-white dark:bg-pink-800",
-        user?.profileColor === "CYAN" &&
-          "bg-cyan-400 text-white dark:bg-cyan-800"
-      )}
+      className=" transition-all duration-300 pb-[7rem] pt-[5rem] bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900"
     >
       {children}
     </main>

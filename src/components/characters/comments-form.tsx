@@ -57,7 +57,6 @@ function CommentsForm({ characterId, slug }: Props) {
   };
   return (
     <>
-      <h1 className="text-3xl leading-tight font-extrabold py-5">Comments</h1>
       {user ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -66,7 +65,6 @@ function CommentsForm({ characterId, slug }: Props) {
               name="comment"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Add Comment</FormLabel>
                   <FormControl>
                     <Textarea
                       disabled={isPending}
@@ -76,15 +74,17 @@ function CommentsForm({ characterId, slug }: Props) {
                       className="resize-none"
                     />
                   </FormControl>
-                  <div className="text-right text-white">
+                  <div className="text-right text-foreground">
                     {field.value?.length || 0}/300
                   </div>
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isPending}>
+           <div className="flex justify-end mt-5 w-full">
+           <Button type="submit" className="rounded-[5px] bg-purple-500 hover:bg-purple-600 dark:bg-purple-800 text-white dark:hover:bg-purple-900" disabled={isPending}>
               Add Comment
             </Button>
+           </div>
           </form>
         </Form>
       ) : (

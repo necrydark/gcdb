@@ -1,4 +1,5 @@
 export type SkillRank = {
+  rank: number;
   description: string;
   type: string;
 };

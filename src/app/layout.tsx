@@ -12,6 +12,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 import { ourFileRouter } from "@/src/app/api/uploadthing/core";
+import { ContextProvider } from "../components/eng-jp";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +32,9 @@ export default async function RootLayout({
       <html lang="en" className="dark">
         <body className={inter.className}>
           <Providers>
-            <div>
+            <ContextProvider>
+
+            <div className="flex-1 flex-col flex">
               <div  suppressHydrationWarning>
                 <NextSSRPlugin
                   /**
@@ -39,13 +42,14 @@ export default async function RootLayout({
                    * from the router to prevent additional information from being
                    * leaked to the client. The data passed to the client is the same
                    * as if you were to fetch `/api/uploadthing` directly.
-                   */
-                  routerConfig={extractRouterConfig(ourFileRouter)}
-                />
+                  */
+                 routerConfig={extractRouterConfig(ourFileRouter)}
+                 />
                 {children}
               </div>
               <Toaster />
             </div>
+                 </ContextProvider>
           </Providers>
         </body>
       </html>

@@ -20,7 +20,7 @@ export default function Home() {
     >
       {user && <AuthNavbar />}
       {!user && <Navbar />}
-      <div className="container mx-auto p-5 pt-[100px] h-[65vh] text-center">
+      <div className="container flex-1 mx-auto p-5 pt-[100px] h-[65vh] text-center">
         <AnimatePresence>
           <div>
             <motion.h1

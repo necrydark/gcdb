@@ -1,6 +1,20 @@
 "use client";
-import { motion } from "framer-motion";
+import { Attribute } from "@/src/types/attributes";
+import { Rarity } from "@/src/types/rarity";
+import Image from "next/image";
 import React, { useState } from "react";
+import { Label } from "@/src/components/ui/label";
+import { Switch } from "@/src/components/ui/switch";
+import { Badge } from "@/src/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/src/components/ui/tooltip";
+import { ArrowLeftRight, Calendar, Gamepad2 } from "lucide-react";
+import { useShowJapanese } from "../eng-jp";
+
 
 type Props = {
   imageUrl: string;
@@ -11,9 +25,9 @@ type Props = {
   crossover?: string;
   game?: string;
   event?: string;
-  attribute: string;
+  attribute: Attribute;
   race: string;
-  rarity: string;
+  rarity: Rarity;
 };
 
 function CharacterHeader({
@@ -29,126 +43,147 @@ function CharacterHeader({
   race,
   rarity,
 }: Props) {
-  const [isEnglish, setIsEnglish] = useState(true);
-  const toggleLanguage = () => {
-    setIsEnglish(!isEnglish);
+
+  const {showJapanese, toggleShowJapanese} = useShowJapanese();
+
+  // const toggleLanguage = () => {
+  //   setIsEnglish(!isEnglish);
+  // };
+
+  // Function to get attribute color
+  const getAttributeColor = (attribute: Attribute) => {
+    const attributeColors = {
+      Strength: "bg-red-500",
+      Speed: "bg-blue-500",
+      HP: "bg-green-500",
+      Light: "bg-yellow-500",
+      Dark: "bg-purple-500",
+    };
+    return attributeColors[attribute] || "bg-gray-500";
   };
+
+  // Function to get rarity color
+  const getRarityColor = (rarity: Rarity) => {
+    const rarityColors = {
+      LR: "bg-gradient-to-r from-red-500 to-purple-500 text-white border-yellow-400",
+      UR: "bg-gray-400 text-gray-950 border-gray-600",
+      SSR: "bg-purple-400 text-purple-950 border-purple-600",
+      SR: "bg-purple-400 text-purple-950 border-purple-600",
+      R: "bg-blue-400 text-blue-950 border-blue-600",
+    };
+    return rarityColors[rarity] || "bg-gray-400 text-gray-950 border-gray-600";
+  };
+
   return (
-    <div className="flex lg:flex-row flex-col justify-between lg:gap-5 gap-10">
-      <div className="flex flex-col items-center lg:flex-row">
-        <motion.img
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="w-40"
-          src={imageUrl}
-          alt={name}
+    <div className="flex flex-col md:flex-row md:justify-normal gap-6 mb-8">
+      <TooltipProvider>
+
+      <div className="relative w-24 h-24 md:w-32 md:h-32 md:m-0 mx-auto rounded-[5px] overflow-hidden border-4 border-purple-500 bg-gradient-to-b from-purple-300 via-purple-500 to-purple-600 flex-shrink-0">
+        <Image
+          src={imageUrl || "/placeholder.svg?height=200&width=200"}
+          alt={showJapanese ? jpName : name}
+          width={128}
+          height={128}
+          className="object-cover"
         />
-        <div className="space-y-2 lg:pl-3 pt-2 flex flex-col lg:text-start text-center lg:justify-normal justify-center text-xl">
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.25 }}
-            className="lg:text-lg text-sm font-bold"
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 py-1 px-2 text-center">
+          <span
+            className={`text-xs font-bold ${getRarityColor(
+              rarity
+            )} px-2 py-0.5 rounded`}
           >
-            {isEnglish ? `${name}` : `${jpName}`}
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="lg:text-lg text-sm font-bold !m-0"
-          >
-            {isEnglish
-              ? `[${tag}]`
-              : `【${jpTag}】
-          `}
-          </motion.p>
-          {/* <p className="font-bold">[{tag}]</p>
-        <p className="font-bold">{name}</p> */}
-          {crossover === "Crossover" && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6 }}
-            >
-              <p className="text-sm font-bold">{crossover}</p>
-              <p className="text-sm">{game}</p>
-            </motion.div>
-          )}
-          {event && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6 }}
-            >
-              <p className="text-sm font-bold">{event}</p>
-            </motion.div>
-          )}
-          <motion.button
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="cursor-pointer text-center w-[12rem] lg:text-left text-xs font-bold p-0 lg:bg-transparent lg:border-0 border border-white lg:w-[50px]"
-            onClick={toggleLanguage}
-          >
-            EN/JP
-          </motion.button>
+            {rarity}
+          </span>
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.6 }}
-        className="grid grid-cols-3 text-center gap-5  h-fit p-5"
-      >
-        {/* TODO: Decide whether to keep old way or new way */}
-        {/* {basicInfo?.map((x) => {
-              const char = findCharacterFromSlug(x.slug);
+      <div className="flex flex-col justify-center flex-1">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-2 mb-2">
+          <div className="flex-1">
+            <h1 className="text-3xl  font-bold">
+              {showJapanese ? jpName : name}
+            </h1>
+            <p className="text-muted-foreground md:text-left text-center">
+              {showJapanese ? jpTag : tag}
+            </p>
+          </div>
 
-              return (
-                <tr className="odd:bg-white odd:dark:bg-gray-900  even:bg-gray-50 text-base even:dark:bg-gray-700 border border-gray-500">
-                  <td className="p-4 border border-gray-500">
-                    <Link className="space-y-3" href={char.slug}>
-                      <img
-                        className="w-20 mx-auto"
-                        src={char.imageUrl}
-                        alt={char.name}
-                      />
-                      <p className="font-bold text-base hover:opacity-60 transition-all duration-300">{char.name}</p>
-                    </Link>
-                  </td>
-                  <td className="p-4 text-base font-semibold">{x.bonus}</td>
-                </tr>
-              );
-            })} */}
-        {/* Character Info */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-        >
-          <h1 className="lg:text-xl font-bold">Attribute</h1>
-          <p className="lg:text-base">{attribute}</p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9 }}
-        >
-          <h1 className="lg:text-xl font-bold">Race</h1>
-          <p className="lg:text-base">{race}</p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
-        >
-          <h1 className="lg:text-xl font-bold">Rarity</h1>
-          <p className="lg:text-base">{rarity}</p>
-        </motion.div>
-      </motion.div>
+          <div className="flex items-center gap-2 md:self-start">
+            <div className="flex items-center space-x-2">
+              <Label htmlFor="language-toggle" className="text-sm">
+                EN
+              </Label>
+              <Switch
+                id="language-toggle"
+                checked={showJapanese}
+                onCheckedChange={toggleShowJapanese}
+              />
+              <Label htmlFor="language-toggle" className="text-sm">
+                JP
+              </Label>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-wrap md:justify-start justify-center gap-2 mt-1">
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm font-medium">Race:</span>
+            <Badge variant="secondary" className="text-xs">
+              {race}
+            </Badge>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm font-medium">Attribute:</span>
+            <Badge
+              className={`text-xs ${getAttributeColor(attribute)} text-white`}
+            >
+              {attribute}
+            </Badge>
+          </div>
+        </div>
+        <div className="flex flex-wrap md:justify-start justify-center gap-2 mt-3">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button className="inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-blue-400 text-blue-600 gap-1">
+                    <Gamepad2 className="w-3 h-3" />
+                    <span>{game}</span>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent className="z-10">
+                  <p>From: {game}</p>
+                </TooltipContent>
+              </Tooltip>
+
+          {crossover && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                  <button className="inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-purple-400 text-purple-600 gap-1">
+                      <ArrowLeftRight className="w-3 h-3" />
+                      <span>Crossover: {crossover}</span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{crossover}</p>
+                  </TooltipContent>
+                </Tooltip>
+          )}
+
+          {event && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                <button className="inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-amber-400 text-amber-600 gap-1">
+                    <Calendar className="w-3 h-3" />
+                    <span>{event}</span>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Event character from: {event}</p>
+                </TooltipContent>
+              </Tooltip>
+          )}
+        </div>
+      </div>
+      </TooltipProvider>
+
     </div>
   );
 }

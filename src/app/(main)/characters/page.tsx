@@ -55,7 +55,7 @@ function Characters() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
-      className="container mx-auto p-10 space-y-5"
+      className="container mx-auto p-10 pt-[8rem] space-y-5"
     >
       {/* Add background colour to this. */}
       <div>

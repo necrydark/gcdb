@@ -37,7 +37,7 @@ export const UserButton = ({ className }: Props) => {
     <div className={cn(" cursor-pointer", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar>
+          <Avatar className="border-2 border-white">
             <AvatarImage src={user?.image || ""} />
             <AvatarFallback className="bg-background text-primary-foreground">
               <FaUser />

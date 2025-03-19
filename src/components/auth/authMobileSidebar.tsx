@@ -6,7 +6,7 @@ export const AuthMobileSidebar = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <Menu className="text-foreground" />
+        <Menu className="text-white" />
       </SheetTrigger>
       <SheetContent className="p-0 z-[9999]" side="left">
         <AuthSidebar />

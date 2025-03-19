@@ -22,7 +22,8 @@ import React from "react";
 import testimg from "../../../../../../public/test-bg.png";
 import CardSection from "./card-section";
 import SmallCardSection from "./small-card-section";
-
+import { UserBanner} from "@/src/components/profile/user-banner"
+ 
 interface PageProps {
   params: {
     slug: string;
@@ -41,6 +42,8 @@ async function ProfilePage({ params }: PageProps) {
   }
 
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
+  const randomName = names[Math.floor(Math.random() * names.length)];
+
 
   // const userData = await getData(user.id as string);
   // const userFavourites = await getFavourites(user.id as string);
@@ -62,59 +65,7 @@ async function ProfilePage({ params }: PageProps) {
       )}
     >
       {/* Banner */}
-      <div>
-        <Image
-          alt={`${data?.username}'s Banner`}
-          priority
-          width={1920}
-          height={200}
-          src={data?.banner ?? testimg}
-          className="h-[200px] w-full object-cover border-b-[1px] border-b-white"
-        />
-
-        {/* Profile Picture */}
-        <Image
-          src={
-            data?.image ??
-            "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
-          }
-          alt="User profile picture"
-          priority
-          width={75}
-          height={75}
-          className="rounded-full aspect-[1] border mx-auto -translate-y-[35px] border-white"
-        />
-        {/* Username */}
-        <div className="flex flex-row justify-center items-center">
-          <h1 className="text-3xl pr-[10px] font-extrabold text-center -translate-y-[25px] tracking-tight">
-            {data?.username ?? names.map((name) => name)}
-          </h1>
-          <Badge
-            className=" -translate-y-[25px] text-white "
-            variant={
-              colour as
-                | "red"
-                | "green"
-                | "blue"
-                | "yellow"
-                | "orange"
-                | "pink"
-                | "cyan"
-                | "purple"
-                | null
-                | undefined
-            }
-          >
-            {data?.role === "USER"
-              ? "User"
-              : data?.role === "ADMIN"
-              ? "Admin"
-              : data?.role === "OWNER"
-              ? "Owner"
-              : null}
-          </Badge>
-        </div>
-      </div>
+      <UserBanner username={data?.username || randomName} imageUrl={data?.image || undefined} role={data?.role} colour={colour} />
 
       {/* Profile Section */}
       <div className="max-w-[1200px] md:mx-auto md:px-0 px-8">

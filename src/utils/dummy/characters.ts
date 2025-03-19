@@ -64,7 +64,7 @@ export const characters: Character[] = [
     crossover: Crossovers.NotCrossover,
     basicInfo: {
       rarity: Rarities.SSR,
-      attribute: Attributes.Strength,
+      attribute: Attributes.HP,
       race: Races.Giant,
     },
     stats: {
@@ -133,16 +133,19 @@ export const characters: Character[] = [
           jpName: "スイート・インパクト",
           ranks: [
             {
+              rank: 1,
               description:
                 "Inflicts Pierce damage equal to 200% of Attack on one enemy.",
               type: "attack",
             },
             {
+              rank: 2,
               description:
                 "Inflicts Pierce damage equal to 300% of Attack on one enemy.",
               type: "attack",
             },
             {
+              rank: 3,
               description:
                 "Inflicts Pierce damage equal to 500% of Attack on one enemy.",
               type: "attack",
@@ -156,16 +159,19 @@ export const characters: Character[] = [
           jpName: "金剛の盾",
           ranks: [
             {
+              rank: 1,
               description:
                 "Assumes a Stance which Taunts enemies and decreases damage taken by 40% when attacked for 2 turn(s).",
               type: "stance",
             },
             {
+              rank: 2,
               description:
                 "Assumes a Stance which Taunts enemies and decreases damage taken by 50% when attacked for 2 turn(s). Depletes the Ultimate Move Gauge of the enemy who used the skill by 1 orb(s).",
               type: "stance",
             },
             {
+              rank: 3,
               description:
                 "Assumes a Stance which Taunts enemies and decreases damage taken by 60% when attacked for 2 turn(s). Depletes the Ultimate Move Gauge of the enemy who used the skill by 2 orb(s).",
               type: "stance",

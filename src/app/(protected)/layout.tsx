@@ -39,7 +39,7 @@ const AdminLayout = ({ children }: Props) => {
        
       ];
   return (
-    <div className="min-h-screen flex flex-col text-gray-900 bg-background transition-all duration-300 dark:text-white">
+    <div className="min-h-screen flex flex-col text-gray-900 transition-all duration-300 dark:text-white">
       <MobileHeader />
       <AdminSidebar className="hidden lg:flex" links={links} />
       <main className="lg:pl-[256px] h-full">
