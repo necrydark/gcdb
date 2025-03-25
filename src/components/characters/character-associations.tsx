@@ -4,12 +4,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui
 import { findCharacterFromSlug } from '@/src/utils/findCharacter';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useShowJapanese } from '../eng-jp';
 
 type Props = {
     associations?: Association[];
 }
 
 export default function CharacterAssociationsTab({associations}: Props) {
+    const { showJapanese} = useShowJapanese();
   return (
     <Card>
         <CardHeader>
@@ -18,24 +20,27 @@ export default function CharacterAssociationsTab({associations}: Props) {
         </CardHeader>
         <CardContent>
             {associations && associations.length > 0 ? (
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='grid md:place-items-start place-items-center gap-6'>
                     {associations.map((x, idx) => {
                         const char = findCharacterFromSlug(x.slug);
                         return (
-                            <div key={idx} className='flex flex-col gap-2'>
-                                <Link className='flex gap-2 flex-col md:flex-row items-center' href={char.slug}>
+                            <div key={idx} className='flex items-center gap-4'>
+                                <Link className='flex gap-2 flex-col md:flex-row items-center hover:opacity-60 duration-300  p-4 ' href={char.slug}>
+                                    <div className='flex-shrink-0 w-12 h-12 rounded-full overflow-hidden border border-muted'>
                                     <Image
-                                        width={64}
-                                        height={64}
+                                        width={48}
+                                        height={48}
                                         className="object-cover"
                                         src={char.imageUrl}
                                         alt={char.name}
                                     />
-                                    <div className='flex flex-col gap-1'>
-                                    <p className="font-bold text-base hover:opacity-60 transition-all duration-300">
-                                        {char.name}
-                                    </p>
-                                <p className="text-muted-foreground ">
+                                    </div>
+                                    <div>
+                                    <h3 className="font-medium">
+                                        {showJapanese ? char.jpName : char.name}
+                                        <span className='text-muted-foreground text-xs pl-1'>{showJapanese ? char.jpTag : char.tag}</span>
+                                    </h3>
+                                <p className="text-muted-foreground md:text-left text-center">
                                     {x.bonus}
                                 </p>
                                     </div>
@@ -46,7 +51,7 @@ export default function CharacterAssociationsTab({associations}: Props) {
                 </div>
             ) : (
                 <div className='flex justify-center items-center'>
-                    <p className='text-base font-semibold text-center'>No associations available...</p>
+                    <h1>No associations available...</h1>
                 </div>
             )}
         </CardContent>

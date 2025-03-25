@@ -70,7 +70,6 @@ export const settingsSchema = z
     password: z.optional(z.string().min(6)),
     newPassword: z.optional(z.string().min(6)),
     image: z.optional(z.string()),
-    banner: z.optional(z.string()),
     bio: z
       .string()
       .min(10, "Bio must be at least 10 characters long")

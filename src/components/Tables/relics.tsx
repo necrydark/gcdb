@@ -1,5 +1,5 @@
-import { Food } from "@/types/food";
-import { HolyRelic } from "@/types/holyrelic";
+import { Food } from "@/src/types/food";
+import { HolyRelic } from "@/src/types/holyrelic";
 import { Tooltip } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import Link from "next/link";

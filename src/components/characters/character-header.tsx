@@ -115,6 +115,7 @@ function CharacterHeader({
               </Label>
               <Switch
                 id="language-toggle"
+                className="data-[state=checked]:bg-purple-700 data-[state=unchecked]:bg-purple-900 "
                 checked={showJapanese}
                 onCheckedChange={toggleShowJapanese}
               />

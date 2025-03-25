@@ -29,11 +29,11 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en" className="dark">
         <body className={inter.className}>
-          <Providers>
+          <Providers >
             <div className="min-h-screen flex flex-col text-gray-900 bg-background transition-all duration-300 dark:text-white">
               {session && <AuthNavbar />}
               {!session && <Navbar />}
-              <div className="flex-1" suppressHydrationWarning>
+              <div className="flex-1  transition-all duration-300 bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900" suppressHydrationWarning>
                 <NextSSRPlugin
                   /**
                    * The `extractRouterConfig` will extract **only** the route configs

@@ -48,7 +48,7 @@ model User {
   twoFactorConfirmation TwoFactorConfirmation?
   profileColour         ProfileColour          @default(PURPLE)
   boxCC                 String?
-  ingameRank String?
+  ingameRank            String?
   Comments              Comments[]
 
   createdAt DateTime @default(now())
@@ -141,19 +141,7 @@ model Character {
   attribute          Attribute           @default(HP)
   rarity             Rarity              @default(SSR)
   event              GameEvent           @default(None)
-  combatClass        Int
-  attack             Int
-  defense            Int
-  hp                 Int
-  pierceRate         String
-  resistance         String
-  regeneration       String
-  critChance         String
-  critDamage         String
-  critResistance     String
-  critDefense        String
-  recoveryRate       String
-  lifesteal          String
+  stats              Stats[]
   gender             Genders             @default(Male)
   bloodType          String?
   age                String?
@@ -178,6 +166,25 @@ model Character {
   ultimate           CharacterUltimate[]
   Favourite          Favourite[]
   Comments           Comments[]
+}
+
+model Stats {
+  id             String     @id @default(cuid())
+  combatClass    Int
+  attack         Int
+  defense        Int
+  hp             Int
+  pierceRate     String
+  resistance     String
+  regeneration   String
+  critChance     String
+  critDamage     String
+  critResistance String
+  critDefense    String
+  recoveryRate   String
+  lifesteal      String
+  Character      Character? @relation(fields: [characterId], references: [id])
+  characterId    String?
 }
 
 model AssociationWith {
@@ -264,25 +271,25 @@ model Gift {
 }
 
 model Materials {
-  id        String        @id @default(cuid())
-  name      String
-  imageUrl  String
-  location  String?
+  id         String               @id @default(cuid())
+  name       String
+  imageUrl   String
+  location   String?
   holyRelics HolyRelicMaterials[]
 }
 
 model HolyRelic {
-  id         String             @id @default(cuid())
-  name       String
-  imageUrl   String
-  effect     String
-  materials  HolyRelicMaterials[]
+  id        String               @id @default(cuid())
+  name      String
+  imageUrl  String
+  effect    String
+  materials HolyRelicMaterials[]
 
   attack     String
   defense    String
   hp         String
   characters Character[]
-  beast      Beast              @default(Hraesvelgr)
+  beast      Beast       @default(Hraesvelgr)
 }
 
 model HolyRelicMaterials {
@@ -302,7 +309,6 @@ model HolyRelicMaterials {
 
 //   @@id([holyRelicId, characterId]) // This creates a composite key for the many-to-many relationship
 // }
-
 
 enum Beast {
   Hraesvelgr

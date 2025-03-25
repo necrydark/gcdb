@@ -13,19 +13,23 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-white bg-purple-700 hover:bg-accent hover:text-accent-foreground",
+          "border border-input hover:bg-accent hover:text-accent-foreground text-white",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        purple: " bg-purple-300 dark:bg-purple-950 !text-white",
-        red: " bg-red-300 dark:bg-red-950 !text-white",
-        green: " bg-green-300 dark:bg-green-950 !text-white",
-        blue: " bg-blue-300 dark:bg-blue-950 !text-white",
-        yellow: " bg-yellow-300 dark:bg-yellow-950 !text-white",
-        orange: " bg-orange-300 dark:bg-orange-950 !text-white",
-        pink: " bg-pink-300 dark:bg-pink-950 !text-white",
-        cyan: " bg-cyan-300 dark:bg-cyan-950 !text-white",
+        purple:
+        " bg-purple-500 dark:bg-purple-800 hover:bg-purple-600  dark:hover:bg-purple-900 border-purple-800 dark:border-purple-500  !text-white",
+      red: " bg-red-500 dark:bg-red-800 border-red-800  hover:bg-red-600  dark:hover:bg-red-900  dark:border-red-500 !text-white",
+      green:
+        " bg-green-500 dark:bg-green-800 border-green-800  hover:bg-green-600  dark:hover:bg-green-900  dark:border-green-500 !text-white",
+      blue: " bg-blue-500 dark:bg-blue-800 border-blue-800  hover:bg-blue-600  dark:hover:bg-blue-900  dark:border-blue-500 !text-white",
+      yellow:
+        " bg-yellow-500 dark:bg-yellow-800 border-yellow-800  hover:bg-yellow-600  dark:hover:bg-yellow-900  dark:border-yellow-500 !text-white",
+      orange:
+        " bg-orange-500 dark:bg-orange-800 border-orange-800  hover:bg-orange-600  dark:hover:bg-orange-900  dark:border-orange-500 !text-white",
+      pink: " bg-pink-500 dark:bg-pink-800 border-pink-800  hover:bg-pink-600  dark:hover:bg-pink-900  dark:border-pink-500 !text-white",
+      cyan: " bg-cyan-500 dark:bg-cyan-800 border-cyan-800  hover:bg-cyan-600  dark:hover:bg-cyan-900  dark:border-cyan-500 !text-white",
       },
       size: {
         default: "h-10 px-4 py-2",

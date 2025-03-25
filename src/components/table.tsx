@@ -2,9 +2,9 @@ import React from "react";
 
 const GearTable = ({ headers, data }: { headers: any[]; data: any[] }) => {
   return (
-    <table className="w-full text-sm  rtl:text-right text-gray-500 dark:text-white font-bold">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700">
+    <table className="w-full text-sm  rtl:text-right even:text-white odd:text-black  font-bold">
+      <thead className="text-xs text-white uppercase bg-purple-50 dark:bg-purple-700 dark:text-white">
+        <tr className="odd:bg-purple-400 odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 text-center even:dark:bg-purple-700 border-b dark:border-purple-700">
           {headers.map((header) => (
             <th className="px-6 py-3" key={header}>
               {header}
@@ -16,7 +16,7 @@ const GearTable = ({ headers, data }: { headers: any[]; data: any[] }) => {
         {data.map((row) => (
           <tr
             key={row.id}
-            className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600"
+            className="odd:bg-purple-400 odd:dark:bg-purple-900 odd:text-white even:text-black dark:even:text-white  border border-purple-500  even:bg-purple-50 text-center even:dark:bg-purple-700 border-b dark:border-purple-700"
           >
             <td className="px-6 py-4" key={row.id}>
               {row.gearIcon}

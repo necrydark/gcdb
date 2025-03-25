@@ -1,5 +1,6 @@
-import { CharacterMiscInfo, CharacterStats } from "@/src/types/character";
-import React from "react";
+"use client"
+import { Character, CharacterMiscInfo, CharacterStats } from "@/src/types/character";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -13,25 +14,80 @@ import { Separator } from "../ui/separator";
 import { MdOutlineBloodtype } from "react-icons/md";
 import { FaVenusMars } from "react-icons/fa6";
 import { Badge } from "../ui/badge";
+import { Label } from "../ui/label";
+import { Switch } from "../ui/switch";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 
 type Props = {
-  stats?: CharacterStats;
+  character: Character;
   misc?: CharacterMiscInfo;
 };
 
-export default function CharacterStatsTab({ stats, misc }: Props) {
-    console.log(misc)
+export default function CharacterStatsTab({ character, misc }: Props) {
+
+  const [selectedLevel, setSelectedLevel] = useState("1");
+
+  
+  const hasLevel1Stats = Array.isArray(character.stats)
+  ? character.stats.some((stat) => stat.level === "1" || stat.level === "1")
+  : false
+
+const hasLevel100Stats = Array.isArray(character.stats)
+  ? character.stats.some((stat) => stat.level === "100" || stat.level === "100")
+  : false
+
+const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some((stat) => stat.level === "Super Awakening") : false
+
+  const hasBothLevels = hasLevel1Stats && hasLevel100Stats;
+
+  const currentStats = (() => {
+    if (!Array.isArray(character.stats)) {
+      return character.stats
+    }
+
+    return character.stats.find((stat) => stat.level.toString() === selectedLevel) || character.stats[0]
+  })()
+  
+
   return (
-    <Card>
+    <Card className="bg-purple-400 dark:bg-purple-900">
       <CardHeader>
-        <CardTitle className="flex flex-row justify-between">Character Stats & Info
-        <Badge variant={"outline"} className="text-sm py-1">
-              Level 1
-            </Badge>
+        <CardTitle className="flex flex-row justify-between items-center">Character Stats & Info
+        <div className="flex">
+            {hasBothLevels ? (
+               <div className="flex justify-end space-x-2 items-center">
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Button variant="outline" className=" text-purple-600 border-purple-600 rounded-full">
+                      Levels
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem onClick={() => setSelectedLevel("1")}>1</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSelectedLevel("100")}>100</DropdownMenuItem>
+                    {hasSuperAwakening && (
+                      <DropdownMenuItem onClick={() => setSelectedLevel("Super Awakening")}>Super Awakening</DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+            
+            ) : (
+              <div className="text-sm text-muted-foreground">
+                Only level {currentStats.level} stats available for this character.
+            </div>
+            )}
+            </div>
         </CardTitle>
-        <CardDescription>Base Stats & Misc Info.</CardDescription>
+        <CardDescription className=" flex flex-row gap-1">{currentStats.level === "Super Awakening" ? (
+            <p>Stats for a super awakened character</p>
+        ): (
+          <p>Base Stats at level {currentStats.level}</p>
+        )} & Misc Info.</CardDescription>
       </CardHeader>
       <CardContent >
+   
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4 flex flex-col gap-6">
         <div className="space-y-2">
@@ -40,7 +96,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Anvil className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Combat Class</span>
               </div>
-              <span className="font-medium">{stats?.combatClass}cc</span>
+              <span className="font-medium">{currentStats.combatClass}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -49,7 +105,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Swords className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Attack</span>
               </div>
-              <span className="font-medium">{stats?.attack}</span>
+              <span className="font-medium">{currentStats.attack}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -58,7 +114,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Heart className="w-4 h-4 mr-2 text-red-500" />
                 <span>Health</span>
               </div>
-              <span className="font-medium">{stats?.hp}</span>
+              <span className="font-medium">{currentStats.hp}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -67,7 +123,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Shield className="w-4 h-4 mr-2 text-blue-500" />
                 <span>Defense</span>
               </div>
-              <span className="font-medium">{stats?.defense}</span>
+              <span className="font-medium">{currentStats.defense}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -76,7 +132,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <GiArrowScope className="w-4 h-4 mr-2 text-blue-500" />
                 <span>Pierce Rate</span>
               </div>
-              <span className="font-medium">{stats?.pierceRate}</span>
+              <span className="font-medium">{currentStats.pierceRate}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -85,7 +141,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <GiHealing className="w-4 h-4 mr-2 text-green-500" />
                 <span>Regeneration</span>
               </div>
-              <span className="font-medium">{stats?.regeneration}</span>
+              <span className="font-medium">{currentStats.regeneration}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -94,7 +150,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <GiFrontTeeth className="w-4 h-4 mr-2 text-red-500" />
                 <span>Life Steal</span>
               </div>
-              <span className="font-medium">{stats?.lifesteal}</span>
+              <span className="font-medium">{currentStats.lifesteal}%</span>
             </div>
           </div>
         </div>
@@ -105,7 +161,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Star className="w-4 h-4 mr-2 text-purple-500" />
                 <span>Crit Chance</span>
               </div>
-              <span className="font-medium">{stats?.critChance}</span>
+              <span className="font-medium">{currentStats.critChance}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -114,7 +170,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Star className="w-4 h-4 mr-2 text-pink-500" />
                 <span>Crit Damage</span>
               </div>
-              <span className="font-medium">{stats?.critDamage}</span>
+              <span className="font-medium">{currentStats.critDamage}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -123,7 +179,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Shield className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Crit Defense</span>
               </div>
-              <span className="font-medium">{stats?.critDefense}</span>
+              <span className="font-medium">{currentStats.critDefense}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -132,7 +188,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <GiArrowsShield className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Crit Resistance</span>
               </div>
-              <span className="font-medium">{stats?.critResistance}</span>
+              <span className="font-medium">{currentStats.critResistance}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -141,7 +197,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Cross className="w-4 h-4 mr-2 text-green-500" />
                 <span>Recovery Rate</span>
               </div>
-              <span className="font-medium">{stats?.recoveryRate}</span>
+              <span className="font-medium">{currentStats.recoveryRate}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -150,7 +206,7 @@ export default function CharacterStatsTab({ stats, misc }: Props) {
                 <Shield className="w-4 h-4 mr-2 text-red-500" />
                 <span>Resistance</span>
               </div>
-              <span className="font-medium">{stats?.resistance}</span>
+              <span className="font-medium">{currentStats.resistance}%</span>
             </div>
           </div>
         </div>

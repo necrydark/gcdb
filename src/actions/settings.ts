@@ -75,10 +75,6 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
     values.image = dbUser?.image as string;
   }
 
-  if (values.banner == undefined || values.banner == "") {
-    values.banner = dbUser?.banner as string;
-  }
-
   const updatedUser = await db.user.update({
     where: { id: dbUser?.id },
     data: {
@@ -94,7 +90,6 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
       isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
       username: updatedUser.username as string,
       role: updatedUser.role,
-      banner: updatedUser.banner as string,
       profileColor: updatedUser.profileColour,
       bio: updatedUser.bio as string,
       boxCC: updatedUser.boxCC as string,

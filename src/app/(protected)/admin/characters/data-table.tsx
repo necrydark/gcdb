@@ -71,7 +71,7 @@ export function CharacterDataTable<TData, TValue>({
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="ml-auto text-white hover:text-white hover:bg-purple-900 duration-300">
               Columns
             </Button>
           </DropdownMenuTrigger>

@@ -36,8 +36,8 @@ const AdminCharactersPage = async () => {
         <h1 className="text-3xl leading-tight font-extrabold py-5">
           Characters Page
         </h1>
-        <Button size="sm" variant="outline" className="rounded-full" asChild>
-          <Link href={"/admin/characters/add"}><Plus className="h-4 w-4" /></Link>
+        <Button size="sm" variant="outline" className="rounded-full w-8 p-0 h-8 hover:bg-purple-900/50 duration-300" asChild>
+          <Link href={"/admin/characters/add"}><Plus className="h-4 w-4 text-white" /></Link>
 
         </Button>
       </div>

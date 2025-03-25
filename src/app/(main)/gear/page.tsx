@@ -1,3 +1,4 @@
+'use client'
 import MaxStatsTable from "@/src/components/Tables/maxStats";
 import GearTable from "@/src/components/table";
 import {
@@ -9,9 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/src/components/ui/table";
-import React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
+import { Star } from "lucide-react";
+import React, { useState } from "react";
 
-function page() {
+export default function Page() {
+  const [activeTab, setActiveTab] = useState("gear-sets");
   const gearData = [
     {
       id: 1,
@@ -262,23 +266,36 @@ function page() {
     },
   ];
 
+
   return (
-    <div className="container mx-auto md:p-10 py-5 space-y-5">
-      <div>
-      <h1 className="text-xl p-4 pl-0">Gear Sets</h1>
+    <div className="container mx-auto max-w-7xl pt-[7rem] py-5 space-y-5">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full">
+        <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-purple-400 text-white">
+          <TabsTrigger value="gear-sets" className={activeTab === "gear-sets" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Gear Sets</TabsTrigger>
+          <TabsTrigger value="gear-subsets" className={activeTab === "gear-subsets"  ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Gear Subsets</TabsTrigger>
+          <TabsTrigger value="main-base-0" className={activeTab === "main-base-0" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Main Base 0 <Star className="w-4 h-4 pl-1" /></TabsTrigger>
+          <TabsTrigger value="main-base-5" className={activeTab === "main-base-5" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Main Base 5 <Star className="w-4 h-4 pl-1" /></TabsTrigger>
+
+        </TabsList>
+     
+     <TabsContent value="gear-sets">
+     <div>
+      <h1 className="text-3xl pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Gear Sets</h1>
       <GearTable
         headers={["Gear", "JP", "EN", "Set", "Set Bonus"]}
         data={gearData}
       />
       </div>
+     </TabsContent>
 
+      <TabsContent value="gear-subsets">
       <div>
         {/* TODO: Make table unique */}
-        <h1 className="text-xl p-4 pl-0">Gear Substats</h1>
+        <h1 className="text-3xl  pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Gear Substats</h1>
 
-        <table className="w-full text-sm mt-[15px] rtl:text-right text-gray-500 dark:text-white font-bold">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700">
+        <table className="w-full text-sm mt-[15px] rtl:text-right text-white font-bold">
+          <thead className="text-xs text-purple-700 uppercase bg-purple-50 dark:bg-purple-700 dark:text-purple-400">
+            <tr className="dark:text-white text-purple-600">
               {subStatsColumns.map((col) => {
                 return (
                   <th className="px-6 py-3" key={col.key}>
@@ -289,69 +306,69 @@ function page() {
             </tr>
           </thead>
           <tbody>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td
                 rowSpan={4}
-                className="border-r-1 border-gray-500 dark:border-gray-600"
+                className="border-r-1 border-purple-500 dark:border-purple-600"
               >
                 Bracelet &amp; Ring / 腕輪 &amp; リング
               </td>
               <td className="px-6 py-4">Attack / 攻撃力</td>
               <td className="px-6 py-4">1% - 3%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900 text-purple-900 dark:text-white  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Pierce Rate / 貫通率</td>
               <td className="px-6 py-4">2% - 6%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Crit Chance / クリティカル確率</td>
               <td className="px-6 py-4">1.5% - 4.5%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border text-purple-900 dark:text-white border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Crit Damage / クリティカルダメージ</td>
               <td className="px-6 py-4">2% - 6%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td
                 rowSpan={4}
-                className="border-r-1 border-gray-500 dark:border-gray-600"
+                className="border-r-1 border-purple-500 dark:border-purple-600"
               >
                 Necklace &amp; Earrings / 首飾り &amp; 耳飾り
               </td>
               <td className="px-6 py-4">Defense / 防御力</td>
               <td className="px-6 py-4">1% - 3%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500 text-purple-900 dark:text-white  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Resistance / 忍耐率</td>
               <td className="px-6 py-4">2% - 6%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Crit Resistance / クリティカル耐性</td>
               <td className="px-6 py-4">1.5% - 4.5%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 text-purple-900 dark:text-white even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Crit Defense / クリティカル防御</td>
               <td className="px-6 py-4">2% - 6%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td
                 rowSpan={4}
-                className="border-r-1 border-gray-500 dark:border-gray-600"
+                className="border-r-1 border-purple-500 dark:border-purple-600"
               >
                 Belt &amp; Rune / ベルト &amp; ルーン
               </td>
               <td className="px-6 py-4">HP</td>
               <td className="px-6 py-4">1% - 3%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500 text-purple-900 dark:text-white  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Regeneration / 再生率</td>
               <td className="px-6 py-4">2% - 6%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Recovery / 回復率</td>
               <td className="px-6 py-4">2% - 6%</td>
             </tr>
-            <tr className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600">
+            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500 text-purple-900 dark:text-white  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
               <td className="px-6 py-4">Lifesteal / HP吸収率</td>
               <td className="px-6 py-4">1.5% - 4.5%</td>
             </tr>
@@ -359,13 +376,15 @@ function page() {
         </table>
       </div>
 
-      <div>
-        <h1 className="text-xl p-4 pl-0">Main Stat Base Stats (0★)</h1>
-        <Table className="w-full text-sm mt-[15px]  rtl:text-right text-gray-500 dark:text-white font-bold">
-          <TableHeader className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <TableRow className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700">
+      </TabsContent>
+    <TabsContent value="main-base-0">
+    <div>
+        <h1 className="text-3xl  pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Main Stat Base Stats (0★)</h1>
+        <Table className="w-full text-sm mt-[15px]  rtl:text-right text-purple-700 dark:text-white font-bold">
+          <TableHeader className="text-xs text-purple-700 uppercase bg-purple-300 dark:bg-purple-700 dark:text-purple-400">
+            <TableRow className="odd:bg-purple-400 odd:dark:bg-purple-900 text-white   border border-purple-500  even:bg-purple-300 even:dark:bg-purple-700 border-b dark:border-purple-700">
               {columns.map((column) => (
-                <TableHead className="px-6 py-3" key={column.key}>
+                <TableHead className="px-6 py-3 text-white" key={column.key}>
                   {column.label}
                 </TableHead>
               ))}
@@ -373,9 +392,9 @@ function page() {
           </TableHeader>
           <TableBody>
             {baseStats.map((row) => (
-              <TableRow
+              <TableRow 
                 key={row.key}
-                className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600"
+                className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-white even:dark:bg-purple-700 border-b dark:border-purple-600"
               >
                 <TableCell className="px-6 py-4">{row.equipment}</TableCell>
                 <TableCell className="px-6 py-4">{row.mainStat}</TableCell>
@@ -388,14 +407,16 @@ function page() {
           </TableBody>
         </Table>
       </div>
+    </TabsContent>
 
-      <div>
-        <h1 className="text-xl p-4 pl-0">Main Stat Max Stats (5★ +5)</h1>
-        <Table className="w-full text-sm mt-[15px]  rtl:text-right text-gray-500 dark:text-white font-bold">
-          <TableHeader className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <TableRow className="odd:bg-white odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-700">
+    <TabsContent value="main-base-5">
+    <div>
+        <h1 className="text-3xl  pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Main Stat Max Stats (5★ +5)</h1>
+        <Table className="w-full text-sm mt-[15px]  rtl:text-right text-purple-700 dark:text-white font-bold">
+          <TableHeader className="text-xs text-purple-700 uppercase bg-purple-300 dark:bg-purple-700 dark:text-purple-400">
+            <TableRow className="odd:bg-purple-400 odd:dark:bg-purple-900 text-white   border border-purple-500  even:bg-purple-300 even:dark:bg-purple-700 border-b dark:border-purple-700">
               {columns.map((column) => (
-                <TableHead className="px-6 py-3" key={column.key}>
+                <TableHead className="px-6 py-3 text-white" key={column.key}>
                   {column.label}
                 </TableHead>
               ))}
@@ -405,7 +426,7 @@ function page() {
             {maxStats.map((row) => (
               <TableRow
                 key={row.key}
-                className="odd:bg-white text-center odd:dark:bg-gray-900  border border-gray-500  even:bg-gray-50 even:dark:bg-gray-700 border-b dark:border-gray-600"
+                className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-white even:dark:bg-purple-700 border-b dark:border-purple-600"
               >
                 <TableCell className="px-6 py-4">{row.equipment}</TableCell>
                 <TableCell className="px-6 py-4">{row.mainStat}</TableCell>
@@ -418,9 +439,11 @@ function page() {
           </TableBody>
         </Table>
       </div>
+    </TabsContent>
+    </Tabs>
+
       {/* <MaxStatsTable /> */}
     </div>
   );
 }
 
-export default page;

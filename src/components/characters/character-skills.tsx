@@ -19,15 +19,13 @@ function CharacterSkillsTab({ skills, rarity }: Props) {
   const [selectedSkillLevels, setSelectedSkillLevels] = useState<Record<string, number>>({})
 
   const { showJapanese } = useShowJapanese()
-  console.log()
-  const rarity2 = "LR"
 
   const getSkillTypeIcon = (type: string) => {
     switch (type) {
       case "attack":
-        return <Swords className="w-4 h-4" />
-      case "stance":
-          return <Shield className="w-4 h-4" />
+        return <Image src={"/attack.png"} alt="Attack Icon" className="w-8 h-8" width={32} height={32} />
+      case "taunt":
+          return <Image src={"/taunt.png"} alt="Taunt Icon" className="w-8 h-8" width={32} height={32} />
       default:
         return <Star className="w-4 h-4" />
     }

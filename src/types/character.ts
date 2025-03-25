@@ -25,19 +25,20 @@ export type Passive = {
 };
 
 export type CharacterStats = {
+  level: string;
   combatClass: number;
   attack: number;
   defense: number;
   hp: number;
-  pierceRate: string;
-  resistance: string;
-  regeneration: string;
-  critChance: string;
-  critDamage: string;
-  critResistance: string;
-  critDefense: string;
-  recoveryRate: string;
-  lifesteal: string;
+  pierceRate: number;
+  regeneration: number;
+  lifesteal: number;
+  critChance: number;
+  critDamage: number;
+  critDefense: number;
+  critResistance: number;
+  recoveryRate: number;
+  resistance: number;
 };
 
 export type CharacterPreview = {
@@ -68,7 +69,7 @@ export type Character = {
   imageUrl: string;
   crossover: Crossover;
   basicInfo: BasicInfo;
-  stats: CharacterStats;
+  stats: CharacterStats[];
   misc: {
     info: CharacterMiscInfo;
   };

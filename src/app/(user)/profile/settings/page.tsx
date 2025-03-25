@@ -51,7 +51,6 @@ const SettingsPage = () => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [profilePicture, setProfilePicture] = useState<string | undefined>("");
-  const [profileBanners, setProfileBanners] = useState<string | undefined>("");
 
   const [isPending, startTransition] = useTransition();
 
@@ -65,7 +64,6 @@ const SettingsPage = () => {
       newPassword: undefined,
       isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
       image: user?.image as string,
-      banner: user?.banner,
       bio: user?.bio || undefined,
       profileColour: user?.profileColor || undefined,
       boxCC: user?.boxCC || undefined,
@@ -78,7 +76,6 @@ const SettingsPage = () => {
   const onSubmit = (values: z.infer<typeof settingsSchema>) => {
     startTransition(() => {
       values.image = profilePicture as string;
-      values.banner = profileBanners as string;
       settings(values)
         .then((data) => {
           if (data.error) {
@@ -104,11 +101,15 @@ const SettingsPage = () => {
     });
   };
 
+  const colour = user?.profileColor.toLocaleLowerCase();
+  const stringedColour = colour.toString();
+  console.log(stringedColour)
+
   return (
-    <div className="container mx-auto p-10">
-      <Card>
+    <div className="container mx-auto  p-10 pt-[3rem]">
+      <Card className={`dark:bg-${colour}-950 bg-${colour}-800 border-0 rounded-[5px] shadow-md dark:shadow-${colour}-300` }>
         <CardHeader>
-          <CardTitle>Settings</CardTitle>
+          <CardTitle className="text-white">Settings</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -119,13 +120,14 @@ const SettingsPage = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel className="text-white">Name</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder="John Doe"
                           type="text"
                           disabled={isPending}
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white`}
                         />
                       </FormControl>
                       <FormMessage />
@@ -137,13 +139,15 @@ const SettingsPage = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel className="text-white">Email</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder="johndoe@example.com"
                           type="email"
                           disabled={isPending}
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white`}
+
                         />
                       </FormControl>
                       <FormMessage />
@@ -155,13 +159,15 @@ const SettingsPage = () => {
                   name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username</FormLabel>
+                      <FormLabel className="text-white">Username</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder="johndoe"
                           type="text"
                           disabled={isPending}
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white`}
+
                         />
                       </FormControl>
                       <FormMessage />
@@ -173,17 +179,17 @@ const SettingsPage = () => {
                   name="bio"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>About You</FormLabel>
+                      <FormLabel className="text-white">About You</FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
                           disabled={isPending}
                           maxLength={255}
                           placeholder="Tell us a little bit about yourself"
-                          className="resize-none"
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white resize-none`}
                         />
                       </FormControl>
-                      <div className="text-right text-gray-500">
+                      <div className="text-right text-white">
                         {field.value?.length || 0}/255
                       </div>
                       <FormMessage />
@@ -195,12 +201,13 @@ const SettingsPage = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel className="text-white">Password</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder="******"
                           type="password"
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white`}
                           disabled={isPending}
                         />
                       </FormControl>
@@ -213,13 +220,15 @@ const SettingsPage = () => {
                   name="newPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>New Password</FormLabel>
+                      <FormLabel className="text-white">New Password</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder="******"
                           type="password"
                           disabled={isPending}
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white`}
+
                         />
                       </FormControl>
                       <FormMessage />
@@ -230,10 +239,14 @@ const SettingsPage = () => {
                   control={form.control}
                   name="isTwoFactorEnabled"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+
+                    <FormItem
+                   className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white flex flex-row items-center justify-between rounded-lg  p-3 shadow-md`}
+                    
+                    >
                       <div className="space-y-0.5">
-                        <FormLabel> Two Factor Authentication</FormLabel>
-                        <FormDescription>
+                        <FormLabel className="text-white"> Two Factor Authentication</FormLabel>
+                        <FormDescription className="text-gray-400">
                           Enabled 2FA for your account
                         </FormDescription>
                       </div>
@@ -247,19 +260,21 @@ const SettingsPage = () => {
                     </FormItem>
                   )}
                 />
-                <h1 className="text-2xl font-extrabold pl-0 p-6">Extra Info </h1>
+                <h1 className="text-2xl font-extrabold pl-0 p-6 text-white">Extra Info </h1>
                 <FormField
                   control={form.control}
                   name="boxCC"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Box CC</FormLabel>
+                      <FormLabel className="text-white">Box CC</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder="100000"
                           type="text"
                           disabled={isPending}
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white`}
+
                         />
                       </FormControl>
                       <FormMessage />
@@ -271,13 +286,15 @@ const SettingsPage = () => {
                   name="ingameRank"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>In Game Rank</FormLabel>
+                      <FormLabel className="text-white">In Game Rank</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           placeholder="110"
                           type="text"
                           disabled={isPending}
+                          className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white`}
+
                         />
                       </FormControl>
                       <FormMessage />
@@ -290,38 +307,60 @@ const SettingsPage = () => {
                   name="profileColour"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Profile Colour</FormLabel>
+                      <FormLabel className="text-white">Profile Colour</FormLabel>
                       <Select
                         disabled={isPending}
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger 
+                          className={`dark:bg-${colour}-800 !bg-${colour}-800 border-${colour}-500 dark:border-${colour}-600 ring-0 border-0 dark:text-white dark:placeholder:text-white`}
+
+                          >
                             <SelectValue placeholder="Select a colour for your profile!" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
-                          <SelectItem value={ProfileColour.RED}>Red</SelectItem>
-                          <SelectItem value={ProfileColour.BLUE}>
+                        <SelectContent 
+                        
+                          className={`dark:bg-${stringedColour}-800 bg-${stringedColour}-300  border-0 ring-0 text-white placeholder:text-white transition-all duration-300 rounded-[5px]`}
+                        >
+                          <SelectItem
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600`}
+                          value={ProfileColour.RED}>Red</SelectItem>
+                          <SelectItem 
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600`}
+                          value={ProfileColour.BLUE}>
                             Blue
                           </SelectItem>
-                          <SelectItem value={ProfileColour.GREEN}>
+                          <SelectItem 
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600`}
+                          value={ProfileColour.GREEN}>
                             Green
                           </SelectItem>
-                          <SelectItem value={ProfileColour.YELLOW}>
+                          <SelectItem 
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600`}
+                          value={ProfileColour.YELLOW}>
                             Yellow
                           </SelectItem>
-                          <SelectItem value={ProfileColour.PURPLE}>
+                          <SelectItem 
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600`}
+                          value={ProfileColour.PURPLE}>
                             Purple
                           </SelectItem>
-                          <SelectItem value={ProfileColour.ORANGE}>
+                          <SelectItem 
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600`}
+                          value={ProfileColour.ORANGE}>
                             Orange
                           </SelectItem>
-                          <SelectItem value={ProfileColour.PINK}>
+                          <SelectItem 
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600`}
+                          value={ProfileColour.PINK}>
                             Pink
                           </SelectItem>
-                          <SelectItem value={ProfileColour.CYAN}>
+                          <SelectItem 
+                          className={`dark:hover:bg-${stringedColour}-950 hover:bg-${stringedColour}-600 dark:focus:bg-${stringedColour}-950 focus:bg-${stringedColour}-600 `} 
+                          value={ProfileColour.CYAN}>
                             Cyan
                           </SelectItem>
                         </SelectContent>
@@ -334,9 +373,13 @@ const SettingsPage = () => {
                   control={form.control}
                   name="image"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col items-center justify-center gap-4 rounded-lg border p-3 shadow-sm">
+
+                    <FormItem 
+                   className={`dark:bg-${colour}-800 bg-${colour}-950 border-0 ring-0 dark:text-white dark:placeholder:text-white flex flex-col items-center justify-center gap-4 rounded-lg  p-3 shadow-sm`}
+                    
+                    >
                       <div className="space-y-0.5 text-center">
-                        <FormLabel> User Image</FormLabel>
+                        <FormLabel className="text-white"> User Image</FormLabel>
                         <FormDescription>
                           Change your profile picture
                         </FormDescription>
@@ -344,6 +387,7 @@ const SettingsPage = () => {
                       <FormControl>
                         <UploadButton
                           {...field}
+                      
                           endpoint="imageUploader"
                           onClientUploadComplete={(res) => {
                             setProfilePicture(res[0].url);
@@ -365,43 +409,25 @@ const SettingsPage = () => {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="banner"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col items-center justify-center gap-4 rounded-lg border p-3 shadow-sm">
-                      <div className="space-y-0.5 text-center">
-                        <FormLabel> Banner Image</FormLabel>
-                        <FormDescription>Change your banner</FormDescription>
-                      </div>
-                      <FormControl>
-                        <UploadButton
-                          endpoint="bannerUpload"
-                          {...field}
-                          onClientUploadComplete={(res) => {
-                            setProfileBanners(res[0].url);
-                            toast({
-                              title: "Upload Complete",
-                              description: "Image Uploaded!",
-                            });
-                          }}
-                          onUploadError={(err) => {
-                            toast({
-                              title: "Upload Error",
-                              description: `${err.message}`,
-                              variant: "destructive",
-                              duration: 5000,
-                            });
-                          }}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+               
               </div>
               {/* <FormError message={error} />
               <FormSuccess message={success} /> */}
-              <Button type="submit">Update Settings</Button>
+             <div className="flex justify-end">
+             <Button      variant={
+                      colour as
+                        | "red"
+                        | "green"
+                        | "blue"
+                        | "yellow"
+                        | "orange"
+                        | "pink"
+                        | "cyan"
+                        | "purple"
+                        | null
+                        | undefined
+                    } type="submit" className="rounded-[5px] flex justify-end">Update Settings</Button>
+             </div>
             </form>
           </Form>
         </CardContent>

@@ -19,16 +19,16 @@ export default function CharacterPassiveTab({passive}: Props) {
         </CardHeader>
         <CardContent>
             {passive ? (
-                <div className='flex items-start gap-4'>
+                <div className='flex items-center md:items-start md:flex-row flex-col gap-4'>
                 <Image 
                 src={passive?.imageUrl || "/placeholder.svg?height=200&width=200"}
                 alt={passive?.name as string}
-                width={128}
-                height={128}
+                width={96}
+                height={96}
                 className='object-cover'
                 />
                 <div className='space-y-1'>
-                    <h3 className='font-medium'>{showJapanese ? passive?.jpName : passive?.name }</h3>
+                    <h3 className='font-medium md:text-left text-center'>{showJapanese ? passive?.jpName : passive?.name }</h3>
                     <p className="text-sm text-muted-foreground">{passive?.description}</p>
                 </div>
             </div>

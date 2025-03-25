@@ -10,6 +10,11 @@ const hraesvelgr = [
             materials.eitris
         ],
         effect: "Increases the hero's damage dealt to enemies by 25%.",
+        stats: {
+            attack: 500,
+            defense: 420,
+            hp: 300,
+        },
         characters: [
             {
                 name: "Ice Spice",

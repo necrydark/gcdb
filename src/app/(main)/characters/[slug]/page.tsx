@@ -63,7 +63,7 @@ export default function CharacterPage({ params: { slug } }: any) {
       />
       {user ? (
           <div>
-            <h1 className="text-3xl leading-tight font-extrabold mt-8 text-black dark:text-white py-5">
+            <h1 className="text-3xl leading-tight font-extrabold mt-8 text-white py-5">
               Comments
             </h1>
             <CommentsForm

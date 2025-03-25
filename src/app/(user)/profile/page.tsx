@@ -15,11 +15,14 @@ import testimg from "../../../../public/test-bg.png";
 import { getUsername } from "@/prisma/queries";
 import CardSection from "./(slug)/[slug]/card-section";
 import SmallCardSection from "./(slug)/[slug]/small-card-section";
-import { Badge } from "@/src/components/ui/badge"
-import { Card, CardContent } from "@/src/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar"
+import { Badge } from "@/src/components/ui/badge";
+import { Card, CardContent } from "@/src/components/ui/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
 import { UserBanner } from "@/src/components/profile/user-banner";
-
 
 // async function getFavourites(userId: string) {
 //   const data = await db.character.findMany({
@@ -45,30 +48,49 @@ const profile = {
       attribute: "Strength",
       race: "Demon",
       rarity: "SSR",
-      imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+      imageUrl:
+        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
     },
     {
       name: "Elizabeth",
       attribute: "HP",
       race: "Goddess",
       rarity: "UR",
-      imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+      imageUrl:
+        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
     },
-    { name: "Ban", attribute: "HP", race: "Human", rarity: "SSR", imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png" },
+    {
+      name: "Ban",
+      attribute: "HP",
+      race: "Human",
+      rarity: "SSR",
+      imageUrl:
+        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+    },
     {
       name: "King",
       attribute: "Strength",
       race: "Fairy",
       rarity: "SSR",
-      imageUrl: "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+      imageUrl:
+        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
     },
   ],
   recentComments: [
-    { text: "Just pulled the new Escanor! Can't wait to try him out in PvP!", timestamp: "2 hours ago" },
-    { text: "Anyone have tips for clearing the latest story chapter?", timestamp: "1 day ago" },
-    { text: "Looking for active guild members. DM if interested!", timestamp: "3 days ago" },
+    {
+      text: "Just pulled the new Escanor! Can't wait to try him out in PvP!",
+      timestamp: "2 hours ago",
+    },
+    {
+      text: "Anyone have tips for clearing the latest story chapter?",
+      timestamp: "1 day ago",
+    },
+    {
+      text: "Looking for active guild members. DM if interested!",
+      timestamp: "3 days ago",
+    },
   ],
-}
+};
 
 async function ProfilePage() {
   const user = await currentUser();
@@ -90,20 +112,42 @@ async function ProfilePage() {
   const cardColour = data?.profileColour;
   const colour = cardColour?.toLocaleLowerCase();
 
+  const cardColours = (userColour: string): string => {
+    const colours: Record<string, string> = {
+      purple: "dark:bg-purple-950 bg-purple-800",
+      pink: "dark:bg-pink-950 bg-pink-800",
+    };
+    return colours[userColour] || "dark:bg-purple-950 bg-purple-800";
+  };
+
   return (
     <div className="container mx-auto p-4">
-    {/* Banner, Avatar, and User Info */}
-    <div className="mb-8">
-      <UserBanner username={data?.username || randomName} imageUrl={data?.image || undefined} role={data?.role} colour={colour} />
+      {/* Banner, Avatar, and User Info */}
+      <div className="mb-8">
+        <UserBanner
+          username={data?.username || randomName}
+          imageUrl={data?.image || undefined}
+          role={data?.role}
+          colour={colour}
+          inGameRank="110"
+          boxCC="11mil"
 
-    </div>
+        />
+      </div>
 
-    {/* Favorite Characters */}
-    <div className="mb-8">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Favorite Characters</h2>
+      {/* Favorite Characters */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+          Favorite Characters
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {profile.favoriteCharacters.map((character, index) => (
-            <Card key={index} className="dark:bg-purple-950 bg-purple-800 border-0 rounded-[5px]">
+            <Card
+              key={index}
+              className={`${cardColours(
+                colour as string
+              )} border-0 rounded-[5px]`}
+            >
               <CardContent className="p-4">
                 <div className="flex flex-col items-center space-y-4">
                   <Image
@@ -114,12 +158,52 @@ async function ProfilePage() {
                     // className="rounded-full"
                   />
                   <div className="text-center">
-                    <h3 className="font-semibold text-white">{character.name}</h3>
-                    <p className="text-sm text-gray-400 dark:text-muted-foreground">{character.attribute}</p>
-                    <p className="text-sm text-gray-400 dark:text-muted-foreground">{character.race}</p>
-                    <Badge className="mt-1 bg-purple-500 hover:bg-purple-600 dark:bg-purple-800 dark:hover:bg-purple-900 text-white">{character.rarity}</Badge>
+                    <h3 className="font-semibold text-white">
+                      {character.name}
+                    </h3>
+                    <p className="text-sm text-gray-400 dark:text-muted-foreground">
+                      {character.attribute}
+                    </p>
+                    <p className="text-sm text-gray-400 dark:text-muted-foreground">
+                      {character.race}
+                    </p>
+                    <Badge
+                      className="mt-1  text-white"
+                      variant={
+                        colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined
+                      }
+                    >
+                      {character.rarity}
+                    </Badge>
                   </div>
-                  <Button className="w-full mt-2 bg-purple-500  hover:bg-purple-600 dark:bg-purple-800 text-white dark:hover:bg-purple-900 rounded-[5px] ">View</Button>
+                  <Button
+                    variant={
+                      colour as
+                        | "red"
+                        | "green"
+                        | "blue"
+                        | "yellow"
+                        | "orange"
+                        | "pink"
+                        | "cyan"
+                        | "purple"
+                        | null
+                        | undefined
+                    }
+                    className="w-full mt-2 text-white dark:hover:bg-purple-900 rounded-[5px] "
+                  >
+                    View
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -127,22 +211,49 @@ async function ProfilePage() {
         </div>
       </div>
 
-    {/* Recent Comments */}
-    <div>
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Recent Comments</h2>
+      {/* Recent Comments */}
+      <div>
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+          Recent Comments
+        </h2>
         <div className="space-y-4">
           {profile.recentComments.map((comment, index) => (
-            <Card key={index} className="dark:bg-purple-950 bg-purple-800 border-0">
+            <Card
+              key={index}
+              className={`${cardColours(colour as string)} border-0`}
+            >
               <CardContent className="p-4">
+                <div className="flex flex-row items-center justify-between">
                 <p className="text-white">{comment.text}</p>
-                <p className="text-sm text-gray-400 dark:text-muted-foreground mt-2">{comment.timestamp}</p>
-                <Button className="mt-4 rounded-[5px] bg-purple-500 hover:bg-purple-600 dark:bg-purple-800 text-white dark:hover:bg-purple-900">View</Button>
+                <p className="text-sm text-white dark:text-muted-foreground mt-2">
+                {comment.timestamp}
+                </p>
+                </div>
+               
+                <Button
+                  variant={
+                    colour as
+                      | "red"
+                      | "green"
+                      | "blue"
+                      | "yellow"
+                      | "orange"
+                      | "pink"
+                      | "cyan"
+                      | "purple"
+                      | null
+                      | undefined
+                  }
+                  className="mt-4 rounded-[5px]"
+                >
+                  View
+                </Button>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
-  </div>
+    </div>
     // <div className=" flex flex-col pb-20">
     //   {/* Banner */}
     //   <div>
