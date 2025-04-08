@@ -3,7 +3,7 @@ import db from "@/src/lib/db";
 
 async function getMaterials() {
   try {
-    const materials = await db.materials.findMany();
+    const materials = await db.material.findMany();
     return materials;
   } catch (err) {
     console.error(err);

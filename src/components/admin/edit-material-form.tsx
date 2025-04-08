@@ -16,15 +16,16 @@ import { Input } from "@/src/components/ui/input";
 import { useToast } from "@/src/components/ui/use-toast";
 import { addRelicMaterials } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Materials, ProfileColour, UserRole } from "@prisma/client";
+import { Material, ProfileColour, UserRole } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 interface FormProps {
-  materialsEdit: Materials[];
+  materialsEdit: Material[];
 }
 
 const EditMaterialForm = ({ materialsEdit }: FormProps) => {
@@ -43,6 +44,7 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
   });
 
   const { toast } = useToast();
+  const router = useRouter();
 
   const onSubmit = (values: z.infer<typeof addRelicMaterials>) => {
     startTransition(() => {
@@ -59,16 +61,14 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
 
           if (data.success) {
             update();
-            form.reset({
-              name: undefined,
-              imageUrl: undefined,
-            });
+            form.reset();
             setSuccess(data.success);
             toast({
               title: "Success!",
               description: data.success,
               variant: "default",
             });
+            router.back();
           }
         })
         .catch((err) => setError(err));

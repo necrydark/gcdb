@@ -13,10 +13,10 @@ type Props = {
 export default function CharacterAssociationsTab({associations}: Props) {
     const { showJapanese} = useShowJapanese();
   return (
-    <Card>
+    <Card className="bg-purple-400 dark:bg-purple-900 text-white dark:border-purple-400">
         <CardHeader>
             <CardTitle>Associations</CardTitle>
-            <CardDescription>Associations with other characters.</CardDescription>
+            <CardDescription className='text-gray-700 dark:text-gray-300'>Associations with other characters.</CardDescription>
         </CardHeader>
         <CardContent>
             {associations && associations.length > 0 ? (
@@ -40,7 +40,7 @@ export default function CharacterAssociationsTab({associations}: Props) {
                                         {showJapanese ? char.jpName : char.name}
                                         <span className='text-muted-foreground text-xs pl-1'>{showJapanese ? char.jpTag : char.tag}</span>
                                     </h3>
-                                <p className="text-muted-foreground md:text-left text-center">
+                                <p className="text-white md:text-left text-center">
                                     {x.bonus}
                                 </p>
                                     </div>

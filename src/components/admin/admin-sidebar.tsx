@@ -19,7 +19,7 @@ const AdminSidebar = async ({ className, links }: Props) => {
   return (
     <div
       className={cn(
-        "flex bg-card h-full lg:w-[256px]  lg:fixed left-0 top-0 px-4 dark:border-r-[1px] border-r-2 flex-col",
+        "flex bg-card h-full lg:w-[256px] bg-purple-600 dark:bg-purple-950  lg:fixed left-0 top-0 px-4 dark:border-r-[1px] border-r-2 border-white flex-col",
         className,
         
       )}

@@ -12,10 +12,10 @@ export default function CharacterPassiveTab({passive}: Props) {
     const {showJapanese} = useShowJapanese();
     console.log(passive)
   return (
-    <Card>
+    <Card className="bg-purple-400 dark:bg-purple-900 text-white dark:border-purple-400">
         <CardHeader>
             <CardTitle>Passive Ability</CardTitle>
-            <CardDescription>Characters passive.</CardDescription>
+            <CardDescription className='text-gray-700 dark:text-gray-300'>Characters passive.</CardDescription>
         </CardHeader>
         <CardContent>
             {passive ? (
@@ -28,8 +28,8 @@ export default function CharacterPassiveTab({passive}: Props) {
                 className='object-cover'
                 />
                 <div className='space-y-1'>
-                    <h3 className='font-medium md:text-left text-center'>{showJapanese ? passive?.jpName : passive?.name }</h3>
-                    <p className="text-sm text-muted-foreground">{passive?.description}</p>
+                    <h3 className='font-bold md:text-left text-center'>{showJapanese ? passive?.jpName : passive?.name }</h3>
+                    <p className="text-sm  text-white">{passive?.description}</p>
                 </div>
             </div>
             ) : (

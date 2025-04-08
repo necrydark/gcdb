@@ -166,23 +166,35 @@ model Character {
   ultimate           CharacterUltimate[]
   Favourite          Favourite[]
   Comments           Comments[]
+
+  @@index([name])
+  @@index([jpName])
+  @@index([game])
+  @@index([rarity])
+}
+
+enum StatLevel {
+  LEVEL_1
+  LEVEL_100
+  SUPER_AWAKENING
 }
 
 model Stats {
   id             String     @id @default(cuid())
+  level          StatLevel
   combatClass    Int
   attack         Int
   defense        Int
   hp             Int
-  pierceRate     String
-  resistance     String
-  regeneration   String
-  critChance     String
-  critDamage     String
-  critResistance String
-  critDefense    String
-  recoveryRate   String
-  lifesteal      String
+   pierceRate     Decimal    @db.Decimal(5, 2)
+  resistance     Decimal    @db.Decimal(5, 2)
+  regeneration   Decimal    @db.Decimal(5, 2)
+  critChance     Decimal    @db.Decimal(5, 2)
+  critDamage     Decimal    @db.Decimal(5, 2)
+  critResistance Decimal    @db.Decimal(5, 2)
+  critDefense    Decimal    @db.Decimal(5, 2)
+  recoveryRate   Decimal    @db.Decimal(5, 2)
+  lifesteal      Decimal    @db.Decimal(5, 2)
   Character      Character? @relation(fields: [characterId], references: [id])
   characterId    String?
 }
@@ -270,20 +282,20 @@ model Gift {
   characterId String?
 }
 
-model Materials {
-  id         String               @id @default(cuid())
+model Material {
+  id         String       @id @default(cuid())
   name       String
   imageUrl   String
   location   String?
-  holyRelics HolyRelicMaterials[]
+  holyRelics HolyRelic[]  @relation("HolyRelicMaterials")
 }
 
 model HolyRelic {
-  id        String               @id @default(cuid())
+  id        String       @id @default(cuid())
   name      String
   imageUrl  String
   effect    String
-  materials HolyRelicMaterials[]
+  materials Material[]   @relation("HolyRelicMaterials")
 
   attack     String
   defense    String
@@ -292,23 +304,6 @@ model HolyRelic {
   beast      Beast       @default(Hraesvelgr)
 }
 
-model HolyRelicMaterials {
-  holyRelic   HolyRelic @relation(fields: [holyRelicId], references: [id], onDelete: Cascade)
-  holyRelicId String
-  material    Materials @relation(fields: [materialId], references: [id], onDelete: Cascade)
-  materialId  String
-
-  @@id([holyRelicId, materialId]) // This creates a composite key for the many-to-many relationship
-}
-
-// model HolyRelicCharacters {
-//   holyRelic   HolyRelic @relation(fields: [holyRelicId], references: [id], onDelete: Cascade)
-//   holyRelicId String
-//   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
-//   characterId String
-
-//   @@id([holyRelicId, characterId]) // This creates a composite key for the many-to-many relationship
-// }
 
 enum Beast {
   Hraesvelgr

@@ -18,10 +18,10 @@ type Props = {
 
 export default function CharacterGiftsFoodTab({ gifts, food }: Props) {
   return (
-    <Card>
+    <Card  className="bg-purple-400 dark:bg-purple-900 text-white dark:border-purple-400">
       <CardHeader>
         <CardTitle>Gifts</CardTitle>
-        <CardDescription>
+        <CardDescription className="text-gray-700 dark:text-gray-300">
           All available gifts to improve character affection to gain rewards.
         </CardDescription>
       </CardHeader>
@@ -43,7 +43,7 @@ export default function CharacterGiftsFoodTab({ gifts, food }: Props) {
                       <p className="font-bold text-base">
                         {gift.name}
                       </p>
-                      <p className="text-muted-foreground">
+                      <p className="text-gray-700">
                         {gift.description}
                       </p>
                     </div>
@@ -60,10 +60,10 @@ export default function CharacterGiftsFoodTab({ gifts, food }: Props) {
           </div>
         )}
       </CardContent>
-      <Separator />
+      <Separator className="my-8 dark:bg-purple-400" />
       <CardHeader>
         <CardTitle>Food</CardTitle>
-        <CardDescription>All available food that when given to the associated character grants boosts to stats.</CardDescription>
+        <CardDescription className="text-gray-700 dark:text-gray-300">All available food that when given to the associated character grants boosts to stats.</CardDescription>
       </CardHeader>
       <CardContent>
       {food && food.length > 0 ? (

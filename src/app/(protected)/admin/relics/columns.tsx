@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteCharacter } from "@/src/actions/delete-character";
+import { deleteRelic } from "@/src/actions/relics";
 import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
@@ -66,7 +67,7 @@ export const columns: ColumnDef<HolyRelic>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer" asChild>
-              <Link href={`/admin/characters/edit/${relic.id}`}>Edit</Link>
+              <Link href={`/admin/relics/edit/${relic.id}`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
@@ -77,7 +78,7 @@ export const columns: ColumnDef<HolyRelic>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                deleteCharacter(row.original.id);
+                deleteRelic(row.original.id);
               }}
             >
               Delete

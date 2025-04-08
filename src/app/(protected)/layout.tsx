@@ -42,7 +42,7 @@ const AdminLayout = ({ children }: Props) => {
     <div className="min-h-screen flex flex-col text-gray-900 transition-all duration-300 dark:text-white">
       <MobileHeader />
       <AdminSidebar className="hidden lg:flex" links={links} />
-      <main className="lg:pl-[256px] h-full">
+      <main className="lg:pl-[256px] bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900  min-h-screen h-full">
         <div className="max-w-[1056px] pt-6 mx-auto h-full">{children}</div>
       </main>
     </div>

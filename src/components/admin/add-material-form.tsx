@@ -34,6 +34,7 @@ const AddMaterialForm = () => {
     defaultValues: {
       name: undefined,
       imageUrl: undefined,
+      location: undefined,
     },
   });
 
@@ -75,7 +76,7 @@ const AddMaterialForm = () => {
           Add Material
         </h1>
         <Button variant="outline" size="sm" asChild>
-          <Link href={"/admin/relics/materials"}>Go Back</Link>
+          <Link href={"/admin/materials"}>Go Back</Link>
         </Button>
       </div>
       <Form {...form}>
@@ -109,6 +110,24 @@ const AddMaterialForm = () => {
                     <Input
                       {...field}
                       placeholder="image URL"
+                      type="text"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+                <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Material Location</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="location"
                       type="text"
                       disabled={isPending}
                     />

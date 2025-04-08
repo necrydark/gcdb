@@ -200,7 +200,7 @@ async function ProfilePage() {
                         | null
                         | undefined
                     }
-                    className="w-full mt-2 text-white dark:hover:bg-purple-900 rounded-[5px] "
+                    className="w-full mt-2 text-white rounded-[5px] "
                   >
                     View
                   </Button>

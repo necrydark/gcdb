@@ -1,6 +1,6 @@
 "use server";
 
-import db from "@/lib/db";
+import db from "@/src/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";

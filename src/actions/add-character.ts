@@ -11,6 +11,7 @@ import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
 import { addCharacterSchema } from "../schemas/schema";
+import { auth } from "../auth";
 
 export const addCharacter = async (
   values: z.infer<typeof addCharacterSchema>
@@ -21,6 +22,16 @@ export const addCharacter = async (
     return { error: "Invalid Fields!" };
   }
 
+  const user = await auth();
+
+  if(!user) {
+    return { error: "User is not authorized"}
+  }
+
+  if(user.user.role === "USER"){
+    return { error: "User does not have the correct role."}
+  }
+   
   const {
     id,
     name,
@@ -102,20 +113,7 @@ export const addCharacter = async (
       race,
       attribute,
       rarity,
-      combatClass,
-      attack,
-      defense,
-      hp,
-      pierceRate,
-      resistance,
-      regeneration,
-      critChance,
-      critDamage,
-      critResistance,
-      critDefense,
       releaseDate,
-      recoveryRate,
-      lifesteal,
       gender,
       bloodType,
       age,
@@ -124,6 +122,24 @@ export const addCharacter = async (
       weight,
       location,
       CV,
+      stats: {
+        create: {
+          attack,
+          combatClass,
+          defense,
+          hp,
+          pierceRate,
+          resistance,
+          regeneration,
+          critChance,
+          critDamage,
+          critResistance,
+          critDefense,
+          recoveryRate,
+          lifesteal,
+          level
+        }
+      },
       ultimate: {
         create: {
           name: characterUltimate.name,

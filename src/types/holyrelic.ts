@@ -9,6 +9,7 @@ export type Stats = {
 export type Materials = {
     name: string;
     imageUrl: string;
+    location?: string;
 }
 
 export type Relic = {

@@ -1,11 +1,11 @@
 "use client";
 
-import { addHolyRelic, adminSchema } from "@/src/schemas/schema";
+import { addHolyRelic, adminSchema, editHolyRelic } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "../ui/separator";
 import ReactSelect from "react-select";
-import { addRelic } from "@/src/actions/relics";
-import { Beast, Character, Material } from "@prisma/client";
+import { addRelic, editRelic } from "@/src/actions/relics";
+import { Beast, Character, HolyRelic, Material } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,15 +32,21 @@ import {
 import { useToast } from "../ui/use-toast";
 
 interface RelicInterface {
-  characters?: Character[];
-  materials?: Material[];
+  characters?: Character[] | null;
+  materials?: Material[] | null;
+  relic: HolyRelic;
+  relicMaterials?: HolyRelic & {
+    materials: Material[];
+    characters: Character[];
+  };
 }
 
-function AddRelicForm({ characters, materials }: RelicInterface) {
+function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicInterface) {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
   const [isSearchable, setIsSearchable] = useState(true);
+
 
   const characterOptions = characters?.map((character) => ({
     name: character.name,
@@ -62,49 +68,85 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
     ),
   }));
 
+
+//   <div className="flex flex-row gap-3 items-center">
+//   <Image
+//     src={material.imageUrl}
+//     alt={material.name}
+//     height={30}
+//     width={30}
+//   />
+//   {material.name}
+// </div>
+
+  // Prepare material options for React Select
   const materialOptions = materials?.map((material) => ({
     id: material.id,
     name: material.name,
     imageUrl: material.imageUrl,
-    value: material.name,
     label: (
-      <div className="flex flex-row gap-3 items-center">
-        <Image
-          src={material.imageUrl}
-          alt={material.name}
-          height={30}
-          width={30}
-        />
-        {material.name}
-      </div>
+          <div className="flex flex-row gap-3 items-center">
+  <Image
+    src={material.imageUrl}
+    alt={material.name}
+    height={30}
+    width={30}
+  />
+  {material.name}
+</div>
     ),
-  }));
+    value: material.id,
+  })) || [];
 
-  const form = useForm<z.infer<typeof addHolyRelic>>({
-    resolver: zodResolver(addHolyRelic),
+  // Prepare default selected materials
+  const defaultSelectedMaterials = relicMaterials?.materials.map((material) => ({
+    id: material.id,
+    name: material.name,
+    imageUrl: material.imageUrl,
+    label: (
+          <div className="flex flex-row gap-3 items-center">
+  <Image
+    src={material.imageUrl}
+    alt={material.name}
+    height={30}
+    width={30}
+  />
+  {material.name}
+</div>
+    ),
+    value: material.id,
+  })) || [];
+
+
+  const form = useForm<z.infer<typeof editHolyRelic>>({
+    resolver: zodResolver(editHolyRelic),
     defaultValues: {
-      name: undefined,
-      imageUrl: undefined,
-      effect: undefined,
-      beast: Beast.Hraesvelgr,
-      attack: undefined,
-      defense: undefined,
-      hp: undefined,
-      materials: [],
+        ...relic,
+      materials: defaultSelectedMaterials,
       characters: []
     },
   });
 
+  relicMaterials?.materials.map((material) => console.log(material.name))
+  
+
+
+
   const { toast } = useToast();
   const { update } = useSession();
 
-  const onSubmit = (values: z.infer<typeof addHolyRelic>) => {
+  const onSubmit = (values: z.infer<typeof editHolyRelic>) => {
     startTransition(() => {
-      console.log("Called")
-      console.log(values);
-      addRelic(values)
+      const formattedValues = {
+        ...values,
+        materials: values.materials.map(material => ({
+          ...material,
+          imageUrl: material.imageUrl || '' // Ensure imageUrl is always a string
+        }))
+      };
+      editRelic(formattedValues, relic.id)
         .then((data) => {
-          if (data.error) {
+          if (data?.error) {
             setError(data.error);
             toast({
               title: "Error",
@@ -113,7 +155,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
             });
           }
 
-          if (data.success) {
+          if (data?.success) {
             update();
 
             setSuccess(data.success);
@@ -303,13 +345,12 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                     className="text-black bg-background"
                     options={materialOptions}
                     isSearchable={isSearchable}
+                    value={field.value}
                     isDisabled={isPending || !materials?.length}
                     onChange={(selectedOptions) => {
                       field.onChange(
                         selectedOptions.map((option) => ({
-                          id: option.id,
-                          name: option.name,
-                          imageUrl: option.imageUrl,
+                          ...option
                         }))
                       );
                     }}
@@ -358,11 +399,11 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
           </div>
           <Separator className="my-4 dark:bg-white bg-black" />
 
-          <Button type="submit">Add Relic</Button>
+          <Button type="submit">Edit Relic</Button>
         </form>
       </Form>
     </div>
   );
 }
 
-export default AddRelicForm;
+export default EditRelicForm;

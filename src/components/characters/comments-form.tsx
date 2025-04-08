@@ -71,10 +71,10 @@ function CommentsForm({ characterId, slug }: Props) {
                       {...field}
                       maxLength={300}
                       placeholder="Leave a comment about this character..."
-                      className="resize-none"
+                      className="resize-none dark:bg-purple-900 dark:placeholder:text-white dark:text-white dark:border-purple-600 focus-visible:ring-0"
                     />
                   </FormControl>
-                  <div className="text-right text-foreground">
+                  <div className="text-right text-white">
                     {field.value?.length || 0}/300
                   </div>
                 </FormItem>

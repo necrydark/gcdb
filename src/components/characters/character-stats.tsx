@@ -51,7 +51,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
   
 
   return (
-    <Card className="bg-purple-400 dark:bg-purple-900">
+    <Card className="bg-purple-400 dark:bg-purple-900 text-white dark:border-purple-400">
       <CardHeader>
         <CardTitle className="flex flex-row justify-between items-center">Character Stats & Info
         <div className="flex">
@@ -59,28 +59,28 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                <div className="flex justify-end space-x-2 items-center">
                 <DropdownMenu>
                   <DropdownMenuTrigger>
-                    <Button variant="outline" className=" text-purple-600 border-purple-600 rounded-full">
+                    <Button variant="outline" className=" dark:text-purple-600 text-white border-purple-600 hover:bg-purple-800 dark:hover:text-white hover:text-white duration-300 transition-all rounded-full">
                       Levels
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem onClick={() => setSelectedLevel("1")}>1</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSelectedLevel("100")}>100</DropdownMenuItem>
+                  <DropdownMenuContent className="bg-purple-400 dark:bg-purple-700 text-white rounded-[5px]">
+                    <DropdownMenuItem className="dark:hover:bg-purple-900 hover:bg-purple-600 rounded-[5px]" onClick={() => setSelectedLevel("1")}>1</DropdownMenuItem>
+                    <DropdownMenuItem className="dark:hover:bg-purple-900 hover:bg-purple-600 rounded-[5px]" onClick={() => setSelectedLevel("100")}>100</DropdownMenuItem>
                     {hasSuperAwakening && (
-                      <DropdownMenuItem onClick={() => setSelectedLevel("Super Awakening")}>Super Awakening</DropdownMenuItem>
+                      <DropdownMenuItem className="dark:hover:bg-purple-900 hover:bg-purple-600 rounded-[5px]" onClick={() => setSelectedLevel("Super Awakening")}>Super Awakening</DropdownMenuItem>
                     )}
                   </DropdownMenuContent>
                 </DropdownMenu>
             </div>
             
             ) : (
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-gray-700 dark:text-gray-300">
                 Only level {currentStats.level} stats available for this character.
             </div>
             )}
             </div>
         </CardTitle>
-        <CardDescription className=" flex flex-row gap-1">{currentStats.level === "Super Awakening" ? (
+        <CardDescription className=" flex flex-row gap-1 text-gray-700 dark:text-gray-300">{currentStats.level === "Super Awakening" ? (
             <p>Stats for a super awakened character</p>
         ): (
           <p>Base Stats at level {currentStats.level}</p>
@@ -211,7 +211,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
           </div>
         </div>
         </div>
-        <Separator className="my-8"/>
+        <Separator className="my-8 dark:bg-purple-400"/>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4 flex flex-col gap-6">
         <div className="space-y-2">

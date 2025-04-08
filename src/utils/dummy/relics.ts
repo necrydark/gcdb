@@ -1,7 +1,8 @@
 export const materials = {
     windSource: {
         name: "Wind Source",
-        imageUrl: "https://gcdatabase.com/images/relicmaterials/wind_source.png"
+        imageUrl: "https://gcdatabase.com/images/relicmaterials/wind_source.png",
+        location: "Hraesvelgr"
     },
     riverSource: {
         name: "River Source",

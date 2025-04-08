@@ -8,8 +8,9 @@ import { Button } from "../ui/button";
 type Props = {
   name: string;
   imageUrl: string;
+  location?: string;
 };
-function ViewMaterial({ name, imageUrl }: Props) {
+function ViewMaterial({ name, imageUrl, location }: Props) {
   return (
     <div className="container mx-auto flex flex-col gap-y-6">
       <h1 className="pb-6">
@@ -19,13 +20,17 @@ function ViewMaterial({ name, imageUrl }: Props) {
         <h1>Name: </h1>
         <h2 className="font-bold">{name}</h2>
       </div>
+      <div className="flex flex-row gap-4">
+        <h1>Location: </h1>
+        <h2 className="font-bold">{location}</h2>
+      </div>
       <div className="flex flex-col gap-4">
         <h1>Image:</h1>
         <Image
           src={imageUrl}
           alt={`Material + ${name}`}
-          width={75}
-          height={75}
+          width={50}
+          height={50}
           className="mx-auto"
         />
         <Button variant="outline" size="sm" asChild>

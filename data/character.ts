@@ -72,3 +72,12 @@ export const getCharacterCount = async () => {
     return null;
   }
 }
+
+export const getCharacters = async () => {
+  try {
+    const characters = await db.character.findMany();
+    return characters;
+  } catch {
+    return null;
+  }
+}

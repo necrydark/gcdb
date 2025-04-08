@@ -364,11 +364,12 @@ function AddCharacterForm({
                         disabled={true}
                         value={uniqueId || ""}
                         onChange={generateCUID}
+                        className="rounded-[5px]"
                       />
                       <Button
                         onClick={generateCUID}
                         type="button"
-                        className="!absolute right-0 top-0 rounded"
+                        className="!absolute right-0 top-0 rounded-[5px]"
                       >
                         Generate CUID
                       </Button>
@@ -390,6 +391,8 @@ function AddCharacterForm({
                       placeholder="Queen Diane"
                       type="text"
                       disabled={isPending}
+                      className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -405,6 +408,8 @@ function AddCharacterForm({
                   <FormControl>
                     <Input
                       {...field}
+                      className="rounded-[5px]"
+
                       placeholder="Queen Diane"
                       type="text"
                       disabled={isPending}
@@ -426,6 +431,8 @@ function AddCharacterForm({
                       placeholder="Queen Diane"
                       type="text"
                       disabled={isPending}
+                      className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -444,6 +451,8 @@ function AddCharacterForm({
                       placeholder="Queen Diane"
                       type="text"
                       disabled={isPending}
+                      className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -465,11 +474,12 @@ function AddCharacterForm({
                         disabled={isPending}
                         value={slug || ""}
                         onChange={generateSlug}
+                        className="rounded-[5px]"
                       />
                       <Button
                         onClick={generateSlug}
                         type="button"
-                        className="!absolute right-0 top-0 rounded"
+                        className="!absolute right-0 top-0 rounded-[5px]"
                       >
                         Generate Slug
                       </Button>
@@ -535,6 +545,8 @@ function AddCharacterForm({
                       placeholder="Queen Diane"
                       type="text"
                       disabled={isPending}
+                      className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -553,9 +565,12 @@ function AddCharacterForm({
                     disabled={isPending}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger 
+                    className="rounded-[5px]"
+                    >
                         <SelectValue placeholder="Select a game!" />
                       </SelectTrigger>
                     </FormControl>
@@ -596,7 +611,9 @@ function AddCharacterForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                    className="rounded-[5px]"
+                    >
                         <SelectValue placeholder="Select if the unit is a crossover or not." />
                       </SelectTrigger>
                     </FormControl>
@@ -626,7 +643,9 @@ function AddCharacterForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                    className="rounded-[5px]"
+                    >
                         <SelectValue placeholder="Select if the unit is an event unit or not." />
                       </SelectTrigger>
                     </FormControl>
@@ -660,7 +679,9 @@ function AddCharacterForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                    className="rounded-[5px]"
+                    >
                         <SelectValue placeholder="Select the units race." />
                       </SelectTrigger>
                     </FormControl>
@@ -693,7 +714,9 @@ function AddCharacterForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                    className="rounded-[5px]"
+                    >
                         <SelectValue placeholder="Select the units attribute." />
                       </SelectTrigger>
                     </FormControl>
@@ -724,7 +747,9 @@ function AddCharacterForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                    className="rounded-[5px]"
+                    >
                         <SelectValue placeholder="Select the units rarity." />
                       </SelectTrigger>
                     </FormControl>
@@ -759,6 +784,8 @@ function AddCharacterForm({
                       placeholder="1"
                       type="number"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -777,6 +804,8 @@ function AddCharacterForm({
                       placeholder="1"
                       type="number"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -795,6 +824,8 @@ function AddCharacterForm({
                       placeholder="1"
                       type="number"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -813,6 +844,8 @@ function AddCharacterForm({
                       placeholder="1"
                       type="number"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -831,6 +864,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -849,6 +884,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -867,6 +904,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -885,6 +924,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -903,6 +944,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -921,6 +964,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -939,6 +984,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -957,6 +1004,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -975,6 +1024,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -993,7 +1044,9 @@ function AddCharacterForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                    className="rounded-[5px]"
+                    >
                         <SelectValue placeholder="Select the units gender." />
                       </SelectTrigger>
                     </FormControl>
@@ -1020,6 +1073,8 @@ function AddCharacterForm({
                       placeholder="100"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                 </FormItem>
@@ -1037,6 +1092,8 @@ function AddCharacterForm({
                       placeholder="21"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                 </FormItem>
@@ -1046,7 +1103,7 @@ function AddCharacterForm({
               control={form.control}
               name="birthday"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
+                <FormItem>
                   <FormLabel>Birthday</FormLabel>
                   <FormControl>
                     <Input
@@ -1054,6 +1111,8 @@ function AddCharacterForm({
                       placeholder="Unknown"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -1072,6 +1131,8 @@ function AddCharacterForm({
                       placeholder="183"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormDescription>CM</FormDescription>
@@ -1090,6 +1151,8 @@ function AddCharacterForm({
                       placeholder="62"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormDescription>KG</FormDescription>
@@ -1108,6 +1171,8 @@ function AddCharacterForm({
                       placeholder="Vaizel"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -1126,6 +1191,8 @@ function AddCharacterForm({
                       placeholder="Name"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                   <FormDescription>Voice Actors Name</FormDescription>
@@ -1152,6 +1219,7 @@ function AddCharacterForm({
                       placeholder="Passive Name"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
                     />
                   </FormControl>
                 </FormItem>
@@ -1169,6 +1237,8 @@ function AddCharacterForm({
                       placeholder="Passive Image URL"
                       type="text"
                       disabled={isPending}
+                    className="rounded-[5px]"
+
                     />
                   </FormControl>
                 </FormItem>
@@ -1185,6 +1255,7 @@ function AddCharacterForm({
                       {...field}
                       placeholder="Passive JP Name"
                       type="text"
+                    className="rounded-[5px]"
                       disabled={isPending}
                     />
                   </FormControl>
@@ -1202,6 +1273,7 @@ function AddCharacterForm({
                       {...field}
                       placeholder="Passive CC Needed"
                       type="text"
+                    className="rounded-[5px]"
                       disabled={isPending}
                     />
                   </FormControl>
@@ -1218,7 +1290,7 @@ function AddCharacterForm({
                 <FormControl>
                   <Textarea
                     placeholder="Passive Description"
-                    className="resize-none"
+                    className="resize-none rounded-[5px]"
                     {...field}
                     disabled={isPending}
                   />
@@ -1472,11 +1544,12 @@ function AddCharacterForm({
             More Info
           </h2>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger>
+            <PopoverTrigger disabled={isPending}>
               <Button
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                type="button"
                 className="w-[240px] justify-between"
               >
                 {value
@@ -1486,30 +1559,31 @@ function AddCharacterForm({
               </Button>
             </PopoverTrigger>
             <PopoverContent>
-              <Command>
-                <CommandInput placeholder="Search Relic..." />
+              <Command className="gap-2">
+                <CommandInput className="mb-2" placeholder="Search Relic..." />
                 <CommandEmpty>No Relic Found.</CommandEmpty>
-                <CommandList>
-                  <CommandGroup>
+                <CommandList >
                     {Relics?.map((relic) => (
                       <CommandItem
                         key={relic.id}
-                        value={relic.id}
+                        value={relic.id.toString()}
+                        disabled={isPending}
+                        className="pt-2 cursor-pointer"
                         onSelect={(currentValue) => {
                           setValue(currentValue === value ? "" : currentValue);
+                          form.setValue("holyRelicId", currentValue);
                           setOpen(false);
                         }}
                       >
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4",
-                            value === relic.id ? "opacity-100" : "opacity-0"
+                            value === relic.id.toString() ? "opacity-100" : "opacity-0"
                           )}
                         />
                         {relic.name}
                       </CommandItem>
                     ))}
-                  </CommandGroup>
                 </CommandList>
               </Command>
             </PopoverContent>

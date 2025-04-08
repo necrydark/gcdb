@@ -53,7 +53,7 @@ function Characters() {
   const [game, setGame] = useState(gameParam || "")
   const [currentPage, setCurrentPage] = useState(Number.parseInt(pageParam || "1", 10))
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 25;
 
   const filteredCharacters = characters.filter((character) => {
     return (
@@ -184,7 +184,7 @@ const handleFilterReset = () => {
       </div>
 
       {currentCharacters.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+          <div className="flex flex-wrap justify-evenly gap-6 mb-8">
             {currentCharacters.map((character) => (
               <Link href={`/characters/${character.slug}`} key={character.id}>
                 <CharacterCard 

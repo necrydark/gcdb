@@ -2,7 +2,7 @@ import db from "@/src/lib/db";
 
 export const getMaterialByName = async (name: string) => {
   try {
-    const material = await db.materials.findFirst({ where: { name } });
+    const material = await db.material.findFirst({ where: { name } });
     return material;
   } catch {
     return null;
@@ -11,12 +11,21 @@ export const getMaterialByName = async (name: string) => {
 
 export const getMaterialById = async (id: string) => {
   try {
-    const material = await db.materials.findFirst({ where: { id } });
+    const material = await db.material.findFirst({ where: { id } });
     return material;
   } catch {
     return null;
   }
 };
+
+export const getMaterials = async () => {
+  try {
+    const materials = await db.material.findMany();
+    return materials;
+  } catch {
+    return null;
+  }
+}
 
 export const getRelicByName = (name: string) => {
   try {
@@ -26,6 +35,15 @@ export const getRelicByName = (name: string) => {
     return null;
   }
 };
+
+export const getRelicById = (id: string) => {
+  try {
+    const relic = db.holyRelic.findFirst({ where: {id}});
+    return relic;
+  } catch {
+    return null;
+  }
+}
 
 export const getRelicCount = async () => {
   try {
@@ -38,7 +56,7 @@ export const getRelicCount = async () => {
 
 export const getMaterialCount = async () => {
   try {
-    const count = await db.materials.count();
+    const count = await db.material.count();
     return count;
   } catch {
     return null;

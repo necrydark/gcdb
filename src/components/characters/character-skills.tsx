@@ -39,10 +39,10 @@ function CharacterSkillsTab({ skills, rarity }: Props) {
   }
 
   return (
-    <Card>
+    <Card className="bg-purple-400 dark:bg-purple-900 dark:border-purple-400">
       <CardHeader>
-        <CardTitle>Character Skills</CardTitle>
-        <CardDescription>Character skills & ultimate.</CardDescription>
+        <CardTitle className="text-white">Character Skills</CardTitle>
+        <CardDescription className="text-gray-700 dark:text-gray-300">Character skills & ultimate.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex justify-end">
@@ -73,7 +73,7 @@ function CharacterSkillsTab({ skills, rarity }: Props) {
   
                     return (
                       <div key={x} className="flex flex-col">
-                        <div className="relative rounded-[5px] overflow-hidden border-4 border-gray-400 bg-gradient-to-b from-gray-300/20 to-gray-500/20 h-80">
+                        <div className="relative rounded-[5px] overflow-hidden border-4 dark:border-purple-400 border-purple-900 bg-gradient-to-b from-gray-300/20 to-gray-500/20 h-80">
                           <div className="absolute top-2 right-2 w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white z-10">
                             {getSkillTypeIcon(types[x])}
                           </div>
@@ -105,11 +105,11 @@ function CharacterSkillsTab({ skills, rarity }: Props) {
                         </div>
   
                         <div className="mt-3 space-y-2">
-                          <h3 className="font-bold text-lg">
+                          <h3 className="font-bold text-lg text-white">
                             {showJapanese ? regSkill.jpName : regSkill.name}{" "}
-                            <span className="text-sm font-normal text-muted-foreground">Lv. {selectedLevel}</span>
+                            <span className="text-sm font-normal dark:text-gray-300 text-gray-700">Lv. {selectedLevel}</span>
                           </h3>
-                          <p className="text-sm text-muted-foreground">{currentLevelData.description}</p>
+                          <p className="text-sm text-white">{currentLevelData.description}</p>
                         </div>
                       </div>
                     )
@@ -118,17 +118,17 @@ function CharacterSkillsTab({ skills, rarity }: Props) {
               )
             })
           ) : (
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center text-white">
                 <p>No skills available....</p>
             </div>
           )}
         </div>
       </CardContent>
-        <Separator className="my-8" />
+        <Separator className="my-8 dark:bg-purple-400" />
       <div>
           <CardHeader className="pt-0">
-            <CardTitle>Character Ultimate</CardTitle>
-            <CardDescription>The characters most powerful move.</CardDescription>
+            <CardTitle className="text-white">Character Ultimate</CardTitle>
+            <CardDescription className="text-gray-700 dark:text-gray-300">The characters most powerful move.</CardDescription>
           </CardHeader>
           <CardContent>
           {skills && skills.length > 0 ? (
@@ -139,13 +139,13 @@ function CharacterSkillsTab({ skills, rarity }: Props) {
                 alt={showJapanese ? skill.ultimate.jpName : skill.ultimate.name}
                 width={256}
                 height={128}
-                className="object-cover border-4 border-gray-300" />
+                className="object-cover border-4 dark:border-purple-400 border-purple-900" />
                   <div className="mt-3 space-y-2">
-                      <h3 className="font-bold text-lg text-center">
+                      <h3 className="font-bold text-lg text-center text-white">
                         {showJapanese ? skill.ultimate.jpName : skill.ultimate.name}{" "}
                       </h3>
-                      <p className="text-sm font-normal text-muted-foreground">{skill.ultimate.description}</p>
-                      <p className="pt-4 font-normal text-muted-foreground">{skill.ultimate.extraInfo}</p>
+                      <p className="text-sm font-normal text-white">{skill.ultimate.description}</p>
+                      <p className="pt-4 font-normal text-white">{skill.ultimate.extraInfo}</p>
                     </div>
               </div>
             ))

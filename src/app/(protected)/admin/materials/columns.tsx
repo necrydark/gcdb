@@ -19,14 +19,14 @@ import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
-export type Material = {
+export type Materials = {
   id: string;
   name: string;
   imageUrl: string;
-  location: string;
+  location: string | null;
 };
 
-export const columns: ColumnDef<Material>[] = [
+export const columns: ColumnDef<Materials>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -54,7 +54,7 @@ export const columns: ColumnDef<Material>[] = [
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Button size="sm" variant="outline">
-              <MoreHorizontal size={20} />
+              <MoreHorizontal className="text-black dark:text-white" size={20} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -74,6 +74,7 @@ export const columns: ColumnDef<Material>[] = [
                   <ViewMaterial
                     name={material.name}
                     imageUrl={material.imageUrl}
+                    location={material.location as string}
                   />
                 </DialogContent>
               </Dialog>

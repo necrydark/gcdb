@@ -192,6 +192,7 @@ export const addCharacterSchema = z.object({
   slug: z.optional(z.string().min(1, "Slug is required")),
   imageUrl: z.string().min(1, "Image URL is required"),
   releaseDate: z.coerce.date(),
+  level: z.string(),
   game: z.enum([
     Game.AOT,
     Game.Base,
@@ -373,6 +374,38 @@ export const addRelicMaterials = z.object({
   imageUrl: z.optional(z.string()),
   location: z.optional(z.string()),
 });
+
+const MaterialSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  imageUrl: z.string().optional(),
+});
+
+export const editHolyRelic = z.object({
+  name: z.string().min(1, "Relic Name is required"),
+  imageUrl: z.string().min(1, "Image URL is required"),
+  effect: z.string().min(1, "Relic Effect is required"),
+  attack: z.string().min(1, "Attack is required"),
+  defense: z.string().min(1, "Defense is required"),
+  hp: z.string().min(1, "HP is required"),
+  beast: z.enum([
+    Beast.Hraesvelgr,
+    Beast.Eikthyrnir,
+    Beast.SkollAndHati,
+    Beast.Nidhoggr,
+    Beast.Ratatoskr,
+    Beast.Collab,
+  ]),
+  materials: z.array(MaterialSchema).default([]),
+  characters: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      imageUrl: z.string(),
+    })
+  ),
+});
+
 
 // role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER])),
 

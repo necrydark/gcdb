@@ -3,7 +3,15 @@ import { getMaterialByName, getRelicByName } from "@/data/relics";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { addHolyRelic, addRelicMaterials } from "../schemas/schema";
+import { addHolyRelic, addRelicMaterials, editHolyRelic } from "../schemas/schema";
+
+export const getRelics = async () => {
+  return await db.holyRelic.findMany({
+    include: {
+      materials: true
+    }
+  })
+}
 
 export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
   const validatedFields = addHolyRelic.safeParse(values);
@@ -36,35 +44,18 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
           defense,
           hp,
           beast,
+          materials: {
+            connect: materials.map((material) => ({ id: material.id}))
+          },
           characters: {
             connect: characters.map((character) => ({ id: character.id })),
           }
         },
       });
 
-      console.log("Created Relic:", createdRelic);
 
       // Now, link the materials to the relic in the junction table
-      for (const material of materials) {
-        const existingMaterial = await getMaterialByName(material.name);
-
-        if (!existingMaterial) {
-          console.error("Material not found:", material.name);
-          throw new Error(`Material ${material.name} not found!`);
-        }
-
-        // Create an entry in the HolyRelicMaterials junction table
-        await tx.holyRelicMaterials.create({
-          data: {
-            holyRelicId: createdRelic.id,
-            materialId: existingMaterial.id,
-          },
-        });
-
-        console.log(
-          `Linked Material (${existingMaterial.name}) to Relic (${createdRelic.name})`
-        );
-      }
+    
     });
 
     // Revalidate the path after adding the relic
@@ -75,4 +66,64 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
     console.error("Error adding relic:", error);
     return { error: "Failed to add relic!" };
   }
+};
+
+export const editRelic = async (
+  values: z.infer<typeof editHolyRelic>,
+  id: string
+) => {
+  const validatedFields = editHolyRelic.safeParse(values);
+
+  if(!validatedFields.success) {
+    return {error: "Invalid Fields"}
+  }
+
+  const { name, attack, beast,characters,defense,effect,hp,imageUrl,materials} = validatedFields.data;
+
+  if(!name || !attack || !beast || !characters || !defense || !effect || !hp || !imageUrl || !materials) {
+    return { error: "A field is not valid."}
+  }
+  
+  await db.holyRelic.update({
+    where: { id },
+    data: {
+      name,
+      imageUrl,
+      effect,
+      attack,
+      defense,
+      hp,
+      beast,
+      materials: {
+        set: materials.map(m => ({ id: m.id }))
+      },
+      characters: {
+        set: characters.map(c => ({ id: c.id }))
+      }
+    }
+  });
+
+  revalidatePath("/src")
+  return { success: "Relic updated successfully" };
+}
+
+
+
+export const deleteRelic = async (relicId: string) => {
+  if (!relicId) {
+    return { error: "Missing Character ID" };
+  }
+
+  await db.holyRelic.delete({
+    where: {
+      id: relicId,
+    },
+  });
+
+  revalidatePath("/admin/relics");
+  revalidatePath("/characters");
+  revalidatePath("/relics");
+  revalidatePath("/profile");
+
+  return { success: "Relic deleted successfully" };
 };

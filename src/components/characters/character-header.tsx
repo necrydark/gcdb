@@ -135,7 +135,7 @@ function CharacterHeader({
           <div className="flex items-center gap-1.5">
             <span className="text-sm font-medium">Attribute:</span>
             <Badge
-              className={`text-xs ${getAttributeColor(attribute)} text-white`}
+              className={`text-xs ${getAttributeColor(attribute)} text-white hover:${getAttributeColor(attribute)}/75`}
             >
               {attribute}
             </Badge>

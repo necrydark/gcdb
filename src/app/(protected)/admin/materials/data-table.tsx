@@ -71,7 +71,7 @@ export function MaterialDataTable<TData, TValue>({
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="ml-auto text-black dark:text-white">
               Columns
             </Button>
           </DropdownMenuTrigger>

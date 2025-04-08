@@ -45,12 +45,13 @@ export default function CharacterCard({ name, url, attribute, rarity, race, cros
 
 
   return (
-    <Card className='h-full hover:shadow-md transition-shadow hover:dark:shadow-white duration-200 dark:bg-purple-950 bg-purple-800 border-0 overflow-hidden'>
-      <div className='relative h-48 w-full'>
+    <Card className='h-full hover:shadow-md transition-shadow w-fit hover:dark:shadow-white duration-200 dark:bg-purple-950 bg-purple-800 border-0 overflow-hidden'>
+      <div className='relative'>
         <Image
         src={url || "/"}
         alt={`${name}'s Image`}
-        fill
+        width={128}
+        height={128}
         className='object-cover' />
         <div className='absolute top-2 right-2'>
           <Badge className={`${getRarityColor(rarity)}` }>
@@ -58,7 +59,7 @@ export default function CharacterCard({ name, url, attribute, rarity, race, cros
           </Badge>
         </div>
       </div>
-      <CardContent className='pt-4'>
+      {/* <CardContent className='pt-4'>
           <h3 className='font-bold text-lg text-white mb-2'>
             {name}
           </h3>
@@ -74,7 +75,7 @@ export default function CharacterCard({ name, url, attribute, rarity, race, cros
       <CardFooter className="border-t pt-3 text-sm  text-white">
         <Gamepad2 className='w-4 h-4 mr-1'/>
         {crossover}
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   )
 }

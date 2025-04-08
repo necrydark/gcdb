@@ -12,14 +12,16 @@ import { UserRole } from "@prisma/client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
-import { Material, columns } from "./columns";
+import { Materials, columns } from "./columns";
+import { Material } from "@prisma/client";
 import { MaterialDataTable } from "./data-table";
 import { Plus } from "lucide-react";
 
-async function getRelics(): Promise<Material[]> {
-  const data = await db.materials.findMany();
+async function getRelics(): Promise<Materials[]> {
+  const data = await db.material.findMany();
 
-  return data as Material[];
+
+  return data as Materials[];
 }
 
 const AdminMaterialsPage = async () => {
@@ -29,6 +31,7 @@ const AdminMaterialsPage = async () => {
   }
 
   const data = await getRelics();
+  console.log(data);
 
   return (
     <div className="max-w-[1400px] px-10 container mx-auto py-20">
@@ -38,7 +41,7 @@ const AdminMaterialsPage = async () => {
           Materials Page
         </h1>
         <Button size="sm" variant="outline" className="rounded-full" asChild>
-        <Link href={"/admin/relics/materials/add"}><Plus className="w-4 h-4"  /></Link>
+        <Link href={"/admin/materials/add"}><Plus className="w-4 h-4 text-black dark:text-white"  /></Link>
 
         </Button>
       </div>
