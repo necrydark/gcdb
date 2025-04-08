@@ -26,7 +26,7 @@ export const addMaterial = async (
     return { error: "Material already exists!" };
   }
 
-  await db.material.create({
+  await db.materials.create({
     data: {
       name,
       imageUrl,
@@ -54,7 +54,7 @@ export const updateMaterial = async (
     return { error: "A field is not valid" };
   }
 
-  await db.material.update({
+  await db.materials.update({
     where: { id },
     data: {
       ...values
@@ -70,7 +70,7 @@ export const deleteMaterial = async (materialId: string) => {
     return { error: "Missing Material ID" };
   }
 
-  await db.material.delete({
+  await db.materials.delete({
     where: {
       id: materialId,
     },
