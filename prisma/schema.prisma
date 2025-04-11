@@ -31,29 +31,31 @@ enum ProfileColour {
   CYAN
 }
 
-model User {
-  id               String    @id @default(cuid())
+model Users {
+  id               String        @id @default(cuid())
   name             String
   email            String
-  emailVerified    Boolean   @default(false)
+  emailVerified    Boolean
   image            String?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  twoFactorEnabled Boolean   @default(false)
-  Session          Session[]
-  username         String?   @unique
-  Account          Account[]
-  Favourites            Favourite[]
-  bio                   String?
-  role                  UserRole               @default(USER)
-  profileColour         ProfileColour          @default(PURPLE)
-  boxCC                 String?
-  ingameRank            String?
-  Comments              Comments[]
+  createdAt        DateTime
+  updatedAt        DateTime
+  twoFactorEnabled Boolean?
+  username         String
+  displayUsername  String?
+  boxCC            String?
+  ingameRank       String?
+  sessions         Session[]
+  accounts         Account[]
+  role             UserRole      @default(USER)
+  profileColour    ProfileColour @default(PURPLE)
+  Comments         Comments[]
+  Favourite        Favourite[]
+  TwoFactor        TwoFactor[]
 
-   @@unique([email])
-  @@map("user")
+  @@unique([email])
+  @@map("users")
 }
+
 model Session {
   id        String   @id @default(cuid())
   expiresAt DateTime
@@ -61,28 +63,27 @@ model Session {
   ipAddress String?
   userAgent String?
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("session")
 }
 
-
-
 model Account {
-  id           String    @id @default(cuid())
-  accountId    String
-  providerId   String
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken  String?
-  refreshToken String?
-  idToken      String?
-  expiresAt    DateTime?
-  password     String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id               String    @id @default(cuid())
+  accountId        String
+  providerId       String
+  userId           String
+  user             Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken      String?
+  refreshToken     String?
+  idToken          String?
+  expiresAt        DateTime?
+  password         String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  twoFactorEnabled Boolean   @default(false)
 
   accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
@@ -90,7 +91,6 @@ model Account {
 
   @@map("account")
 }
-
 
 model Verification {
   id         String    @id @default(cuid())
@@ -175,7 +175,7 @@ model Stats {
   attack         Int
   defense        Int
   hp             Int
-   pierceRate     Decimal    @db.Decimal(5, 2)
+  pierceRate     Decimal    @db.Decimal(5, 2)
   resistance     Decimal    @db.Decimal(5, 2)
   regeneration   Decimal    @db.Decimal(5, 2)
   critChance     Decimal    @db.Decimal(5, 2)
@@ -272,19 +272,19 @@ model Gift {
 }
 
 model Material {
-  id         String       @id @default(cuid())
+  id         String      @id @default(cuid())
   name       String
   imageUrl   String
   location   String?
-  holyRelics HolyRelic[]  @relation("HolyRelicMaterials")
+  holyRelics HolyRelic[] @relation("HolyRelicMaterials")
 }
 
 model HolyRelic {
-  id        String       @id @default(cuid())
+  id        String     @id @default(cuid())
   name      String
   imageUrl  String
   effect    String
-  materials Material[]   @relation("HolyRelicMaterials")
+  materials Material[] @relation("HolyRelicMaterials")
 
   attack     String
   defense    String
@@ -292,7 +292,6 @@ model HolyRelic {
   characters Character[]
   beast      Beast       @default(Hraesvelgr)
 }
-
 
 enum Beast {
   Hraesvelgr
@@ -363,7 +362,7 @@ model Favourite {
   id          String     @id @default(cuid())
   character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        Users?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
   createdAt   DateTime   @default(now())
 }
@@ -373,9 +372,19 @@ model Comments {
   comment     String
   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   createdAt   DateTime  @default(now())
 
   @@map("comments")
+}
+
+model TwoFactor {
+  id          String @id
+  secret      String
+  backupCodes String
+  userId      String
+  user        Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("twoFactor")
 }
