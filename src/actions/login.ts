@@ -13,6 +13,8 @@ import {
 import { DEFAULT_LOGIN_REDIRECT } from "@/src/routes";
 import { signInSchema } from "@/src/schemas/schema";
 import { AuthError } from "next-auth";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const login = async (values: z.infer<typeof signInSchema>) => {
@@ -92,7 +94,9 @@ export const login = async (values: z.infer<typeof signInSchema>) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirect: true,
+      redirectTo: "/profile",
+      
     });
   } catch (err) {
     if (err instanceof AuthError) {

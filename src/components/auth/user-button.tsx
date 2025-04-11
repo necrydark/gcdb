@@ -17,17 +17,23 @@ import {
   AvatarImage,
 } from "@/src/components/ui/avatar";
 import { cn } from "@/src/lib/utils";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { FaCog, FaHeart, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
+import { Session } from "next-auth";
 
 type Props = {
   className?: string;
+  session?: Session | null;
 };
 
 export const UserButton = ({ className }: Props) => {
+  const router = useRouter();
+  const data = useSession();
+  if(!data) router.refresh();
   const user = useCurrentUser();
 
   const onClick = () => {
