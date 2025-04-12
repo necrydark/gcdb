@@ -589,3 +589,7 @@ export const editCharacterSchema = z.object({
 export const passwordSchema = z.object({
   password: z.string().min(8, "Password must be atleast 8 characters long").max(20, "Password cannot more than 20 characters long.")
 })
+
+export const otpCodeSchema = z.object({
+  otpCode: z.string().min(6, "OTP code must be atleast 6 digits.").max(6, "OTP code must be atleast 6 digits.").regex(new RegExp("!/^\d+$/"))
+})

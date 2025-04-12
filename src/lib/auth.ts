@@ -17,7 +17,30 @@ export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql",
     }),
-  
+    emailAndPassword: {
+      enabled: true,
+      autoSignIn: true,
+      maxPasswordLength: 20,
+      minPasswordLength: 8,
+      sendResetPassword: async ({user, url, token}, request) => {
+        await resend.emails.send({
+          from: "GCWiki <onboarding@resend.dev>",
+          to: user.email,
+          subject: "Reset your password",
+          text: `Click the link to reset your password: ${url}`,
+        })
+      }
+    },
+    emailVerification: {
+      async sendVerificationEmail({ user, url}) {
+        const res = await resend.emails.send({
+          from: "GCWiki <onboarding@resend.dev>",
+          to: user.email,
+          subject: "Verify your email address",
+          html: `<a href="${url}">Verify your email address</a>`
+        })
+      }
+    },
     plugins: [
       twoFactor({
         otpOptions: {
@@ -67,18 +90,5 @@ export const auth = betterAuth({
         }
       }
     },
-    emailAndPassword: {
-      enabled: true,
-      autoSignIn: true,
-      maxPasswordLength: 20,
-      minPasswordLength: 8,
-      sendResetPassword: async ({user, url, token}, request) => {
-        await resend.emails.send({
-          from: "GCWiki <onboarding@resend.dev>",
-          to: user.email,
-          subject: "Reset your password",
-          text: `Click the link to reset your password: ${url}`,
-        })
-      }
-    }
+   
 });
