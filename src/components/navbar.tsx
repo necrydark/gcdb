@@ -38,7 +38,7 @@ export default async function Navbar() {
           <div className="flex">
             <Link
               href="/"
-              className="p-5 hover:opacity-60 transition-all duration-300 text-foreground"
+              className="p-5 hover:opacity-60 transition-all duration-300 text-white"
             >
               GCWiki
             </Link>
@@ -47,7 +47,7 @@ export default async function Navbar() {
             {links.map((link) => (
               <Link
                 href={link.url}
-                className="p-4 hover:opacity-60 transition-all text-foreground duration-300"
+                className="p-4 hover:opacity-60 transition-all text-white duration-300"
                 key={link.name}
               >
                 {link.name}

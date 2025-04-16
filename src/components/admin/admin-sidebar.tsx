@@ -1,42 +1,164 @@
-import { useCurrentUser } from "@/hooks/use-current-user";
-import Logo from "@/src/components/logo";
-import db from "@/src/lib/db";
-import { cn } from "@/src/lib/utils";
-import { signOut } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import { ThemeToggleMobile } from "@/src/components/ThemeToggleMobile";
-import { SidebarItem } from "@/src/components/sidebarItem";
+"use client"
 
-type Props = {
-  className?: string;
-  links?: { title: string; url: string }[];
-};
+import * as React from "react"
+import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2 } from "lucide-react"
+import { T } from "gt-next";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/components/ui/collapsible"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarRail,
+  useSidebar,
+} from "@/src/components/ui/sidebar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/src/components/ui/popover"
 
-const AdminSidebar = async ({ className, links }: Props) => {
+// Navigation items
+const navigationItems = [
+  {
+    title: "Dashboard",
+    icon: LayoutDashboard,
+    href: "/dashboard",
+    isActive: true,
+  },
+  {
+    title: "Materials",
+    icon: Package,
+    href: "/materials",
+    subItems: [
+      { title: "View All", href: "/admin/materials" },
+      { title: "Add New", href: "/admin/materials/new" },
+      { title: "Categories", href: "/materials/categories" },
+    ],
+  },
+  {
+    title: "Characters",
+    icon: Wand2,
+    href: "/characters",
+    subItems: [
+      { title: "View All", href: "/admin/characters" },
+      { title: "Add New", href: "/admin/characters/new" },
+      { title: "Classes", href: "/characters/classes" },
+    ],
+  },
+  {
+    title: "Users",
+    icon: Users,
+    href: "/admin/users",
+  },
+  {
+    title: "Relics",
+    icon: Shield,
+    href: "/relics",
+    subItems: [
+      { title: "View All", href: "/admin/relics" },
+      { title: "Add New", href: "/admin/relics/new" },
+      { title: "Rarities", href: "/relics/rarities" },
+    ],
+  },
+]
 
- 
+export function AppSidebar() {
+  const { state } = useSidebar()
+  const isCollapsed = state === "collapsed"
 
   return (
-    <div
-      className={cn(
-        "flex bg-card h-full lg:w-[256px] bg-purple-600 dark:bg-purple-950  lg:fixed left-0 top-0 px-4 dark:border-r-[1px] border-r-2 border-white flex-col",
-        className,
-        
-      )}
-    >
-      <div className="pt-8 px-6 items-center justify-center underline underline-offset-2 pb-7 flex gap-x-3">
-        <Logo />
-      </div>
-      <div className="flex flex-col pt-[20px]  gap-y-2 flex-1">
-        {links?.map((link, idx) => (
-          <SidebarItem title={link.title} url={link.url} key={idx} />
-        ))}
-      </div>
-      <div className="py-4 flex flex-row justify-between">
-        <ThemeToggleMobile />
-      </div>
-    </div>
-  );
-};
+    <Sidebar collapsible="icon" className="!bg-purple-950">
+      <T>
+      <SidebarHeader>
+      <div className="flex items-center gap-2 py-2 px-4 transition-all duration-200 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0">
+          <Shield className="h-6 w-6 text-primary shrink-0" />
+          <h1 className="text-xl font-bold transition-opacity duration-200 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:overflow-hidden">
+            Admin Portal
+          </h1>
+        </div>
+      </SidebarHeader>  
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navigationItems.map((item) => (
+                <React.Fragment key={item.title}>
+                  {item.subItems && isCollapsed ? (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton tooltip={item.title}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.title}</span>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      </PopoverTrigger>
+                      <PopoverContent side="right" align="start" className="p-0 w-48">
+                        <div className="p-2">
+                          <div className="font-medium mb-1">{item.title}</div>
+                          <ul className="space-y-1">
+                            {item.subItems.map((subItem) => (
+                              <li key={subItem.title}>
+                                <a
+                                  href={subItem.href}
+                                  className="block w-full text-sm px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground"
+                                >
+                                  {subItem.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  ) : item.subItems ? (
+                    <Collapsible className="w-full">
+                      <SidebarMenuItem>
+                        <CollapsibleTrigger className="w-full" asChild>
+                          <SidebarMenuButton tooltip={item.title}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.title}</span>
+                            <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]:rotate-90" />
+                          </SidebarMenuButton>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <SidebarMenuSub>
+                            {item.subItems.map((subItem) => (
+                              <SidebarMenuSubItem key={subItem.title}>
+                                <SidebarMenuSubButton asChild>
+                                  <a href={subItem.href}>{subItem.title}</a>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            ))}
+                          </SidebarMenuSub>
+                        </CollapsibleContent>
+                      </SidebarMenuItem>
+                    </Collapsible>
+                  ) : (
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild isActive={item.isActive} tooltip={item.title}>
+                        <a href={item.href}>
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )}
+                </React.Fragment>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarRail />
+      </T>
 
-export default AdminSidebar;
+    </Sidebar>
+  )
+}

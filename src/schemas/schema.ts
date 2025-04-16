@@ -157,6 +157,7 @@ export const registerSchema = z
       .string()
       .min(10, "Bio must be at least 10 characters long")
       .max(255, "Bio must be at most 255 characters"),
+    
   })
   .refine((data) => data.password === data.confirm_password, {
     path: ["confirm_password"],

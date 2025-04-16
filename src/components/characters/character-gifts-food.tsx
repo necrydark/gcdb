@@ -43,7 +43,7 @@ export default function CharacterGiftsFoodTab({ gifts, food }: Props) {
                       <p className="font-bold text-base">
                         {gift.name}
                       </p>
-                      <p className="text-gray-700">
+                      <p className="text-white">
                         {gift.description}
                       </p>
                     </div>

@@ -1,6 +1,6 @@
 "use client";
 import { newVerification } from "@/src/actions/new-verification";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { FormError } from "./form-error";
@@ -26,6 +26,7 @@ export const ConfirmEmailForm = () => {
       .then((data) => {
         setError(data.error);
         setSuccess(data.success);
+        redirect("/auth/login")
       })
       .catch(() => {
         setError("Something went wrong");

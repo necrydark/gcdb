@@ -1,5 +1,7 @@
 import { MobileHeader } from "@/src/components/admin/admin-header";
-import AdminSidebar from "@/src/components/admin/admin-sidebar";
+import {AppSidebar} from "@/src/components/admin/admin-sidebar";
+import { DashboardHeader } from "@/src/components/admin/dashboard-header";
+import { SidebarInset, SidebarProvider } from "@/src/components/ui/sidebar";
 import { Metadata } from "next";
 
 type Props = {
@@ -14,38 +16,17 @@ export const metadata: Metadata = {
 };
 
 const AdminLayout = ({ children }: Props) => {
-    const links = [
-        {
-            title: "Dashboard",
-            url: "/admin",
-          },
-        {
-          title: "Characters",
-          url: "/admin/characters",
-        },
-        {
-          title: "Users",
-          url: "/admin/users",
-        },
-       
-        {
-          title: "Holy Relics",
-          url: "/admin/relics",
-        },
-        {
-            title: "Relic Materials",
-            url: "/admin/materials",
-        }
-       
-      ];
+
   return (
-    <div className="min-h-screen flex flex-col text-gray-900 transition-all duration-300 dark:text-white">
-      <MobileHeader />
-      <AdminSidebar className="hidden lg:flex" links={links} />
-      <main className="lg:pl-[256px] bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900  min-h-screen h-full">
-        <div className="max-w-[1056px] pt-6 mx-auto h-full">{children}</div>
-      </main>
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900  flex flex-col min-h-screen h-full">
+        <DashboardHeader />
+        <div className="pt-6  h-full flex-1 overflow-auto">{children}</div>
+
+      </SidebarInset>
+      
+    </SidebarProvider>
   );
 };
 

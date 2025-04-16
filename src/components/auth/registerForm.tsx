@@ -36,6 +36,8 @@ export const RegisterForm = () => {
       name: "",
       confirm_password: "",
       bio: "",
+      boxCC: "",
+      ingameRank: ""
     },
   });
 
@@ -44,6 +46,15 @@ export const RegisterForm = () => {
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
     setErr("");
     setSuccess("");
+
+    if(values.boxCC && !isNaN(Number(values.boxCC))) {
+      setErr("Box CC must be a number.")
+    }
+
+      if(values.ingameRank && !isNaN(Number(values.ingameRank))) {
+        setErr("Ingame Rank must be a number.")
+
+      }
 
     startTransition(() => {
       register(values).then((data) => {
@@ -55,14 +66,14 @@ export const RegisterForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
         <div className="space-y-4">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-white">Name</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -81,7 +92,7 @@ export const RegisterForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-white">Email</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -99,7 +110,7 @@ export const RegisterForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel className="text-white">Username</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -118,7 +129,7 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-white">Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -136,7 +147,7 @@ export const RegisterForm = () => {
               name="confirm_password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel className="text-white">Confirm Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -150,12 +161,54 @@ export const RegisterForm = () => {
               )}
             />
           </div>
+          <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="boxCC"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white">Box CC</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={isPending}
+                    placeholder="1110000"
+                    type="text"
+                    min={1}
+                    max={20000000}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+               <FormField
+            control={form.control}
+            name="ingameRank"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white">In Game Rank</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={isPending}
+                    placeholder="110"
+                    type="text"
+                    min={1}
+                    max={130}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          </div>
           <FormField
             control={form.control}
             name="bio"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>About You</FormLabel>
+                <FormLabel className="text-white">About You</FormLabel>
                 <FormControl>
                   <Textarea
                     {...field}
@@ -172,7 +225,7 @@ export const RegisterForm = () => {
         </div>
         <FormError message={err} />
         <FormSuccess message={success} />
-        <Button type="submit" disabled={isPending} className="w-full">
+        <Button type="submit" disabled={isPending} className="w-full dark:bg-purple-600 bg-purple-950 hover:bg-purple-950/70 dark:bg-purple-600/75">
           Register
         </Button>
       </form>
