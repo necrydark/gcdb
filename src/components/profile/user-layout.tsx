@@ -9,7 +9,7 @@ type Props = {
 
 const UserLayout: React.FC<Props> = ({ user, children }: Props) => {
 
-  const colour = user?.profileColor as ProfileColour || "PURPLE"
+  const colour = user?.profileColor as ProfileColour || "PURPLE".toLocaleLowerCase();
   
 
   // const getAttributeColor = (attribute: Attribute) => {
