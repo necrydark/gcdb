@@ -2,14 +2,14 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import {
   getUserData,
   getUserDataByUsername,
-  getUsername,
+
   userDataByUsername,
 } from "@/prisma/queries";
 import SmallCharacterCard from "@/src/components/small-character-card";
 import SmallFoodCard from "@/src/components/small-food-card";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
-import { currentUser } from "@/src/lib/auth";
+import { currentUser } from "@/src/utils/auth";
 import db from "@/src/lib/db";
 import { cn } from "@/src/lib/utils";
 import { ExtendedUser } from "@/src/next-auth";

@@ -111,7 +111,7 @@ export const editRelic = async (
 
 export const deleteRelic = async (relicId: string) => {
   if (!relicId) {
-    return { error: "Missing Character ID" };
+    return { error: "Missing Relic ID" };
   }
 
   await db.holyRelic.delete({

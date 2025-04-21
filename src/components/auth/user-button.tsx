@@ -69,7 +69,7 @@ export const UserButton = ({ className }: Props) => {
             {(user?.role === "ADMIN" || user?.role === "OWNER") && (
               <DropdownMenuItem>
                 <MdAdminPanelSettings className="mr-2" />
-                <Link href={"/admin"}>Admin</Link>
+                <Link href={"/dashboard"}>Admin</Link>
               </DropdownMenuItem>
             )}
           </DropdownMenuGroup>

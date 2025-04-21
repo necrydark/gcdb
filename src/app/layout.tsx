@@ -32,6 +32,7 @@ export default async function RootLayout({
       <html lang="en" className="dark">
         <body className={inter.className}>
           <Providers>
+
             <ContextProvider>
 
             <div className="flex-1 flex-col flex">
@@ -50,6 +51,7 @@ export default async function RootLayout({
               <Toaster />
             </div>
                  </ContextProvider>
+
           </Providers>
         </body>
       </html>

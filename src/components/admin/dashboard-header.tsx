@@ -33,22 +33,22 @@ export function DashboardHeader() {
   return (
     <header className="flex h-16 items-center justify-between border-b px-4">
       <div className="flex items-center gap-2">
-        <SidebarTrigger className="-ml-2 text-white" />
+        <SidebarTrigger className="-ml-2 w-[16px] h-[16px] hover:bg-purple-400 dark:hover:bg-purple-700 text-white hover:text-white" />
         <h2 className="text-lg font-semibold text-white">Admin</h2>
       </div>
       <div className="flex items-center gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-2 px-2 hover:bg-purple-950 hover:text-white">
+            <Button variant="ghost" className="flex items-center  rounded-[5px] gap-2 px-2 hover:bg-purple-600  dark:hover:bg-purple-900 hover:text-white">
               <Avatar className="h-8 w-8">
                 <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                <AvatarFallback className="text-black">GC</AvatarFallback>
+                <AvatarFallback className="text-black dark:text-white">GC</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start text-sm">
-                <span className="font-medium ">{user?.username}</span>
-                <span className="text-xs ">{user?.email}</span>
+                <span className="font-medium text-white">{user?.username}</span>
+                <span className="text-xs text-white">{user?.email}</span>
               </div>
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-4 w-4 text-white" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">

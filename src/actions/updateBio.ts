@@ -1,13 +1,14 @@
 "use server";
 
 import db from "@/src/lib/db";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+
 import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { currentUser } from "../utils/auth";
 
 export async function updateBio(prevState: any, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+
+  const user = await currentUser();
 
   if (!user) {
     return redirect("/api/auth/login");

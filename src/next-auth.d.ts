@@ -6,7 +6,6 @@ export type ExtendedUser = DefaultSession["user"] & {
   username: string;
   isTwoFactorEnabled: boolean;
   profileColor: ProfileColour;
-  banner: string;
   bio: string;
   boxCC: string;
   ingameRank: string;

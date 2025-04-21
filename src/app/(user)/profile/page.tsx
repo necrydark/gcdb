@@ -2,7 +2,7 @@ import { getUserData } from "@/prisma/queries";
 import SmallCharacterCard from "@/src/components/small-character-card";
 import SmallFoodCard from "@/src/components/small-food-card";
 import { Button } from "@/src/components/ui/button";
-import { currentUser } from "@/src/lib/auth";
+import { currentUser } from "@/src/utils/auth";
 import db from "@/src/lib/db";
 import { cn } from "@/src/lib/utils";
 import { ProfileColour } from "@prisma/client";
@@ -12,7 +12,6 @@ import { redirect } from "next/navigation";
 import React from "react";
 import testimg from "../../../../public/test-bg.png";
 
-import { getUsername } from "@/prisma/queries";
 import CardSection from "./(slug)/[slug]/card-section";
 import SmallCardSection from "./(slug)/[slug]/small-card-section";
 import { Badge } from "@/src/components/ui/badge";

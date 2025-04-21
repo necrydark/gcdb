@@ -67,7 +67,7 @@ export const UserButtonMobile = () => {
               <>
                 <DropdownMenuItem>
                   <MdAdminPanelSettings className="mr-2" />
-                  <Link href={"/admin"}>Admin</Link>
+                  <Link href={"/dashboard"}>Admin</Link>
                 </DropdownMenuItem>
               </>
             )}

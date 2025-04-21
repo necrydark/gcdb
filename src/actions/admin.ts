@@ -1,7 +1,7 @@
 "use server";
 
 import { UserRole } from "@prisma/client";
-import { currentRole } from "../lib/auth";
+import { currentRole } from "@/src/utils/auth";
 import db from "../lib/db";
 import * as z from "zod";
 import { revalidatePath } from "next/cache";

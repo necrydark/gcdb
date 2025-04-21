@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2 } from "lucide-react"
-import { T } from "gt-next";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/components/ui/collapsible"
 import {
   Sidebar,
@@ -21,6 +20,7 @@ import {
   useSidebar,
 } from "@/src/components/ui/sidebar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/src/components/ui/popover"
+import { usePathname } from "next/navigation"
 
 // Navigation items
 const navigationItems = [
@@ -28,16 +28,14 @@ const navigationItems = [
     title: "Dashboard",
     icon: LayoutDashboard,
     href: "/dashboard",
-    isActive: true,
   },
   {
     title: "Materials",
     icon: Package,
     href: "/materials",
     subItems: [
-      { title: "View All", href: "/admin/materials" },
-      { title: "Add New", href: "/admin/materials/new" },
-      { title: "Categories", href: "/materials/categories" },
+      { title: "View All", href: "/dashboard/materials" },
+      { title: "Add New", href: "/dashboard/materials/new" },
     ],
   },
   {
@@ -45,24 +43,22 @@ const navigationItems = [
     icon: Wand2,
     href: "/characters",
     subItems: [
-      { title: "View All", href: "/admin/characters" },
-      { title: "Add New", href: "/admin/characters/new" },
-      { title: "Classes", href: "/characters/classes" },
+      { title: "View All", href: "/dashboard/characters" },
+      { title: "Add New", href: "/dashboard/characters/new" },
     ],
   },
   {
     title: "Users",
     icon: Users,
-    href: "/admin/users",
+    href: "/dashboard/users",
   },
   {
     title: "Relics",
     icon: Shield,
     href: "/relics",
     subItems: [
-      { title: "View All", href: "/admin/relics" },
-      { title: "Add New", href: "/admin/relics/new" },
-      { title: "Rarities", href: "/relics/rarities" },
+      { title: "View All", href: "/dashboard/relics" },
+      { title: "Add New", href: "/dashboard/relics/new" },
     ],
   },
 ]
@@ -70,13 +66,28 @@ const navigationItems = [
 export function AppSidebar() {
   const { state } = useSidebar()
   const isCollapsed = state === "collapsed"
+  const pathname = usePathname()
+
+  // Helper function to check if a route is active
+  const isRouteActive = (href: string) => {
+    // For the dashboard, only match exact path
+    if (href === "/dashboard") {
+      return pathname === "/dashboard"
+    }
+    // For other routes, check if the pathname starts with the href
+    return pathname.startsWith(href)
+  }
+
+  // Helper function to check if a subitem is active
+  const isSubItemActive = (href: string) => {
+    return pathname === href
+  }
 
   return (
     <Sidebar collapsible="icon" className="!bg-purple-950">
-      <T>
       <SidebarHeader>
       <div className="flex items-center gap-2 py-2 px-4 transition-all duration-200 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0">
-          <Shield className="h-6 w-6 text-primary shrink-0" />
+          <Shield className="h-6 w-6 text-white shrink-0" />
           <h1 className="text-xl font-bold transition-opacity duration-200 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:overflow-hidden">
             Admin Portal
           </h1>
@@ -84,7 +95,7 @@ export function AppSidebar() {
       </SidebarHeader>  
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="dark:text-gray-300 text-gray-500">Main Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (
@@ -93,7 +104,7 @@ export function AppSidebar() {
                     <Popover>
                       <PopoverTrigger asChild>
                         <SidebarMenuItem>
-                          <SidebarMenuButton tooltip={item.title}>
+                          <SidebarMenuButton className="rounded-[5px]" tooltip={item.title}>
                             <item.icon className="h-4 w-4" />
                             <span>{item.title}</span>
                           </SidebarMenuButton>
@@ -107,7 +118,9 @@ export function AppSidebar() {
                               <li key={subItem.title}>
                                 <a
                                   href={subItem.href}
-                                  className="block w-full text-sm px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground"
+                                  className={`block w-full text-sm px-2 py-1.5 rounded-[5px] hover:bg-accent hover:text-accent-foreground ${
+                                    isSubItemActive(subItem.href) ? "bg-accent text-accent-foreground font-medium" : ""
+                                  }`}
                                 >
                                   {subItem.title}
                                 </a>
@@ -121,7 +134,7 @@ export function AppSidebar() {
                     <Collapsible className="w-full">
                       <SidebarMenuItem>
                         <CollapsibleTrigger className="w-full" asChild>
-                          <SidebarMenuButton tooltip={item.title}>
+                          <SidebarMenuButton className="rounded-[5px]" tooltip={item.title}>
                             <item.icon className="h-4 w-4" />
                             <span>{item.title}</span>
                             <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]:rotate-90" />
@@ -130,8 +143,8 @@ export function AppSidebar() {
                         <CollapsibleContent>
                           <SidebarMenuSub>
                             {item.subItems.map((subItem) => (
-                              <SidebarMenuSubItem key={subItem.title}>
-                                <SidebarMenuSubButton asChild>
+                              <SidebarMenuSubItem  key={subItem.title}>
+                                <SidebarMenuSubButton className="rounded-[5px]" asChild isActive={isSubItemActive(subItem.href)}>
                                   <a href={subItem.href}>{subItem.title}</a>
                                 </SidebarMenuSubButton>
                               </SidebarMenuSubItem>
@@ -142,7 +155,7 @@ export function AppSidebar() {
                     </Collapsible>
                   ) : (
                     <SidebarMenuItem>
-                      <SidebarMenuButton asChild isActive={item.isActive} tooltip={item.title}>
+                      <SidebarMenuButton asChild className="rounded-[5px]" tooltip={item.title} isActive={isRouteActive(item.href)}>
                         <a href={item.href}>
                           <item.icon className="h-4 w-4" />
                           <span>{item.title}</span>
@@ -157,7 +170,6 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarRail />
-      </T>
 
     </Sidebar>
   )

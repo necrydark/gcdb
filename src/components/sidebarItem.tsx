@@ -17,7 +17,7 @@ export const SidebarItem = ({ title, url, className }: Props) => {
 
   return (
     <Button
-      className={cn(className, "justify-start h-[28px] bg-transparent hover:bg-secondary/75  rounded-md")}
+      className={cn(className, "justify-start h-[28px] bg-transparent hover:bg-secondary/75  rounded-[5px]")}
       asChild
     >
       <Link href={url}>{title}</Link>

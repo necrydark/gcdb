@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { MobileSidebar } from "./mobileSidebar";
 
+
 export default async function Navbar() {
   const links = [
     {

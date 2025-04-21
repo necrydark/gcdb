@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { UTApi } from "uploadthing/server";
 import * as z from "zod";
 import { unstable_update } from "../auth";
-import { currentUser } from "../lib/auth";
+import { currentUser } from "@/src/utils/auth";
 import db from "../lib/db";
 import { sendVerificationEmail } from "../lib/mail";
 import { generateVerificationToken } from "../lib/token";

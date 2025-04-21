@@ -1,5 +1,5 @@
 import { useCurrentRole } from "@/hooks/use-current-role";
-import { currentRole } from "@/src/lib/auth";
+import { currentRole } from "@/src/utils/auth";
 import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
