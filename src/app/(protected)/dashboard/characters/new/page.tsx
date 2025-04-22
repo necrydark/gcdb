@@ -1,4 +1,4 @@
-import AddCharacterForm from "@/src/components/admin/add-character-form";
+import AddCharacterForm from "@/src/components/admin/characters/add-character-form";
 import db from "@/src/lib/db";
 
 const AddCharacterPage = async () => {

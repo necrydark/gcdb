@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { currentUser } from "../lib/auth";
+import { currentUser } from "@/src/utils/auth";
 import db from "../lib/db";
 import { commentSchema } from "../schemas/schema";
 
