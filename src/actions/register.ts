@@ -40,7 +40,10 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
       password: hashedPassword,
       boxCC,
       ingameRank,
-      bio,
+      displayUsername: username,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      bio,    
       image: `https://avatar.vercel.sh/${name}`,
     },
   });
