@@ -8,7 +8,7 @@ import { cn } from "@/src/lib/utils";
 import { ProfileColour } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
 import testimg from "../../../../public/test-bg.png";
 
@@ -22,6 +22,7 @@ import {
   AvatarImage,
 } from "@/src/components/ui/avatar";
 import { UserBanner } from "@/src/components/profile/user-banner";
+import NotFound from "../../not-found";
 
 // async function getFavourites(userId: string) {
 //   const data = await db.character.findMany({
@@ -95,15 +96,12 @@ async function ProfilePage() {
   const user = await currentUser();
 
   if (!user) {
-    redirect("/api/auth/login");
+    redirect("/auth/login");
   }
 
-  const userData = getUserData({ userId: user.id as string });
-
-  const [data] = await Promise.all([userData]);
+  const data =  await getUserData({ userId: user.id as string });
 
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
-
   const randomName = names[Math.floor(Math.random() * names.length)];
 
   // const userData = await getData(user.id as string);
@@ -115,22 +113,29 @@ async function ProfilePage() {
     const colours: Record<string, string> = {
       purple: "dark:bg-purple-950 bg-purple-800",
       pink: "dark:bg-pink-950 bg-pink-800",
+      red: "dark:bg-red-950 bg-red-800",
+      orange: "dark:bg-orange-950 bg-orange-800",
+      yellow: "dark:bg-yellow-950 bg-yellow-800",
+      green: "dark:bg-green-950 bg-green-800",
+      blue: "dark:bg-blue-950 bg-blue-800",
+      cyan: "dark:bg-cyan-950 bg-cyan-800",
     };
     return colours[userColour] || "dark:bg-purple-950 bg-purple-800";
   };
 
+
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 pt-[6rem]">
       {/* Banner, Avatar, and User Info */}
       <div className="mb-8">
         <UserBanner
           username={data?.username || randomName}
           imageUrl={data?.image || undefined}
-          role={data?.role}
+          role={data?.role || "USER"}
           colour={colour}
           inGameRank={data?.ingameRank || "110"}
           boxCC={data?.boxCC || "11,000,000"}
-
         />
       </div>
 

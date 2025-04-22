@@ -3,7 +3,6 @@ import {
   getUserData,
   getUserDataByUsername,
 
-  userDataByUsername,
 } from "@/prisma/queries";
 import SmallCharacterCard from "@/src/components/small-character-card";
 import SmallFoodCard from "@/src/components/small-food-card";
@@ -34,9 +33,7 @@ interface PageProps {
 async function ProfilePage({ params }: PageProps) {
   const { slug } = params;
 
-  const userData = await getUserDataByUsername({ username: slug as string });
-
-  const [data] = await Promise.all([userData]);
+  const data = await getUserDataByUsername({ username: slug as string });
 
   if (!data) {
     return notFound();
@@ -44,7 +41,6 @@ async function ProfilePage({ params }: PageProps) {
 
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
   const randomName = names[Math.floor(Math.random() * names.length)];
-
 
   // const userData = await getData(user.id as string);
   // const userFavourites = await getFavourites(user.id as string);
@@ -55,6 +51,12 @@ async function ProfilePage({ params }: PageProps) {
     const colours: Record<string, string> = {
       purple: "dark:bg-purple-950 bg-purple-800",
       pink: "dark:bg-pink-950 bg-pink-800",
+      red: "dark:bg-red-950 bg-red-800",
+      orange: "dark:bg-orange-950 bg-orange-800",
+      yellow: "dark:bg-yellow-950 bg-yellow-800",
+      green: "dark:bg-green-950 bg-green-800",
+      blue: "dark:bg-blue-950 bg-blue-800",
+      cyan: "dark:bg-cyan-950 bg-cyan-800",
     };
     return colours[userColour] || "dark:bg-purple-950 bg-purple-800";
   };
@@ -125,7 +127,7 @@ async function ProfilePage({ params }: PageProps) {
       )}
     >
       {/* Banner */}
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 pt-[6rem]">
         <div className="mb-8">
       <UserBanner username={data?.username || randomName} imageUrl={data?.image || undefined} role={data?.role} colour={colour} />
 

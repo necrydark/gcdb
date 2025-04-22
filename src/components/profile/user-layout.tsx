@@ -39,7 +39,7 @@ const UserLayout: React.FC<Props> = ({ user, children }: Props) => {
 
   return (
     <main
-      className={`${getGradientColours(colour.toLocaleLowerCase())} transition-all duration-300 pb-[7rem] pt-[5rem] bg-gradient-to-b`}
+      className={`${getGradientColours(colour.toLocaleLowerCase())} transition-all duration-300 pb-[7rem] bg-gradient-to-b`}
     >
       {children}
     </main>

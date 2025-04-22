@@ -9,7 +9,12 @@ export const getUserData = cache(async ({ userId }: { userId: string }) => {
     where: {
       id: userId,
     },
+    include: {
+      Comments: true,
+      Favourite: true
+    },
   });
+
   return data;
 });
 
@@ -28,15 +33,6 @@ export const getUserDataByUsername = cache(
     return data;
   }
 );
-
-export const userDataByUsername = async (username: string) => {
-  const data = await db.user.findUnique({
-    where: {
-      username,
-    },
-  });
-  return data;
-};
 
 // export const getUserDataByUsername = cache(
 //   async ({ username }: { username: string }) => {
