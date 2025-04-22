@@ -1,24 +1,26 @@
 "use server";
 
-import { UserRole } from "@prisma/client";
-import { currentRole } from "@/src/utils/auth";
 import db from "../lib/db";
 import * as z from "zod";
 import { revalidatePath } from "next/cache";
 import { adminSchema } from "../schemas/schema";
 import { getUserByEmail } from "@/data/user";
-import { unstable_update } from "../auth";
+import { auth, unstable_update } from "../auth";
 
-export const admin = async () => {
-  const role = await currentRole();
-  if (role !== UserRole.ADMIN) {
-    return { error: "Invalid Permission" };
-  }
 
-  return { success: "Admin Access Granted" };
-};
 
 export const deleteUser = async (userId: string) => {
+
+  const user = await auth();
+
+  if(!user) {
+    return { error: "User is not authorized"}
+  }
+
+  if(user.user.role === "USER"){
+    return { error: "User does not have the correct role."}
+  }
+
   if(!userId) {
     return { error: "Missing ID"}
   }
@@ -37,6 +39,17 @@ export const deleteUser = async (userId: string) => {
 
 
 export const editUser = async(values: z.infer<typeof adminSchema>) => {
+
+  
+  const user = await auth();
+
+  if(!user) {
+    return { error: "User is not authorized"}
+  }
+
+  if(user.user.role === "USER"){
+    return { error: "User does not have the correct role."}
+  }
 
   const dbUser = await getUserByEmail(values.email as string);
 
