@@ -1,6 +1,5 @@
 import { getRelics } from "@/src/actions/relics";
 import RelicTabs from "@/src/components/relics/relics-tab";
-import Relics from "@/src/components/Tables/relics";
 import { bossRelics } from "@/src/utils/dummy/bossRelics";
 import React from "react";
 

@@ -1,5 +1,4 @@
 "use client";
-import Cooking from "@/src/components/cooking";
 import FoodTabs from "@/src/components/food/food-tabs";
 import { Meals } from "@/src/utils/dummy/townMeals";
 import React, { useState } from "react";
