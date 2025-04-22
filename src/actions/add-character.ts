@@ -5,8 +5,6 @@ import {
   getCharacterBySlug,
   getCharacterByTag,
 } from "@/data/character";
-import { Beast, Genders } from "@prisma/client";
-import { error } from "console";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
@@ -137,7 +135,7 @@ export const addCharacter = async (
           critDefense,
           recoveryRate,
           lifesteal,
-          level
+          level: "LEVEL_1"
         }
       },
       ultimate: {
