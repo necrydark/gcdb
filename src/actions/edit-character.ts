@@ -7,10 +7,15 @@ import {
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { editCharacterSchema } from "../schemas/schema";
+import { characterUltimateSchema, editCharacterSchema, skillSchema } from "../schemas/schema";
+
+type EditCharacterData = z.infer<typeof editCharacterSchema>
+type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
+type SkillData = z.infer<typeof skillSchema>
+
 
 export const editCharacter = async (
-  values: z.infer<typeof editCharacterSchema>
+  values: EditCharacterData
 ) => {
   const validatedFields = editCharacterSchema.safeParse(values);
 
@@ -68,6 +73,10 @@ export const editCharacter = async (
     characterUltimate,
   } = validatedFields.data;
 
+  const typedId = id as string;
+  const typedCharacterUltimate = characterUltimate as CharacterUltimateData;
+  const typedSkills = skills as SkillData[];
+
   const existingCharacterById = await getCharacterById(id as string);
 
   if (!existingCharacterById) {
@@ -117,26 +126,24 @@ export const editCharacter = async (
       ultimate: {
         update: {
           where: {
-            id: characterUltimate.ultimateId,
+            id: typedCharacterUltimate.ultimateId,
           },
           data: {
-            name: characterUltimate.name,
-            jpName: characterUltimate.jpName,
-            imageUrl: characterUltimate.imageUrl,
-            description: characterUltimate.description,
+            name: typedCharacterUltimate.name,
+            jpName: typedCharacterUltimate.jpName,
+            imageUrl: typedCharacterUltimate.imageUrl,
+            description: typedCharacterUltimate.description,
             extraInfo: {
-              set: Array.isArray(characterUltimate.extraInfo)
-                ? characterUltimate.extraInfo.filter(
-                    (info) => typeof info === "string"
-                  )
-                : [],
+              set: typedCharacterUltimate.extraInfo?.filter(
+                  (info) => typeof info === "string"
+                ) ?? [], 
             },
           },
         },
       },
       skills: {
-        update: skills.map((skill, index) => ({
-          where: { id: skill.id }, // Add the id property to the where object
+        update: typedSkills.map((skill,) => ({
+          where: { id: (skill as any).id }, // Add the id property to the where object
           data: {
             name: skill.name,
             jpName: skill.jpName,
