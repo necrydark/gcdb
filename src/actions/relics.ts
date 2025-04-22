@@ -32,10 +32,8 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
       return { error: "Relic already exists!" };
     }
 
-    // Start a database transaction
-    const result = await db.$transaction(async (tx) => {
-      // Create the new relic
-      const createdRelic = await tx.holyRelic.create({
+
+      const createdRelic = await db.holyRelic.create({
         data: {
           name,
           imageUrl,
@@ -56,7 +54,6 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
 
       // Now, link the materials to the relic in the junction table
     
-    });
 
     // Revalidate the path after adding the relic
     revalidatePath("/src/app/(protected)/admin/(*.)");
