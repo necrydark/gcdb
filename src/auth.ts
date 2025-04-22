@@ -54,7 +54,6 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         session.user.name = token.name;
         session.user.profileColor = token.profileColour as ProfileColour;
         session.user.image = token.image as string;
-        session.user.banner = token.banner as string;
         session.user.bio = token.bio as string;
         session.user.boxCC = token.boxCC as string;
         session.user.ingameRank = token.ingameRank as string;
@@ -76,7 +75,6 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       token.username = user.username;
       token.profileColour = user.profileColour;
       token.bio = user.bio;
-      token.banner = user.banner;
       token.boxCC = user.boxCC;
       token.ingameRank = user.ingameRank
       return token;

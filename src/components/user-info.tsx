@@ -41,7 +41,7 @@ export function UserInfo({ user, label }: UserInfoProps) {
         </div>
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
           <p className="text-sm font-medium">2FA Enabled?</p>
-          <Badge variant={user?.isTwoFactorEnabled ? "success" : "destructive"}>
+          <Badge variant={user?.isTwoFactorEnabled ? "green" : "destructive"}>
             {user?.isTwoFactorEnabled ? "Yes" : "No"}
           </Badge>
         </div>

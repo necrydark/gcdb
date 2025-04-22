@@ -67,7 +67,7 @@ export default function CharacterPage({ params: { slug } }: any) {
               Comments
             </h1>
             <CommentsForm
-              characterId={character?.id || 1} 
+              characterId={character?.id?.toString() || "1"} 
               slug={character?.slug}
             />
           </div>

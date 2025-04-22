@@ -1,6 +1,5 @@
 import { getCharacters } from "@/data/character";
 import { getMaterials, getRelicById } from "@/data/relics";
-import EditMaterialForm from "@/src/components/admin/edit-material-form";
 import EditRelicForm from "@/src/components/admin/relics/edit-relic-form";
 import db from "@/src/lib/db";
 
