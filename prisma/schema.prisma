@@ -41,8 +41,8 @@ model User {
   image            String?
   createdAt        DateTime
   updatedAt        DateTime
-  username         String
-  displayUsername  String?
+  username         String @unique
+  displayUsername  String? @unique
   boxCC            String?
   ingameRank       String?
   sessions         Session[]
