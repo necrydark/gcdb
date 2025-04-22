@@ -54,6 +54,41 @@ export const getRelicCount = async () => {
   }
 }
 
+export const getLatestRelicGroup = async () => {
+  try {
+    // First, find the most recent release date
+    const mostRecentRelease = await db.holyRelic.findFirst({
+      select: {
+        releaseDate: true
+      },
+      orderBy: {
+        releaseDate: 'desc'
+      }
+    });
+    
+    if (!mostRecentRelease) {
+      return [];
+    }
+    
+    // Then get all relics from that release date
+    const latestRelics = await db.holyRelic.findMany({
+      where: {
+        releaseDate: {
+          equals: mostRecentRelease.releaseDate
+        }
+      },
+      orderBy: {
+        name: 'asc' // Order by name or any other preferred secondary ordering
+      }
+    });
+    
+    return latestRelics;
+  } catch (error) {
+    console.error("Error fetching latest relic group:", error);
+    return null;
+  }
+};
+
 export const getMaterialCount = async () => {
   try {
     const count = await db.material.count();

@@ -4,7 +4,7 @@ import db from "@/src/lib/db";
 import { cn } from "@/src/lib/utils";
 import { signOut } from "next-auth/react";
 import React from "react";
-import { ThemeToggleMobile } from "./ThemeToggleMobile";
+import { ThemeToggleMobile } from "./theme-toggle-mobile";
 import { UserButtonMobile } from "./auth/user-button-mobile";
 import { SidebarItem } from "./sidebarItem";
 

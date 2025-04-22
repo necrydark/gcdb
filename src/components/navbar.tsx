@@ -1,4 +1,4 @@
-import ThemeToggle from "@/src/components/ThemeToggle";
+import ThemeToggle from "@/src/components/theme-toggle";
 import Link from "next/link";
 import React from "react";
 import { MobileSidebar } from "./mobileSidebar";

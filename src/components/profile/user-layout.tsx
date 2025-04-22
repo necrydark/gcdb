@@ -37,6 +37,7 @@ const UserLayout: React.FC<Props> = ({ user, children }: Props) => {
     return gradientColours[gradient] || "from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900";
   }
 
+
   return (
     <main
       className={`${getGradientColours(colour.toLocaleLowerCase())} transition-all duration-300 bg-gradient-to-b`}

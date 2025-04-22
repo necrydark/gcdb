@@ -99,6 +99,7 @@ async function ProfilePage() {
     redirect("/auth/login");
   }
 
+
   const data =  await getUserData({ userId: user.id as string });
 
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];

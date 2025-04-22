@@ -33,7 +33,10 @@ interface PageProps {
 async function ProfilePage({ params }: PageProps) {
   const { slug } = params;
 
+
   const data = await getUserDataByUsername({ username: slug as string });
+
+  console.log(data);
 
   if (!data) {
     return notFound();
@@ -224,7 +227,7 @@ async function ProfilePage({ params }: PageProps) {
 
       <div className="pb-[5rem]">
       <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-         {data?.username}&apos;s Recent Comments
+         {data?.username} Recent Comments
         </h2>
         <div className="space-y-4">
           {profile.recentComments.map((comment, index) => (

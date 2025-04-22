@@ -1,7 +1,7 @@
-import ThemeToggle from "@/src/components/ThemeToggle";
+import ThemeToggle from "@/src/components/theme-toggle";
 import Link from "next/link";
 import React from "react";
-import { AuthMobileSidebar } from "./authMobileSidebar";
+import { AuthMobileSidebar } from "./auth-mobile-sidebar";
 import { UserButton } from "./user-button";
 
 export default function AuthNavbar() {
@@ -26,7 +26,7 @@ export default function AuthNavbar() {
 
   return (
     <>
-      <div className="w-full bg-purple-700 h-[60px] dark:bg-purple-950 z-20 text-white fixed">
+      <div className="w-full  h-[60px] bg-purple-700 dark:bg-purple-950 z-20 text-white fixed">
         <div className="max-w-[1280px] h-[60px] items-center mx-auto flex justify-between px-2">
           <div className="flex  h-full">
             <Link

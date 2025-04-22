@@ -1,8 +1,8 @@
 import Logo from "@/src/components/logo";
 import { cn } from "@/src/lib/utils";
 import React from "react";
-import { ThemeToggleMobile } from "../ThemeToggleMobile";
-import { UserButtonMobile } from "../auth/user-button-mobile";
+import { ThemeToggleMobile } from "../theme-toggle-mobile";
+import { UserButtonMobile } from "./user-button-mobile";
 import { SidebarItem } from "../sidebarItem";
 
 type Props = {
@@ -32,7 +32,7 @@ const AuthSidebar = async ({ className }: Props) => {
   return (
     <div
       className={cn(
-        "flex bg-card h-full lg:w-[256px] lg:fixed left-0 top-0 px-4 dark:border-r-[1px] border-r-2 flex-col",
+        "flex bg-purple-700 dark:bg-purple-950 h-full lg:w-[256px] lg:fixed left-0 top-0 px-4 dark:border-r-[1px] border-r-2 flex-col",
         className
       )}
     >
@@ -41,10 +41,10 @@ const AuthSidebar = async ({ className }: Props) => {
       </div>
       <div className="flex flex-col pt-[20px]  gap-y-2 flex-1">
         {links.map((link, idx) => (
-          <SidebarItem title={link.name} url={link.url} key={idx} />
+          <SidebarItem title={link.name} url={link.url} key={idx} className="text-white rounded-[5px] dark:hover:bg-purple-900 hover:bg-purple-600" />
         ))}
       </div>
-      <div className="py-4 flex flex-row justify-between">
+      <div className="py-4 flex flex-row items-center justify-between">
         <UserButtonMobile />
         <ThemeToggleMobile />
       </div>

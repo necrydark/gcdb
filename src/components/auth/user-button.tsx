@@ -50,32 +50,29 @@ export const UserButton = ({ className }: Props) => {
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="center" side="bottom" sideOffset={10}>
+        <DropdownMenuContent align="center" side="bottom" className="dark:bg-purple-950 bg-purple-700" sideOffset={15}>
           <p className="text-center p-2">{user?.username}</p>
-          <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaUser className="mr-2" />
               <Link href={"/profile"}>Profile</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaHeart className="mr-2" />
               <Link href={"/settings"}>Favourites</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaCog className="mr-2" />
               <Link href={"/settings"}>Settings</Link>
             </DropdownMenuItem>
             {(user?.role === "ADMIN" || user?.role === "OWNER") && (
-              <DropdownMenuItem>
+              <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
                 <MdAdminPanelSettings className="mr-2" />
                 <Link href={"/dashboard"}>Admin</Link>
               </DropdownMenuItem>
             )}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-
-          <DropdownMenuItem>
+          <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
             <FaSignOutAlt className="mr-2" />
             <button type="submit" className=" text-sm" onClick={onClick}>
               Logout

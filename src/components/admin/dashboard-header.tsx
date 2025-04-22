@@ -18,7 +18,7 @@ import { useCurrentUser } from "@/hooks/use-current-user"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
-import ThemeToggle from "../ThemeToggle"
+import ThemeToggle from "../theme-toggle"
 
 export function DashboardHeader() {
     const user = useCurrentUser();

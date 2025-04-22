@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/src/components/ui/sheet";
 import { Menu } from "lucide-react";
-import AuthSidebar from "./authSidebar";
+import AuthSidebar from "./auth-sidebar";
 
 export const AuthMobileSidebar = () => {
   return (

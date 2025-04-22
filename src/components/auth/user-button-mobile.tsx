@@ -32,49 +32,50 @@ export const UserButtonMobile = () => {
   return (
     <div className="flex flex-row gap-5 cursor-pointer">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger className="flex flex-row gap-[.5rem] p-[5px] rounded-[5px] items-center dark:hover:bg-purple-900">
           <Avatar>
             <AvatarImage src={user?.image || ""} />
             <AvatarFallback className="bg-background text-white">
               <FaUser />
             </AvatarFallback>
           </Avatar>
+          <div className="flex flex-col gap-[0.1rem]">
+        <h2 className="text-base text-left">{user?.username}</h2>
+        <p className=" text-muted-foreground text-sm">{user?.email}</p>
+      </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className="z-[10000]"
+          className="z-[10000] dark:bg-purple-950 bg-purple-700"
           align="end"
-          side="left"
+          side="top"
           sideOffset={5}
         >
           <p className="text-center p-2">{user?.username}</p>
-          <DropdownMenuSeparator />
+
           <DropdownMenuLabel>Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaUser className="mr-2" />
               <Link href={"/profile"}>Profile</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaHeart className="mr-2" />
               <Link href={"/settings"}>Favourites</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaCog className="mr-2" />
               <Link href={"/settings"}>Settings</Link>
             </DropdownMenuItem>
             {user?.role === "ADMIN" && (
               <>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
                   <MdAdminPanelSettings className="mr-2" />
                   <Link href={"/dashboard"}>Admin</Link>
                 </DropdownMenuItem>
               </>
             )}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
             <FaSignOutAlt className="mr-2" />
             <button type="submit" className=" text-sm" onClick={onClick}>
               Logout
@@ -82,10 +83,7 @@ export const UserButtonMobile = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <div className="flex flex-col gap-[0.1rem]">
-        <h2 className="text-base">{user?.username}</h2>
-        <p className=" text-muted-foreground text-sm">{user?.email}</p>
-      </div>
+      
     </div>
   );
 };
