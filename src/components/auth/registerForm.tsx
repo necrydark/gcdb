@@ -80,6 +80,8 @@ export const RegisterForm = () => {
                     disabled={isPending}
                     placeholder="John Doe"
                     type="text"
+                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+
                   />
                 </FormControl>
                 <FormMessage />
@@ -98,7 +100,8 @@ export const RegisterForm = () => {
                     {...field}
                     disabled={isPending}
                     placeholder="johndoe@example.com"
-                    type="email"
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                      type="email"
                   />
                 </FormControl>
                 <FormMessage />
@@ -115,7 +118,8 @@ export const RegisterForm = () => {
                   <Input
                     {...field}
                     disabled={isPending}
-                    placeholder="johndoe"
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                      placeholder="johndoe"
                     type="text"
                   />
                 </FormControl>
@@ -133,6 +137,7 @@ export const RegisterForm = () => {
                   <FormControl>
                     <Input
                       {...field}
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
                       disabled={isPending}
                       placeholder="******"
                       type="password"
@@ -152,6 +157,7 @@ export const RegisterForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
                       placeholder="******"
                       type="password"
                     />
@@ -171,7 +177,8 @@ export const RegisterForm = () => {
                 <FormControl>
                   <Input
                     {...field}
-                    disabled={isPending}
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                      disabled={isPending}
                     placeholder="1110000"
                     type="text"
                     min={1}
@@ -190,7 +197,8 @@ export const RegisterForm = () => {
                 <FormLabel className="text-white">In Game Rank</FormLabel>
                 <FormControl>
                   <Input
-                    {...field}
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                      {...field}
                     disabled={isPending}
                     placeholder="110"
                     type="text"
@@ -215,7 +223,8 @@ export const RegisterForm = () => {
                     disabled={isPending}
                     maxLength={255}
                     placeholder="Tell us a little bit about yourself"
-                    className="resize-none"
+                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 resize-none focus-visible:ring-0"
+
                   />
                 </FormControl>
                 <FormMessage />
@@ -225,7 +234,7 @@ export const RegisterForm = () => {
         </div>
         <FormError message={err} />
         <FormSuccess message={success} />
-        <Button type="submit" disabled={isPending} className="w-full dark:bg-purple-600 bg-purple-950 hover:bg-purple-950/70 dark:bg-purple-600/75">
+        <Button type="submit" disabled={isPending} className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-500 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-800 transition-all duration-250 w-full">
           Register
         </Button>
       </form>

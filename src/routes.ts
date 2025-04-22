@@ -45,4 +45,4 @@ export const apiUploadThing = "/api/uploadthing";
  * Default redirect after login
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = "/profile";
+export const DEFAULT_LOGIN_REDIRECT = "/";
