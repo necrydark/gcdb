@@ -20,13 +20,13 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
   const dbUser = await getUserById(user.id as string); // Handle undefined case by providing a default value
 
   if (values.email && values.email !== user.email) {
-    const existingUser = await getUserByEmail(values.email);
+    const existingUser = await getUserByEmail(values.email as string);
 
     if (existingUser && existingUser.id !== user.id) {
       return { error: "Email already in use" };
     }
 
-    const verificationToken = await generateVerificationToken(values.email);
+    const verificationToken = await generateVerificationToken(values.email  as string);
     await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token
@@ -34,8 +34,8 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
     return { success: "Verification email sent!" };
   }
 
-  if (values.password && values.newPassword && dbUser?.password) {
-    const passwordMatch = bcrypt.compare(values.password, dbUser?.password);
+  if (values.password && values.newPassword) {
+    const passwordMatch = bcrypt.compare(values.password, dbUser?.password as string);
 
     if (!passwordMatch) {
       return { error: "Incorrect Password" };
@@ -90,7 +90,7 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
       username: updatedUser.username as string,
       role: updatedUser.role,
       profileColor: updatedUser.profileColour,
-      bio: updatedUser.bio as string,
+      bio: updatedUser. as string,
       boxCC: updatedUser.boxCC as string,
       ingameRank: updatedUser.ingameRank as string,
       

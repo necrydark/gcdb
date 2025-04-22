@@ -31,15 +31,16 @@ enum ProfileColour {
   CYAN
 }
 
-model Users {
+model User {
   id               String        @id @default(cuid())
   name             String
   email            String
-  emailVerified    Boolean
+  emailVerified    Boolean? @default(false)
+  bio String?
+  password        String
   image            String?
   createdAt        DateTime
   updatedAt        DateTime
-  twoFactorEnabled Boolean?
   username         String
   displayUsername  String?
   boxCC            String?
@@ -50,7 +51,8 @@ model Users {
   profileColour    ProfileColour @default(PURPLE)
   Comments         Comments[]
   Favourite        Favourite[]
-  TwoFactor        TwoFactor[]
+  isTwoFactorEnabled    Boolean                @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
 
   @@unique([email])
   @@map("users")
@@ -75,6 +77,43 @@ model Account {
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
+
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
  
 model Session {
   id           String   @id @default(cuid())
@@ -346,7 +385,7 @@ model Favourite {
   id          String     @id @default(cuid())
   character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
-  user        Users?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
   createdAt   DateTime   @default(now())
 }
@@ -356,19 +395,10 @@ model Comments {
   comment     String
   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String
-  user        Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   createdAt   DateTime  @default(now())
 
   @@map("comments")
 }
 
-model TwoFactor {
-  id          String @id
-  secret      String
-  backupCodes String
-  userId      String
-  user        Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("twoFactor")
-}
