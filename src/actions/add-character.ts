@@ -82,7 +82,7 @@ export const addCharacter = async (
 
   const existingCharacterById = await getCharacterById(id as string);
   const existingCharacterBySlug = await getCharacterBySlug(slug as string);
-  const existingCharacterByTag = await getCharacterByTag(tag);
+  const existingCharacterByTag = await getCharacterByTag(tag as string);
 
   if (existingCharacterById) {
     return { error: "Character ID already exists!" };
