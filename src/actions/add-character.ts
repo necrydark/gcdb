@@ -33,8 +33,6 @@ export const addCharacter = async (
   if(user.user.role === "USER"){
     return { error: "User does not have the correct role."}
   }
-
-  const validatedData = validatedFields.data as AddCharacterData
    
   const {
     id,
@@ -84,7 +82,7 @@ export const addCharacter = async (
     skills,
     holyRelicId,
     characterUltimate,
-  } = validatedData;
+  }: AddCharacterData = validatedFields.data;
 
   const existingCharacterById = await getCharacterById(id as string);
   const existingCharacterBySlug = await getCharacterBySlug(slug as string);
@@ -158,12 +156,12 @@ export const addCharacter = async (
       //   })),
       // },
       skills: {
-        create: skills.map((skill: SkillData) => ({
+        create: skills.map((skill) => ({
           name: skill.name,
           jpName: skill.jpName,
           imageUrl: skill.imageUrl,
           skillRanks: {
-            create: skill.skillRanks.map((sr: z.infer<typeof skillRankSchema>) => ({
+            create: skill.skillRanks.map((sr) => ({
               rank: sr.rank,
               description: sr.description,
               type: sr.type,
