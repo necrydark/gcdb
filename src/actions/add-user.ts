@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserByEmail, getUserByUsername } from "@/data/user";
-import bcrypt from "bcryptjs";
+import * as bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
@@ -14,11 +14,9 @@ export const addUser = async (values: z.infer<typeof addNewUserSchema>) => {
     return { error: "Invalid login" };
   }
 
-  const validatedData: z.infer<typeof addNewUserSchema> = validatedFields.data
+  const { name, username, email, password, bio } = validatedFields.data;
 
-  const { name, username, email, password, bio } = validatedData;
-
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password as string, 10);
 
   const existingUserByEmail = await getUserByEmail(email);
   const existingUserByUsername = await getUserByUsername(username);
