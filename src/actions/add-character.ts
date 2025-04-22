@@ -176,11 +176,7 @@ export const addCharacter = async (
           jpName: characterUltimate.jpName,
           imageUrl: characterUltimate.imageUrl,
           description: characterUltimate.description,
-          extraInfo: Array.isArray(characterUltimate.extraInfo)
-            ? characterUltimate.extraInfo
-            : characterUltimate.extraInfo
-            ? [characterUltimate.extraInfo]
-            : [],
+          extraInfo: characterUltimate.extraInfo ?? [],
         },
       },
       // associations: {
