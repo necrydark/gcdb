@@ -31,7 +31,11 @@ import {
 } from "../../ui/select";
 import { useToast } from "../../ui/use-toast";
 import { Card } from "../../ui/card";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CalendarIcon } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { Calendar } from "../../ui/calendar";
+import { cn } from "@nextui-org/react";
+import { format } from "date-fns";
 
 interface RelicInterface {
   characters?: Character[];
@@ -92,6 +96,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
       attack: undefined,
       defense: undefined,
       hp: undefined,
+      releaseDate: undefined,
       materials: [],
       characters: []
     },
@@ -324,6 +329,50 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                       disabled={isPending}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+          <FormField
+              control={form.control}
+              name="releaseDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Character Added Date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[240px] pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {" "}
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(releaseDate: Date) =>
+                          releaseDate > new Date() ||
+                          releaseDate < new Date("1900-01-01") ||
+                          isPending
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}

@@ -9,7 +9,7 @@ async function EditMaterialPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="container mx-auto py-10 max-w-[1400px] px-4">
+    <div className="container mx-auto py-10  px-4">
       <div>
         <EditMaterialForm materialsEdit={[material]} />
       </div>

@@ -20,7 +20,7 @@ async function EditCharacterPage({ params }: { params: { slug: string } }) {
     return <p>Character not found.</p>; // Redirect to 404 page if character not found.  Note: replace "/404" with your 404 page path.
   }
   return (
-    <div className="container mx-auto py-10 max-w-[1400px]">
+    <div className="container mx-auto py-10 ">
       <div>
         <EditCharacterForm
           CharacterEdit={character}

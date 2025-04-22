@@ -28,9 +28,6 @@ export const ConfirmEmailForm = () => {
         setSuccess(data.success);
         redirect("/auth/login")
       })
-      .catch(() => {
-        setError("Something went wrong");
-      });
   }, [token, success, error]);
 
   useEffect(() => {

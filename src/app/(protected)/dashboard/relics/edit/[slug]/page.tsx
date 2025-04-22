@@ -26,7 +26,7 @@ async function EditRelicPage({ params }: { params: { slug: string } }) {
 
 
   return (
-    <div className="container mx-auto py-10 max-w-[1400px]">
+    <div className="container mx-auto py-10 ">
       <div>
         <EditRelicForm materials={materials} characters={characters} relic={relic} relicMaterials={existingMaterials} />
       </div>

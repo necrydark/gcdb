@@ -33,7 +33,7 @@ const AdminMaterialsPage = async () => {
   const data = await getRelics();
 
   return (
-    <div className="max-w-[1400px] px-10 container flex flex-col gap-6 mx-auto py-4">
+    <div className=" px-10 container flex flex-col gap-6 mx-auto py-4">
     
       <div className="flex justify-between items-center">
       <div>

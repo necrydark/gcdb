@@ -13,7 +13,7 @@ async function getMaterials() {
 const AddRelicPage = async () => {
   const materials = await getMaterials();
   return (
-    <div className="max-w-[1400px] mx-auto container py-20">
+    <div className=" mx-auto container py-20">
       <AddRelicForm materials={materials} />
     </div>
   );

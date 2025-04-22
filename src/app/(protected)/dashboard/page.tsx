@@ -52,7 +52,7 @@ const AdminPage = async () => {
 
 
   return (
-    <div className="max-w-[1400px] text-white px-10 container mx-auto py-20">
+    <div className=" text-white px-10 container mx-auto py-20">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl leading-tight font-extrabold pb-5">
           Dashboard

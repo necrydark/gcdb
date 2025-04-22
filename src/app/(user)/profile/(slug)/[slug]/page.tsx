@@ -143,8 +143,10 @@ async function ProfilePage({ params }: PageProps) {
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
         {`${data?.username}'s Favourite Characters`}
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {profile.favoriteCharacters.map((character, index) => (
+        <div>
+        {profile.favoriteCharacters.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {profile.favoriteCharacters.map((character, index) => (
             <Card
               key={index}
               className={`${cardColours(
@@ -211,12 +213,18 @@ async function ProfilePage({ params }: PageProps) {
               </CardContent>
             </Card>
           ))}
+          </div>
+        ) : (
+          <div>
+            {data.username} has no favourite characters yet.
+          </div>
+        )}
         </div>
       </div>
 
       <div className="pb-[5rem]">
       <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-         {data?.username} Recent Comments
+         {data?.username}&apos;s Recent Comments
         </h2>
         <div className="space-y-4">
           {profile.recentComments.map((comment, index) => (

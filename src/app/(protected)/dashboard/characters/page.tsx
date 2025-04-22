@@ -30,7 +30,7 @@ const AdminCharactersPage = async () => {
   const data = await getCharacters();
 
   return (
-    <div className="max-w-[1400px] px-10 container mx-auto py-20">
+    <div className=" px-10 container mx-auto py-20">
       
       <div className="flex justify-between items-center">
       <div>

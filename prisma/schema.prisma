@@ -307,6 +307,7 @@ model HolyRelic {
   name      String
   imageUrl  String
   effect    String
+  releaseDate DateTime
   materials Material[] @relation("HolyRelicMaterials")
 
   attack     String

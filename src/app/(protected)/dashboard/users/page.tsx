@@ -39,7 +39,7 @@ const UsersAdminPage = async () => {
   const data = await getUsers();
 
   return (
-    <div className="max-w-[1400px] px-10 container mx-auto py-20">
+    <div className=" px-10 container mx-auto py-20">
       <div className="flex justify-between items-center">
         <div>
         <h1 className="text-2xl leading-tight font-bold">

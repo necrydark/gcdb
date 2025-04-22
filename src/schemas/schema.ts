@@ -361,6 +361,7 @@ export const addHolyRelic = z.object({
   attack: z.string().min(1, "Attack is required"),
   defense: z.string().min(1, "Defense is required"),
   hp: z.string().min(1, "HP is required"),
+  releaseDate: z.coerce.date(),
   beast: z.enum([
     Beast.Hraesvelgr,
     Beast.Eikthyrnir,
@@ -404,6 +405,8 @@ export const editHolyRelic = z.object({
   characters: z.array(
    relicCharacterSchema
   ).optional(),
+  releaseDate: z.coerce.date(),
+
 });
 
 
