@@ -73,7 +73,10 @@ export default function CharacterPage({ params: { slug } }: any) {
           </div>
         ) : (
           <div>
-            <h1>You need to be logged in!</h1>
+              <h1 className="text-3xl leading-tight font-extrabold mt-8 text-white py-5">
+              Comments
+            </h1>
+            <p>You need to be logged in to post comments!</p>
           </div>
         )}
     </div>
