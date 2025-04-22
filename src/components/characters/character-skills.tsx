@@ -8,6 +8,9 @@ import { useShowJapanese } from "../eng-jp"
 import { Shield, Star, Swords } from "lucide-react"
 import Image from "next/image"
 import { Separator } from "../ui/separator"
+import attack from "@/public/attack.png";
+import taunt from "@/public/taunt.png";
+
 
 type Props = {
   skills?: CharacterSkills[]
@@ -23,9 +26,9 @@ function CharacterSkillsTab({ skills, rarity }: Props) {
   const getSkillTypeIcon = (type: string) => {
     switch (type) {
       case "attack":
-        return <Image src={"/attack.png"} alt="Attack Icon" className="w-8 h-8" width={32} height={32} />
+        return <Image src={attack} alt="Attack Icon" className="w-8 h-8" width={32} height={32} />
       case "taunt":
-          return <Image src={"/taunt.png"} alt="Taunt Icon" className="w-8 h-8" width={32} height={32} />
+          return <Image src={taunt} alt="Taunt Icon" className="w-8 h-8" width={32} height={32} />
       default:
         return <Star className="w-4 h-4" />
     }
