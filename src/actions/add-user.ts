@@ -36,10 +36,13 @@ export const addUser = async (values: z.infer<typeof addNewUserSchema>) => {
   await db.user.create({
     data: {
       ...values,
-      emailVerified: new Date(),
+      emailVerified: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },
-  });
+    }),
+    revalidatePath("/src/app/(protected)/admin/(*.)");
+    return { success: "User Created" };
+  }
 
-  revalidatePath("/src/app/(protected)/admin/(*.)");
-  return { success: "User Created" };
-};
+
