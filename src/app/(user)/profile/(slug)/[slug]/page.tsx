@@ -23,6 +23,7 @@ import testimg from "../../../../../../public/test-bg.png";
 import CardSection from "./card-section";
 import SmallCardSection from "./small-card-section";
 import { UserBanner} from "@/src/components/profile/user-banner"
+import { Card, CardContent } from "@/src/components/ui/card";
  
 interface PageProps {
   params: {
@@ -50,6 +51,65 @@ async function ProfilePage({ params }: PageProps) {
   const cardColour = data?.profileColour;
   const colour = cardColour?.toLocaleLowerCase();
 
+  const cardColours = (userColour: string): string => {
+    const colours: Record<string, string> = {
+      purple: "dark:bg-purple-950 bg-purple-800",
+      pink: "dark:bg-pink-950 bg-pink-800",
+    };
+    return colours[userColour] || "dark:bg-purple-950 bg-purple-800";
+  };
+
+  const profile = {
+    favoriteCharacters: [
+      {
+        name: "Meliodas",
+        attribute: "Strength",
+        race: "Demon",
+        rarity: "SSR",
+        imageUrl:
+          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+      },
+      {
+        name: "Elizabeth",
+        attribute: "HP",
+        race: "Goddess",
+        rarity: "UR",
+        imageUrl:
+          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+      },
+      {
+        name: "Ban",
+        attribute: "HP",
+        race: "Human",
+        rarity: "SSR",
+        imageUrl:
+          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+      },
+      {
+        name: "King",
+        attribute: "Strength",
+        race: "Fairy",
+        rarity: "SSR",
+        imageUrl:
+          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
+      },
+    ],
+    recentComments: [
+      {
+        text: "Just pulled the new Escanor! Can't wait to try him out in PvP!",
+        timestamp: "2 hours ago",
+      },
+      {
+        text: "Anyone have tips for clearing the latest story chapter?",
+        timestamp: "1 day ago",
+      },
+      {
+        text: "Looking for active guild members. DM if interested!",
+        timestamp: "3 days ago",
+      },
+    ],
+  };
+
   return (
     <div
       className={cn(
@@ -65,58 +125,132 @@ async function ProfilePage({ params }: PageProps) {
       )}
     >
       {/* Banner */}
+      <div className="container mx-auto p-4">
+        <div className="mb-8">
       <UserBanner username={data?.username || randomName} imageUrl={data?.image || undefined} role={data?.role} colour={colour} />
 
-      {/* Profile Section */}
-      <div className="max-w-[1200px] md:mx-auto md:px-0 px-8">
-        <p className="py-4 px-2">{data?.bio ?? "No Bio Found"}</p>
-        <div className="flex justify-between items-center mt-6 flex-row">
-          <h1 className="md:text-3xl text-2xl font-extrabold tracking-tight">
-            {`${data?.username}'s Favourite Characters`}
-          </h1>
         </div>
-        <CardSection sectionColour={cardColour as ProfileColour}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
-            {/* @TODO: Add recent favourites from DB */}
-            <SmallCharacterCard
-              attribute="Strength"
-              imageUrl="https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
-              name="Queen Diane"
-              race="Giant"
-              rarity="SSR"
-              slug="queen_diane_2"
-              colour={colour as ProfileColour}
-            />
-            <SmallCharacterCard
-              attribute="Strength"
-              imageUrl="https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png"
-              name="Jue Viole Grace"
-              race="Human"
-              rarity="SSR"
-              slug="jue_viole_grace"
-              colour={colour as ProfileColour}
-            />
-            <SmallCharacterCard
-              attribute="HP"
-              imageUrl="https://gcdatabase.com/images/characters/alioni/rg_portrait.webp"
-              name="Alioni"
-              race="Human"
-              rarity="R"
-              slug="alioni"
-              colour={colour as ProfileColour}
-            />
-            <SmallCharacterCard
-              attribute="HP"
-              imageUrl="https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp"
-              name="Eren Yeager"
-              race="Human / Giant"
-              rarity="SSR"
-              slug="eren_yeager"
-              colour={colour as ProfileColour}
-            />
-          </div>
-        </CardSection>
       </div>
+
+      {/* Profile Section */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+        {`${data?.username}'s Favourite Characters`}
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {profile.favoriteCharacters.map((character, index) => (
+            <Card
+              key={index}
+              className={`${cardColours(
+                colour as string
+              )} border-0 rounded-[5px]`}
+            >
+              <CardContent className="p-4">
+                <div className="flex flex-col items-center space-y-4">
+                  <Image
+                    src={character.imageUrl || "/placeholder.svg"}
+                    alt={character.name}
+                    width={80}
+                    height={80}
+                    // className="rounded-full"
+                  />
+                  <div className="text-center">
+                    <h3 className="font-semibold text-white">
+                      {character.name}
+                    </h3>
+                    <p className="text-sm text-gray-400 dark:text-muted-foreground">
+                      {character.attribute}
+                    </p>
+                    <p className="text-sm text-gray-400 dark:text-muted-foreground">
+                      {character.race}
+                    </p>
+                    <Badge
+                      className="mt-1  text-white"
+                      variant={
+                        colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined
+                      }
+                    >
+                      {character.rarity}
+                    </Badge>
+                  </div>
+                  <Button
+                    variant={
+                      colour as
+                        | "red"
+                        | "green"
+                        | "blue"
+                        | "yellow"
+                        | "orange"
+                        | "pink"
+                        | "cyan"
+                        | "purple"
+                        | null
+                        | undefined
+                    }
+                    className="w-full mt-2 text-white rounded-[5px] "
+                  >
+                    View
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div>
+      <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+         {data?.username} Recent Comments
+        </h2>
+        <div className="space-y-4">
+          {profile.recentComments.map((comment, index) => (
+            <Card
+              key={index}
+              className={`${cardColours(colour as string)} border-0`}
+            >
+              <CardContent className="p-4">
+                <div className="flex flex-row items-center justify-between">
+                <p className="text-white">{comment.text}</p>
+                <p className="text-sm text-white dark:text-muted-foreground mt-2">
+                {comment.timestamp}
+                </p>
+                </div>
+               
+                <Button
+                  variant={
+                    colour as
+                      | "red"
+                      | "green"
+                      | "blue"
+                      | "yellow"
+                      | "orange"
+                      | "pink"
+                      | "cyan"
+                      | "purple"
+                      | null
+                      | undefined
+                  }
+                  className="mt-4 rounded-[5px]"
+                >
+                  View
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+     
     </div>
   );
 }

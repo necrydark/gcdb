@@ -128,8 +128,8 @@ async function ProfilePage() {
           imageUrl={data?.image || undefined}
           role={data?.role}
           colour={colour}
-          inGameRank="110"
-          boxCC="11mil"
+          inGameRank={data?.ingameRank || "110"}
+          boxCC={data?.boxCC || "11,000,000"}
 
         />
       </div>
