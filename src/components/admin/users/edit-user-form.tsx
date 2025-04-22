@@ -9,7 +9,7 @@ import { ProfileColour, UserRole } from "@prisma/client";
 import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   Form,
   FormControl,
@@ -18,17 +18,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "../../ui/form";
+import { Input } from "../../ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
-import { Switch } from "../ui/switch";
-import { useToast } from "../ui/use-toast";
+} from "../../ui/select";
+import { Switch } from "../../ui/switch";
+import { useToast } from "../../ui/use-toast";
 
 interface UserInterface {
   name: string;

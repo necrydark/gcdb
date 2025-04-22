@@ -33,7 +33,6 @@ const UserLayout: React.FC<Props> = ({ user, children }: Props) => {
       "yellow": "from-yellow-300 via-yellow-400/60 to-yellow-600 dark:from-yellow-500/30 dark:via-yellow-700/60 dark:to-yellow-900",
       "cyan": "from-cyan-300 via-cyan-400/60 to-cyan-600 dark:from-cyan-500/30 dark:via-cyan-700/60 dark:to-cyan-900",
       "orange": "from-orange-300 via-orange-400/60 to-orange-600 dark:from-orange-500/30 dark:via-orange-700/60 dark:to-orange-900",
-
     }
     return gradientColours[gradient] || "from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900";
   }

@@ -4,7 +4,7 @@ import {
   getSkillsById,
   getUltimateByCharacterId,
 } from "@/data/character";
-import EditCharacterForm from "@/src/components/admin/edit-character-form";
+import EditCharacterForm from "@/src/components/admin/characters/edit-character-form";
 import React from "react";
 
 async function EditCharacterPage({ params }: { params: { slug: string } }) {

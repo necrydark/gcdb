@@ -1,32 +1,34 @@
 // colorUtils.ts
 
+import { ProfileColour } from "@prisma/client";
+
 // Define valid color options as a type for better type safety
-export type ColourOption = 'red' | 'blue' | 'green' | 'yellow' | 'purple' | 'orange' | 'pink' | 'cyan';
+// export type ColourOption = 'red' | 'blue' | 'green' | 'yellow' | 'purple' | 'orange' | 'pink' | 'cyan';
 
 /**
  * Returns Tailwind CSS classes for a given color option
  * @param colour The colour to get classes for
  * @returns Tailwind CSS classes string
  */
-export function getColourClasses(colour: ColourOption | undefined): string {
+export function getColourClasses(colour: ProfileColour | undefined): string {
   switch (colour) {
-    case 'red':
+    case 'RED':
       return 'bg-red-400 text-white dark:bg-red-800';
-    case 'blue':
+    case 'BLUE':
       return 'bg-blue-400 text-white dark:bg-blue-800';
-    case 'green':
+    case 'GREEN':
       return 'bg-green-400 text-white dark:bg-green-800';
-    case 'yellow':
+    case 'YELLOW':
       return 'bg-yellow-400 text-white dark:bg-yellow-800';
-    case 'purple':
+    case 'PURPLE':
       return 'bg-purple-400 text-white dark:bg-purple-800';
-    case 'orange':
+    case 'ORANGE':
       return 'bg-orange-400 text-white dark:bg-orange-800';
-    case 'pink':
+    case 'PINK':
       return 'bg-pink-400 text-white dark:bg-pink-800';
-    case 'cyan':
+    case 'CYAN':
       return 'bg-cyan-400 text-white dark:bg-cyan-800';
     default:
-      return ''; // Return empty string if no color matches
+      return 'bg-purple-400 text-white dark:bg-purple-800'; // Return empty string if no color matches
   }
 }

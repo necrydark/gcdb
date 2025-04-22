@@ -1,7 +1,7 @@
 "use client";
 
 import { deleteUser } from "@/src/actions/admin";
-import EditUserForm from "@/src/components/admin/edit-user-form";
+import EditUserForm from "@/src/components/admin/users/edit-user-form";
 import ViewUser from "@/src/components/admin/view-user";
 import { Button } from "@/src/components/ui/button";
 import {

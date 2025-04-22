@@ -52,9 +52,9 @@ import { useState, useTransition } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import ReactSelect from "react-select";
 import * as z from "zod";
-import { Calendar } from "../ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Separator } from "../ui/separator";
+import { Calendar } from "@/src/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/src/components/ui/popover";
+import { Separator } from "@/src/components/ui/separator";
 
 interface FormProps {
   Gifts?: Gift[];

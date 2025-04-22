@@ -130,6 +130,7 @@ export const formSchema = z
 export const signInSchema = z.object({
   email: z.string().email().min(1, "Email is required"),
   password: z.string().min(1, "Password is required"),
+  code: z.optional(z.string()),
 });
 
 export const resetSchema = z.object({
@@ -586,11 +587,3 @@ export const editCharacterSchema = z.object({
   ]),
 });
 
-
-export const passwordSchema = z.object({
-  password: z.string().min(8, "Password must be atleast 8 characters long").max(20, "Password cannot more than 20 characters long.")
-})
-
-export const otpCodeSchema = z.object({
-  otpCode: z.string().min(6, "OTP code must be atleast 6 digits.").max(6, "OTP code must be atleast 6 digits.").regex(new RegExp("!/^\d+$/"))
-})
