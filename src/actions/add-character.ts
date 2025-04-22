@@ -8,11 +8,15 @@ import {
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { addCharacterSchema } from "../schemas/schema";
+import { addCharacterSchema, characterUltimateSchema, skillRankSchema, skillSchema } from "../schemas/schema";
 import { auth } from "../auth";
 
+type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
+type SkillData = z.infer<typeof skillSchema>
+type AddCharacterData = z.infer<typeof addCharacterSchema>
+
 export const addCharacter = async (
-  values: z.infer<typeof addCharacterSchema>
+  values: AddCharacterData
 ) => {
   const validatedFields = addCharacterSchema.safeParse(values);
 
@@ -30,7 +34,7 @@ export const addCharacter = async (
     return { error: "User does not have the correct role."}
   }
 
-  const validatedData = validatedFields.data as z.infer<typeof addCharacterSchema>;
+  const validatedData = validatedFields.data as AddCharacterData
    
   const {
     id,
@@ -154,12 +158,12 @@ export const addCharacter = async (
       //   })),
       // },
       skills: {
-        create: skills.map((skill) => ({
+        create: skills.map((skill: SkillData) => ({
           name: skill.name,
           jpName: skill.jpName,
           imageUrl: skill.imageUrl,
           skillRanks: {
-            create: skill.skillRanks.map((sr) => ({
+            create: skill.skillRanks.map((sr: z.infer<typeof skillRankSchema>) => ({
               rank: sr.rank,
               description: sr.description,
               type: sr.type,
