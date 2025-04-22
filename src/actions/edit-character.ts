@@ -2,11 +2,8 @@
 
 import {
   getCharacterById,
-  getCharacterBySlug,
-  getCharacterByTag,
 } from "@/data/character";
-import { Beast, Genders } from "@prisma/client";
-import { error } from "console";
+// import { Beast, Genders } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";

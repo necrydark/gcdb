@@ -3,7 +3,7 @@ import { getMaterialByName, getRelicByName } from "@/data/relics";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { addHolyRelic, addRelicMaterials } from "../schemas/schema";
+import { addRelicMaterials } from "../schemas/schema";
 
 export const addMaterial = async (
   values: z.infer<typeof addRelicMaterials>

@@ -3,7 +3,6 @@
 import { getUserByEmail, getUserById } from "@/data/user";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
-import { UTApi } from "uploadthing/server";
 import * as z from "zod";
 import { unstable_update } from "../auth";
 import { currentUser } from "@/src/utils/auth";

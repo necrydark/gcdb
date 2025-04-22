@@ -3,7 +3,7 @@
 import db from "@/src/lib/db";
 import { generateVerificationToken } from "@/src/lib/token";
 import { registerSchema } from "@/src/schemas/schema";
-import bcrypt, { hash } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { getUserByEmail, getUserByUsername } from "../../data/user";
 import { sendVerificationEmail } from "../lib/mail";
@@ -32,24 +32,24 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
     return { error: "Username already in use!" };
   }
 
-  // await db.user.create({
-  //   data: {
-  //     username,
-  //     name,
-  //     email,
-  //     password: hashedPassword,
-  //     boxCC,
-  //     ingameRank,
-  //     bio,
-  //     image: `https://avatar.vercel.sh/${name}`,
-  //   },
-  // });
+  await db.user.create({
+    data: {
+      username,
+      name,
+      email,
+      password: hashedPassword,
+      boxCC,
+      ingameRank,
+      bio,
+      image: `https://avatar.vercel.sh/${name}`,
+    },
+  });
 
   const verificationToken = await generateVerificationToken(email);
 
   console.log(verificationToken);
 
-  // await sendVerificationEmail(verificationToken.email, verificationToken.token);
+  await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
   return { success: "Check your email for verification!" };
 };

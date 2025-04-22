@@ -10,11 +10,8 @@ import {
   generateTwoFactorToken,
   generateVerificationToken,
 } from "@/src/lib/token";
-import { DEFAULT_LOGIN_REDIRECT } from "@/src/routes";
 import { signInSchema } from "@/src/schemas/schema";
 import { AuthError } from "next-auth";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const login = async (values: z.infer<typeof signInSchema>) => {

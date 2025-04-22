@@ -1,9 +1,9 @@
 "use server"
-import { getMaterialByName, getRelicByName } from "@/data/relics";
+import { getRelicByName } from "@/data/relics";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { addHolyRelic, addRelicMaterials, editHolyRelic } from "../schemas/schema";
+import { addHolyRelic, editHolyRelic } from "../schemas/schema";
 
 export const getRelics = async () => {
   return await db.holyRelic.findMany({
