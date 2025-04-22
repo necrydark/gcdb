@@ -140,19 +140,6 @@ export const addCharacter = async (
           level: "LEVEL_1"
         }
       },
-      ultimate: {
-        create: {
-          name: characterUltimate.name,
-          jpName: characterUltimate.jpName,
-          imageUrl: characterUltimate.imageUrl,
-          description: characterUltimate.description,
-          extraInfo: Array.isArray(characterUltimate.extraInfo)
-            ? characterUltimate.extraInfo
-            : characterUltimate.extraInfo
-            ? [characterUltimate.extraInfo]
-            : [],
-        },
-      },
       passiveName,
       passiveImageUrl,
       passiveJpName,
@@ -182,6 +169,19 @@ export const addCharacter = async (
       },
       holyRelic: {
         connect: { id: holyRelicId },
+      },
+      ultimate: {
+        create: {
+          name: characterUltimate.name,
+          jpName: characterUltimate.jpName,
+          imageUrl: characterUltimate.imageUrl,
+          description: characterUltimate.description,
+          extraInfo: Array.isArray(characterUltimate.extraInfo)
+            ? characterUltimate.extraInfo
+            : characterUltimate.extraInfo
+            ? [characterUltimate.extraInfo]
+            : [],
+        },
       },
       // associations: {
       //   create:
