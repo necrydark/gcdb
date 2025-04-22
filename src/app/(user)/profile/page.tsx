@@ -216,7 +216,7 @@ async function ProfilePage() {
       </div>
 
       {/* Recent Comments */}
-      <div>
+      <div className="pb-[5rem]">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
           Recent Comments
         </h2>

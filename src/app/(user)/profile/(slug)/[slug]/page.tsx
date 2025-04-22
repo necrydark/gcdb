@@ -129,8 +129,13 @@ async function ProfilePage({ params }: PageProps) {
       {/* Banner */}
       <div className="container mx-auto p-4 pt-[6rem]">
         <div className="mb-8">
-      <UserBanner username={data?.username || randomName} imageUrl={data?.image || undefined} role={data?.role} colour={colour} />
-
+          <UserBanner 
+          username={data?.username || randomName} 
+          imageUrl={data?.image || undefined} 
+          role={data?.role} 
+          colour={colour} 
+          boxCC={data?.boxCC || "11,000,000"} 
+          inGameRank={data?.ingameRank || "110"} />
         </div>
 
       {/* Profile Section */}
@@ -209,7 +214,7 @@ async function ProfilePage({ params }: PageProps) {
         </div>
       </div>
 
-      <div>
+      <div className="pb-[5rem]">
       <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
          {data?.username} Recent Comments
         </h2>
