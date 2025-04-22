@@ -1,5 +1,6 @@
 'use client'
-import { Food } from '@prisma/client';
+// import { Character, Food, Meal } from '@prisma/client';
+import { Food } from '@/src/types/food';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import React, { useState } from 'react'
 import Foods from './food';
@@ -7,7 +8,7 @@ import Foods from './food';
 type Props =
 {
     towns?: string[]
-    food?: Food[][];
+    food?: Food[][]
 }
 
 export default function FoodTabs({food, towns}: Props) {
