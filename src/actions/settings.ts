@@ -90,7 +90,6 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
       username: updatedUser.username as string,
       role: updatedUser.role,
       profileColor: updatedUser.profileColour,
-      bio: updatedUser. as string,
       boxCC: updatedUser.boxCC as string,
       ingameRank: updatedUser.ingameRank as string,
       
