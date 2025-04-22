@@ -141,7 +141,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
     startTransition(() => {
       const formattedValues = {
         ...values,
-        materials: values.materials.map(material => ({
+        materials: values.materials?.map(material => ({
           ...material,
           imageUrl: material.imageUrl || '' // Ensure imageUrl is always a string
         }))
