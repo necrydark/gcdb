@@ -14,7 +14,9 @@ export const addUser = async (values: z.infer<typeof addNewUserSchema>) => {
     return { error: "Invalid login" };
   }
 
-  const { name, username, email, password, bio } = validatedFields.data;
+  const validatedData: z.infer<typeof addNewUserSchema> = validatedFields.data
+
+  const { name, username, email, password, bio } = validatedData;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -28,6 +30,8 @@ export const addUser = async (values: z.infer<typeof addNewUserSchema>) => {
   if (existingUserByUsername) {
     return { error: "Username already in use!" };
   }
+
+  
 
   values.password = hashedPassword;
 

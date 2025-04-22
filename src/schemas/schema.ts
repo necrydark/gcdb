@@ -40,7 +40,7 @@ export const addNewUserSchema = z.object({
   name: z.string(),
   username: z.string(),
   email: z.string().email(),
-  password: z.string().min(6),
+  password: z.string().min(6, "Password must be at least 6 characters"),
   role: z.enum([UserRole.ADMIN, UserRole.USER]),
   isTwoFactorEnabled: z.optional(z.boolean()),
   image: z.optional(z.string()),
