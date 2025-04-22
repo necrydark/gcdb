@@ -183,6 +183,19 @@ const skillSchema = z.object({
     .length(3, "Exactly three skill ranks are required"),
 });
 
+const characterUltimateSchema = z.object({
+    ultimateId: z.string().min(1, "Ultimate ID is required"),
+    characterId: z.optional(z.string()),
+    name: z.string().min(1, "Ultimate Name is required"),
+    jpName: z.string().min(1, "Ultimate Japanese Name is required"),
+    imageUrl: z
+      .string()
+      .url("Invalid URL")
+      .min(1, "Ultimate Image URL is required"),
+    description: z.string().min(1, "Ultimate Description is required"),
+    extraInfo: z.optional(z.string()),
+})
+
 // Add Character
 export const addCharacterSchema = z.object({
   id: z.optional(z.string().min(1, "ID is required")),
@@ -273,18 +286,7 @@ export const addCharacterSchema = z.object({
   passiveDescription: z.string().min(1, "Passive Description is required"),
   passiveCCNeeded: z.optional(z.string()),
   skills: z.array(skillSchema).min(2, "At least one skill is required"),
-  characterUltimate: z.object({
-    ultimateId: z.string().min(1, "Ultimate ID is required"),
-    characterId: z.optional(z.string()),
-    name: z.string().min(1, "Ultimate Name is required"),
-    jpName: z.string().min(1, "Ultimate Japanese Name is required"),
-    imageUrl: z
-      .string()
-      .url("Invalid URL")
-      .min(1, "Ultimate Image URL is required"),
-    description: z.string().min(1, "Ultimate Description is required"),
-    extraInfo: z.optional(z.string()),
-  }),
+  characterUltimate: characterUltimateSchema,
   associations: z.optional(
     z.array(
       z.object({
