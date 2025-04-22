@@ -7,7 +7,7 @@ import { Loader2 } from "lucide-react";
 
 export default async function RelicViewPage({params} : {params: {slug: string}}) {
     
-    const relic = await getRelicById(params.slug);
+    const relic = await getRelicById(params.slug as string);
     const materials = await getMaterials();
     const characters = await getCharacters();
     const existingMaterials = await db.holyRelic.findUnique({

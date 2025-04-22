@@ -8,7 +8,7 @@ import EditCharacterForm from "@/src/components/admin/characters/edit-character-
 import React from "react";
 
 async function EditCharacterPage({ params }: { params: { slug: string } }) {
-  const character = await getCharacterById(params.slug);
+  const character = await getCharacterById(params.slug as string);
   const skills = await getSkillsById(character?.id as string);
   const skillIds = skills?.map((skill) => skill.id);
   const skillRanks = await getSkillRanksById(skillIds || []);

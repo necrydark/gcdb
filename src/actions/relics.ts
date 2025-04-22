@@ -26,7 +26,7 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
     validatedFields.data;
 
   try {
-    const existingRelicByName = await getRelicByName(name);
+    const existingRelicByName = await getRelicByName(name as string);
     if (existingRelicByName) {
       console.error("Relic already exists:", existingRelicByName);
       return { error: "Relic already exists!" };

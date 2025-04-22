@@ -4,7 +4,7 @@ import EditRelicForm from "@/src/components/admin/relics/edit-relic-form";
 import db from "@/src/lib/db";
 
 async function EditRelicPage({ params }: { params: { slug: string } }) {
-  const relic = await getRelicById(params.slug);
+  const relic = await getRelicById(params.slug as string);
   const materials = await getMaterials();
   const characters = await getCharacters();
   const existingMaterials = await db.holyRelic.findUnique({
