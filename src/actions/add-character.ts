@@ -100,6 +100,9 @@ export const addCharacter = async (
     return { error: "Character Tag already exists!" };
   }
 
+  const typedSkills: SkillData[] = skills as SkillData[];
+  const typedCharacterUltimate: CharacterUltimateData = characterUltimate as CharacterUltimateData;
+
   await db.character.create({
     data: {
       id: id ?? "",
@@ -156,7 +159,7 @@ export const addCharacter = async (
       //   })),
       // },
       skills: {
-        create: skills.map((skill) => ({
+        create: typedSkills.map((skill) => ({
           name: skill.name,
           jpName: skill.jpName,
           imageUrl: skill.imageUrl,
@@ -174,11 +177,11 @@ export const addCharacter = async (
       },
       ultimate: {
         create: {
-          name: characterUltimate.name,
-          jpName: characterUltimate.jpName,
-          imageUrl: characterUltimate.imageUrl,
-          description: characterUltimate.description,
-          extraInfo: characterUltimate.extraInfo ?? [],
+          name: typedCharacterUltimate.name,
+          jpName: typedCharacterUltimate.jpName,
+          imageUrl: typedCharacterUltimate.imageUrl,
+          description: typedCharacterUltimate.description,
+          extraInfo: typedCharacterUltimate.extraInfo ?? [],
         },
       },
       // associations: {
