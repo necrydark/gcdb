@@ -10,7 +10,7 @@ export default async function UserViewPage({ params} : { params: { slug: string}
         },
         include: {
             Comments: true,
-            Favourites: true
+            Favourite: true
         }
     })
     

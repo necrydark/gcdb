@@ -35,7 +35,7 @@ import { Separator } from "../../ui/separator";
 
 interface UserInterface {
   user: User & {
-    Favourites: Favourite[];
+    Favourite: Favourite[];
     Comments: Comments[];
   };
 }
@@ -276,7 +276,7 @@ export default function ViewUserPage({ user }: UserInterface) {
                   <Separator className="bg-purple-500 dark:bg-purple-800" />
                   <div className="flex items-center justify-between py-1">
                     <span className="text-sm font-medium">Favourites</span>
-                    <span>{user.Favourites.length}</span>
+                    <span>{user.Favourite.length}</span>
                   </div>
                 </div>
               </CardContent>
