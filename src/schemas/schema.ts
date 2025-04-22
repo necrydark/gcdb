@@ -183,7 +183,7 @@ const skillSchema = z.object({
     .length(3, "Exactly three skill ranks are required"),
 });
 
-const characterUltimateSchema = z.object({
+export const characterUltimateSchema = z.object({
     ultimateId: z.string().min(1, "Ultimate ID is required"),
     characterId: z.optional(z.string()),
     name: z.string().min(1, "Ultimate Name is required"),
@@ -193,7 +193,7 @@ const characterUltimateSchema = z.object({
       .url("Invalid URL")
       .min(1, "Ultimate Image URL is required"),
     description: z.string().min(1, "Ultimate Description is required"),
-    extraInfo: z.optional(z.string()),
+    extraInfo: z.optional(z.array(z.string())), 
 })
 
 // Add Character

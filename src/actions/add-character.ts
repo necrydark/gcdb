@@ -29,6 +29,8 @@ export const addCharacter = async (
   if(user.user.role === "USER"){
     return { error: "User does not have the correct role."}
   }
+
+  const validatedData = validatedFields.data as z.infer<typeof addCharacterSchema>;
    
   const {
     id,
@@ -78,7 +80,7 @@ export const addCharacter = async (
     skills,
     holyRelicId,
     characterUltimate,
-  } = validatedFields.data;
+  } = validatedData;
 
   const existingCharacterById = await getCharacterById(id as string);
   const existingCharacterBySlug = await getCharacterBySlug(slug as string);
