@@ -286,7 +286,6 @@ export const addCharacterSchema = z.object({
   passiveDescription: z.string().min(1, "Passive Description is required"),
   passiveCCNeeded: z.optional(z.string()),
   skills: z.array(skillSchema).min(2, "At least one skill is required"),
-  characterUltimate: characterUltimateSchema,
   associations: z.optional(
     z.array(
       z.object({
@@ -318,6 +317,7 @@ export const addCharacterSchema = z.object({
     GameEvent.Valentine,
     GameEvent.None,
   ]),
+  characterUltimate: characterUltimateSchema,
 });
 
 export const addFoodSchema = z.object({
