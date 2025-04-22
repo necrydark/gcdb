@@ -25,7 +25,7 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
 
   console.log("Received values in addRelic:", JSON.stringify(values, null, 2));
 
-  const { name, imageUrl, effect, attack, defense, hp, beast, materials, characters } =
+  const { name, imageUrl, effect, attack, defense, hp, beast, releaseDate, materials, characters } =
     validatedFields.data;
 
   try {
@@ -48,6 +48,7 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
           defense,
           hp,
           beast,
+          releaseDate,
           materials: {
             connect: typedMaterials.map((material) => ({ id: material.id}))
           },
@@ -81,7 +82,7 @@ export const editRelic = async (
     return {error: "Invalid Fields"}
   }
 
-  const { name, attack, beast,characters,defense,effect,hp,imageUrl,materials} = validatedFields.data;
+  const { name, attack, beast,characters,defense,effect,hp,imageUrl,materials, releaseDate} = validatedFields.data;
 
   if(!name || !attack || !beast || !characters || !defense || !effect || !hp || !imageUrl || !materials) {
     return { error: "A field is not valid."}
@@ -102,6 +103,7 @@ export const editRelic = async (
       defense,
       hp,
       beast,
+      releaseDate,
       materials: typedMaterials ? { set: typedMaterials.map(m => ({ id: m.id })) } : undefined, // Use typedMaterials, handle undefined
       characters: typedCharacters ? { set: typedCharacters.map(c => ({ id: c.id })) } : undefined, // Use typedCharacters, handle undefined
     }
