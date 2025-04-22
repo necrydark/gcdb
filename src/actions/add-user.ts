@@ -18,8 +18,8 @@ export const addUser = async (values: z.infer<typeof addNewUserSchema>) => {
 
   const hashedPassword = await bcrypt.hash(password as string, 10);
 
-  const existingUserByEmail = await getUserByEmail(email);
-  const existingUserByUsername = await getUserByUsername(username);
+  const existingUserByEmail = await getUserByEmail(email as string);
+  const existingUserByUsername = await getUserByUsername(username as string);
 
   if (existingUserByEmail) {
     return { error: "Email already in use!" };
