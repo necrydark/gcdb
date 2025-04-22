@@ -3,7 +3,10 @@ import { getRelicByName } from "@/data/relics";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { addHolyRelic, editHolyRelic } from "../schemas/schema";
+import { addHolyRelic, editHolyRelic, MaterialSchema, relicCharacterSchema } from "../schemas/schema";
+
+type MaterialData = z.infer<typeof MaterialSchema>
+type CharacterData = z.infer<typeof relicCharacterSchema>
 
 export const getRelics = async () => {
   return await db.holyRelic.findMany({
@@ -32,6 +35,9 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
       return { error: "Relic already exists!" };
     }
 
+    const typedMaterials = materials as MaterialData[]
+    const typedCharacters = characters  as CharacterData[];
+
 
       const createdRelic = await db.holyRelic.create({
         data: {
@@ -43,10 +49,10 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
           hp,
           beast,
           materials: {
-            connect: materials.map((material) => ({ id: material.id}))
+            connect: typedMaterials.map((material) => ({ id: material.id}))
           },
           characters: {
-            connect: characters.map((character) => ({ id: character.id })),
+            connect: typedCharacters.map((character) => ({ id: character.id })),
           }
         },
       });
@@ -80,6 +86,11 @@ export const editRelic = async (
   if(!name || !attack || !beast || !characters || !defense || !effect || !hp || !imageUrl || !materials) {
     return { error: "A field is not valid."}
   }
+
+  
+  const typedMaterials = materials as MaterialData[] | undefined
+  const typedCharacters = characters  as CharacterData[] | undefined;
+
   
   await db.holyRelic.update({
     where: { id },
@@ -91,12 +102,8 @@ export const editRelic = async (
       defense,
       hp,
       beast,
-      materials: {
-        set: materials.map(m => ({ id: m.id }))
-      },
-      characters: {
-        set: characters.map(c => ({ id: c.id }))
-      }
+      materials: typedMaterials ? { set: typedMaterials.map(m => ({ id: m.id })) } : undefined, // Use typedMaterials, handle undefined
+      characters: typedCharacters ? { set: typedCharacters.map(c => ({ id: c.id })) } : undefined, // Use typedCharacters, handle undefined
     }
   });
 

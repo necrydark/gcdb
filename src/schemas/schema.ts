@@ -341,6 +341,19 @@ export const addFoodSchema = z.object({
   characterId: z.optional(z.string()),
 });
 
+export const relicCharacterSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  imageUrl: z.string(),
+})
+
+export const MaterialSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  imageUrl: z.string().optional(),
+  location: z.string().optional(),
+});
+
 export const addHolyRelic = z.object({
   name: z.string().min(1, "Relic Name is required"),
   imageUrl: z.string().min(1, "Image URL is required"),
@@ -357,18 +370,10 @@ export const addHolyRelic = z.object({
     Beast.Collab,
   ]),
   materials: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      imageUrl: z.string(),
-    })
+    MaterialSchema
   ),
   characters: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      imageUrl: z.string(),
-    })
+    relicCharacterSchema
   ),
 });
 
@@ -378,11 +383,7 @@ export const addRelicMaterials = z.object({
   location: z.optional(z.string()),
 });
 
-const MaterialSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  imageUrl: z.string().optional(),
-});
+
 
 export const editHolyRelic = z.object({
   name: z.string().min(1, "Relic Name is required"),
@@ -399,14 +400,10 @@ export const editHolyRelic = z.object({
     Beast.Ratatoskr,
     Beast.Collab,
   ]),
-  materials: z.array(MaterialSchema).default([]),
+  materials: z.array(MaterialSchema).default([]).optional(),
   characters: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      imageUrl: z.string(),
-    })
-  ),
+   relicCharacterSchema
+  ).optional(),
 });
 
 
