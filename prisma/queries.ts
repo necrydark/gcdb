@@ -20,6 +20,10 @@ export const getUserDataByUsername = cache(
       where: {
         username,
       },
+      include: {
+        Comments: true,
+        Favourite: true
+      }
     });
     return data;
   }

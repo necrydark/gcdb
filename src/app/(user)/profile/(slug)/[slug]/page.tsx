@@ -130,7 +130,6 @@ async function ProfilePage({ params }: PageProps) {
       <UserBanner username={data?.username || randomName} imageUrl={data?.image || undefined} role={data?.role} colour={colour} />
 
         </div>
-      </div>
 
       {/* Profile Section */}
       <div className="mb-8">
@@ -250,6 +249,7 @@ async function ProfilePage({ params }: PageProps) {
         </div>
       </div>
 
+      </div>
      
     </div>
   );
