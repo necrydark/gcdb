@@ -44,7 +44,7 @@ const AdminCharactersPage = async () => {
             </Button>
         <Button size="sm" variant="outline" className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600" asChild>
         <Link href={"/dashboard/characters/new"} ><Plus className="mr-2 h-4 w-4"  />
-        Add Characters</Link>
+        Add Character</Link>
 
         </Button>
 

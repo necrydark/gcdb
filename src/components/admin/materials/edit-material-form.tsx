@@ -23,11 +23,11 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Card } from "@/src/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { ArrowLeft, MoveLeft } from "lucide-react";
 
 interface FormProps {
-  materialsEdit: Material[];
+  materialsEdit: Material;
 }
 
 const EditMaterialForm = ({ materialsEdit }: FormProps) => {
@@ -36,12 +36,14 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
 
+  console.log(materialsEdit)
+
   const form = useForm<z.infer<typeof addRelicMaterials>>({
     resolver: zodResolver(addRelicMaterials),
     defaultValues: {
-      name: materialsEdit[0].name ?? undefined,
-      imageUrl: materialsEdit[0].imageUrl ?? undefined,
-      location: materialsEdit[0].location ?? undefined,
+      name: materialsEdit.name || undefined,
+      imageUrl: materialsEdit.imageUrl || undefined,
+      location: materialsEdit.location || undefined,
     },
   });
 
@@ -50,7 +52,7 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
 
   const onSubmit = (values: z.infer<typeof addRelicMaterials>) => {
     startTransition(() => {
-      updateMaterial(values, materialsEdit[0].id)
+      updateMaterial(values)
         .then((data) => {
           if (data.error) {
             setError(data.error);
@@ -98,16 +100,22 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
                 Edit Material
               </h1>
               <span className="text-gray-500 dark:text-gray-300">
-                Update info for {materialsEdit[0].name}
+                Update info for {materialsEdit.name}
               </span>
             </div>
           </div>
         </div>
       </div>
-      <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="space-y-4">
+      <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+            <CardHeader>
+              <CardTitle>
+                Material Information
+              </CardTitle>
+            </CardHeader>
+            
+            <CardContent className="space-y-4">
               <FormField
                 control={form.control}
                 name="name"
@@ -169,9 +177,11 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
                   </FormItem>
                 )}
               />
-            </div>
+            </CardContent>
             {/* <FormError message={error} />
               <FormSuccess message={success} /> */}
+      </Card>
+
             <div className="flex flex-row gap-4 justify-end items-center">
               <Button
                 type="button"
@@ -187,7 +197,6 @@ className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px
             </div>
           </form>
         </Form>
-      </Card>
     </>
   );
 };

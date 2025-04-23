@@ -23,7 +23,7 @@ export const getUserDataByUsername = cache(
   async ({ username }: { username: string }) => {
     const data = await db.user.findUnique({
       where: {
-        username,
+        displayUsername: username,
       },
     });
     return data;

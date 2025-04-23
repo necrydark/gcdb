@@ -22,14 +22,16 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Card } from "../../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const AddMaterialForm = () => {
   const { update } = useSession();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof addRelicMaterials>>({
     resolver: zodResolver(addRelicMaterials),
@@ -57,14 +59,15 @@ const AddMaterialForm = () => {
 
           if (data.success) {
             update();
-            form.setValue("name", undefined);
-            form.setValue("imageUrl", undefined);
             setSuccess(data.success);
             toast({
               title: "Success!",
               description: data.success,
               variant: "default",
             });
+            setTimeout(() => {
+              router.push('/dashboard/materials')
+            }, 1500)
           }
         })
         .catch((err) => setError(err));
@@ -91,20 +94,21 @@ const AddMaterialForm = () => {
               <h1 className="text-2xl leading-tight font-bold text-white">
                 Add Material
               </h1>
+              <p>Add a new material</p>
             </div>
           </div>
         </div>
     </div>
-    <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
-      <div className="flex justify-between flex-row gap-5">
-        <h1 className="text-3xl leading-tight font-extrabold pb-5">
-          Material Information
-        </h1>
-   
-      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4">
+    <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+      <CardHeader className="flex justify-between flex-row gap-5">
+        <CardTitle>
+          Material Information
+        </CardTitle>
+    
+      </CardHeader>
+          <CardContent className="space-y-4">
             <FormField
               control={form.control}
               name="name"
@@ -164,9 +168,10 @@ const AddMaterialForm = () => {
                 </FormItem>
               )}
             />
-          </div>
+          </CardContent>
           {/* <FormError message={error} />
               <FormSuccess message={success} /> */}
+                        </Card>
                       <div className="flex flex-row gap-4 justify-end items-center">
               <Button
                 type="button"
@@ -182,7 +187,6 @@ className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px
             </div>
         </form>
       </Form>
-    </Card>
     </>
   );
 };

@@ -133,7 +133,7 @@ async function ProfilePage({ params }: PageProps) {
       <div className="container mx-auto p-4 pt-[6rem]">
         <div className="mb-8">
           <UserBanner 
-          username={data?.username || randomName} 
+          username={data?.displayUsername || randomName} 
           imageUrl={data?.image || undefined} 
           role={data?.role} 
           colour={colour} 

@@ -31,6 +31,7 @@ export const RegisterForm = () => {
     resolver: zodResolver(registerSchema),
     defaultValues: {
       username: "",
+      displayUsername: "",
       password: "",
       email: "",
       name: "",
@@ -108,7 +109,8 @@ export const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <FormField
+        <div className="grid grid-cols-2 gap-4">
+        <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
@@ -127,6 +129,27 @@ export const RegisterForm = () => {
               </FormItem>
             )}
           />
+            <FormField
+            control={form.control}
+            name="displayUsername"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white">Display Username</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={isPending}
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                      placeholder="johndoe"
+                    type="text"
+                  />
+                </FormControl>
+                <FormDescription>This will be the username displayed to users.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
           <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}

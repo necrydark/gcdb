@@ -6,17 +6,21 @@ import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
 import { addNewUserSchema } from "../schemas/schema";
+import { userSchema } from "../schemas/admin/schema";
 
-export const addUser = async (values: z.infer<typeof addNewUserSchema>) => {
-  const validatedFields = addNewUserSchema.safeParse(values);
+export const addUser = async (values: z.infer<typeof userSchema>) => {
+  const validatedFields = userSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "Invalid login" };
   }
 
-  const { name, username, email, password, bio } = validatedFields.data;
+  const { name, username, email, password, bio, profileColour, role, ingameRank,image,emailVerified,twoFactorEnabled,boxCC,displayUsername  } = validatedFields.data;
 
-  const hashedPassword = await bcrypt.hash(password as string, 10);
+  
+  const typedPassword = password as string;
+
+  const hashedPassword = await bcrypt.hash(typedPassword, 10);
 
   const existingUserByEmail = await getUserByEmail(email as string);
   const existingUserByUsername = await getUserByUsername(username as string);
@@ -29,14 +33,13 @@ export const addUser = async (values: z.infer<typeof addNewUserSchema>) => {
     return { error: "Username already in use!" };
   }
 
-  
 
-  values.password = hashedPassword;
+  
 
   await db.user.create({
     data: {
       ...values,
-      emailVerified: false,
+      password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
     },

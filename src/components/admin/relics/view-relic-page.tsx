@@ -67,15 +67,15 @@ export default function ViewRelicPage({
   };
 
   // 関連するキャラクターを表示するためのテーブルコンポーネント
-  if (!relicMaterials?.characters || relicMaterials.characters.length === 0) {
-    return (
-      <div className="bg-purple-400 dark:bg-purple-700 rounded-md p-4 text-white text-center">
-        There are no characters with this relic.
-      </div>
-    );
-  }
+  // if (!relicMaterials?.characters || relicMaterials.characters.length === 0) {
+  //   return (
+  //     <div className="bg-purple-400 dark:bg-purple-700 rounded-md p-4 text-white text-center">
+  //       There are no characters with this relic.
+  //     </div>
+  //   );
+  // }
 
-  const length = relicMaterials.characters.length;
+  const length = relicMaterials?.characters.length;
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -134,7 +134,7 @@ export default function ViewRelicPage({
                   <strong>{relic.name}</strong> with ID{" "}
                   <strong>{relic.id.substring(0, 8)}...</strong>
                 </p>
-                {relicMaterials.characters.length > 0 && (
+                {relicMaterials?.characters && relicMaterials.characters.length > 0 && (
                   <p className="mr-2 text-destructive">
                     Warning: This holy relic is equipped by {length}{" "}
                     character(s).
@@ -189,7 +189,7 @@ export default function ViewRelicPage({
         {/* Details View */}
         <TabsContent value="details" className="space-y-4 pt-4">
           <div className="grid gap-6 md:grid-cols-2">
-            <Card className="bg-purple-500 dark:bg-purple-900 border-purple-300 dark:border-purple-800">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-purple-300 dark:border-purple-800">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base">
                   Holy Relic Information
@@ -269,7 +269,7 @@ export default function ViewRelicPage({
         </TabsContent>
         {/* Materials View */}
         <TabsContent value="materials" className="space-y-4 pt-4">
-          <Card className="bg-purple-500 dark:bg-purple-900 border-purple-300 dark:border-purple-800">
+          <Card className="bg-purple-500 rounded-[5px] dark:bg-purple-900 border-purple-300 dark:border-purple-800">
             <CardHeader>
               <CardTitle> Required Materials</CardTitle>
               <CardDescription>
@@ -278,7 +278,7 @@ export default function ViewRelicPage({
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {relicMaterials.materials.map((material) => (
+                {relicMaterials?.materials?.map((material) => (
                   <div
                     key={material.id}
                     className="flex items-center gap-4 rounded-[5px] border p-3"
@@ -318,7 +318,7 @@ export default function ViewRelicPage({
         </TabsContent>
         {/* Characters view */}
         <TabsContent value="characters" className="space-y-4 pt-4">
-          <Card className="bg-purple-500 dark:bg-purple-900 border-purple-300 dark:border-purple-800">
+          <Card className="bg-purple-500 rounded-[5px] dark:bg-purple-900 border-purple-300 dark:border-purple-800">
             <CardHeader>
               <CardTitle>Equipped Characters</CardTitle>
               <CardDescription>
@@ -327,7 +327,7 @@ export default function ViewRelicPage({
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {relicMaterials.characters.map((character) => (
+                {relicMaterials?.characters.map((character) => (
                   <div
                     key={character.id}
                     className="flex items-center gap-4 rounded-[5px] border p-3"

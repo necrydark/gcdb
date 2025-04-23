@@ -147,6 +147,7 @@ export const newPasswordSchema = z.object({
 export const registerSchema = z
   .object({
     username: z.string().min(6, "Username is required"),
+    displayUsername: z.string().min(6, "Username is required"),
     password: z.string().min(6, "Minimum of 6 characters is required"),
     name: z.string().min(1, "First name is required"),
     email: z.string().email().min(1, "Email is required"),

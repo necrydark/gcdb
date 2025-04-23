@@ -1,8 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { addCharacter } from "@/src/actions/add-character";
-import { addUser } from "@/src/actions/add-user";
 import { Button } from "@/src/components/ui/button";
 import {
   Card,

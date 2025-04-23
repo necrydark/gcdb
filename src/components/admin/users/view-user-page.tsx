@@ -83,14 +83,14 @@ export default function ViewUserPage({ user }: UserInterface) {
             className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
             asChild
           >
-            <Link href={"/dashboard/relics"}>
+            <Link href={"/dashboard/users"}>
               <ArrowLeft className="h-4 w-4" />
               <span className="sr-only">Back</span>
             </Link>
           </Button>
           <div>
             <h1 className="text-2xl text-white font-bold tracking-tight">
-              {user.name}
+              {user.username}
             </h1>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>ID: {user.id.substring(0, 8)}...</span>

@@ -6,6 +6,8 @@ import React from "react";
 async function HolyRelicsPage() {
      const bosses=["Hraesvelgr", "Eikthyrnir", "Skoll and Hati", "Nidhoggr", "Collab"]
      const relics = await getRelics();
+
+     console.log(relics)
      
      // Transform the data to match HolyRelic type
      const transformedRelics = relics.map(relic => ({
@@ -14,6 +16,7 @@ async function HolyRelicsPage() {
          imageUrl: relic.imageUrl
        },
        effect: relic.effect,
+       
        materials: relic.materials.map(material => ({
          id: material.id,
          name: material.name,
@@ -24,7 +27,8 @@ async function HolyRelicsPage() {
          attack: relic.attack,
          defense: relic.defense,
          hp: relic.hp
-       }
+       },
+       
      }));
 
   return (

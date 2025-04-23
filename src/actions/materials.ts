@@ -40,7 +40,7 @@ export const addMaterial = async (
 
 export const updateMaterial = async (
   values: z.infer<typeof addRelicMaterials>,
-  id: string
+
 ) => {
   const validatedFields = addRelicMaterials.safeParse(values);
 
@@ -50,12 +50,20 @@ export const updateMaterial = async (
 
   const { name, imageUrl, location } = validatedFields.data;
 
-  if (!name || !imageUrl) {
+  const material = await getMaterialByName(name as string);
+
+  if(!material) { 
+    return { error: "Material Not Found"}
+  }
+
+  if (!name || !imageUrl || !location) {
     return { error: "A field is not valid" };
   }
 
   await db.material.update({
-    where: { id },
+    where: {
+      id: material.id
+    },
     data: {
       ...values
     },

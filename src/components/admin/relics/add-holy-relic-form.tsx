@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from "../../ui/select";
 import { useToast } from "../../ui/use-toast";
-import { Card } from "../../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Calendar } from "../../ui/calendar";
@@ -151,20 +151,22 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
         <h1 className="text-2xl leading-tight tracking-tight font-extrabold text-white">
           Add Relic
         </h1>
+        <p>Add a new relic</p>
         </div>
        </div>
       </div>
     </div>
-     <Card  className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
      <Form {...form}>
         <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="pb-5">
-            <h1 className="text-3xl leading-tight font-extrabold text-white">
+     <Card  className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
+            <CardHeader>
+            <CardTitle>
               Relic Information
-            </h1>
+            </CardTitle>
+            </CardHeader>
           
-          </div>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+         <CardContent>
+         <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
             <FormField
               control={form.control}
               name="name"
@@ -276,7 +278,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
               )}
             />
           </div>
-          <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+          <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
             <FormField
               control={form.control}
               name="attack"
@@ -447,18 +449,19 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
             />
           </div>
 
+         </CardContent>
        
+            </Card>
           <div className="flex flex-row gap-4 justify-end items-center">
               <Button type="button" className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
               >
                 <Link href={"/dashboard/relics"}>Cancel</Link>
               </Button>
               <Button type="submit" className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
-              >Save Changes</Button>
+              >Add Relic</Button>
               </div>
         </form>
       </Form>
-     </Card>
      </div>
   );
 }

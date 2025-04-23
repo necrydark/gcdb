@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from "../../ui/select";
 import { useToast } from "../../ui/use-toast";
-import { Card } from "../../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { ArrowLeft, CalendarIcon, MoveLeft } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Calendar } from "../../ui/calendar";
@@ -197,17 +197,18 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
        </div>
       </div>
     </div>
-      <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
       <Form {...form}>
         <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex flex-col pb-10">
-            <h1 className="text-3xl leading-tight text-white font-extrabold">
+      <Card className="container mx-auto p-10 rounded-[5px] bg-purple-400 dark:bg-purple-700 border-0">
+          <CardHeader>
+            <CardTitle>
               Relic Information
-            </h1>
-            <p className="text-gray-500 dark:text-gray-300">Update the info for this relic.</p>
+            </CardTitle>
+            <CardDescription className="text-gray-500 dark:text-gray-300">Update the info for this relic.</CardDescription>
             
-          </div>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+          </CardHeader>
+         <CardContent className="space-y-4">
+         <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
             <FormField
               control={form.control}
               name="name"
@@ -280,42 +281,42 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="dark:bg-purple-800 bg-purple-600 text-white">
+                      <SelectTrigger className="dark:bg-purple-800 bg-purple-600 rounded-[5px] text-white">
                         <SelectValue placeholder="Select the relics beast" />
                       </SelectTrigger>
                     </FormControl>
                     <FormMessage />
 
-                    <SelectContent className="dark:bg-purple-800 bg-purple-600 text-white">
+                    <SelectContent className="dark:bg-purple-800 bg-purple-600 rounded-[5px] text-white">
                       <SelectItem 
-                      className="hover:bg-purple-700 dark:hover:bg-purple-950"
+                      className="hover:bg-purple-700 dark:hover:bg-purple-950 rounded-[5px]"
                       value={Beast.Hraesvelgr}>
                         Hraesvelgr (Bird)
                       </SelectItem>
                       <SelectItem 
-                      className="hover:bg-purple-700 dark:hover:bg-purple-950"
+                      className="hover:bg-purple-700 dark:hover:bg-purple-950 rounded-[5px]"
                       
                       value={Beast.Eikthyrnir}>
                         Eikthyrnir (Deer)
                       </SelectItem>
                       <SelectItem 
-                      className="hover:bg-purple-700 dark:hover:bg-purple-950"
+                      className="hover:bg-purple-700 dark:hover:bg-purple-950 rounded-[5px]"
                       
                       value={Beast.SkollAndHati}>
                         Skoll And Hati (Dogs)
                       </SelectItem>
                       <SelectItem 
-                      className="hover:bg-purple-700 dark:hover:bg-purple-950"
+                      className="hover:bg-purple-700 dark:hover:bg-purple-950 rounded-[5px]"
                       
                       value={Beast.Nidhoggr}>
                         Nidhoggr (Snake)
                       </SelectItem>
                       <SelectItem 
-                      className="hover:bg-purple-700 dark:hover:bg-purple-950"
+                      className="hover:bg-purple-700 dark:hover:bg-purple-950 rounded-[5px]"
                       
                       value={Beast.Ratatoskr}>Ratatoskr</SelectItem>
                       <SelectItem 
-                      className="hover:bg-purple-700 dark:hover:bg-purple-950"
+                      className="hover:bg-purple-700 dark:hover:bg-purple-950 rounded-[5px]"
                       
                       value={Beast.Collab}>Collab</SelectItem>
                     </SelectContent>
@@ -324,7 +325,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
               )}
             />
           </div>
-          <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+          <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
             <FormField
               control={form.control}
               name="attack"
@@ -394,7 +395,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
                 <FormItem className="flex flex-col">
                   <FormLabel>Character Added Date</FormLabel>
                   <Popover>
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger className="bg-purple-600 dark:bg-purple-800 rounded-[5px]" asChild>
                       <Button
                         variant={"outline"}
                         className={cn(
@@ -416,6 +417,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
+                        className="bg-purple-600 dark:bg-purple-800 text-white"
                         disabled={(releaseDate: Date) =>
                           releaseDate > new Date() ||
                           releaseDate < new Date("1900-01-01") ||
@@ -495,7 +497,9 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
               )}
             />
           </div>
+         </CardContent>
 
+      </Card>
           <div className="flex flex-row gap-4 justify-end items-center">
               <Button type="button"                   className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
               >
@@ -506,7 +510,6 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
               </div>
         </form>
       </Form>
-      </Card>
     </div>
 
   );

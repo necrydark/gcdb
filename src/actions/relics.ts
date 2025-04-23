@@ -12,6 +12,7 @@ export const getRelics = async () => {
   return await db.holyRelic.findMany({
     include: {
       materials: true
+  
     }
   })
 }

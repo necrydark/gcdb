@@ -131,7 +131,7 @@ async function ProfilePage() {
       {/* Banner, Avatar, and User Info */}
       <div className="mb-8">
         <UserBanner
-          username={data?.username || randomName}
+          username={data?.displayUsername || randomName}
           imageUrl={data?.image || undefined}
           role={data?.role || "USER"}
           colour={colour}

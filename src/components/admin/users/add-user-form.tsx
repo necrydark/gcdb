@@ -1,3 +1,4 @@
+
 "use client";
 
 import { getUserById } from "@/data/user";
@@ -38,34 +39,34 @@ import {
 } from "../../ui/card";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { addUser } from "@/src/actions/add-user";
+import { Separator } from "../../ui/separator";
 
 interface UserInterface {
-  user: User
 }
 
-function EditUserForm({
- user
-}: UserInterface) {
+function AddUserForm() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  const [profilePicture, setProfilePicture] = useState<string | undefined>("");
 
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      name: user.name || undefined,
-      email: user.email || undefined,
-      emailVerified: user.emailVerified || undefined,
-      twoFactorEnabled: user.isTwoFactorEnabled || undefined,
-      username: user.username || undefined,
-      displayUsername: user.displayUsername || undefined,
-      image: user.image as string,
-      boxCC: user.boxCC || undefined,
-      ingameRank: user.ingameRank || undefined,
-      role: user.role || undefined,
-      profileColour: user.profileColour || "CYAN"
+      name: undefined,
+      email: undefined,
+      emailVerified: undefined,
+      twoFactorEnabled: undefined,
+      username: undefined,
+      displayUsername: undefined,
+      password: undefined,
+      confirmPassword: undefined,
+      image: undefined,
+      boxCC: undefined,
+      ingameRank: undefined,
+      role: UserRole.USER,
+      profileColour: ProfileColour.PURPLE
     },
   });
 
@@ -73,7 +74,7 @@ function EditUserForm({
 
   const onSubmit = (values: z.infer<typeof userSchema>) => {
     startTransition(() => {
-      editUser(values)
+      addUser(values)
         .then((data) => {
           if (data.error) {
             setError(data.error);
@@ -100,7 +101,6 @@ function EditUserForm({
 
   return (
     <div className="flex flex-col gap-6 p-6">
-      
       <div>
         <div className="flex justify-between flex-row items-center pb-5 gap-5">
           <div className="flex gap-2 items-center">
@@ -118,10 +118,10 @@ function EditUserForm({
 
             <div className="flex flex-col">
               <h1 className="text-2xl leading-tight tracking-tight font-extrabold text-white">
-                Edit User
+                Add User
               </h1>
               <p className="text-gray-500 dark:text-gray-300">
-                Update info for {user.username}
+                Create a new user account.
               </p>
             </div>
           </div>
@@ -129,11 +129,11 @@ function EditUserForm({
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <Card className="container mx-auto p-10 bg-purple-400 rounded-[5px] dark:bg-purple-700 border-0">
+          <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
             <CardHeader>
               <CardTitle>Basic Information</CardTitle>
               <CardDescription>
-                Edit {user.username}&apos;s basic information.
+                Edit user&apos;s basic information.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -220,6 +220,49 @@ function EditUserForm({
                   )}
                 />
               </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="password"
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+
+                          placeholder="*********"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Display Username</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="*******"
+                          disabled={isPending}
+                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        This is the name shown to other users
+                      </FormDescription>
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
                 name="image"
@@ -242,6 +285,8 @@ function EditUserForm({
                   </FormItem>
                 )}
               />
+
+              <Separator className="w-full bg-white" />
 
               <div className="flex flex-col gap-4">
                 <FormField
@@ -317,11 +362,11 @@ function EditUserForm({
             </CardContent>
           </Card>
 
-          <Card className="container mx-auto p-10 rounded-[5px] bg-purple-400 dark:bg-purple-700 border-0">
+          <Card className="container mx-auto p-10 bg-purple-400 rounded-[5px] dark:bg-purple-700 border-0">
             <CardHeader>
               <CardTitle>Game Information</CardTitle>
               <CardDescription>
-                Edit {user.username}&apos;s game information.
+                Edit user&apos;s game information.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -389,7 +434,7 @@ function EditUserForm({
                       className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                           
                           value={UserRole.ADMIN}>Admin</SelectItem>
-                 
+      
                           <SelectItem 
                       className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                           
@@ -479,4 +524,4 @@ function EditUserForm({
   );
 }
 
-export default EditUserForm;
+export default AddUserForm;
