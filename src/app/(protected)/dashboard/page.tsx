@@ -1,14 +1,6 @@
-import { useCurrentRole } from "@/hooks/use-current-role";
-import { Button } from "@/src/components/ui/button";
-import { useToast } from "@/src/components/ui/use-toast";
 import { currentRole } from "@/src/utils/auth";
-import db from "@/src/lib/db";
 import { UserRole } from "@prisma/client";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { User, columns } from "./users/columns";
-import { DataTable } from "./users/data-table";
-import { getUserCount } from "@/data/user";
 import { getCharacterCount } from "@/data/character";
 import { getMaterialCount, getRelicCount } from "@/data/relics";
 import {
@@ -19,37 +11,23 @@ import {
 } from "@/src/components/ui/card";
 import { getUserGrowthStats } from "@/src/actions/get-user-stats";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { getFoodCount, getIngredientCount } from "@/src/actions/food";
 
-async function getUsers(): Promise<User[]> {
-  const data = await db.user.findMany({
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      username: true,
-      isTwoFactorEnabled: true,
-      role: true,
-    },
-  });
 
-  return data as User[];
-}
+
 
 const AdminPage = async () => {
   const role = await currentRole();
   if (role !== UserRole.ADMIN && role !== UserRole.OWNER) {
     redirect("/");
   }
-
-
   
   const data = await getUserGrowthStats();
-  // const data = await getUsers();
-  const count = await getUserCount();
   const charCount = await getCharacterCount();
   const relicCount = await getRelicCount();
   const materialCount = await getMaterialCount();
-
+  const foodCount = await getFoodCount();
+  const ingredientCount = await getIngredientCount()
 
   return (
     <div className=" text-white px-10 container mx-auto py-20">
@@ -58,7 +36,7 @@ const AdminPage = async () => {
           Dashboard
         </h1>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-3">
       <Card className="dark:bg-purple-950 border-0 rounded-lg shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
       <CardHeader>
         <CardTitle>
@@ -126,6 +104,22 @@ const AdminPage = async () => {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">{materialCount}</p>
+          </CardContent>
+        </Card>
+        <Card className="dark:bg-purple-950 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+          <CardHeader>
+            <CardTitle className="font-bold">Total Food</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold">{foodCount}</p>
+          </CardContent>
+        </Card>
+        <Card className="dark:bg-purple-950 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+          <CardHeader>
+            <CardTitle className="font-bold">Total Ingredients</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold">{ingredientCount}</p>
           </CardContent>
         </Card>
       </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2 } from "lucide-react"
+import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2, Sandwich, Utensils, Home } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/components/ui/collapsible"
 import {
   Sidebar,
@@ -39,6 +39,7 @@ const navigationItems = [
       { title: "View All", href: "/dashboard/materials" },
       { title: "Add New", href: "/dashboard/materials/new" },
     ],
+    disabled: false,
   },
   {
     title: "Characters",
@@ -48,11 +49,13 @@ const navigationItems = [
       { title: "View All", href: "/dashboard/characters" },
       { title: "Add New", href: "/dashboard/characters/new" },
     ],
+    disabled: false,
   },
   {
     title: "Users",
     icon: Users,
     href: "/dashboard/users",
+    disabled: false,
   },
   {
     title: "Relics",
@@ -62,7 +65,34 @@ const navigationItems = [
       { title: "View All", href: "/dashboard/relics" },
       { title: "Add New", href: "/dashboard/relics/new" },
     ],
+    
+    disabled: false,
   },
+  {
+    title: "Food (Coming Soon)",
+    icon: Utensils,
+    href: "/food",
+    subItems: [
+      { title: "View All", href: "/dashboard/food" },
+      { title: "Add New", href: "/dashboard/food/new" },
+    ],
+    disabled: true,
+  },
+  {
+    title: "Ingredients (Coming Soon)",
+    icon: Sandwich,
+    href: "/ingredients",
+    subItems: [
+      { title: "View All", href: "/dashboard/ingredients" },
+      { title: "Add New", href: "/dashboard/ingredients/new" },
+    ],
+    disabled: true,
+  },
+  {
+    title: "Back To Wiki",
+    icon: Home,
+    href: "/profile",
+  }
 ]
 
 export function AppSidebar() {
@@ -114,7 +144,7 @@ export function AppSidebar() {
                       </PopoverTrigger>
                       <PopoverContent side="right" align="start" className="p-0 w-48">
                         <div className="p-2">
-                          <div className="font-medium mb-1">{item.title}</div>
+                          <div className="font-medium mb-1 text-blue">{item.title}</div>
                           <ul className="space-y-1">
                             {item.subItems.map((subItem) => (
                               <li key={subItem.title}>
@@ -133,7 +163,7 @@ export function AppSidebar() {
                       </PopoverContent>
                     </Popover>
                   ) : item.subItems ? (
-                    <Collapsible className="w-full">
+                    <Collapsible disabled={item.disabled} className="w-full">
                       <SidebarMenuItem>
                         <CollapsibleTrigger className="w-full" asChild>
                           <SidebarMenuButton className="rounded-[5px]" tooltip={item.title}>

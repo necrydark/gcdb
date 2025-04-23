@@ -264,7 +264,7 @@ model Ingredient {
   imageUrl String
   location String[]
   food     Food?    @relation(fields: [foodId], references: [id], onDelete: Cascade)
-  foodId   String
+  foodId   String?
 }
 
 model Meal {
@@ -272,7 +272,7 @@ model Meal {
   name     String
   imageUrl String
   food     Food?
-  foodId   String
+  foodId   String?
 }
 
 model Food {

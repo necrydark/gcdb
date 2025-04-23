@@ -136,7 +136,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
   };
 
   return (
-     <>
+     <div className="flex flex-col gap-6 p-6">
         <div>
     <div className="flex justify-between flex-row items-center pb-5 gap-5">
        <div className="flex gap-2 items-center">
@@ -232,10 +232,11 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                     disabled={isPending}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                  
                   >
                     <FormControl>
                       <SelectTrigger 
-                      className="border-purple-900 bg-purple-600 border-[2px]   text-white dark:bg-purple-800  focus:border-purple-900 "
+                      className="border-purple-900 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 "
                       >
                         <SelectValue placeholder="Select the relics beast" />
                       </SelectTrigger>
@@ -244,30 +245,30 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
 
                     <SelectContent className="bg-purple-600  text-white dark:bg-purple-800">
                       <SelectItem
-                      className="hover:bg-purple-400 dark:hover:bg-purple-950"
+                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                       value={Beast.Hraesvelgr}>
                         Hraesvelgr (Bird)
                       </SelectItem>
                       <SelectItem 
-                          className="hover:bg-purple-400 dark:hover:bg-purple-950"
+                          className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                       value={Beast.Eikthyrnir}>
                         Eikthyrnir (Deer)
                       </SelectItem>
                       <SelectItem 
-                          className="hover:bg-purple-400 dark:hover:bg-purple-950"
+                          className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                       value={Beast.SkollAndHati}>
                         Skoll And Hati (Dogs)
                       </SelectItem>
                       <SelectItem 
-                          className="hover:bg-purple-400 dark:hover:bg-purple-950"
+                          className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                       value={Beast.Nidhoggr}>
                         Nidhoggr (Snake)
                       </SelectItem>
                       <SelectItem 
-                          className="hover:bg-purple-400 dark:hover:bg-purple-950"
+                          className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                       value={Beast.Ratatoskr}>Ratatoskr</SelectItem>
                       <SelectItem 
-                          className="hover:bg-purple-400 dark:hover:bg-purple-950"
+                          className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                       value={Beast.Collab}>Collab</SelectItem>
                     </SelectContent>
                   </Select>
@@ -340,9 +341,9 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
               name="releaseDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Character Added Date</FormLabel>
+                  <FormLabel>Relic Added Date</FormLabel>
                   <Popover>
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger className="bg-purple-600 dark:bg-purple-800 rounded-[5px]" asChild>
                       <Button
                         variant={"outline"}
                         className={cn(
@@ -364,6 +365,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
+                        className="bg-purple-600 dark:bg-purple-800 text-white"
                         disabled={(releaseDate: Date) =>
                           releaseDate > new Date() ||
                           releaseDate < new Date("1900-01-01") ||
@@ -457,7 +459,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
         </form>
       </Form>
      </Card>
-     </>
+     </div>
   );
 }
 

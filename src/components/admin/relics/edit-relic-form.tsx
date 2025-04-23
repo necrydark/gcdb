@@ -177,7 +177,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-6 p-6">
     <div>
     <div className="flex justify-between flex-row items-center pb-5 gap-5">
        <div className="flex gap-2 items-center">
@@ -507,7 +507,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
         </form>
       </Form>
       </Card>
-    </>
+    </div>
 
   );
 }

@@ -26,12 +26,3 @@ export const getUserByUsername = async (username: string) => {
     return null;
   }
 };
-
-export const getUserCount = async() => {
-  try {
-    const count = await db.user.count();
-    return count;
-  } catch {
-    return null;
-  }
-}

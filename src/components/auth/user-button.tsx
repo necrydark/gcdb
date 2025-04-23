@@ -72,6 +72,7 @@ export const UserButton = ({ className }: Props) => {
               </DropdownMenuItem>
             )}
           </DropdownMenuGroup>
+          <DropdownMenuSeparator  className="bg-white" />
           <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
             <FaSignOutAlt className="mr-2" />
             <button type="submit" className=" text-sm" onClick={onClick}>

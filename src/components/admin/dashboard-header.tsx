@@ -31,7 +31,7 @@ export function DashboardHeader() {
         router.push("/auth/login")
     }
   return (
-    <header className="flex h-16 items-center justify-between border-b px-4">
+    <header className="flex h-16 items-center justify-between border-b border-b-white px-4">
       <div className="flex items-center gap-2">
         <SidebarTrigger className="-ml-2 w-[16px] h-[16px] hover:bg-purple-400 dark:hover:bg-purple-700 text-white hover:text-white" />
         <h2 className="text-lg font-semibold text-white">Admin</h2>
@@ -51,23 +51,23 @@ export function DashboardHeader() {
               <ChevronDown className="h-4 w-4 text-white" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-56 dark:bg-purple-950 bg-purple-700">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator  className="bg-white" />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
                 <User className="mr-2 h-4 w-4" />
                 <Link  href={"/profile"}>Profile</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
                 <Settings className="mr-2 h-4 w-4" />
                 <Link href={"/profile/settings"}>Settings</Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuSeparator className="bg-white" />
+            <DropdownMenuItem className="dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <LogOut className="mr-2 h-4 w-4" />
-              <span onClick={onClick}>Log out</span>
+              <span onClick={onClick} className="cursor-pointer">Log out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
