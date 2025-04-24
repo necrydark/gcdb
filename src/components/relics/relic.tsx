@@ -20,7 +20,7 @@ type Props = {
 
 export default function Relic({ holyRelic }: Props) {
   // const [searchTerm, setSearchTerm] = useState("");
-  // const [activeTab, setActiveTab] = useState("effect");
+  const [activeTab, setActiveTab] = useState("effect");
 
 
   // const filteredRelics = holyRelic?.map((relicArray: HolyRelic[]) => 
@@ -53,7 +53,7 @@ export default function Relic({ holyRelic }: Props) {
            <CardContent className="space-y-4 w-full">
            <div className="flex flex-col gap-4 w-full">
               <h2 className="font-bold text-lg text-center text-white">{relic.relic.name}</h2>
-              <Tabs defaultValue="effect" className="w-full ">
+              <Tabs defaultValue="effect"  value={activeTab} onValueChange={setActiveTab} className="w-full ">
                   <TabsList className="grid grid-cols-3 w-full">
                     <TabsTrigger value="effect">Effect</TabsTrigger>
                     <TabsTrigger value="materials">Materials</TabsTrigger>
@@ -64,34 +64,34 @@ export default function Relic({ holyRelic }: Props) {
                   <h4 className="text-sm font-medium text-white mb-2">Effect</h4>
                   <p className="text-sm text-gray-700 dark:text-gray-300 m-0">{relic.effect}</p>
 
-                  <h4 className="text-sm font-medium text-white mb-2">Stats</h4>
+                  <h4 className="text-sm font-medium text-white mb-1">Stats</h4>
 
                   <div className="grid grid-cols-3 gap-2">
-                <div className="bg-gray-100 p-2 rounded-[5px]">
+                <div className="bg-purple-500 dark:bg-purple-800 p-2 rounded-[5px]">
                   <div className="flex items-center gap-1">
                     <Swords className="w-3 h-3 text-red-500" />
-                    <div className="text-xs text-gray-500">Attack</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-300">Attack</div>
                   </div>
-                  <div className="font-medium text-black">
+                  <div className="font-medium text-white">
                     +{relic.stats?.attack}
                   </div>
                 </div>
-                <div className="bg-gray-100 p-2 rounded-[5px]">
+                <div className="bg-purple-500 dark:bg-purple-800 p-2 rounded-[5px]">
                   <div className="flex items-center gap-1">
                     <Shield className="w-3 h-3 text-blue-500" />
-                    <div className="text-xs text-gray-500">Defense</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-300">Defense</div>
                   </div>
-                  <div className="font-medium text-black">
+                  <div className="font-medium text-white">
                     +{relic.stats?.defense}
                   </div>
                 </div>
-                <div className="bg-gray-100 p-2 rounded-[5px]">
+                <div className="bg-purple-500 dark:bg-purple-800 p-2 rounded-[5px]">
                   <div className="flex items-center gap-1">
                     <Heart className="w-3 h-3 text-green-500" />
-                    <div className="text-xs text-gray-500">HP</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-300">HP</div>
                   </div>
-                  <div className="font-medium text-black">
-                    +{relic.stats?.attack}
+                  <div className="font-medium text-white">
+                    +{relic.stats?.hp}
                   </div>
                 </div>
               </div>

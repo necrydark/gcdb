@@ -18,7 +18,7 @@ import { getFoodCount, getIngredientCount } from "@/src/actions/food";
 
 const AdminPage = async () => {
   const role = await currentRole();
-  if (role !== UserRole.ADMIN && role !== UserRole.OWNER) {
+  if (role !== UserRole.ADMIN && role !== UserRole.OWNER ) {
     redirect("/");
   }
   
@@ -37,7 +37,7 @@ const AdminPage = async () => {
         </h1>
       </div>
       <div className="grid gap-6 md:grid-cols-3">
-      <Card className="dark:bg-purple-950 border-0 rounded-lg shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+      <Card className="bg-purple-500 dark:bg-purple-900 border-0 rounded-lg shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
       <CardHeader>
         <CardTitle>
         User Growth
@@ -82,7 +82,7 @@ const AdminPage = async () => {
             <p>{count}</p>
           </CardContent>
         </Card> */}
-        <Card className="dark:bg-purple-950 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
           <CardHeader>
             <CardTitle className="font-bold">Total Characters</CardTitle>
           </CardHeader>
@@ -90,7 +90,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{charCount}</p>
           </CardContent>
         </Card>
-        <Card className="dark:bg-purple-950 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
           <CardHeader>
             <CardTitle className="font-bold">Total Relics</CardTitle>
           </CardHeader>
@@ -98,7 +98,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{relicCount}</p>
           </CardContent>
         </Card>
-        <Card className="dark:bg-purple-950 rounded-lg  border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg  border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
           <CardHeader>
             <CardTitle className="font-bold">Total Materials</CardTitle>
           </CardHeader>
@@ -106,7 +106,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{materialCount}</p>
           </CardContent>
         </Card>
-        <Card className="dark:bg-purple-950 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
           <CardHeader>
             <CardTitle className="font-bold">Total Food</CardTitle>
           </CardHeader>
@@ -114,7 +114,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{foodCount}</p>
           </CardContent>
         </Card>
-        <Card className="dark:bg-purple-950 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
           <CardHeader>
             <CardTitle className="font-bold">Total Ingredients</CardTitle>
           </CardHeader>

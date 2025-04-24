@@ -33,7 +33,7 @@ async function HolyRelicsPage() {
 
   return (
   
-    <div className="pt-[7rem] p-10 container mx-auto flex max-w-5xl">
+    <div className="pt-[7rem] p-10 h-full container mx-auto flex max-w-5xl">
         <RelicTabs bosses={bosses} holyRelic={transformedRelics}/>
     </div>
   );

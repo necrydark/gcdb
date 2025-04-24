@@ -28,11 +28,10 @@ export default async function RootLayout({
 }) {
   const session = await auth();
   return (
-    <SessionProvider session={session}>
-      <html lang="en" className="dark">
+    <html lang="en" className="dark">
         <body className={inter.className}>
+        <SessionProvider session={session}>
           <Providers>
-
             <ContextProvider>
 
             <div className="flex-1 flex-col flex">
@@ -46,6 +45,7 @@ export default async function RootLayout({
                   */
                  routerConfig={extractRouterConfig(ourFileRouter)}
                  />
+          
                 {children}
               </div>
               <Toaster />
@@ -53,8 +53,8 @@ export default async function RootLayout({
                  </ContextProvider>
 
           </Providers>
+    </SessionProvider>
         </body>
       </html>
-    </SessionProvider>
   );
 }

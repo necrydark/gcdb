@@ -88,3 +88,12 @@ export const getUser = async (email: String) => {
 
   return dbUser;
 }
+
+export const getUserCount = async () => {
+  try {
+    const count = await db.user.count();
+    return count;
+  } catch {
+    return null;
+  }
+}

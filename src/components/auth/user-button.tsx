@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   DropdownMenu,
@@ -10,7 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
+// Assuming useCurrentUser correctly uses useSession internally (you can remove this if you access session directly)
+// import { useCurrentUser } from "@/hooks/use-current-user";
 import {
   Avatar,
   AvatarFallback,
@@ -21,24 +22,19 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { FaCog, FaHeart, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { auth } from "@/src/auth";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
-import { Session } from "next-auth";
+import SignOutBtn from "./sign-out-btn";
 
 type Props = {
   className?: string;
-  session?: Session | null;
 };
 
-export const UserButton = ({ className }: Props) => {
-  const router = useRouter();
-  const data = useSession();
-  if(!data) router.refresh();
-  const user = useCurrentUser();
+export const UserButton = async ({ className }: Props) => {
+  const session =  await auth();
 
-  const onClick = () => {
-    signOut();
-  };
+  const user = session?.user;
+
   return (
     <div className={cn(" cursor-pointer", className)}>
       <DropdownMenu>
@@ -51,7 +47,8 @@ export const UserButton = ({ className }: Props) => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="bottom" className="dark:bg-purple-950 bg-purple-700" sideOffset={15}>
-          <p className="text-center p-2">{user?.username}</p>
+          {/* Display username when available */}
+          {user?.username && <p className="text-center p-2">{user.username}</p>}
           <DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaUser className="mr-2" />
@@ -73,11 +70,9 @@ export const UserButton = ({ className }: Props) => {
             )}
           </DropdownMenuGroup>
           <DropdownMenuSeparator  className="bg-white" />
-          <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+          <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
             <FaSignOutAlt className="mr-2" />
-            <button type="submit" className=" text-sm" onClick={onClick}>
-              Logout
-            </button>
+            <SignOutBtn />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -75,8 +75,7 @@ const AddMaterialForm = () => {
   };
 
   return (
-    <>
-    <div>
+    <div className="flex flex-col gap-6 p-6">
     <div className="flex justify-between flex-row items-center pb-5 gap-5">
           <div className="flex flex-row gap-2 items-center">
             <Button
@@ -98,7 +97,6 @@ const AddMaterialForm = () => {
             </div>
           </div>
         </div>
-    </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
     <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
@@ -187,7 +185,7 @@ className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px
             </div>
         </form>
       </Form>
-    </>
+    </div>
   );
 };
 

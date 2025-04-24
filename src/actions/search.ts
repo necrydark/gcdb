@@ -1,0 +1,86 @@
+'use server'
+
+import db from "../lib/db"
+import * as z from 'zod'
+
+export type SearchResult = {
+    id: string
+  name: string
+  slug?: string
+  type: 'character' | 'relic' | 'user'
+  href: string
+}
+
+const searchSchema = z.object({
+    query: z.string().min(1).max(50)
+})
+
+export async function searchItems(query: string): Promise<SearchResult[]> {
+    // Validate input
+    const validatedFields = searchSchema.safeParse({ query })
+    
+    if (!validatedFields.success) {
+      return []
+    }
+    
+    const searchTerm = validatedFields.data.query.toLowerCase()
+    
+    // If using Prisma, your query might look like this:
+    try {
+      // Search characters
+      const characters = await db.character.findMany({
+        where: {
+          name: {
+            contains: searchTerm,
+            mode: 'insensitive', // Case insensitive search
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+        take: 5, // Limit results
+      })
+  
+
+  
+      // Search users
+      const users = await db.user.findMany({
+        where: {
+          username: {
+            contains: searchTerm,
+            mode: 'insensitive',
+          },
+        },
+        select: {
+          id: true,
+          username: true,
+        },
+        take: 5,
+      })
+
+
+  
+      // Format results
+      return [
+        ...characters.map(char => ({
+          id: char.id,
+          name: char.name ?? 'Unknown Character',
+          slug: char.slug ?? undefined,
+          type: 'character' as const,
+          href: `/characters/${char.id}`,
+        })),
+  
+        ...users.map(user => ({
+          id: user.id,
+          name: user.username,
+          type: 'user' as const,
+          href: `/profile/${user.username}`,
+        })),
+      ]
+    } catch (error) {
+      console.error('Search error:', error)
+      return []
+    }
+  }

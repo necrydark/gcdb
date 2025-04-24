@@ -1,6 +1,6 @@
-"use client";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { auth } from "@/src/auth";
 import {
   Avatar,
   AvatarFallback,
@@ -19,11 +19,12 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { FaCog, FaHeart, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
+import SignOutBtn from "./sign-out-btn";
 
-import { Button } from "../ui/button";
 
-export const UserButtonMobile = () => {
-  const user = useCurrentUser();
+export const UserButtonMobile = async () => {
+  const session = await auth();
+  const user = session?.user;
 
   const onClick = () => {
     signOut();
@@ -77,9 +78,7 @@ export const UserButtonMobile = () => {
           </DropdownMenuGroup>
           <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
             <FaSignOutAlt className="mr-2" />
-            <button type="submit" className=" text-sm" onClick={onClick}>
-              Logout
-            </button>
+           <SignOutBtn />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

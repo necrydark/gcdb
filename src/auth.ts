@@ -43,12 +43,10 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       if (token.role && session.user) {
         session.user.role = token.role as UserRole;
       }
-
+      
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
-      }
 
-      if (session.user) {
         session.user.username = token.username as string;
         session.user.email = token.email as string;
         session.user.name = token.name;
@@ -64,6 +62,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       return session;
     },
     async jwt({ token }) {
+    
       if (!token.sub) return token;
       const user = await getUserById(token.sub);
       if (!user) return token;

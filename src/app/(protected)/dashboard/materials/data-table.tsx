@@ -67,7 +67,7 @@ export function MaterialDataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm rounded-[5px]  border-purple-900 bg-purple-600 border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+            className="max-w-sm rounded-[5px]  border-purple-900 bg-purple-600 border-[2px] ring-0 focus:ring-0 focus-visible:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 "
           />
         </div>
         <DropdownMenu>

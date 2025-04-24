@@ -1,6 +1,6 @@
 'use client'
 import MaxStatsTable from "@/src/components/Tables/maxStats";
-import GearTable from "@/src/components/table";
+import GearTable from "@/src/components/Tables/table";
 import {
   Table,
   TableBody,

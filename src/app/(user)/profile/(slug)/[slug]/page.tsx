@@ -233,7 +233,7 @@ async function ProfilePage({ params }: PageProps) {
           {profile.recentComments.map((comment, index) => (
             <Card
               key={index}
-              className={`${cardColours(colour as string)} border-0`}
+              className={`${cardColours(colour as string)} border-0 rounded-[5px]`}
             >
               <CardContent className="p-4">
                 <div className="flex flex-row items-center justify-between">

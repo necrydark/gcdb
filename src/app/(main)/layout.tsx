@@ -26,7 +26,6 @@ export default async function RootLayout({
 }) {
   const session = await auth();
   return (
-    <SessionProvider session={session}>
       <html lang="en" className="dark">
         <body className={inter.className}>
           <Providers >
@@ -51,6 +50,5 @@ export default async function RootLayout({
           </Providers>
         </body>
       </html>
-    </SessionProvider>
   );
 }

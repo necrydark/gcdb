@@ -99,7 +99,7 @@ export const LoginForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Username</FormLabel>
+                    <FormLabel className="text-white">Email</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
