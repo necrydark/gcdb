@@ -8,12 +8,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { User, columns } from "./columns";
 import { DataTable } from "./data-table";
-import { getUserCount } from "@/data/user";
 import { getCharacterCount } from "@/data/character";
 import { getRelicCount } from "@/data/relics";
 import { Dialog, DialogContent, DialogTrigger } from "@/src/components/ui/dialog";
 import AddUserForm from "@/src/components/admin/add-user-form";
 import { Download, Plus } from "lucide-react";
+import ExportButton from "./export-button";
 
 async function getUsers(): Promise<User[]> {
   const data = await db.user.findMany({
@@ -30,7 +30,7 @@ async function getUsers(): Promise<User[]> {
   return data as User[];
 }
 
-const UsersAdminPage = async () => {
+const AdminUserPage = async () => {
   const role = await currentRole();
   if (role !== UserRole.ADMIN && role !== UserRole.OWNER) {
     redirect("/");
@@ -49,10 +49,7 @@ const UsersAdminPage = async () => {
 
           </div>
         <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" className="dark:hover:bg-purple-950 rounded-[5px] border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600 ">
-              <Download className="mr-2 h-4 w-4" />
-              Export
-            </Button>
+     <ExportButton data={data} />
         <Button size="sm" variant="outline" className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600" asChild>
         <Link href={"/dashboard/users/new"} ><Plus className="mr-2 h-4 w-4"  />
         Add User</Link>
@@ -67,4 +64,4 @@ const UsersAdminPage = async () => {
   );
 };
 
-export default UsersAdminPage;
+export default AdminUserPage;

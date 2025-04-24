@@ -1,22 +1,22 @@
-
-import React from 'react'
-import { Card, CardContent, CardFooter } from '../ui/card';
-import Image from 'next/image';
-import { Badge } from '../ui/badge';
-import { Attribute } from '@/src/types/attributes';
-import { Rarity } from '@/src/types/rarity';
-import { Gamepad2, Globe } from 'lucide-react';
-
-
+"use client";
+import React, { useState } from "react";
+import { Card, CardContent, CardFooter } from "../ui/card";
+import Image from "next/image";
+import { Badge } from "../ui/badge";
+import { Attribute } from "@/src/types/attributes";
+import { Rarity } from "@/src/types/rarity";
+import { Gamepad2, Globe, Heart } from "lucide-react";
+import { Button } from "../ui/button";
 
 type Props = {
-    name: string;
-    url: string;
-    attribute: Attribute;
-    rarity: Rarity;
-    race: string;
-    crossover: string
-}
+  id: string;
+  name: string;
+  url: string;
+  attribute: Attribute;
+  rarity: Rarity;
+  race: string;
+  crossover: string;
+};
 
 const getAttributeColor = (attribute: Attribute) => {
   const attributeColors = {
@@ -40,24 +40,82 @@ const getRarityColor = (rarity: Rarity) => {
   return rarityColors[rarity] || "bg-gray-400 text-gray-950 border-gray-600";
 };
 
+export default function CharacterCard({
+  id,
+  name,
+  url,
+  attribute,
+  rarity,
+  race,
+  crossover,
+}: Props) {
+  const [favorites, setFavorites] = useState<number[]>([]);
 
-export default function CharacterCard({ name, url, attribute, rarity, race, crossover}: Props) {
+  const handleToggleFavorite = (e: React.MouseEvent, characterId: number) => {
+    e.preventDefault(); // Prevent navigation when clicking the favorite button
+    e.stopPropagation(); // Prevent event bubbling
 
+    setFavorites((prev) => {
+      if (prev.includes(characterId)) {
+        return prev.filter((id) => id !== characterId);
+      } else {
+        return [...prev, characterId];
+      }
+    });
+  };
 
   return (
-    <Card className='h-full hover:shadow-md transition-shadow w-fit hover:dark:shadow-white duration-200 dark:bg-purple-950 bg-purple-800 border-0 overflow-hidden'>
-      <div className='relative'>
+    <Card className="h-full hover:shadow-md transition-shadow w-fit hover:dark:shadow-white duration-200 dark:bg-purple-950 bg-purple-800 border-0 overflow-hidden">
+      <div className="relative w-full">
         <Image
-        src={url || "/"}
-        alt={`${name}'s Image`}
-        width={128}
-        height={128}
-        className='object-cover' />
-        <div className='absolute top-2 right-2'>
-          <Badge className={`${getRarityColor(rarity)}` }>
-            {rarity}
-          </Badge>
+          src={url || "/"}
+          alt={`${name}'s Image`}
+          width={128}
+          height={128}
+          className="object-cover"
+        />
+        <div className="absolute top-2 right-2">
+          <Badge className={`${getRarityColor(rarity)}`}>{rarity}</Badge>
         </div>
+        <button
+                    onClick={(e) => handleToggleFavorite(e, id)}
+                    className={`absolute bottom-2 left-2 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                      favorites.includes(id)
+                        ? "bg-purple-400/70 hover:bg-purple-500/70 text-white"
+                        : "bg-purple-400/70 text-white hover:bg-purple-500/70"
+                    }`}
+                    aria-label={favorites.includes(id) ? "Remove from favorites" : "Add to favorites"}
+                  >
+                    {favorites.includes(id) ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      </svg>
+                    )}
+                  </button>
       </div>
       {/* <CardContent className='pt-4'>
           <h3 className='font-bold text-lg text-white mb-2'>
@@ -77,5 +135,5 @@ export default function CharacterCard({ name, url, attribute, rarity, race, cros
         {crossover}
       </CardFooter> */}
     </Card>
-  )
+  );
 }

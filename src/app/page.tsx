@@ -11,7 +11,7 @@ import { ExternalLink, Shield, Sparkles, Star, Users } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import { getUserCount } from "../actions/admin";
 
-export default async function Home() {
+export default async function HomePage() {
   const user = await auth();
   const userCount = await getUserCount();
   const charactersCount = await getCharacterCount();
@@ -26,8 +26,6 @@ export default async function Home() {
   // const hidden = { opacity: 0, y: -10 };
   return (
     <div
-    
-    
       className="min-h-screen flex flex-col  bg-background transition-all duration-300"
     >
       {user && <AuthNavbar />}

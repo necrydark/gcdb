@@ -33,3 +33,25 @@ export const userSchema = z.object({
     path: ["confirmPassword"],
     message: "Passwords do not match!",
   });
+  
+
+  export const ingredientSchema = z.object({
+    name: z.string().min(2, {
+      message: "Name must be at least 2 characters.",
+    }),
+    imageUrl: z.string().min(2, {
+      message: "Image URL must be at least 2 characters.",
+    }),
+    location: z.string().min(2, {
+      message: "Location must be at least 2 characters.",
+    }),
+  })
+
+  export const mealSchema = z.object({
+    name: z.string().min(2, {
+      message: "Name must be at least 2 characters.",
+    }),
+    imageUrl: z.string().min(2, {
+      message: "Image URL must be at least 2 characters.",
+    }),
+  })

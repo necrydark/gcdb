@@ -180,7 +180,7 @@ const AddMaterialForm = () => {
               <Button
                 type="submit"
 className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px] hover:bg-purple-600 border-[2px] flex flex-row items-center text-white  hover:text-white dark:bg-purple-700 transition-all duration-250"              >
-                Save Changes
+                Add Material
               </Button>
             </div>
         </form>

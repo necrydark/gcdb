@@ -16,6 +16,7 @@ import { Materials, columns } from "./columns";
 import { Material } from "@prisma/client";
 import { MaterialDataTable } from "./data-table";
 import { Download, Plus } from "lucide-react";
+import ExportButton from "./export-button";
 
 async function getRelics(): Promise<Materials[]> {
   const data = await db.material.findMany();
@@ -41,10 +42,7 @@ const AdminMaterialsPage = async () => {
       <p className="text-gray-500 dark:text-gray-300">Manage your inventory of materials and resources</p>
         </div>
         <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" className="dark:hover:bg-purple-950 rounded-[5px] border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600 ">
-              <Download className="mr-2 h-4 w-4" />
-              Export
-            </Button>
+        <ExportButton data={data} />
         <Button size="sm" variant="outline" className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600" asChild>
         <Link href={"/dashboard/materials/new"} ><Plus className="mr-2 h-4 w-4"  />
         Add Material</Link>

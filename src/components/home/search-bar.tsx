@@ -42,7 +42,6 @@ export default function CommandSearch() {
       startTransition(async () => {
         try {
           const items = await searchItems(debouncedQuery)
-          console.log("Search results:", items)
           setResults(items)
         } catch (error) {
           console.error("Search error:", error)

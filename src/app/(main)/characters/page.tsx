@@ -2,11 +2,6 @@
 
 import CharacterCard from "@/src/components/characters/character-card";
 import db from "@/src/lib/db";
-import { Attribute, Attributes } from "@/src/types/attributes";
-import { Game, Games } from "@/src/types/game";
-import { Crossover, Crossovers } from "@/src/types/crossover";
-import { Race, Races } from "@/src/types/race";
-import { Rarities, Rarity } from "@/src/types/rarity";
 import characters from "@/src/utils/dummy/characters";
 import { AnimatePresence, motion, spring } from "framer-motion";
 import Link from "next/link";
@@ -16,23 +11,66 @@ import { Input } from "@/src/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
 import { Button } from "@/src/components/ui/button";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/src/components/ui/pagination";
+import { Attribute, Race, Rarity, Game, Crossovers} from "@prisma/client";
 
 // async function getCharacters() {
 //   const characters = await db.character.findMany();
 //   console.log(characters);
 // }
 
+interface Character {
+  id: string;
+  name: string;
+  imageUrl: string;
+    attribute: Attribute
+    race: Race
+    rarity: Rarity
+  game?: Game
+  crossover: Crossovers
+  slug: string;
+}
+
+
+async function getCharactersFromDb(): Promise<Character[]> {
+    try {
+      const characters = await db.character.findMany({
+        select: {
+          id: true, name: true, imageUrl: true,
+          slug: true,
+          attribute: true,
+          race: true,
+          rarity: true,
+          game: true,
+          Crossover: true
+        }
+      })
+
+      return characters.map(char => ({
+        id: char.id,
+        name: char.name,
+        imageUrl: char.imageUrl,
+        slug: char.slug,
+        attribute: char.attribute,
+        race: char.race,
+        rarity: char.rarity,
+        game: char.game, crossover:char.Crossover
+      })) as Character[]
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+}
+
 function Characters() {
+  const [allCharacters, setAllCharacters] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [characterName, setCharacterName] = useState("");
   const [selectedAttribute, setSelectedAttribute] = useState("");
   const [selectedRarity, setSelectedRarity] = useState("");
   const [selectedRace, setSelectedRace] = useState("");
   const [selectedCrossover, setSelectedCrossover] = useState("");
 
-  const attributes = [...new Set(characters.map((char) => char.basicInfo.attribute))]
-  const races = [...new Set(characters.map((char) => char.basicInfo.race))]
-  const rarities = [...new Set(characters.map((char) => char.basicInfo.rarity))]
-  const games = [...new Set(characters.map((char) => char.game).filter((game): game is string => game !== undefined))]
 
 
 
@@ -55,12 +93,35 @@ function Characters() {
 
   const itemsPerPage = 25;
 
-  const filteredCharacters = characters.filter((character) => {
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const data = await getCharactersFromDb();
+        setAllCharacters(data)
+      } catch (err) {
+          setError("Failed to load characters.")
+          console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchCharacters();
+  }, [])
+
+  const attributes = [...new Set(allCharacters.map((char) => char.attribute))]
+  const races = [...new Set(allCharacters.map((char) => char.race))]
+  const rarities = [...new Set(allCharacters.map((char) => char.rarity))]
+  const games = [...new Set(allCharacters.map((char) => char.game).filter((game) => game !== undefined))]
+
+
+  const filteredCharacters = allCharacters.filter((character) => {
     return (
       (search === "" || character.name.toLowerCase().includes(search.toLowerCase())) &&
-      (attribute === "" || character.basicInfo.attribute === attribute) &&
-      (race === "" || character.basicInfo.race === race) &&
-      (rarity === "" || character.basicInfo.rarity === rarity) &&
+      (attribute === "" || character.attribute === attribute) &&
+      (race === "" || character.race === race) &&
+      (rarity === "" || character.rarity === rarity) &&
       (game === "" || character.game === game)
     )
   })
@@ -69,6 +130,7 @@ function Characters() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentCharacters = filteredCharacters.slice(startIndex, endIndex)
+
 
 useEffect(() => {
   const params = new URLSearchParams();
@@ -110,7 +172,7 @@ const handleFilterReset = () => {
           <div className="lg:col-span-2">
             <Input placeholder="Search characters..."
             value={search} onChange={handleSearch}
-            className="w-full dark:bg-purple-800 bg-purple-950 border-0 placeholder:text-white rounded-[5px] focus-visible:border-purple-700 focus:ring-purple-700 dark:focus:ring-purple-950 text-white" />
+            className="w-full dark:bg-purple-800 bg-purple-950 border-0 h-10 placeholder:text-white rounded-[5px] focus-visible:border-purple-700 focus:ring-purple-700 dark:focus:ring-purple-950 text-white" />
           </div>
 
           <div>
@@ -120,7 +182,7 @@ const handleFilterReset = () => {
               </SelectTrigger>
               <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
                 {attributes.map((attr) => (
-                  <SelectItem key={attr} className="dark:hover:bg-purple-950 hover:bg-purple-800" value={attr}>
+                  <SelectItem key={attr} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800" value={attr}>
                     {attr}
                   </SelectItem>
                 ))}
@@ -134,7 +196,7 @@ const handleFilterReset = () => {
               </SelectTrigger>
               <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
                 {races.map((race) => (
-                  <SelectItem key={race} className="dark:hover:bg-purple-950 hover:bg-purple-800" value={race}>
+                  <SelectItem key={race} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800" value={race}>
                     {race}
                   </SelectItem>
                 ))}
@@ -148,7 +210,7 @@ const handleFilterReset = () => {
               </SelectTrigger>
               <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
                 {rarities.map((rarity) => (
-                  <SelectItem key={rarity} className="dark:hover:bg-purple-950 hover:bg-purple-800" value={rarity}>
+                  <SelectItem key={rarity} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800" value={rarity}>
                     {rarity}
                   </SelectItem>
                 ))}
@@ -162,7 +224,7 @@ const handleFilterReset = () => {
               </SelectTrigger>
               <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
                 {games.map((game) => (
-                  <SelectItem key={game} className="dark:hover:bg-purple-950 hover:bg-purple-800" value={game}>
+                  <SelectItem key={game} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800" value={game}>
                     {game}
                   </SelectItem>
                 ))}
@@ -188,11 +250,12 @@ const handleFilterReset = () => {
             {currentCharacters.map((character) => (
               <Link href={`/characters/${character.slug}`} key={character.id}>
                 <CharacterCard 
+                id={character.id || ""}
                 name={character.name}
                 url={character.imageUrl}
-                attribute={character.basicInfo.attribute}
-                race={character.basicInfo.race}
-                rarity={character.basicInfo.rarity}
+                attribute={character.attribute}
+                race={character.race}
+                rarity={character.rarity}
                 crossover={character.game || "No Game"}
                 />
               </Link>

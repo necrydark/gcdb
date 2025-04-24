@@ -24,7 +24,6 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
     return { error: "Invalid Fields!" };
   }
 
-  console.log("Received values in addRelic:", JSON.stringify(values, null, 2));
 
   const { name, imageUrl, effect, attack, defense, hp, beast, releaseDate, materials, characters } =
     validatedFields.data;

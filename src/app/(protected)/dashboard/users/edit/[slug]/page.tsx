@@ -4,7 +4,6 @@ import { Loader2 } from "lucide-react"
 import { Suspense } from "react"
 
 export default async function EditUserPage({ params}: { params: {slug: string}}) {
-    console.log(params.slug)
 
     const user = await getUserById(params.slug as string)
 

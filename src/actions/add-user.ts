@@ -15,7 +15,7 @@ export const addUser = async (values: z.infer<typeof userSchema>) => {
     return { error: "Invalid login" };
   }
 
-  const { name, username, email, password, bio, profileColour, role, ingameRank,image,emailVerified,twoFactorEnabled,boxCC,displayUsername  } = validatedFields.data;
+  const { name, username, email, password, profileColour, role, ingameRank,image,emailVerified,twoFactorEnabled,boxCC,displayUsername  } = validatedFields.data;
 
   
   const typedPassword = password as string;

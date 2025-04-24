@@ -62,7 +62,6 @@ export default function ViewMaterialPage({
   };
 
   const locations = relicMaterials?.location?.split(" | ");
-  console.log(locations);
 
   const length = relicMaterials?.holyRelics.length;
 

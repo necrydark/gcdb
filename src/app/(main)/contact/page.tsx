@@ -16,9 +16,9 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-4xl text-center font-bold text-[#5f7e9f] dark:text-white"
           >
-            Get In Touch!
+            Contact Us
           </motion.h1>
-
+          <p className="text-sm dark:text-gray-300 text-gray-500 text-center pt-1">We&apos;re open to enquiries, feedback or if you want to join the team!</p>
           <ContactForm />
         </div>
       </div>

@@ -36,7 +36,6 @@ async function ProfilePage({ params }: PageProps) {
 
   const data = await getUserDataByUsername({ username: slug as string });
 
-  console.log(data);
 
   if (!data) {
     return notFound();

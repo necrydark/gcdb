@@ -107,8 +107,6 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
 
   const onSubmit = (values: z.infer<typeof addHolyRelic>) => {
     startTransition(() => {
-      console.log("Called");
-      console.log(values);
       addRelic(values)
         .then((data) => {
           if (data.error) {

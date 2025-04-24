@@ -41,7 +41,6 @@ interface UserInterface {
 }
 
 export default function ViewUserPage({ user }: UserInterface) {
-  console.log(user);
   const router = useRouter();
   const { toast } = useToast();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);

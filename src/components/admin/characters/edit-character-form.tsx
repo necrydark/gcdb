@@ -332,7 +332,6 @@ function EditCharacterForm({
             });
           }
           if (data.success) {
-            console.log("Submitted");
             update();
             form.reset();
             setSuccess(data.success);

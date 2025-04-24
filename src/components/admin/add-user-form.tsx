@@ -1,4 +1,4 @@
-"use client";
+t785"use client";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { addUser } from "@/src/actions/add-user";
@@ -53,9 +53,8 @@ const AddUserForm = () => {
       username: undefined,
       password: undefined,
       isTwoFactorEnabled: false,
+      emailVerified: false,
       image: `https://avatar.vercel.sh/rauchg`,
-      banner: undefined,
-      bio: undefined,
       role: UserRole.USER,
       profileColour: ProfileColour.PURPLE,
     },
@@ -169,28 +168,7 @@ const AddUserForm = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="bio"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>About You</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      disabled={isPending}
-                      maxLength={255}
-                      placeholder="Tell us a little bit about yourself"
-                      className="resize-none"
-                    />
-                  </FormControl>
-                  <div className="text-right text-gray-500">
-                    {field.value?.length || 0}/255
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    
 
             <FormField
               control={form.control}
@@ -201,6 +179,27 @@ const AddUserForm = () => {
                     <FormLabel> Two Factor Authentication</FormLabel>
                     <FormDescription>
                       Enabled 2FA for your account
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      disabled={isPending}
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+                 <FormField
+              control={form.control}
+              name="emailVerified"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel> Email Verified</FormLabel>
+                    <FormDescription>
+                      Toggle whether the users email is verified.
                     </FormDescription>
                   </div>
                   <FormControl>

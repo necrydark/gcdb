@@ -98,7 +98,7 @@ export function RelicDataTable<TData, TValue>({
       </div>
 
       <div className="rounded-md">
-        <Table className="bg-purple-400 dark:bg-purple-700 rounded-md border-0">
+        <Table className="bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

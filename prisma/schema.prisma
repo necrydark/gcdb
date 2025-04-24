@@ -259,13 +259,23 @@ enum Crossovers {
   Crossover
 }
 
+
 model Ingredient {
   id       String   @id @default(cuid())
   name     String
   imageUrl String
-  location String[]
+  location String
   food     Food?    @relation(fields: [foodId], references: [id], onDelete: Cascade)
   foodId   String?
+}
+
+enum Towns {
+  Vanya
+  Dalmally
+  PostTownTala
+  Vaziel
+  OrdanVillage
+  LionesCastle
 }
 
 model Meal {
@@ -279,6 +289,7 @@ model Meal {
 model Food {
   id          String       @id @default(cuid())
   effect      String?
+  location  Towns @default(Vanya)
   meal        Meal         @relation(fields: [mealId], references: [id], onDelete: Cascade)
   mealId      String       @unique
   ingredients Ingredient[]

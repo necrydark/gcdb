@@ -103,7 +103,6 @@ const SettingsPage = () => {
 
   const colour = user?.profileColor.toLocaleLowerCase();
   const stringedColour = colour.toString();
-  console.log(stringedColour)
 
   return (
     <div className="container mx-auto  p-10 pt-[3rem]">

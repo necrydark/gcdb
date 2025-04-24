@@ -7,7 +7,6 @@ async function HolyRelicsPage() {
      const bosses=["Hraesvelgr", "Eikthyrnir", "Skoll and Hati", "Nidhoggr", "Collab"]
      const relics = await getRelics();
 
-     console.log(relics)
      
      // Transform the data to match HolyRelic type
      const transformedRelics = relics.map(relic => ({

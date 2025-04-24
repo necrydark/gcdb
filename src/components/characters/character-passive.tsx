@@ -10,7 +10,6 @@ type Props = {
 
 export default function CharacterPassiveTab({passive}: Props) {
     const {showJapanese} = useShowJapanese();
-    console.log(passive)
   return (
     <Card className="bg-purple-400 dark:bg-purple-900 text-white dark:border-purple-400">
         <CardHeader>

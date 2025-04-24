@@ -24,18 +24,18 @@ function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/holy-relics" className="text-gray-500  hover:underline dark:text-gray-300 hover:text-foreground">
+              <Link href="/relics" className="text-gray-500  hover:underline dark:text-gray-300 hover:text-foreground">
                 Holy Relics
               </Link>
             </li>
             <li>
-              <Link href="/events" className="text-gray-500 dark:text-gray-300  hover:underline hover:text-foreground">
-                Events
+              <Link href="/guides" className="text-gray-500 pointer-events-none dark:text-gray-300  hover:underline hover:text-foreground">
+                Guides (Coming Soon)
               </Link>
             </li>
             <li>
-              <Link href="/news" className="text-gray-500 dark:text-gray-300  hover:underline hover:text-foreground">
-                News
+              <Link href="/news" className="text-gray-500 pointer-events-none dark:text-gray-300  hover:underline hover:text-foreground">
+                News (Coming Soon)
               </Link>
             </li>
           </ul>
@@ -91,9 +91,9 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <Separator className="my-8" />
+      <Separator className="my-8 bg-white" />
       <div className="flex flex-col md:flex-row justify-between items-center">
-        <p className="text-sm text-gray-500 dark:text-gray-300">© {new Date().getFullYear()} GCWiki. All rights reserved.</p>
+        <p className="text-sm text-gray-500 dark:text-gray-300">&copy; {new Date().getFullYear()} GCWiki. All rights reserved.</p>
         <div className="flex gap-4 mt-4 md:mt-0">
           <Link href="/privacy" className="text-sm text-gray-500 dark:text-gray-300 hover:underline hover:text-foreground">
             Privacy Policy

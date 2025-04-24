@@ -11,6 +11,10 @@ function CookingPage() {
           "Vaziel",
           "Ordan Village",
           "Liones Castle",]
+
+
+          // Adding string splits for towns
+          // str.split(/([A-Z]+)/g).join(" ");
   return (
     // <>
     //   <Cooking

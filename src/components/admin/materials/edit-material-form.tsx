@@ -36,7 +36,6 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
 
-  console.log(materialsEdit)
 
   const form = useForm<z.infer<typeof addRelicMaterials>>({
     resolver: zodResolver(addRelicMaterials),

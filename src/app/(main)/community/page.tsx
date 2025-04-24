@@ -185,7 +185,7 @@ export default function CommunityPage() {
                 <h3>No Cheating or Exploits</h3>
                 <p>
                   Discussions about cheating, hacking, or exploiting game
-                  mechanics are prohibited. We support fair play and the game's
+                  mechanics are prohibited. We support fair play and the game&apos;s
                   terms of service.
                 </p>
 

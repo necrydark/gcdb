@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2, Sandwich, Utensils, Home } from "lucide-react"
+import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2, Sandwich, Utensils, Home, Croissant } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/components/ui/collapsible"
 import {
   Sidebar,
@@ -69,25 +69,36 @@ const navigationItems = [
     disabled: false,
   },
   {
-    title: "Food (Coming Soon)",
+    title: "Food",
     icon: Utensils,
     href: "/food",
     subItems: [
       { title: "View All", href: "/dashboard/food" },
       { title: "Add New", href: "/dashboard/food/new" },
     ],
-    disabled: true,
+    disabled: false,
   },
   {
-    title: "Ingredients (Coming Soon)",
+    title: "Ingredients",
     icon: Sandwich,
     href: "/ingredients",
     subItems: [
       { title: "View All", href: "/dashboard/ingredients" },
       { title: "Add New", href: "/dashboard/ingredients/new" },
     ],
-    disabled: true,
+    disabled: false,
   },
+  {
+    title: "Meals",
+    icon: Croissant,
+    href: "/meals",
+    subItems: [
+      { title: "View All", href: "/dashboard/meals" },
+      { title: "Add New", href: "/dashboard/meals/new" },
+    ],
+    disabled: false,
+  },
+  
   {
     title: "Back To Wiki",
     icon: Home,
@@ -166,9 +177,9 @@ export function AppSidebar() {
                     <Collapsible disabled={item.disabled} className="w-full">
                       <SidebarMenuItem>
                         <CollapsibleTrigger className="w-full" asChild>
-                          <SidebarMenuButton className="rounded-[5px]" tooltip={item.title}>
+                          <SidebarMenuButton className="rounded-[5px]" tooltip={item.disabled ? `${item.title} (Coming Soonm)` : item.title}>
                             <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
+                            <span>{item.disabled ? `${item.title} (Coming Soonm)` : item.title}</span>
                             <ChevronRight className="ml-auto h-4 w-4 transition-transform group-data-[state=open]:rotate-90" />
                           </SidebarMenuButton>
                         </CollapsibleTrigger>
