@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2, Sandwich, Utensils, Home, Croissant } from "lucide-react"
+import { ChevronRight, LayoutDashboard, Package, Shield, Users, Wand2, Sandwich, Utensils, Home, Croissant, Gift } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/components/ui/collapsible"
 import {
   Sidebar,
@@ -26,6 +26,11 @@ import { usePathname } from "next/navigation"
 // TODO: Add Food & Ingredients
 // Navigation items
 const navigationItems = [
+  {
+    title: "Back To Wiki",
+    icon: Home,
+    href: "/",
+  },
   {
     title: "Dashboard",
     icon: LayoutDashboard,
@@ -69,6 +74,16 @@ const navigationItems = [
     disabled: false,
   },
   {
+    title: "Ingredients",
+    icon: Sandwich,
+    href: "/ingredients",
+    subItems: [
+      { title: "View All", href: "/dashboard/ingredients" },
+      { title: "Add New", href: "/dashboard/ingredients/new" },
+    ],
+    disabled: false,
+  },  
+  {
     title: "Food",
     icon: Utensils,
     href: "/food",
@@ -79,30 +94,14 @@ const navigationItems = [
     disabled: false,
   },
   {
-    title: "Ingredients",
-    icon: Sandwich,
-    href: "/ingredients",
+    title: "Gifts",
+    icon: Gift,
+    href: "/gifts",
     subItems: [
-      { title: "View All", href: "/dashboard/ingredients" },
-      { title: "Add New", href: "/dashboard/ingredients/new" },
+      { title: "View All", href: "/dashboard/gifts" },
+      { title: "Add New", href: "/dashboard/gifts/new" },
     ],
     disabled: false,
-  },
-  {
-    title: "Meals",
-    icon: Croissant,
-    href: "/meals",
-    subItems: [
-      { title: "View All", href: "/dashboard/meals" },
-      { title: "Add New", href: "/dashboard/meals/new" },
-    ],
-    disabled: false,
-  },
-  
-  {
-    title: "Back To Wiki",
-    icon: Home,
-    href: "/profile",
   }
 ]
 
@@ -113,6 +112,9 @@ export function AppSidebar() {
 
   // Helper function to check if a route is active
   const isRouteActive = (href: string) => {
+    if(href === "/") {
+      return pathname === "/"
+    }
     // For the dashboard, only match exact path
     if (href === "/dashboard") {
       return pathname === "/dashboard"

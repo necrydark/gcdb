@@ -1,8 +1,6 @@
 "use client";
 
-import {
-  Character,
-} from "@/src/types/character";
+
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import CharacterStatsTab from "./character-stats";
@@ -10,17 +8,29 @@ import CharacterPassiveTab from "./character-passive";
 import CharacterAssociationsTab from "./character-associations";
 import CharacterGiftsFoodTab from "./character-gifts-food";
 import CharacterSkillsTab from "./character-skills";
-import { CharacterSkills } from "@/src/types/skill";
 import CharacterHolyRelic from "./character-holy-relic";
+import { Association, Character, CharacterUltimate, Gift, HolyRelic, SkillRank, Stats } from "@prisma/client";
+import { SkillWithRanks } from "@/src/lib/interface";
+import { Passive } from "@/src/types/passive";
+import { CharacterMiscInfo } from "@/src/types/character";
+
+
 
 type Props = {
   character: Character;
-  skills?: CharacterSkills[]
-
+  skills?: SkillWithRanks[]
+  relic?: HolyRelic;
+  stats?: Stats[];
+  passive?: Passive
+  gift?: Gift[];
+  miscInfo?: CharacterMiscInfo;
+  associations?: Association[]
+  ultimate?: CharacterUltimate;
 };
 
-function CharacterTabs({ character, skills }: Props) {
+function CharacterTabs({ character, skills, relic, stats, passive, gift, miscInfo, associations, ultimate}: Props) {
   const [activeTab, setActiveTab] = useState("stats-info");
+  
   return (
     <Tabs
       value={activeTab}
@@ -36,23 +46,25 @@ function CharacterTabs({ character, skills }: Props) {
         <TabsTrigger value="holy-relic" className={activeTab === "holy-relic" ? "data-[state=active]:bg-purple-700 data-[state=active]:text-white" : "bg-transparent"}>Holy Relic</TabsTrigger>
       </TabsList>
 
+
+
       <TabsContent value="stats-info" className="space-y-4">
-        <CharacterStatsTab character={character}  misc={character?.misc.info} />
+        <CharacterStatsTab character={character}  misc={miscInfo} stats={stats} />
       </TabsContent>
       <TabsContent value="skills" className="space-y-6">
-        <CharacterSkillsTab skills={skills} rarity={character?.basicInfo.rarity} />
+        <CharacterSkillsTab skills={skills} rarity={character?.rarity} ultimate={ultimate} />
         </TabsContent> 
       <TabsContent value="passive" className="space-y-4">
-        <CharacterPassiveTab passive={character.passive} />
+        <CharacterPassiveTab passive={passive} />
         </TabsContent> 
         <TabsContent value="associations" className="space-y-4">
-        <CharacterAssociationsTab associations={character.associations} />
+        <CharacterAssociationsTab associations={associations} />
         </TabsContent> 
         <TabsContent value="gifts-food" className="space-y-4">
-        <CharacterGiftsFoodTab gifts={character.gift} />
+        <CharacterGiftsFoodTab gifts={gift} />
         </TabsContent> 
         <TabsContent value="holy-relic" className="space-y-4">
-        <CharacterHolyRelic holyRelic={character.holyRelic} />
+        <CharacterHolyRelic holyRelic={relic || undefined} />
         </TabsContent> 
     </Tabs>
   );

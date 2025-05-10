@@ -3,5 +3,6 @@ export type Passive = {
     imageUrl: string;
     jpName: string;
     description: string;
+    ccNeeded: string;
   };
   

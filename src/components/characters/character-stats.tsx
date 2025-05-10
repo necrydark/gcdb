@@ -1,5 +1,5 @@
 "use client"
-import { Character, CharacterMiscInfo, CharacterStats } from "@/src/types/character";
+import { CharacterMiscInfo, CharacterStats } from "@/src/types/character";
 import React, { useState } from "react";
 import {
   Card,
@@ -18,42 +18,62 @@ import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
+import { Character, StatLevel, Stats } from "@prisma/client";
 
 type Props = {
   character: Character;
   misc?: CharacterMiscInfo;
+  stats?: Stats[]
 };
 
-export default function CharacterStatsTab({ character, misc }: Props) {
+export default function CharacterStatsTab({ character, misc, stats }: Props) {
 
   const [selectedLevel, setSelectedLevel] = useState("1");
 
   
-  const hasLevel1Stats = Array.isArray(character.stats)
-  ? character.stats.some((stat) => stat.level === "1" || stat.level === "1")
+  const hasLevel1Stats = Array.isArray(stats)
+  ? stats.some((stat) => stat.level === "LEVEL_1")
   : false
 
-const hasLevel100Stats = Array.isArray(character.stats)
-  ? character.stats.some((stat) => stat.level === "100" || stat.level === "100")
+const hasLevel100Stats = Array.isArray(stats)
+  ? stats.some((stat) => stat.level === "LEVEL_100")
   : false
 
-const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some((stat) => stat.level === "Super Awakening") : false
+const hasSuperAwakening = Array.isArray(stats) ? stats.some((stat) => stat.level === "SUPER_AWAKENING") : false
 
   const hasBothLevels = hasLevel1Stats && hasLevel100Stats;
 
   const currentStats = (() => {
-    if (!Array.isArray(character.stats)) {
-      return character.stats
+    if (!Array.isArray(stats)) {
+      return stats
     }
 
-    return character.stats.find((stat) => stat.level.toString() === selectedLevel) || character.stats[0]
+    return stats.find((stat) => stat.level.toString() === selectedLevel) || stats[0]
   })()
   
 
+  const formattedStat = (stat: StatLevel) => {
+    switch(stat) {
+      case StatLevel.LEVEL_1: {
+        return "Level 1"
+      }
+      case StatLevel.LEVEL_100: {
+        return "Level 100"
+      } 
+      case StatLevel.SUPER_AWAKENING: {
+        return "Super Awakening"
+      }
+      default: {
+        return "Level 1"
+      }
+
+    }
+  }
+
   return (
-    <Card className="bg-purple-400 dark:bg-purple-900 text-white dark:border-purple-400">
+    <Card className="bg-purple-400 dark:bg-purple-900 text-white rounded-[5px] dark:border-purple-400">
       <CardHeader>
-        <CardTitle className="flex flex-row justify-between items-center">Character Stats & Info
+        <CardTitle className="flex md:flex-row flex-col mb-2 justify-between items-center">Character Stats & Info
         <div className="flex">
             {hasBothLevels ? (
                <div className="flex justify-end space-x-2 items-center">
@@ -75,15 +95,15 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
             
             ) : (
               <div className="text-sm text-gray-700 dark:text-gray-300">
-                Only level {currentStats.level} stats available for this character.
+                Only level {formattedStat(currentStats?.level || StatLevel.LEVEL_1)} stats available for this character.
             </div>
             )}
             </div>
         </CardTitle>
-        <CardDescription className=" flex flex-row gap-1 text-gray-700 dark:text-gray-300">{currentStats.level === "Super Awakening" ? (
+        <CardDescription className=" flex flex-row gap-1 text-gray-700 dark:text-gray-300">{currentStats?.level === "SUPER_AWAKENING" ? (
             <p>Stats for a super awakened character</p>
         ): (
-          <p>Base Stats at level {currentStats.level}</p>
+          <p>Base Stats at level {formattedStat(currentStats?.level || StatLevel.LEVEL_1)}</p>
         )} & Misc Info.</CardDescription>
       </CardHeader>
       <CardContent >
@@ -96,7 +116,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Anvil className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Combat Class</span>
               </div>
-              <span className="font-medium">{currentStats.combatClass}</span>
+              <span className="font-medium">{currentStats?.combatClass}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -105,7 +125,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Swords className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Attack</span>
               </div>
-              <span className="font-medium">{currentStats.attack}</span>
+              <span className="font-medium">{currentStats?.attack}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -114,7 +134,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Heart className="w-4 h-4 mr-2 text-red-500" />
                 <span>Health</span>
               </div>
-              <span className="font-medium">{currentStats.hp}</span>
+              <span className="font-medium">{currentStats?.hp}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -123,7 +143,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Shield className="w-4 h-4 mr-2 text-blue-500" />
                 <span>Defense</span>
               </div>
-              <span className="font-medium">{currentStats.defense}</span>
+              <span className="font-medium">{currentStats?.defense}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -132,7 +152,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <GiArrowScope className="w-4 h-4 mr-2 text-blue-500" />
                 <span>Pierce Rate</span>
               </div>
-              <span className="font-medium">{currentStats.pierceRate}%</span>
+              <span className="font-medium">{currentStats?.pierceRate.toString()}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -141,7 +161,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <GiHealing className="w-4 h-4 mr-2 text-green-500" />
                 <span>Regeneration</span>
               </div>
-              <span className="font-medium">{currentStats.regeneration}%</span>
+              <span className="font-medium">{currentStats?.regeneration.toString()}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -150,7 +170,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <GiFrontTeeth className="w-4 h-4 mr-2 text-red-500" />
                 <span>Life Steal</span>
               </div>
-              <span className="font-medium">{currentStats.lifesteal}%</span>
+              <span className="font-medium">{currentStats?.lifesteal.toString()}%</span>
             </div>
           </div>
         </div>
@@ -161,7 +181,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Star className="w-4 h-4 mr-2 text-purple-500" />
                 <span>Crit Chance</span>
               </div>
-              <span className="font-medium">{currentStats.critChance}%</span>
+              <span className="font-medium">{currentStats?.critChance.toString()}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -170,7 +190,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Star className="w-4 h-4 mr-2 text-pink-500" />
                 <span>Crit Damage</span>
               </div>
-              <span className="font-medium">{currentStats.critDamage}%</span>
+              <span className="font-medium">{currentStats?.critDamage.toString()}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -179,7 +199,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Shield className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Crit Defense</span>
               </div>
-              <span className="font-medium">{currentStats.critDefense}%</span>
+              <span className="font-medium">{currentStats?.critDefense.toString()}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -188,7 +208,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <GiArrowsShield className="w-4 h-4 mr-2 text-orange-500" />
                 <span>Crit Resistance</span>
               </div>
-              <span className="font-medium">{currentStats.critResistance}%</span>
+              <span className="font-medium">{currentStats?.critResistance.toString()}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -197,7 +217,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Cross className="w-4 h-4 mr-2 text-green-500" />
                 <span>Recovery Rate</span>
               </div>
-              <span className="font-medium">{currentStats.recoveryRate}%</span>
+              <span className="font-medium">{currentStats?.recoveryRate.toString()}%</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -206,7 +226,7 @@ const hasSuperAwakening = Array.isArray(character.stats) ? character.stats.some(
                 <Shield className="w-4 h-4 mr-2 text-red-500" />
                 <span>Resistance</span>
               </div>
-              <span className="font-medium">{currentStats.resistance}%</span>
+              <span className="font-medium">{currentStats?.resistance.toString()}%</span>
             </div>
           </div>
         </div>

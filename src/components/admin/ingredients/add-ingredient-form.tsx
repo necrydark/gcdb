@@ -55,7 +55,7 @@ const AddIngredientForm = () => {
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -65,7 +65,7 @@ const AddIngredientForm = () => {
             toast({
               title: "Success!",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
             setTimeout(() => {
               router.push('/dashboard/ingredients')

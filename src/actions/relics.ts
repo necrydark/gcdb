@@ -8,13 +8,51 @@ import { addHolyRelic, editHolyRelic, MaterialSchema, relicCharacterSchema } fro
 type MaterialData = z.infer<typeof MaterialSchema>
 type CharacterData = z.infer<typeof relicCharacterSchema>
 
-export const getRelics = async () => {
-  return await db.holyRelic.findMany({
-    include: {
-      materials: true
-  
-    }
-  })
+export async function getRelics() {
+  try {
+    const relicsWithRelations = await db.holyRelic.findMany({
+      include: {
+        characters: true, // Include the related characters
+        materials: true, // Include the related materials
+      },
+    });
+
+    // Map over the results to create plain objects with relevant data
+    const serializedRelics = relicsWithRelations.map(relic => ({
+      id: relic.id,
+      name: relic.name,
+      imageUrl: relic.imageUrl,
+      effect: relic.effect,
+      releaseDate: relic.releaseDate,
+      attack: relic.attack,
+      defense: relic.defense,
+      hp: relic.hp,
+      beast: relic.beast,
+      // ... other relic properties
+      characters: relic.characters.map(character => ({
+        id: character.id,
+        name: character.name,
+        imageUrl: character.imageUrl,
+        slug: character.slug,        
+        tag: character.tag
+        // ... other character properties
+      })),
+      materials: relic.materials.map(material => ({
+        id: material.id,
+        name: material.name,
+        imageUrl: material.imageUrl,
+        location: material.location
+        // ... other material properties
+      })),
+    }));
+
+    return serializedRelics;
+
+  } catch (error) {
+    console.error("Error fetching relics:", error);
+    // Handle the error appropriately, perhaps return an empty array or throw
+    return [];
+  }
 }
 
 export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
@@ -59,7 +97,6 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
       });
 
 
-      // Now, link the materials to the relic in the junction table
     
 
     // Revalidate the path after adding the relic
@@ -78,39 +115,42 @@ export const editRelic = async (
 ) => {
   const validatedFields = editHolyRelic.safeParse(values);
 
-  if(!validatedFields.success) {
-    return {error: "Invalid Fields"}
+  if (!validatedFields.success) {
+    // More specific error handling using ZodError
+    const errors = validatedFields.error.flatten().fieldErrors;
+    return { error: "Validation failed", details: errors };
   }
 
   const { name, attack, beast,characters,defense,effect,hp,imageUrl,materials, releaseDate} = validatedFields.data;
 
-  if(!name || !attack || !beast || !characters || !defense || !effect || !hp || !imageUrl || !materials) {
-    return { error: "A field is not valid."}
-  }
-
-  
   const typedMaterials = materials as MaterialData[] | undefined
   const typedCharacters = characters  as CharacterData[] | undefined;
 
   
-  await db.holyRelic.update({
-    where: { id },
-    data: {
-      name,
-      imageUrl,
-      effect,
-      attack,
-      defense,
-      hp,
-      beast,
-      releaseDate,
-      materials: typedMaterials ? { set: typedMaterials.map(m => ({ id: m.id })) } : undefined, // Use typedMaterials, handle undefined
-      characters: typedCharacters ? { set: typedCharacters.map(c => ({ id: c.id })) } : undefined, // Use typedCharacters, handle undefined
-    }
-  });
+  try {
+    await db.holyRelic.update({
+      where: { id },
+      data: {
+        name,
+        imageUrl,
+        effect,
+        attack,
+        defense,
+        hp,
+        beast,
+        releaseDate,
+        // If materials/characters are optional in Zod, the checks below are correct
+        materials: typedMaterials ? { set: typedMaterials.map(m => ({ id: m.id })) } : undefined,
+        characters: typedCharacters ? { set: typedCharacters.map(c => ({ id: c.id })) } : undefined,
+      }
+    });
 
-  revalidatePath("/src")
-  return { success: "Relic updated successfully" };
+    revalidatePath("/src"); // Verify this path is correct
+    return { success: "Relic updated successfully" };
+  } catch (error) {
+    console.error("Error updating relic:", error);
+    return { error: "Failed to update relic. Please try again." };
+  }
 }
 
 

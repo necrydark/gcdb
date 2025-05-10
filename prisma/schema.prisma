@@ -33,26 +33,26 @@ enum ProfileColour {
 }
 
 model User {
-  id               String        @id @default(cuid())
-  name             String
-  email            String
-  emailVerified    Boolean? @default(false)
-  bio              String?
-  password        String
-  image            String?
-  createdAt        DateTime
-  updatedAt        DateTime
-  username         String @unique
-  displayUsername  String? @unique
-  boxCC            String?
-  ingameRank       String?
-  sessions         Session[]
-  accounts         Account[]
-  role             UserRole      @default(USER)
-  profileColour    ProfileColour @default(PURPLE)
-  Comments         Comments[]
-  Favourite        Favourite[]
-  isTwoFactorEnabled    Boolean                @default(false)
+  id                    String                 @id @default(cuid())
+  name                  String
+  email                 String
+  emailVerified         Boolean?               @default(false)
+  bio                   String?
+  password              String
+  image                 String?
+  createdAt             DateTime
+  updatedAt             DateTime
+  username              String                 @unique
+  displayUsername       String?                @unique
+  boxCC                 String?
+  ingameRank            String?
+  sessions              Session[]
+  accounts              Account[]
+  role                  UserRole               @default(USER)
+  profileColour         ProfileColour          @default(PURPLE)
+  Comments              Comments[]
+  Favourite             Favourite[]
+  isTwoFactorEnabled    Boolean?               @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 
   @@unique([email])
@@ -60,25 +60,24 @@ model User {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
- 
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
-
 
 model VerificationToken {
   id        String   @id @default(cuid())
@@ -115,17 +114,15 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
- 
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@map("sessions")
 }
-
 
 enum GameEvent {
   None
@@ -141,7 +138,7 @@ enum Genders {
 }
 
 model Character {
-  id                 String              @id
+  id                 String              @id @default(cuid())
   name               String?
   tag                String?             @unique
   jpName             String
@@ -163,8 +160,8 @@ model Character {
   weight             String?
   location           String
   CV                 String?
-  gift               Gift[]
-  food               Food[]
+  gift               Gift[] @relation("CharacterGifts")
+  food               Food[]              @relation("CharactersFood")
   passiveName        String
   passiveImageUrl    String
   passiveJpName      String
@@ -176,7 +173,7 @@ model Character {
   associationsWith   AssociationWith[]
   holyRelic          HolyRelic?          @relation(fields: [holyRelicId], references: [id])
   holyRelicId        String?
-  ultimate           CharacterUltimate[]
+  ultimate           CharacterUltimate?
   Favourite          Favourite[]
   Comments           Comments[]
 
@@ -199,15 +196,15 @@ model Stats {
   attack         Int
   defense        Int
   hp             Int
-  pierceRate     Decimal    @db.Decimal(5, 2)
-  resistance     Decimal    @db.Decimal(5, 2)
-  regeneration   Decimal    @db.Decimal(5, 2)
-  critChance     Decimal    @db.Decimal(5, 2)
-  critDamage     Decimal    @db.Decimal(5, 2)
-  critResistance Decimal    @db.Decimal(5, 2)
-  critDefense    Decimal    @db.Decimal(5, 2)
-  recoveryRate   Decimal    @db.Decimal(5, 2)
-  lifesteal      Decimal    @db.Decimal(5, 2)
+  pierceRate     Int   
+  resistance     Int   
+  regeneration   Int   
+  critChance     Int   
+  critDamage     Int   
+  critResistance Int   
+  critDefense    Int   
+  recoveryRate   Int   
+  lifesteal      Int   
   Character      Character? @relation(fields: [characterId], references: [id])
   characterId    String?
 }
@@ -259,16 +256,6 @@ enum Crossovers {
   Crossover
 }
 
-
-model Ingredient {
-  id       String   @id @default(cuid())
-  name     String
-  imageUrl String
-  location String
-  food     Food?    @relation(fields: [foodId], references: [id], onDelete: Cascade)
-  foodId   String?
-}
-
 enum Towns {
   Vanya
   Dalmally
@@ -278,23 +265,22 @@ enum Towns {
   LionesCastle
 }
 
-model Meal {
+model Ingredient {
   id       String @id @default(cuid())
   name     String
-  imageUrl String
-  food     Food?
-  foodId   String?
+  imageUrl String?
+  location String?
+  foods    Food[] @relation("FoodIngredients")
 }
 
 model Food {
   id          String       @id @default(cuid())
+  name        String
+  imageUrl    String
   effect      String?
-  location  Towns @default(Vanya)
-  meal        Meal         @relation(fields: [mealId], references: [id], onDelete: Cascade)
-  mealId      String       @unique
-  ingredients Ingredient[]
-  Character   Character?   @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  characterId String?
+  location    Towns        @default(Vanya)
+  ingredients Ingredient[] @relation("FoodIngredients")
+  Character   Character[]  @relation("CharactersFood")
 }
 
 model Gift {
@@ -302,8 +288,8 @@ model Gift {
   name        String
   description String
   imageUrl    String
-  character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  characterId String?
+  Character   Character[]  @relation("CharacterGifts")
+
 }
 
 model Material {
@@ -315,12 +301,12 @@ model Material {
 }
 
 model HolyRelic {
-  id        String     @id @default(cuid())
-  name      String
-  imageUrl  String
-  effect    String
+  id          String     @id @default(cuid())
+  name        String
+  imageUrl    String
+  effect      String
   releaseDate DateTime
-  materials Material[] @relation("HolyRelicMaterials")
+  materials   Material[] @relation("HolyRelicMaterials")
 
   attack     String
   defense    String
@@ -362,9 +348,9 @@ model CharacterUltimate {
   jpName      String
   imageUrl    String
   description String
-  extraInfo   String[]
-  character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  characterId String?
+  extraInfo   String
+character Character? @relation(fields: [characterId], references: [id])
+  characterId String? @unique
 }
 
 model Skill {
@@ -398,9 +384,11 @@ model Favourite {
   id          String     @id @default(cuid())
   character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
-  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
   createdAt   DateTime   @default(now())
+  @@unique([userId, characterId])
+  @@map("Favourites")
 }
 
 model Comments {
@@ -408,10 +396,9 @@ model Comments {
   comment     String
   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   createdAt   DateTime  @default(now())
 
   @@map("comments")
 }
-

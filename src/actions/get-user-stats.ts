@@ -4,16 +4,17 @@
 
 import { auth } from '../auth'
 import db from '../lib/db'
+import { currentUser } from '../utils/auth'
 
 export async function getUserGrowthStats() {
   // Verify authentication (optional - you can also do this in the component)
-  const user = await auth()
+  const user = await currentUser()
   
   if(!user) {
     throw new Error("Unauthorized")
   }
 
-  if(user.user.role === "USER") {
+  if(user.role === "USER") {
     throw new Error("You don't have the right role.")
 
   }

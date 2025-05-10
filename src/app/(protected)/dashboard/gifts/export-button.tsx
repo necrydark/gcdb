@@ -2,22 +2,22 @@
 
 import { Button } from "@/src/components/ui/button";
 import { Download } from "lucide-react";
-import { Meals } from "./columns"; // Make sure to adjust the import path as needed
+import { Ingredients } from "./columns"; // Make sure to adjust the import path as needed
 
 interface ExportButtonProps {
-  data: Meals[];
+  data: Ingredients[];
 }
 
 const ExportButton = ({ data }: ExportButtonProps) => {
   const handleExport = () => {
     // Convert data to CSV
-    const headers = ["id", "name", "imageUrl"];
+    const headers = ["id", "name", "imageUrl", "location"];
     const csvContent = [
       headers.join(","),
       ...data.map(item => 
         headers.map(header => {
           // Handle commas and quotes in the data to ensure proper CSV format
-          const value = item[header as keyof Meals];
+          const value = item[header as keyof Ingredients];
           if (typeof value === 'string') {
             return `"${value.replace(/"/g, '""')}"`;
           }
@@ -31,7 +31,7 @@ const ExportButton = ({ data }: ExportButtonProps) => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', 'meal.csv');
+    link.setAttribute('download', 'ingredients.csv');
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();

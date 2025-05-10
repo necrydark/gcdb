@@ -2,33 +2,42 @@
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import Relic from './relic'
-import { HolyRelic } from "@/src/types/holyrelic";
+import { Beast, Character, HolyRelic, Material } from '@prisma/client';
 
 
 type Props = {
-    bosses?: string[]
     holyRelic?: HolyRelic[];
 }
 
-export default function RelicTabs({bosses, holyRelic}: Props) {
-    const [activeTab, setActiveTab] = useState("Hraesvelgr")
+export default function RelicTabs({ holyRelic}: Props) {
+    const [activeTab, setActiveTab] = useState(Beast.Hraesvelgr  as string)
+    const filterRelicsByBeast = (beast: Beast) => {
+      return holyRelic?.filter(relic => relic.beast === beast);
+    };
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full h-full'>
-        <TabsList className='h-full grid grid-cols-1 md:grid-cols-5 mb-6 bg-purple-400 dark:bg-purple-700'>
-        {bosses?.map((boss) => (
-            <TabsTrigger className={activeTab === boss ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"} key={boss} value={boss}>{boss}</TabsTrigger>
-        ))}
+        <TabsList className='h-full grid grid-cols-1 md:grid-cols-6 mb-6 bg-purple-400 dark:bg-purple-700'>
+        <TabsTrigger className={activeTab === Beast.Hraesvelgr  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Beast.Hraesvelgr  as string}>Hraesvelgr</TabsTrigger>
+        <TabsTrigger className={activeTab === Beast.Eikthyrnir  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Beast.Eikthyrnir as string}>Eikthyrnir</TabsTrigger>
+        <TabsTrigger className={activeTab === Beast.SkollAndHati  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Beast.SkollAndHati  as string}>Skoll And Hati</TabsTrigger>
+        <TabsTrigger className={activeTab === Beast.Nidhoggr  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Beast.Nidhoggr  as string}>Nidhoggr</TabsTrigger>
+        <TabsTrigger className={activeTab === Beast.Ratatoskr  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Beast.Ratatoskr  as string}>Ratatoskr</TabsTrigger>
+        <TabsTrigger className={activeTab === Beast.Collab  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Beast.Collab  as string}>Collab</TabsTrigger>
+
+        
         </TabsList>
 
-        {bosses?.map((boss) => (
-            <TabsContent value={boss} key={boss} className='space-6'>
+        {Object.values(Beast).map(beast => (
+        <TabsContent key={beast} value={beast as string} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-
-                <Relic holyRelic={holyRelic} />
-                </div>
-            </TabsContent>
-        ))}
+            {/* Filter relics based on the current beast */}
+            {filterRelicsByBeast(beast)?.map(relic => (
+              <Relic key={relic.id} holyRelic={relic} />
+            ))}
+          </div>
+        </TabsContent>
+      ))}
     </Tabs>
   )
 }

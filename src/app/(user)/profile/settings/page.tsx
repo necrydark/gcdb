@@ -83,7 +83,7 @@ const SettingsPage = () => {
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -93,7 +93,7 @@ const SettingsPage = () => {
             toast({
               title: "Success!",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
           }
         })
@@ -399,7 +399,7 @@ const SettingsPage = () => {
                             toast({
                               title: "Upload Error",
                               description: `${err.message}`,
-                              variant: "destructive",
+                              variant: "purple",
                               duration: 5000,
                             });
                           }}

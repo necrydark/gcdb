@@ -30,12 +30,13 @@ export function SettingsForm({
         title: "Success",
         description: state?.message,
         duration: 5000,
+        variant: "purple"
       });
     } else if (state?.status === "error") {
       toast({
         title: "Error",
         description: state?.message,
-        variant: "destructive",
+        variant: "purple",
         duration: 5000,
       });
     }

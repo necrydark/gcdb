@@ -9,6 +9,8 @@ export type SearchResult = {
   slug?: string
   type: 'character' | 'relic' | 'user'
   href: string
+  tag?: string
+  imageUrl?: string
 }
 
 const searchSchema = z.object({
@@ -39,6 +41,8 @@ export async function searchItems(query: string): Promise<SearchResult[]> {
           id: true,
           name: true,
           slug: true,
+          tag: true,
+          imageUrl: true,
         },
         take: 5, // Limit results
       })
@@ -69,7 +73,9 @@ export async function searchItems(query: string): Promise<SearchResult[]> {
           name: char.name ?? 'Unknown Character',
           slug: char.slug ?? undefined,
           type: 'character' as const,
-          href: `/characters/${char.id}`,
+          href: `/characters/${char.slug}`,
+          tag: char.tag ?? undefined,
+          imageUrl: char.imageUrl ?? ""
         })),
   
         ...users.map(user => ({
@@ -77,6 +83,7 @@ export async function searchItems(query: string): Promise<SearchResult[]> {
           name: user.username,
           type: 'user' as const,
           href: `/profile/${user.username}`,
+
         })),
       ]
     } catch (error) {

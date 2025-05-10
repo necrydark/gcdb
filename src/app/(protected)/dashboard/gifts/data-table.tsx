@@ -34,7 +34,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function MealDataTable<TData, TValue>({
+export function GiftDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -98,7 +98,7 @@ export function MealDataTable<TData, TValue>({
         </DropdownMenu>
       </div>
 
-      <div className="rounded-md">
+      <div className="rounded-[5px]">
         <Table className="bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -142,10 +142,10 @@ export function MealDataTable<TData, TValue>({
                 >
                   No results.
                   <Link
-                    href={"/dashboard/materials/new"}
+                    href={"/dashboard/gifts/new"}
                     className="pl-2 underline underline-offset-2"
                   >
-                    Add A Meal
+                    Add A Gift
                   </Link>
                 </TableCell>
               </TableRow>

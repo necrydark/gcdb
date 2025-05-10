@@ -8,12 +8,17 @@ import {
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { addCharacterSchema, characterUltimateSchema, skillRankSchema, skillSchema } from "../schemas/schema";
+import { addCharacterSchema, characterUltimateSchema, skillRankSchema, skillSchema, statsSchema } from "../schemas/schema";
 import { auth } from "../auth";
+import { stat } from "fs";
+import { giftSchema } from "../schemas/admin/schema";
+import { currentUser } from "../utils/auth";
 
 type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
 type SkillData = z.infer<typeof skillSchema>
 type AddCharacterData = z.infer<typeof addCharacterSchema>
+type StatData = z.infer<typeof statsSchema>
+type GiftData = z.infer<typeof giftSchema>
 
 export const addCharacter = async (
   values: AddCharacterData
@@ -24,18 +29,17 @@ export const addCharacter = async (
     return { error: "Invalid Fields!" };
   }
 
-  const user = await auth();
+  const user = await currentUser();
 
   if(!user) {
     return { error: "User is not authorized"}
   }
 
-  if(user.user.role === "USER"){
+  if(user.role === "USER"){
     return { error: "User does not have the correct role."}
   }
    
   const {
-    id,
     name,
     tag,
     jpName,
@@ -48,20 +52,8 @@ export const addCharacter = async (
     race,
     attribute,
     rarity,
-    combatClass,
-    attack,
-    defense,
-    hp,
-    pierceRate,
-    resistance,
-    regeneration,
-    critChance,
-    critDamage,
-    critDefense,
+    stats,
     releaseDate,
-    critResistance,
-    recoveryRate,
-    lifesteal,
     gender,
     bloodType,
     age,
@@ -70,7 +62,7 @@ export const addCharacter = async (
     weight,
     location,
     CV,
-    // gifts,
+    gifts,
     // food,
     // associations,
     // associationsWith,
@@ -80,17 +72,11 @@ export const addCharacter = async (
     passiveDescription,
     passiveCCNeeded,
     skills,
-    holyRelicId,
     characterUltimate,
   }: AddCharacterData = validatedFields.data;
 
-  const existingCharacterById = await getCharacterById(id as string);
   const existingCharacterBySlug = await getCharacterBySlug(slug as string);
   const existingCharacterByTag = await getCharacterByTag(tag as string);
-
-  if (existingCharacterById) {
-    return { error: "Character ID already exists!" };
-  }
 
   if (existingCharacterBySlug) {
     return { error: "Character Slug already exists!" };
@@ -100,12 +86,30 @@ export const addCharacter = async (
     return { error: "Character Tag already exists!" };
   }
 
+  const max_stats = 3;
+  if(stats.length > max_stats) {
+    return {error: `A character cannot have more than ${max_stats} stats.`}
+  }
+
   const typedSkills: SkillData[] = skills as SkillData[];
   const typedCharacterUltimate: CharacterUltimateData = characterUltimate as CharacterUltimateData;
+  const typedStats: StatData[] = stats as StatData[];
+
+  console.log("hello wordl")
+  const createdUltimate = await db.characterUltimate.create({
+    data: {
+      // You might need to provide the characterId here if ultimate requires it
+      // characterId: characterId, // If CharacterUltimate schema requires characterId on creation
+      name: typedCharacterUltimate.name,
+      jpName: typedCharacterUltimate.jpName,
+      imageUrl: typedCharacterUltimate.imageUrl,
+      description: typedCharacterUltimate.description,
+      extraInfo: typedCharacterUltimate.extraInfo ?? "", // Or || undefined based on schema
+    },
+  });
 
   await db.character.create({
     data: {
-      id: id ?? "",
       name,
       tag,
       jpName,
@@ -128,21 +132,23 @@ export const addCharacter = async (
       location,
       CV,
       stats: {
-        create: {
-          attack,
-          combatClass,
-          defense,
-          hp,
-          pierceRate,
-          resistance,
-          regeneration,
-          critChance,
-          critDamage,
-          critResistance,
-          critDefense,
-          recoveryRate,
-          lifesteal,
-          level: "LEVEL_1"
+        createMany: {
+          data: typedStats.map(stat => ({
+            level: stat.level,
+            combatClass: stat.combatClass,
+              attack: stat.attack,
+              defense: stat.defense,
+              hp: stat.hp,
+              pierceRate: stat.pierceRate,
+              resistance: stat.resistance,
+              regeneration: stat.regeneration,
+              critChance: stat.critChance,
+              critDamage: stat.critDamage,
+              critResistance: stat.critResistance,
+              critDefense: stat.critDefense,
+              recoveryRate: stat.recoveryRate,
+              lifesteal: stat.lifesteal,
+          }))
         }
       },
       passiveName,
@@ -150,14 +156,13 @@ export const addCharacter = async (
       passiveJpName,
       passiveDescription,
       passiveCCNeeded,
-      // gift: {
-      //   create: (gifts ?? []).map((gift) => ({
-      //     name: gift.name,
-      //     description: gift.description,
-      //     imageUrl: gift.imageUrl,
-      //     characterId: gift.characterId,
-      //   })),
-      // },
+      gift: gifts ? {
+        create: {
+          name: gifts.name, // No need for ?. because we checked if gifts exists
+            imageUrl: gifts.imageUrl,
+            description: gifts.description,
+        }
+      }: undefined,
       skills: {
         create: typedSkills.map((skill) => ({
           name: skill.name,
@@ -172,17 +177,11 @@ export const addCharacter = async (
           },
         })),
       },
-      holyRelic: {
-        connect: { id: holyRelicId },
-      },
+      // holyRelic: {
+      //   connect: { id: holyRelicId },
+      // },
       ultimate: {
-        create: {
-          name: typedCharacterUltimate.name,
-          jpName: typedCharacterUltimate.jpName,
-          imageUrl: typedCharacterUltimate.imageUrl,
-          description: typedCharacterUltimate.description,
-          extraInfo: typedCharacterUltimate.extraInfo ?? [],
-        },
+       connect: { id: createdUltimate.id}
       },
       // associations: {
       //   create:
@@ -237,6 +236,8 @@ export const addCharacter = async (
       //   : undefined,
     },
   });
+
+  console.log("i ahtelife ")
 
   revalidatePath("/src/app/(protected)/admin/(*.)");
   return { success: "Character Created" };

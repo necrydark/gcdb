@@ -123,24 +123,24 @@ export const editCharacter = async (
       passiveJpName,
       passiveDescription,
       passiveCCNeeded,
-      ultimate: {
-        update: {
-          where: {
-            id: typedCharacterUltimate.ultimateId,
-          },
-          data: {
-            name: typedCharacterUltimate.name,
-            jpName: typedCharacterUltimate.jpName,
-            imageUrl: typedCharacterUltimate.imageUrl,
-            description: typedCharacterUltimate.description,
-            extraInfo: {
-              set: typedCharacterUltimate.extraInfo?.filter(
-                  (info) => typeof info === "string"
-                ) ?? [], 
-            },
-          },
-        },
-      },
+      // ultimate: {
+      //   update: {
+      //     where: {
+      //       id: typedCharacterUltimate.ultimateId,
+      //     },
+      //     data: {
+      //       name: typedCharacterUltimate.name,
+      //       jpName: typedCharacterUltimate.jpName,
+      //       imageUrl: typedCharacterUltimate.imageUrl,
+      //       description: typedCharacterUltimate.description,
+      //       extraInfo: {
+      //         set: typedCharacterUltimate.extraInfo?.filter(
+      //             (info) => typeof info === "string"
+      //           ) ?? [], 
+      //       },
+      //     },
+      //   },
+      // },
       skills: {
         update: typedSkills.map((skill,) => ({
           where: { id: (skill as any).id }, // Add the id property to the where object

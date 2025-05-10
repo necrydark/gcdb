@@ -34,7 +34,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function MaterialDataTable<TData, TValue>({
+export function FoodDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -142,10 +142,10 @@ export function MaterialDataTable<TData, TValue>({
                 >
                   No results.
                   <Link
-                    href={"/dashboard/materials/new"}
+                    href={"/dashboard/food/new"}
                     className="pl-2 underline underline-offset-2"
                   >
-                    Add A Material
+                    Add Food
                   </Link>
                 </TableCell>
               </TableRow>

@@ -206,11 +206,12 @@ export function ContactForm() {
               description: "Email Sent!",
               duration: 5000,
               draggable: true,
+              variant: "purple"
             });
             form.reset();
           } else {
             toast({
-              variant: "destructive",
+              variant: "purple",
               title: "Error",
               description: "Failed to send email",
               duration: 5000,

@@ -1,3 +1,4 @@
+import { getCharacters } from "@/data/character";
 import AddRelicForm from "@/src/components/admin/relics/add-holy-relic-form";
 import db from "@/src/lib/db";
 
@@ -10,11 +11,13 @@ async function getMaterials() {
   }
 }
 
+
 const AddRelicPage = async () => {
   const materials = await getMaterials();
+  const characters = await getCharacters();
   return (
     <div className=" mx-auto container py-20">
-      <AddRelicForm materials={materials} />
+      <AddRelicForm materials={materials} characters={characters || undefined} />
     </div>
   );
 };

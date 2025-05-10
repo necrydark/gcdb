@@ -43,8 +43,8 @@ const EditIngredientForm = ({ ingredient}: IngredientEdit) => {
     resolver: zodResolver(ingredientSchema),
     defaultValues: {
       name: ingredient.name,
-      imageUrl: ingredient.imageUrl,
-      location: ingredient.location,
+      imageUrl: ingredient.imageUrl ?? "",
+      location: ingredient.location ?? "",
     },
   });
 
@@ -60,7 +60,9 @@ const EditIngredientForm = ({ ingredient}: IngredientEdit) => {
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
+              className: "bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0 "
+
             });
           }
 
@@ -70,11 +72,12 @@ const EditIngredientForm = ({ ingredient}: IngredientEdit) => {
             toast({
               title: "Success!",
               description: data.success,
-              variant: "default",
+              variant: "purple",
+              className: "bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0 "
             });
             setTimeout(() => {
               router.push('/dashboard/ingredients')
-            }, 1500)
+            }, 500)
           }
         })
         .catch((err) => setError(err));

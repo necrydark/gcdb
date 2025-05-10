@@ -48,30 +48,30 @@ export const UserButton = async ({ className }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="bottom" className="dark:bg-purple-950 bg-purple-700" sideOffset={15}>
           {/* Display username when available */}
-          {user?.username && <p className="text-center p-2">{user.username}</p>}
+          {user?.username && <p className="text-center text-white p-2">{user.username}</p>}
           <DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-              <FaUser className="mr-2" />
-              <Link href={"/profile"}>Profile</Link>
+              <FaUser className="mr-2 text-white" />
+              <Link className="text-white" href={"/profile"}>Profile</Link>
             </DropdownMenuItem>
             <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-              <FaHeart className="mr-2" />
-              <Link href={"/settings"}>Favourites</Link>
+              <FaHeart className="mr-2 text-white" />
+              <Link className="text-white" href={"/settings"}>Favourites</Link>
             </DropdownMenuItem>
             <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-              <FaCog className="mr-2" />
-              <Link href={"/settings"}>Settings</Link>
+              <FaCog className="mr-2 text-white" />
+              <Link className="text-white" href={"/settings"}>Settings</Link>
             </DropdownMenuItem>
             {(user?.role === "ADMIN" || user?.role === "OWNER") && (
               <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-                <MdAdminPanelSettings className="mr-2" />
-                <Link href={"/dashboard"}>Admin</Link>
+                <MdAdminPanelSettings className="mr-2 text-white" />
+                <Link className="text-white" href={"/dashboard"}>Admin</Link>
               </DropdownMenuItem>
             )}
           </DropdownMenuGroup>
           <DropdownMenuSeparator  className="bg-white" />
           <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-            <FaSignOutAlt className="mr-2" />
+            <FaSignOutAlt className="mr-2 text-white" />
             <SignOutBtn />
           </DropdownMenuItem>
         </DropdownMenuContent>

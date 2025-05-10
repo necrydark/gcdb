@@ -32,11 +32,13 @@ import { useState } from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  length: number;
 }
 
 export function CharacterDataTable<TData, TValue>({
   columns,
   data,
+  length
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -98,6 +100,7 @@ export function CharacterDataTable<TData, TValue>({
         </DropdownMenu>
       </div>
 
+      <p className="pb-2">There are {length} characters.</p>
       <div className="rounded-[5px]">
         <Table className="bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
           <TableHeader>

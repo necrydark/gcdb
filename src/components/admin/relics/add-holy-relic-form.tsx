@@ -47,6 +47,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
   const [isSearchable, setIsSearchable] = useState(true);
+  
 
   const characterOptions = characters?.map((character) => ({
     name: character.name,
@@ -64,6 +65,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
           width={30}
         />
         {character.name}
+        {character.tag}
       </div>
     ),
   }));
@@ -114,7 +116,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -125,7 +127,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
             toast({
               title: "Success!",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
           }
         })
@@ -165,7 +167,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
               <CardTitle>Relic Information</CardTitle>
             </CardHeader>
 
-            <CardContent>
+            <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
                 <FormField
                   control={form.control}
@@ -244,7 +246,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                         </FormControl>
                         <FormMessage />
 
-                        <SelectContent className="bg-purple-600  text-white dark:bg-purple-800">
+                        <SelectContent className="bg-purple-600 rounded-[5px]  text-white dark:bg-purple-800">
                           <SelectItem
                             className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
                             value={Beast.Hraesvelgr}
@@ -383,7 +385,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                             mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
-                            className="bg-purple-600 dark:bg-purple-800 text-white"
+                            className="bg-purple-600 dark:bg-purple-800 rounded-[12px] text-white"
                             disabled={(releaseDate: Date) =>
                               releaseDate > new Date() ||
                               releaseDate < new Date("1900-01-01") ||
@@ -420,6 +422,8 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                               imageUrl: option.imageUrl,
                             }))
                           );
+                          console.log(selectedOptions)
+
                         }}
                         placeholder={
                           (materials?.length ?? 0) >= 1
@@ -431,7 +435,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                     </FormItem>
                   )}
                 />
-                <FormField
+                         <FormField
                   control={form.control}
                   name="characters"
                   render={({ field }) => (

@@ -9,7 +9,7 @@ import { Beast, Character, HolyRelic, Material } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useTransition } from "react";
+import React, { ReactElement, useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "../../ui/button";
@@ -47,32 +47,14 @@ interface RelicInterface {
   };
 }
 
+
+
 function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicInterface) {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
   const [isSearchable, setIsSearchable] = useState(true);
 
-
-  const characterOptions = characters?.map((character) => ({
-    name: character.name,
-    characterId: character.id,
-    imageUrl: character.imageUrl,
-    slug: character.slug,
-    value: character.name,
-    description: character.name,
-    label: (
-      <div className="flex flex-row gap-3 items-center">
-        <Image
-          src={character.imageUrl}
-          alt={character.name ?? ""}
-          height={30}
-          width={30}
-        />
-        {character.name}
-      </div>
-    ),
-  }));
 
 
 //   <div className="flex flex-row gap-3 items-center">
@@ -124,20 +106,83 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
   })) || [];
 
 
+  const characterOptions = characters?.map((character) => {
+    const uniqueValue = character.id ? `${character.id}` : `${character.name || 'no-name'}-${character.tag || 'no-tag'}`; // Handle null name for uniqueValue
+    const description = `${character.name || 'Unknown Character'} (${character.tag || 'No Tag'})`; // Handle null name for description
+  
+    return {
+      name: character.name as string,
+      characterId: character.id,
+      imageUrl: character.imageUrl,
+      slug: character.slug as string,
+      tag: character.tag as string,
+      value: uniqueValue,
+      description: description,
+      label: (
+        <div className="flex flex-row gap-2 items-center">
+          <Image
+            src={character.imageUrl}
+            alt={character.name ?? "Unknown Character"} // Use nullish coalescing for alt
+            height={30}
+            width={30}
+          />
+          <p>{character.name || 'Unknown Character'}</p> {/* Handle null name in label */}
+          <p className="text-xs">{character.tag || 'No Tag'}</p>
+        </div>
+      ),
+      id: character.id // Optionally include the original id
+    };
+  }) || [];
+  
+  const defaultSelectedCharacters = relicMaterials?.characters?.map((character) => {
+      const uniqueValue = character.id ? `${character.id}` : `${character.name || 'no-name'}-${character.tag || 'no-tag'}`; // Handle null name for uniqueValue
+      const description = `${character.name || 'Unknown Character'} (${character.tag || 'No Tag'})`; // Handle null name for description
+  
+      return {
+        name: character.name as string,
+        characterId: character.id,
+        imageUrl: character.imageUrl,
+        slug: character.slug as string,
+        tag: character.tag as string,
+        value: uniqueValue,
+        description: description,
+        label: (
+          <div className="flex flex-row gap-2 items-center">
+            <Image
+              src={character.imageUrl}
+              alt={character.name ?? "Unknown Character"} // Use nullish coalescing for alt
+              height={30}
+              width={30}
+            />
+            <p>{character.name || 'Unknown Character'}</p> {/* Handle null name in label */}
+            <p className="text-xs">{character.tag || 'No Tag'}</p>
+          </div>
+        ),
+         id: character.id // Optionally include the original id
+      };
+    }) || [];
+       
+
+  console.log("Characters", characterOptions)
+  console.log("Default Form Values", defaultSelectedCharacters)
+
   const form = useForm<z.infer<typeof editHolyRelic>>({
     resolver: zodResolver(editHolyRelic),
     defaultValues: {
         ...relic,
       materials: defaultSelectedMaterials,
-      characters: []
+      characters: defaultSelectedCharacters
     },
   });
 
-  relicMaterials?.materials.map((material) => console.log(material.name))
   
 
 
+  useEffect(() => {
+    console.log("Form state errors:", form.formState.errors);
+  }, [form.formState.errors]);
 
+  
   const { toast } = useToast();
   const { update } = useSession();
 
@@ -148,6 +193,10 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
         materials: values.materials?.map(material => ({
           ...material,
           imageUrl: material.imageUrl || '' // Ensure imageUrl is always a string
+        })),
+        characters: values.characters?.map((char) => ({
+          ...char,
+          imageUrl: char.imageUrl || ""
         }))
       };
       editRelic(formattedValues, relic.id)
@@ -157,7 +206,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -168,7 +217,7 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
             toast({
               title: "Success!",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
           }
         })
@@ -476,13 +525,12 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
                     className="text-black bg-background"
                     options={characterOptions}
                     isSearchable={isSearchable}
+                    value={field.value}
                     isDisabled={isPending || !characters?.length}
                     onChange={(selectedOptions) => {
                       field.onChange(
                         selectedOptions.map((option) => ({
-                          id: option.characterId,
-                          name: option.name,
-                          imageUrl: option.imageUrl,
+                          ...option
                         }))
                       );
                     }}
@@ -501,11 +549,11 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
 
       </Card>
           <div className="flex flex-row gap-4 justify-end items-center">
-              <Button type="button"                   className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+              <Button type="button" className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
               >
                 <Link href={"/dashboard/relics"}>Cancel</Link>
               </Button>
-              <Button type="submit"                   className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+              <Button type="submit" className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
               >Save Changes</Button>
               </div>
         </form>

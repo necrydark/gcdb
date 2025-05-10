@@ -15,31 +15,31 @@ import testimg from "../../../../public/test-bg.png";
 import CardSection from "./(slug)/[slug]/card-section";
 import SmallCardSection from "./(slug)/[slug]/small-card-section";
 import { Badge } from "@/src/components/ui/badge";
-import { Card, CardContent } from "@/src/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/src/components/ui/avatar";
 import { UserBanner } from "@/src/components/profile/user-banner";
-import NotFound from "../../not-found";
+import { getCommentsByUser } from "@/src/actions/comments";
+import { formatDate } from "@/src/lib/date-format";
+import chineseman from "/public/chinese.png"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
+import { EllipsisVertical } from "lucide-react";
 
-// async function getFavourites(userId: string) {
-//   const data = await db.character.findMany({
-//     select: {
-//       name: true,
-//       imageUrl: true,
-//       basicInfo: true,
-//       Favourite: {
-//         where: {
-//           userId: userId,
-//         },
-//       },
-//     },
-//   });
+async function getFavourites(userId: string) {
+  const data = await db.favourite.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      character: true
+    }
+  })
 
-//   return data;
-// }
+  return data;
+}
 
 const profile = {
   favoriteCharacters: [
@@ -94,13 +94,19 @@ const profile = {
 
 async function ProfilePage() {
   const user = await currentUser();
+  
 
   if (!user) {
     redirect("/auth/login");
   }
 
 
+  const favourites = await getFavourites(user.id as string)
+
+
+
   const data =  await getUserData({ userId: user.id as string });
+  const comments = await getCommentsByUser(user.id as string)
 
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
   const randomName = names[Math.floor(Math.random() * names.length)];
@@ -142,11 +148,15 @@ async function ProfilePage() {
 
       {/* Favorite Characters */}
       <div className="mb-8">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-          Favorite Characters
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-          {profile.favoriteCharacters.map((character, index) => (
+ 
+        <div>
+          {favourites.length > 0 ? (
+                <>
+                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+                   Favorite Characters
+                 </h2>
+              <div  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                {favourites.map((character, index) => (
             <Card
               key={index}
               className={`${cardColours(
@@ -156,21 +166,21 @@ async function ProfilePage() {
               <CardContent className="p-4">
                 <div className="flex flex-col items-center space-y-4">
                   <Image
-                    src={character.imageUrl || "/placeholder.svg"}
-                    alt={character.name}
+                    src={character.character?.imageUrl || "/placeholder.svg"}
+                    alt={character.character?.name || "Character"}
                     width={80}
                     height={80}
                     // className="rounded-full"
                   />
                   <div className="text-center">
                     <h3 className="font-semibold text-white">
-                      {character.name}
+                      {character.character?.name}
                     </h3>
                     <p className="text-sm text-gray-400 dark:text-muted-foreground">
-                      {character.attribute}
+                      {character.character?.attribute}
                     </p>
                     <p className="text-sm text-gray-400 dark:text-muted-foreground">
-                      {character.race}
+                      {character.character?.race}
                     </p>
                     <Badge
                       className="mt-1  text-white"
@@ -188,9 +198,10 @@ async function ProfilePage() {
                           | undefined
                       }
                     >
-                      {character.rarity}
+                      {character.character?.rarity}
                     </Badge>
                   </div>
+                  <Link className="w-full" href={`/characters/${character.character?.slug}`}>
                   <Button
                     variant={
                       colour as
@@ -209,54 +220,94 @@ async function ProfilePage() {
                   >
                     View
                   </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
           ))}
+                </div></>
+          ): (
+              <div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">You have not favourited a character.</h2>
+                <p className="text-center">Go visit the character page to favourite a character!</p>
+                </div>
+          )}
         </div>
       </div>
 
       {/* Recent Comments */}
       <div className="pb-[5rem]">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-          Recent Comments
-        </h2>
-        <div className="space-y-4">
-          {profile.recentComments.map((comment, index) => (
-            <Card
-              key={index}
-              className={`${cardColours(colour as string)} border-0`}
-            >
-              <CardContent className="p-4">
-                <div className="flex flex-row items-center justify-between">
-                <p className="text-white">{comment.text}</p>
-                <p className="text-sm text-white dark:text-muted-foreground mt-2">
-                {comment.timestamp}
+       {comments && comments?.length > 0 ? (
+        <>
+           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+           Recent Comments
+         </h2>
+         <div className="space-y-4">
+           {comments?.map((comment, index) => (
+             <Card
+               key={index}
+               className={`${cardColours(colour as string)} border-0`}
+             >
+              <CardHeader className="flex flex-row justify-between">
+               <div>
+               <CardTitle className="flex flex-row gap-2">
+                  {comment.character.name}
+                  ・ <p>{comment.character.tag}</p>
+                </CardTitle>
+                <p className="text-xs mt-2">
+                 {formatDate(comment.createdAt.toLocaleDateString())}
                 </p>
-                </div>
-               
-                <Button
-                  variant={
-                    colour as
-                      | "red"
-                      | "green"
-                      | "blue"
-                      | "yellow"
-                      | "orange"
-                      | "pink"
-                      | "cyan"
-                      | "purple"
-                      | null
-                      | undefined
-                  }
-                  className="mt-4 rounded-[5px]"
-                >
-                  View
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+               </div>
+                  {(comment.userId === user.id || user.role === "ADMIN" || user.role === "OWNER" || user.role ==="COOWNER") && (
+               <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                <EllipsisVertical className="h-4 w-4 text-white" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="dark:bg-purple-950 bg-purple-700">
+                  <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">Edit</DropdownMenuItem>
+                  <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">Delete</DropdownMenuItem>
+
+                </DropdownMenuContent>
+               </DropdownMenu>
+                  )}
+              </CardHeader>
+               <CardContent>
+                 <div className="flex flex-row items-center justify-between">
+                 <p className="text-white">{comment.comment}</p>
+                 <p className="text-sm text-white dark:text-muted-foreground mt-2">
+                 </p>
+                 </div>
+                 <Link
+                 href={`/characters/${comment.character.slug}`}>
+                
+                 <Button
+                   variant={
+                     colour as
+                       | "red"
+                       | "green"
+                       | "blue"
+                       | "yellow"
+                       | "orange"
+                       | "pink"
+                       | "cyan"
+                       | "purple"
+                       | null
+                       | undefined
+                   }
+                   className="mt-4 rounded-[5px]"
+                 >
+                   View
+                 </Button>
+                   </Link>
+               </CardContent>
+             </Card>
+           ))}
+         </div></>
+       ): (
+        <div>
+            You have not commented on any characters
+          </div>
+       )}
       </div>
     </div>
     // <div className=" flex flex-col pb-20">

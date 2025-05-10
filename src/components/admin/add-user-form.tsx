@@ -1,14 +1,7 @@
-t785"use client";
+"use client";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { addUser } from "@/src/actions/add-user";
 import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
 import {
   Form,
   FormControl,
@@ -27,9 +20,7 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 import { Switch } from "@/src/components/ui/switch";
-import { Textarea } from "@/src/components/ui/textarea";
 import { useToast } from "@/src/components/ui/use-toast";
-import { UploadButton } from "@/src/lib/uploadthing";
 import { addNewUserSchema } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProfileColour, UserRole } from "@prisma/client";
@@ -37,7 +28,7 @@ import { useSession } from "next-auth/react";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import testimg from "../../../public/7ds-bg.png";
+import { Textarea } from "../ui/textarea";
 
 const AddUserForm = () => {
   const { update } = useSession();
@@ -52,11 +43,12 @@ const AddUserForm = () => {
       email: undefined,
       username: undefined,
       password: undefined,
-      isTwoFactorEnabled: false,
+      twoFactorEnabled: false,
       emailVerified: false,
-      image: `https://avatar.vercel.sh/rauchg`,
+      image: `https://avatar.vercel.sh/necrydark`,
       role: UserRole.USER,
       profileColour: ProfileColour.PURPLE,
+      bio: "",
     },
   });
 
@@ -71,7 +63,7 @@ const AddUserForm = () => {
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -82,7 +74,7 @@ const AddUserForm = () => {
             toast({
               title: "Success!",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
           }
         })
@@ -172,13 +164,13 @@ const AddUserForm = () => {
 
             <FormField
               control={form.control}
-              name="isTwoFactorEnabled"
+              name="twoFactorEnabled"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
                     <FormLabel> Two Factor Authentication</FormLabel>
                     <FormDescription>
-                      Enabled 2FA for your account
+                      Enable 2FA for your account
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -231,6 +223,9 @@ const AddUserForm = () => {
                     <SelectContent>
                       <SelectItem value={UserRole.USER}>User</SelectItem>
                       <SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
+                      <SelectItem value={UserRole.COOWNER}>Co-Owner</SelectItem>
+                      <SelectItem value={UserRole.OWNER}>Owner</SelectItem>
+
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -274,6 +269,26 @@ const AddUserForm = () => {
                 </FormItem>
               )}
             />
+                      <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white">About You</FormLabel>
+                <FormControl>
+                  <Textarea
+                    {...field}
+                    disabled={isPending}
+                    maxLength={255}
+                    placeholder="Tell us a little bit about yourself"
+                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 resize-none focus-visible:ring-0"
+
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           </div>
           {/* <FormError message={error} />
               <FormSuccess message={success} /> */}

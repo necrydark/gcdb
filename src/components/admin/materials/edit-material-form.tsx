@@ -58,7 +58,7 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -69,7 +69,7 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
             toast({
               title: "Success!",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
             router.back();
           }

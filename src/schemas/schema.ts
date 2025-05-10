@@ -8,15 +8,17 @@ import {
   ProfileColour,
   Race,
   Rarity,
+  StatLevel,
   UserRole,
 } from "@prisma/client";
 import { z } from "zod";
+import { giftSchema } from "./admin/schema";
 
 export const adminSchema = z.object({
   name: z.optional(z.string()),
   username: z.optional(z.string()),
   email: z.optional(z.string().email()),
-  role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER, UserRole.OWNER])),
+  role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER, UserRole.COOWNER, UserRole.OWNER])),
   isTwoFactorEnabled: z.optional(z.boolean()),
   image: z.optional(z.string()),
   banner: z.optional(z.string()),
@@ -41,9 +43,9 @@ export const addNewUserSchema = z.object({
   username: z.string(),
   email: z.string().email(),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.enum([UserRole.ADMIN, UserRole.USER, UserRole.OWNER, UserRole.COOWNER]),
-  isTwoFactorEnabled: z.optional(z.boolean()),
-  emailVerified: z.optional(z.boolean()),
+  role: z.enum([UserRole.USER, UserRole.ADMIN, UserRole.OWNER,]),
+  twoFactorEnabled: z.boolean().default(false),
+  emailVerified: z.boolean().default(false),
   image: z.optional(z.string()),
   bio: z
     .string()
@@ -185,7 +187,7 @@ export const skillSchema = z.object({
 });
 
 export const characterUltimateSchema = z.object({
-    ultimateId: z.string().min(1, "Ultimate ID is required"),
+    ultimateId: z.string().min(1, "Ultimate ID is required").optional(),
     characterId: z.optional(z.string()),
     name: z.string().min(1, "Ultimate Name is required"),
     jpName: z.string().min(1, "Ultimate Japanese Name is required"),
@@ -194,7 +196,26 @@ export const characterUltimateSchema = z.object({
       .url("Invalid URL")
       .min(1, "Ultimate Image URL is required"),
     description: z.string().min(1, "Ultimate Description is required"),
-    extraInfo: z.optional(z.array(z.string())), 
+    extraInfo: z.optional((z.string())), 
+})
+
+
+
+export const statsSchema = z.object({
+  level: z.enum([StatLevel.LEVEL_1, StatLevel.LEVEL_100, StatLevel.SUPER_AWAKENING]).default("LEVEL_1").describe("Stat Level is reuiqred."),
+  combatClass: z.number().int().nonnegative("Combat Class must be a non-negative integer").min(0, "Combat Class is required"),
+  attack: z.number().int().nonnegative("Attack must be a non-negative integer").min(0, "Attack is required"),
+  defense: z.number().int().nonnegative("Defense must be a non-negative integer").min(0, "Defense is required"),
+  hp: z.number().int().nonnegative("HP must be a non-negative integer").min(0, "HP is required"),
+  pierceRate: z.number().int().nonnegative("Pierce Rate must be a non-negative integer").min(0, "Pierce Rate is required"),
+  resistance: z.number().int().nonnegative().min(0, "Resistance is required"),
+  regeneration: z.number().int().nonnegative().min(0, "Regeneration is required"),
+  critChance: z.number().int().nonnegative().min(0, "Crit Chance is required"),
+  critDamage: z.number().int().nonnegative().min(0, "Crit Damage is required"),
+  critResistance: z.number().int().nonnegative().min(0, "Crit Resistance is required"),
+  critDefense: z.number().int().nonnegative().min(0, "Crit Defense is required"),
+  recoveryRate: z.number().int().nonnegative().min(0, "Recovery Rate is required"),
+  lifesteal: z.number().int().nonnegative().min(0, "Lifesteal is required"),
 })
 
 // Add Character
@@ -206,8 +227,7 @@ export const addCharacterSchema = z.object({
   jpTag: z.string().min(1, "Japanese Tag is required"),
   slug: z.optional(z.string().min(1, "Slug is required")),
   imageUrl: z.string().min(1, "Image URL is required"),
-  releaseDate: z.coerce.date(),
-  level: z.string(),
+  releaseDate: z.coerce.date().describe("Release Date is required."),
   game: z.enum([
     Game.AOT,
     Game.Base,
@@ -220,7 +240,7 @@ export const addCharacterSchema = z.object({
     Game.StrangerThings,
     Game.TOG,
     Game.Tensura,
-  ]),
+  ]).default("Base").describe("Game is required."),
   crossover: z.enum([Crossovers.Crossover, Crossovers.NotCrossover]),
   race: z.enum([
     Race.Demon,
@@ -239,19 +259,6 @@ export const addCharacterSchema = z.object({
     Attribute.Strength,
   ]),
   rarity: z.enum([Rarity.LR, Rarity.R, Rarity.SR, Rarity.UR, Rarity.SSR]),
-  combatClass: z.coerce.number().min(1, "Combat Class is required"),
-  attack: z.coerce.number().min(1, "Attack is required"),
-  defense: z.coerce.number().min(1, "Defense is required"),
-  hp: z.coerce.number().min(1, "HP is required"),
-  pierceRate: z.string().min(1, "Pierce Rate is required"),
-  resistance: z.string().min(1, "Resistance is required"),
-  regeneration: z.string().min(1, "Regeneration is required"),
-  critChance: z.string().min(1, "Crit Chance is required"),
-  critDamage: z.string().min(1, "Crit Damage is required"),
-  critResistance: z.string().min(1, "Crit Resistance is required"),
-  critDefense: z.string().min(1, "Crit Defense is required"),
-  recoveryRate: z.string().min(1, "Recovery Rate is required"),
-  lifesteal: z.string().min(1, "Lifesteal is required"),
   gender: z.optional(z.enum([Genders.Male, Genders.Female, Genders.Unknown])),
   bloodType: z.optional(z.string()),
   age: z.optional(z.string()),
@@ -261,15 +268,17 @@ export const addCharacterSchema = z.object({
   location: z.string().min(1, "Location is required"),
   CV: z.optional(z.string()),
   gifts: z.optional(
-    z.array(
-      z.object({
-        name: z.string(),
-        description: z.string(),
-        imageUrl: z.string(),
-        characterId: z.optional(z.string()),
-      })
-    )
+    giftSchema
   ),
+  stats: z.array(statsSchema).min(1, "A character must have atleast one stat").max(3, "A character cannot have more than 3 stat choices.")
+  .refine(stats => {
+    const levels = stats.map(stat => stat.level);
+    const uniqueLevels = new Set(levels);
+    return levels.length === uniqueLevels.size
+  }, {
+    message: "Each stat must have a unique level",
+    path: ['stats']
+  }),
   food: z.optional(
     z.array(
       z.object({
@@ -305,7 +314,7 @@ export const addCharacterSchema = z.object({
         name: z.string(),
         imageUrl: z.string(),
         slug: z.string(),
-        bonus: z.string(),
+        bonus: z.string().optional(),
         tag: z.string(),
         characterId: z.string(),
       })
@@ -344,8 +353,9 @@ export const addFoodSchema = z.object({
 
 export const relicCharacterSchema = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().optional(),
   imageUrl: z.string(),
+  tag: z.string(),
 })
 
 export const MaterialSchema = z.object({
@@ -405,7 +415,7 @@ export const editHolyRelic = z.object({
   materials: z.array(MaterialSchema).default([]).optional(),
   characters: z.array(
    relicCharacterSchema
-  ).optional(),
+  ).default([]).optional(),
   releaseDate: z.coerce.date(),
 
 });
@@ -471,19 +481,15 @@ export const editCharacterSchema = z.object({
     Attribute.Strength,
   ]),
   rarity: z.enum([Rarity.LR, Rarity.R, Rarity.SR, Rarity.UR, Rarity.SSR]),
-  combatClass: z.coerce.number().min(1, "Combat Class is required"),
-  attack: z.coerce.number().min(1, "Attack is required"),
-  defense: z.coerce.number().min(1, "Defense is required"),
-  hp: z.coerce.number().min(1, "HP is required"),
-  pierceRate: z.string().min(1, "Pierce Rate is required"),
-  resistance: z.string().min(1, "Resistance is required"),
-  regeneration: z.string().min(1, "Regeneration is required"),
-  critChance: z.string().min(1, "Crit Chance is required"),
-  critDamage: z.string().min(1, "Crit Damage is required"),
-  critResistance: z.string().min(1, "Crit Resistance is required"),
-  critDefense: z.string().min(1, "Crit Defense is required"),
-  recoveryRate: z.string().min(1, "Recovery Rate is required"),
-  lifesteal: z.string().min(1, "Lifesteal is required"),
+  stats: z.array(statsSchema).min(1, "A character must have atleast one stat").max(3, "A character cannot have more than 3 stats.")
+  .refine(stats => {
+    const levels = stats.map(stat => stat.level);
+    const uniqueLevels = new Set(levels);
+    return levels.length === uniqueLevels.size
+  }, {
+    message: "Each stat must have a unique level",
+    path: ['stats']
+  }),
   gender: z.optional(z.enum([Genders.Male, Genders.Female, Genders.Unknown])),
   bloodType: z.optional(z.string()),
   age: z.optional(z.string()),
@@ -493,14 +499,7 @@ export const editCharacterSchema = z.object({
   location: z.string().min(1, "Location is required"),
   CV: z.optional(z.string()),
   gifts: z.optional(
-    z.array(
-      z.object({
-        name: z.string(),
-        description: z.string(),
-        imageUrl: z.string(),
-        characterId: z.optional(z.string()),
-      })
-    )
+    giftSchema
   ),
   food: z.optional(
     z.array(
@@ -518,19 +517,8 @@ export const editCharacterSchema = z.object({
   passiveJpName: z.string().min(1, "Passive Japanese Name is required"),
   passiveDescription: z.string().min(1, "Passive Description is required"),
   passiveCCNeeded: z.optional(z.string()),
-  skills: z.array(editSkillSchema).min(2, "At least one skill is required"),
-  characterUltimate: z.object({
-    ultimateId: z.string().min(1, "Ultimate ID is required"),
-    characterId: z.optional(z.string()),
-    name: z.string().min(1, "Ultimate Name is required"),
-    jpName: z.string().min(1, "Ultimate Japanese Name is required"),
-    imageUrl: z
-      .string()
-      .url("Invalid URL")
-      .min(1, "Ultimate Image URL is required"),
-    description: z.string().min(1, "Ultimate Description is required"),
-    extraInfo: z.optional(z.string()),
-  }),
+  skills: z.array(editSkillSchema).min(1, "At least one skill is required"),
+  characterUltimate: characterUltimateSchema,
   associations: z.optional(
     z.array(
       z.object({
@@ -555,33 +543,7 @@ export const editCharacterSchema = z.object({
       })
     )
   ),
-  holyRelic: z.optional(
-    z.array(
-      z.object({
-        name: z.string().min(1, "Relic Name is required"),
-        effect: z.string().min(1, "Relic Effect is required"),
-        characterId: z.string(),
-        attack: z.number().min(1, "Attack is required"),
-        defense: z.number().min(1, "Defense is required"),
-        hp: z.number().min(1, "HP is required"),
-        beast: z.enum([
-          Beast.Hraesvelgr,
-          Beast.Eikthyrnir,
-          Beast.SkollAndHati,
-          Beast.Nidhoggr,
-          Beast.Ratatoskr,
-          Beast.Collab,
-        ]),
-        materials: z.array(
-          z.object({
-            name: z.optional(z.string()),
-            imageUrl: z.optional(z.string()),
-            holyRelicId: z.optional(z.string()),
-          })
-        ),
-      })
-    )
-  ),
+  holyRelicId: z.optional(z.string()),
   event: z.enum([
     GameEvent.Christmas,
     GameEvent.Summer,

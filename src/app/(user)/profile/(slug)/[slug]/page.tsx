@@ -23,7 +23,23 @@ import CardSection from "./card-section";
 import SmallCardSection from "./small-card-section";
 import { UserBanner} from "@/src/components/profile/user-banner"
 import { Card, CardContent } from "@/src/components/ui/card";
+import { getCommentsByUser } from "@/src/actions/comments";
+import { formatDate } from "@/src/lib/date-format";
  
+
+async function getFavourites(userId: string) {
+  const data = await db.favourite.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      character: true
+    }
+  })
+
+  return data;
+}
+
 interface PageProps {
   params: {
     slug: string;
@@ -40,6 +56,11 @@ async function ProfilePage({ params }: PageProps) {
   if (!data) {
     return notFound();
   }
+
+  const favourites = await getFavourites(data.id as string)
+  const comments = await getCommentsByUser(data.id as string)
+
+  
 
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
   const randomName = names[Math.floor(Math.random() * names.length)];
@@ -142,13 +163,14 @@ async function ProfilePage({ params }: PageProps) {
 
       {/* Profile Section */}
       <div className="mb-8">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-        {`${data?.username}'s Favourite Characters`}
-        </h2>
         <div>
-        {profile.favoriteCharacters.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {profile.favoriteCharacters.map((character, index) => (
+        {favourites.length > 0 ? (
+                <>
+                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+                  {data.username}&apos;s Favorite Characters
+                 </h2>
+              <div  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                {favourites.map((character, index) => (
             <Card
               key={index}
               className={`${cardColours(
@@ -158,21 +180,21 @@ async function ProfilePage({ params }: PageProps) {
               <CardContent className="p-4">
                 <div className="flex flex-col items-center space-y-4">
                   <Image
-                    src={character.imageUrl || "/placeholder.svg"}
-                    alt={character.name}
+                    src={character.character?.imageUrl || "/placeholder.svg"}
+                    alt={character.character?.name || "Character"}
                     width={80}
                     height={80}
                     // className="rounded-full"
                   />
                   <div className="text-center">
                     <h3 className="font-semibold text-white">
-                      {character.name}
+                      {character.character?.name}
                     </h3>
                     <p className="text-sm text-gray-400 dark:text-muted-foreground">
-                      {character.attribute}
+                      {character.character?.attribute}
                     </p>
                     <p className="text-sm text-gray-400 dark:text-muted-foreground">
-                      {character.race}
+                      {character.character?.race}
                     </p>
                     <Badge
                       className="mt-1  text-white"
@@ -190,7 +212,7 @@ async function ProfilePage({ params }: PageProps) {
                           | undefined
                       }
                     >
-                      {character.rarity}
+                      {character.character?.rarity}
                     </Badge>
                   </div>
                   <Button
@@ -215,55 +237,66 @@ async function ProfilePage({ params }: PageProps) {
               </CardContent>
             </Card>
           ))}
-          </div>
-        ) : (
-          <div>
-            {data.username} has no favourite characters yet.
-          </div>
-        )}
+                </div></>
+          ): (
+              <div className="my-[6rem]">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">  {data.username} has not favourited a character.</h2>
+                </div>
+          )}
         </div>
       </div>
 
+
       <div className="pb-[5rem]">
-      <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-         {data?.username} Recent Comments
+      {comments && comments?.length > 0 ? (
+        <>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+         {data?.username}&apos;s Recent Comments
         </h2>
-        <div className="space-y-4">
-          {profile.recentComments.map((comment, index) => (
-            <Card
-              key={index}
-              className={`${cardColours(colour as string)} border-0 rounded-[5px]`}
-            >
-              <CardContent className="p-4">
-                <div className="flex flex-row items-center justify-between">
-                <p className="text-white">{comment.text}</p>
-                <p className="text-sm text-white dark:text-muted-foreground mt-2">
-                {comment.timestamp}
-                </p>
-                </div>
-               
-                <Button
-                  variant={
-                    colour as
-                      | "red"
-                      | "green"
-                      | "blue"
-                      | "yellow"
-                      | "orange"
-                      | "pink"
-                      | "cyan"
-                      | "purple"
-                      | null
-                      | undefined
-                  }
-                  className="mt-4 rounded-[5px]"
-                >
-                  View
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+         <div className="space-y-4">
+           {comments?.map((comment, index) => (
+             <Card
+               key={index}
+               className={`${cardColours(colour as string)} border-0`}
+             >
+               <CardContent className="p-4">
+                 <div className="flex flex-row items-center justify-between">
+                 <p className="text-white">{comment.comment}</p>
+                 <p className="text-sm text-white dark:text-muted-foreground mt-2">
+                 {formatDate(comment.createdAt.toLocaleDateString())}
+                 </p>
+                 </div>
+                 <Link href={`/characters/${comment.character.slug}`}>
+                
+                 <Button
+                   variant={
+                     colour as
+                       | "red"
+                       | "green"
+                       | "blue"
+                       | "yellow"
+                       | "orange"
+                       | "pink"
+                       | "cyan"
+                       | "purple"
+                       | null
+                       | undefined
+                   }
+                   className="mt-4 rounded-[5px]"
+                 >
+                   View
+                 </Button>
+                   </Link>
+               </CardContent>
+             </Card>
+           ))}
+         </div></>
+       ): (
+        <div>
+            {data.username} has not commented on any pages.
+          </div>
+       )}
+   
       </div>
 
       </div>

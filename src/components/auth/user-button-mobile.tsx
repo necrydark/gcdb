@@ -1,5 +1,5 @@
 
-import { useCurrentUser } from "@/hooks/use-current-user";
+
 import { auth } from "@/src/auth";
 import {
   Avatar,

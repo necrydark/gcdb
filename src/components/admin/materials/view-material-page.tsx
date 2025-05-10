@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "../../ui/use-toast";
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Edit, Eye, EyeClosed, Loader2, Trash } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, Edit, Eye, EyeClosed, Loader2, Trash } from "lucide-react";
 import { Button } from "../../ui/button";
 import {
   Dialog,
@@ -39,7 +39,6 @@ export default function ViewMaterialPage({
   const { toast } = useToast();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isShowFull, setIsShowFull] = useState(false);
 
   const handleDelete = () => {
     setIsDeleting(true);
@@ -57,9 +56,6 @@ export default function ViewMaterialPage({
     }, 1500);
   };
 
-  const showFull = () => {
-    setIsShowFull(!isShowFull);
-  };
 
   const locations = relicMaterials?.location?.split(" | ");
 
@@ -116,7 +112,7 @@ export default function ViewMaterialPage({
               </DialogHeader>
               <div className="py-4">
                 <p className="text-white">
-                  You are about to delete the material w
+                  You are about to delete the material
                   <strong>{relicMaterials?.name}</strong> with ID{" "}
                   <strong>{relicMaterials?.id.substring(0, 8)}...</strong>
                 </p>
@@ -198,18 +194,14 @@ export default function ViewMaterialPage({
               <div className="flex items-center justify-between py-1">
                 <span className="text-sm font-medium">Image URL</span>
                 <span className="flex flex-row gap-2 items-center">
-                  {!isShowFull
-                    ? relicMaterials?.imageUrl.substring(0, 20)
-                    : relicMaterials?.imageUrl}
+                  {relicMaterials?.imageUrl.substring(0, 20)}
                   <Button
                     className="inline-flex dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
-                    onClick={showFull}
+                    onClick={() => {navigator.clipboard.writeText(relicMaterials?.imageUrl as string)}}
+
                   >
-                    {!isShowFull ? (
-                      <Eye className="h-4 w-4 text-white" />
-                    ) : (
-                      <EyeClosed className="h-4 w-4 text-white" />
-                    )}
+                                    <ClipboardCopy className="h-4 w-4 text-white" />
+
                   </Button>
                 </span>
               </div>

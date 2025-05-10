@@ -12,15 +12,15 @@ import { UserRole } from "@prisma/client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
-import { Character, columns } from "./columns";
+import { columns, CharacterCols } from "./columns";
 import { CharacterDataTable } from "./data-table";
 import { Download, Plus } from "lucide-react";
 import ExportButton from "./export-button";
 
-async function getCharacters(): Promise<Character[]> {
+async function getCharacters(): Promise<CharacterCols[]> {
   const data = await db.character.findMany();
 
-  return data as Character[];
+  return data as CharacterCols[];
 }
 const AdminCharactersPage = async () => {
   const role = await currentRole();
@@ -29,6 +29,8 @@ const AdminCharactersPage = async () => {
   }
 
   const data = await getCharacters();
+
+  const length = data.length;
 
   return (
     <div className=" px-10 container mx-auto py-20">
@@ -48,7 +50,7 @@ const AdminCharactersPage = async () => {
 
         </div>
       </div>
-      <CharacterDataTable columns={columns} data={data} />
+      <CharacterDataTable columns={columns} data={data} length={length} />
     </div>
     // <TabsContent value="addCharacter">
     //   <div className="flex justify-between items-center flex-row">

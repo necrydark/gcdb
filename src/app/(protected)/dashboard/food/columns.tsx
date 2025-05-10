@@ -1,8 +1,8 @@
 "use client";
 
 import { deleteCharacter } from "@/src/actions/delete-character";
-import { deleteMaterial } from "@/src/actions/materials";
-import ViewMaterial from "@/src/components/admin/view-material";
+// import { deletefood } from "@/src/actions/foods";
+// import Viewfood from "@/src/components/admin/view-food";
 import { Button } from "@/src/components/ui/button";
 import { Dialog, DialogContent } from "@/src/components/ui/dialog";
 import {
@@ -13,20 +13,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { Game } from "@prisma/client";
+import { Game, Towns } from "@prisma/client";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
-export type Materials = {
+export type Foods = {
   id: string;
   name: string;
   imageUrl: string;
-  location: string | null;
+  location: Towns;
+  effect: string | null;
 };
 
-export const columns: ColumnDef<Materials>[] = [
+export const columns: ColumnDef<Foods>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -45,11 +46,15 @@ export const columns: ColumnDef<Materials>[] = [
   },
 
   {
+    accessorKey: "effect",
+    header: "Effect",
+  },
+  {
     header: "Actions",
     id: "actions",
     enableHiding: true,
     cell: ({ row }) => {
-      const material = row.original;
+      const food = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -60,14 +65,14 @@ export const columns: ColumnDef<Materials>[] = [
           <DropdownMenuContent align="end" className="bg-purple-400 text-white  dark:bg-purple-700">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem className="cursor-pointer rounded-[5px] dark:focus:bg-purple-900 focus:text-white focus:bg-purple-600" asChild>
-              <Link href={`/dashboard/materials/edit/${material.id}`}>
+              <Link href={`/dashboard/food/edit/${food.id}`}>
                 Edit
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600"
             >
-              <Link href={`/dashboard/materials/view/${material.id}`}
+              <Link href={`/dashboard/food/view/${food.id}`}
               className="w-full">
               View</Link>
             </DropdownMenuItem>
@@ -75,7 +80,8 @@ export const columns: ColumnDef<Materials>[] = [
             <DropdownMenuItem
             className="dark:focus:bg-purple-900 focus:text-white rounded-[5px] focus:bg-purple-600 cursor-pointer"
               onClick={() => {
-                deleteMaterial(row.original.id);
+                // deleteFood(row.original.id);
+                console.log(row.original.id)
               }}
             >
               Delete

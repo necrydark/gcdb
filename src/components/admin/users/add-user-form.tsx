@@ -81,7 +81,7 @@ function AddUserForm() {
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -91,7 +91,7 @@ function AddUserForm() {
             toast({
               title: "Success",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
           }
         })

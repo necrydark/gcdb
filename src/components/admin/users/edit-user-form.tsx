@@ -80,7 +80,7 @@ function EditUserForm({
             toast({
               title: "Error",
               description: data.error,
-              variant: "destructive",
+              variant: "purple",
             });
           }
 
@@ -90,7 +90,7 @@ function EditUserForm({
             toast({
               title: "Success",
               description: data.success,
-              variant: "default",
+              variant: "purple",
             });
           }
         })

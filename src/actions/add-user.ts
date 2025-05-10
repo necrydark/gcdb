@@ -39,6 +39,7 @@ export const addUser = async (values: z.infer<typeof userSchema>) => {
   await db.user.create({
     data: {
       ...values,
+      
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),

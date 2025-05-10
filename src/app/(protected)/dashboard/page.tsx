@@ -11,7 +11,7 @@ import {
 } from "@/src/components/ui/card";
 import { getUserGrowthStats } from "@/src/actions/get-user-stats";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
-import { getFoodCount, getIngredientCount } from "@/src/actions/food";
+import { getFoodCount, getIngredientCount } from "@/data/food";
 
 
 

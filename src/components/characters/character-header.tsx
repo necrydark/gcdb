@@ -14,41 +14,24 @@ import {
 } from "@/src/components/ui/tooltip";
 import { ArrowLeftRight, Calendar, Gamepad2 } from "lucide-react";
 import { useShowJapanese } from "../eng-jp";
+import { Character } from "@prisma/client";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import FavouriteButton from "../favourite-button";
 
 
 type Props = {
-  imageUrl: string;
-  name: string;
-  jpName: string;
-  tag: string;
-  jpTag: string;
-  crossover?: string;
-  game?: string;
-  event?: string;
-  attribute: Attribute;
-  race: string;
-  rarity: Rarity;
+  character: Character;
+  isFavourited: boolean;
 };
 
 function CharacterHeader({
-  imageUrl,
-  name,
-  jpName,
-  tag,
-  jpTag,
-  crossover,
-  game,
-  event,
-  attribute,
-  race,
-  rarity,
+ character,
+ isFavourited
 }: Props) {
 
   const {showJapanese, toggleShowJapanese} = useShowJapanese();
+  const user = useCurrentUser();
 
-  // const toggleLanguage = () => {
-  //   setIsEnglish(!isEnglish);
-  // };
 
   // Function to get attribute color
   const getAttributeColor = (attribute: Attribute) => {
@@ -80,19 +63,19 @@ function CharacterHeader({
 
       <div className="relative w-24 h-24 md:w-32 md:h-32 md:m-0 mx-auto rounded-[5px] overflow-hidden border-4 border-purple-500 bg-gradient-to-b from-purple-300 via-purple-500 to-purple-600 flex-shrink-0">
         <Image
-          src={imageUrl || "/placeholder.svg?height=200&width=200"}
-          alt={showJapanese ? jpName : name}
+          src={character?.imageUrl || "/placeholder.svg?height=200&width=200"}
+          alt={showJapanese ? character?.jpName as string : character?.name as string} 
           width={128}
           height={128}
           className="object-cover"
         />
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 py-1 px-2 text-center">
+        <div className="absolute bottom-0 left-0 right-0 flex justify-center bg-black bg-opacity-70 py-1 px-2 text-center">
           <span
             className={`text-xs font-bold ${getRarityColor(
-              rarity
+              character?.rarity
             )} px-2 py-0.5 rounded`}
           >
-            {rarity}
+            {character?.rarity}
           </span>
         </div>
       </div>
@@ -100,22 +83,22 @@ function CharacterHeader({
       <div className="flex flex-col justify-center flex-1">
         <div className="flex flex-col md:flex-row justify-between items-center gap-2 mb-2">
           <div className="flex-1">
-            <h1 className="text-3xl  font-bold">
-              {showJapanese ? jpName : name}
+            <h1 className="text-3xl md:text-left text-center  font-bold">
+              {showJapanese ? character?.jpName : character?.name}
             </h1>
             <p className="text-muted-foreground md:text-left text-center">
-              {showJapanese ? jpTag : tag}
+              {showJapanese ? character?.jpTag  : character?.tag}
             </p>
           </div>
 
-          <div className="flex items-center gap-2 md:self-start">
+          <div className="flex items-center h-full gap-2 md:self-start">
             <div className="flex items-center space-x-2">
               <Label htmlFor="language-toggle" className="text-sm">
                 EN
               </Label>
               <Switch
                 id="language-toggle"
-                className="data-[state=checked]:bg-purple-700 data-[state=unchecked]:bg-purple-900 "
+                className="data-[state=checked]:bg-purple-700 rounded-[5px] data-[state=unchecked]:bg-purple-900 "
                 checked={showJapanese}
                 onCheckedChange={toggleShowJapanese}
               />
@@ -123,21 +106,29 @@ function CharacterHeader({
                 JP
               </Label>
             </div>
+            <div>
+              {user && (
+                 <FavouriteButton
+                 characterId={character.id}
+                 isFavourited={isFavourited}
+                 />
+              )}
+            </div>
           </div>
         </div>
         <div className="flex flex-wrap md:justify-start justify-center gap-2 mt-1">
           <div className="flex items-center gap-1.5">
             <span className="text-sm font-medium">Race:</span>
             <Badge variant="secondary" className="text-xs">
-              {race}
+              {character?.race}
             </Badge>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="text-sm font-medium">Attribute:</span>
             <Badge
-              className={`text-xs ${getAttributeColor(attribute)} text-white hover:${getAttributeColor(attribute)}/75`}
+              className={`text-xs ${getAttributeColor(character?.attribute)} text-white hover:${getAttributeColor(character?.attribute)}/75`}
             >
-              {attribute}
+              {character?.attribute}
             </Badge>
           </div>
         </div>
@@ -146,38 +137,38 @@ function CharacterHeader({
                 <TooltipTrigger asChild>
                   <button className="inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-blue-400 text-blue-600 gap-1">
                     <Gamepad2 className="w-3 h-3" />
-                    <span>{game}</span>
+                    <span>{character?.game}</span>
                   </button>
                 </TooltipTrigger>
                 <TooltipContent className="z-10">
-                  <p>From: {game}</p>
+                  <p>From: {character?.game}</p>
                 </TooltipContent>
               </Tooltip>
 
-          {crossover && (
+          {character?.Crossover && (
                 <Tooltip>
                   <TooltipTrigger asChild>
                   <button className="inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-purple-400 text-purple-600 gap-1">
                       <ArrowLeftRight className="w-3 h-3" />
-                      <span>Crossover: {crossover}</span>
+                      <span>Crossover: {character?.Crossover}</span>
                     </button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{crossover}</p>
+                    <p>{character?.Crossover}</p>
                   </TooltipContent>
                 </Tooltip>
           )}
 
-          {event && (
+          {character?.event && (
               <Tooltip>
                 <TooltipTrigger asChild>
                 <button className="inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-amber-400 text-amber-600 gap-1">
                     <Calendar className="w-3 h-3" />
-                    <span>{event}</span>
+                    <span>{character?.event}</span>
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Event character from: {event}</p>
+                  <p>Event character from: {character?.event}</p>
                 </TooltipContent>
               </Tooltip>
           )}

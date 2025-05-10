@@ -100,14 +100,14 @@ export default function ThemeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" className="bg-purple-400 dark:bg-purple-700" sideOffset={10} align="end">
         <DropdownMenuItem 
-        className="dark:focus:bg-purple-900 focus:bg-purple-600 focus:text-white text-white"
+        className="dark:focus:bg-purple-900 rounded-[5px] focus:bg-purple-600 focus:text-white text-white"
         onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem className="dark:focus:bg-purple-900 focus:bg-purple-600 focus:text-white text-white" onClick={() => setTheme("dark")}>
+        <DropdownMenuItem className="dark:focus:bg-purple-900 rounded-[5px] focus:bg-purple-600 focus:text-white text-white" onClick={() => setTheme("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem className="dark:focus:bg-purple-900 focus:bg-purple-600 focus:text-white text-white" onClick={() => setTheme("system")}>
+        <DropdownMenuItem className="dark:focus:bg-purple-900 rounded-[5px] focus:bg-purple-600 focus:text-white text-white" onClick={() => setTheme("system")}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

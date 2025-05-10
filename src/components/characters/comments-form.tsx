@@ -1,6 +1,6 @@
 "use client";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { addComment } from "@/src/actions/add-comment";
+import { addComment } from "@/src/actions/comments";
 import { commentSchema } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState, useTransition } from "react";
@@ -35,11 +35,13 @@ function CommentsForm({ characterId, slug }: Props) {
     setErr("");
     setSuccess("");
     startTransition(() => {
+
+
       addComment(values, slug).then((data) => {
         if (data?.error) {
           toast({
             title: "Error",
-            variant: "destructive",
+            variant: "purple",
             description: data?.error,
             duration: 5000,
           });
@@ -47,11 +49,12 @@ function CommentsForm({ characterId, slug }: Props) {
         if (data?.success) {
           toast({
             title: "Success",
-            variant: "default",
+            variant: "purple",
             description: data?.success,
             duration: 5000,
           });
         }
+        form.reset() 
       });
     });
   };
@@ -71,7 +74,7 @@ function CommentsForm({ characterId, slug }: Props) {
                       {...field}
                       maxLength={300}
                       placeholder="Leave a comment about this character..."
-                      className="resize-none dark:bg-purple-900 dark:placeholder:text-white dark:text-white dark:border-purple-600 focus-visible:ring-0"
+                      className="resize-none dark:bg-purple-900 rounded-[5px] dark:placeholder:text-white dark:text-white dark:border-purple-600 focus-visible:ring-0"
                     />
                   </FormControl>
                   <div className="text-right text-white">
