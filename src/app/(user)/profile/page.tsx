@@ -1,26 +1,13 @@
 import { getUserData } from "@/prisma/queries";
-import SmallCharacterCard from "@/src/components/small-character-card";
-import SmallFoodCard from "@/src/components/small-food-card";
 import { Button } from "@/src/components/ui/button";
 import { currentUser } from "@/src/utils/auth";
 import db from "@/src/lib/db";
-import { cn } from "@/src/lib/utils";
-import { ProfileColour } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import React from "react";
-import testimg from "../../../../public/test-bg.png";
-
-import CardSection from "./(slug)/[slug]/card-section";
-import SmallCardSection from "./(slug)/[slug]/small-card-section";
 import { Badge } from "@/src/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/src/components/ui/avatar";
 import { UserBanner } from "@/src/components/profile/user-banner";
 import { getCommentsByUser } from "@/src/actions/comments";
 import { formatDate } from "@/src/lib/date-format";
@@ -29,7 +16,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { EllipsisVertical } from "lucide-react";
 
 async function getFavourites(userId: string) {
-  const data = await db.favourite.findMany({
+  const res = await db.favourite.findMany({
     where: {
       userId: userId
     },
@@ -38,81 +25,23 @@ async function getFavourites(userId: string) {
     }
   })
 
-  return data;
+  return res;
 }
 
-const profile = {
-  favoriteCharacters: [
-    {
-      name: "Meliodas",
-      attribute: "Strength",
-      race: "Demon",
-      rarity: "SSR",
-      imageUrl:
-        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-    },
-    {
-      name: "Elizabeth",
-      attribute: "HP",
-      race: "Goddess",
-      rarity: "UR",
-      imageUrl:
-        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-    },
-    {
-      name: "Ban",
-      attribute: "HP",
-      race: "Human",
-      rarity: "SSR",
-      imageUrl:
-        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-    },
-    {
-      name: "King",
-      attribute: "Strength",
-      race: "Fairy",
-      rarity: "SSR",
-      imageUrl:
-        "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-    },
-  ],
-  recentComments: [
-    {
-      text: "Just pulled the new Escanor! Can't wait to try him out in PvP!",
-      timestamp: "2 hours ago",
-    },
-    {
-      text: "Anyone have tips for clearing the latest story chapter?",
-      timestamp: "1 day ago",
-    },
-    {
-      text: "Looking for active guild members. DM if interested!",
-      timestamp: "3 days ago",
-    },
-  ],
-};
 
 async function ProfilePage() {
   const user = await currentUser();
   
-
   if (!user) {
     redirect("/auth/login");
-  }
-
+}
 
   const favourites = await getFavourites(user.id as string)
-
-
-
   const data =  await getUserData({ userId: user.id as string });
   const comments = await getCommentsByUser(user.id as string)
-
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
   const randomName = names[Math.floor(Math.random() * names.length)];
 
-  // const userData = await getData(user.id as string);
-  // const userFavourites = await getFavourites(user.id as string);
   const cardColour = data?.profileColour;
   const colour = cardColour?.toLocaleLowerCase();
 

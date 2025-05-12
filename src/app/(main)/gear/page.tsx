@@ -268,9 +268,9 @@ export default function Page() {
 
 
   return (
-    <div className="container mx-auto max-w-7xl pt-[7rem] py-5 space-y-5">
+    <div className="container mx-auto max-w-7xl pt-[7rem] p-5 space-y-5">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full">
-        <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-purple-400 text-white">
+        <TabsList className="grid grid-cols-1 md:grid-cols-4 bg-purple-400 h-full w-full rounded-[5px] text-white">
           <TabsTrigger value="gear-sets" className={activeTab === "gear-sets" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Gear Sets</TabsTrigger>
           <TabsTrigger value="gear-subsets" className={activeTab === "gear-subsets"  ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Gear Subsets</TabsTrigger>
           <TabsTrigger value="main-base-0" className={activeTab === "main-base-0" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Main Base 0 <Star className="w-4 h-4 pl-1" /></TabsTrigger>
