@@ -27,13 +27,14 @@ import { getCommentsByUser } from "@/src/actions/comments";
 import { formatDate } from "@/src/lib/date-format";
  
 
-async function getFavourites(userId: string) {
-  const data = await db.favourite.findMany({
+async function getCollection(userId: string) {
+  const data = await db.collection.findMany({
     where: {
       userId: userId
     },
     include: {
-      character: true
+      character: true,
+      relic: true,
     }
   })
 
@@ -57,7 +58,7 @@ async function ProfilePage({ params }: PageProps) {
     return notFound();
   }
 
-  const favourites = await getFavourites(data.id as string)
+  const collection = await getCollection(data.id as string)
   const comments = await getCommentsByUser(data.id as string)
 
   
@@ -82,57 +83,6 @@ async function ProfilePage({ params }: PageProps) {
       cyan: "dark:bg-cyan-950 bg-cyan-800",
     };
     return colours[userColour] || "dark:bg-purple-950 bg-purple-800";
-  };
-
-  const profile = {
-    favoriteCharacters: [
-      {
-        name: "Meliodas",
-        attribute: "Strength",
-        race: "Demon",
-        rarity: "SSR",
-        imageUrl:
-          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-      },
-      {
-        name: "Elizabeth",
-        attribute: "HP",
-        race: "Goddess",
-        rarity: "UR",
-        imageUrl:
-          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-      },
-      {
-        name: "Ban",
-        attribute: "HP",
-        race: "Human",
-        rarity: "SSR",
-        imageUrl:
-          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-      },
-      {
-        name: "King",
-        attribute: "Strength",
-        race: "Fairy",
-        rarity: "SSR",
-        imageUrl:
-          "https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png",
-      },
-    ],
-    recentComments: [
-      {
-        text: "Just pulled the new Escanor! Can't wait to try him out in PvP!",
-        timestamp: "2 hours ago",
-      },
-      {
-        text: "Anyone have tips for clearing the latest story chapter?",
-        timestamp: "1 day ago",
-      },
-      {
-        text: "Looking for active guild members. DM if interested!",
-        timestamp: "3 days ago",
-      },
-    ],
   };
 
   return (
@@ -164,13 +114,13 @@ async function ProfilePage({ params }: PageProps) {
       {/* Profile Section */}
       <div className="mb-8">
         <div>
-        {favourites.length > 0 ? (
+        {collection.length > 0 ? (
                 <>
                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-                  {data.username}&apos;s Favorite Characters
+                  {data.username}&apos;s Collected Characters
                  </h2>
               <div  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {favourites.map((character, index) => (
+                {collection.map((character, index) => (
             <Card
               key={index}
               className={`${cardColours(

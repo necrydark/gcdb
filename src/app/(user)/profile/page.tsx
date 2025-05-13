@@ -15,8 +15,8 @@ import chineseman from "/public/chinese.png"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
 import { EllipsisVertical } from "lucide-react";
 
-async function getFavourites(userId: string) {
-  const res = await db.favourite.findMany({
+async function getCollection(userId: string) {
+  const res = await db.collection.findMany({
     where: {
       userId: userId
     },
@@ -36,7 +36,7 @@ async function ProfilePage() {
     redirect("/auth/login");
 }
 
-  const favourites = await getFavourites(user.id as string)
+  const collection = await getCollection(user.id as string)
   const data =  await getUserData({ userId: user.id as string });
   const comments = await getCommentsByUser(user.id as string)
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
@@ -79,13 +79,13 @@ async function ProfilePage() {
       <div className="mb-8">
  
         <div>
-          {favourites.length > 0 ? (
+          {collection.length > 0 ? (
                 <>
                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
                    Favorite Characters
                  </h2>
               <div  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {favourites.map((character, index) => (
+                {collection.map((character, index) => (
             <Card
               key={index}
               className={`${cardColours(
@@ -157,8 +157,8 @@ async function ProfilePage() {
                 </div></>
           ): (
               <div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">You have not favourited a character.</h2>
-                <p className="text-center">Go visit the character page to favourite a character!</p>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
+                <p className="text-center">Visit the character page to add a character to your collection!</p>
                 </div>
           )}
         </div>

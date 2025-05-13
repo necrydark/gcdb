@@ -11,7 +11,7 @@ export const getUserData = cache(async ({ userId }: { userId: string }) => {
     },
     include: {
       Comments: true,
-      Favourite: true
+      Collection: true
     },
   });
 

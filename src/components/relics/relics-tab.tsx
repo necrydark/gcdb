@@ -2,11 +2,27 @@
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import Relic from './relic'
-import { Beast, Character, HolyRelic, Material } from '@prisma/client';
+import { Beast, Character, Collection, HolyRelic, Material } from '@prisma/client';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
+export interface relic {
+  id: string;
+  name: string;
+  imageUrl: string;
+  releaseDate: Date;
+  attack: string;
+  defense: string;
+  hp: string;
+  effect: string;
+  materials: Material[]
+  characters: Character[]
+  beast: Beast;
+  isCollected: boolean;
+  collection: Collection[]
+}
 
 type Props = {
-    holyRelic?: HolyRelic[];
+    holyRelic?: relic[];
 }
 
 export default function RelicTabs({ holyRelic}: Props) {
@@ -14,6 +30,10 @@ export default function RelicTabs({ holyRelic}: Props) {
     const filterRelicsByBeast = (beast: Beast) => {
       return holyRelic?.filter(relic => relic.beast === beast);
     };
+
+
+
+    const user = useCurrentUser();
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full h-full'>
@@ -33,7 +53,7 @@ export default function RelicTabs({ holyRelic}: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {/* Filter relics based on the current beast */}
             {filterRelicsByBeast(beast)?.map(relic => (
-              <Relic key={relic.id} holyRelic={relic} />
+              <Relic key={relic.id} holyRelic={JSON.parse(JSON.stringify(relic))}  isCollected={relic.isCollected} />
             ))}
           </div>
         </TabsContent>

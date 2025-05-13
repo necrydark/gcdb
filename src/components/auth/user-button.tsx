@@ -55,7 +55,7 @@ export const UserButton = async ({ className }: Props) => {
             </DropdownMenuItem>
             <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaHeart className="mr-2 text-white" />
-              <Link className="text-white" href={"/settings"}>Favourites</Link>
+              <Link className="text-white" href={"/profile/collection"}>Collection</Link>
             </DropdownMenuItem>
             <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaCog className="mr-2 text-white" />

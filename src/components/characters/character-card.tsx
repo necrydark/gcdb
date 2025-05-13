@@ -6,7 +6,6 @@ import { Badge } from "../ui/badge";
 import { Attribute } from "@/src/types/attributes";
 import { Rarity } from "@/src/types/rarity";
 import { getRarityColour } from "@/src/lib/rarity-colours";
-import FavouriteButton from "../favourite-button";
 import db from "@/src/lib/db";
 import { User } from "@prisma/client";
 import { ExtendedUser } from "@/src/next-auth";
@@ -14,35 +13,31 @@ import { auth } from "@/src/auth";
 import { currentUser } from "@/src/utils/auth";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import Link from "next/link";
+import CollectionButtonChar from "../collection-button-char";
 
 
 type Props = {
   id: string;
   name: string;
   url: string;
-  attribute: Attribute;
   rarity: Rarity;
-  race: string;
-  crossover: string;
   slug: string;
-  isFavourited: boolean;
+  isCollected?: boolean;
 };
 
 export default function CharacterCard({
   id,
   name,
   url,
-  attribute,
   rarity,
-  race,
-  crossover,
-  isFavourited,
+  isCollected,
   slug
 }: Props) {
 
 
     const user = useCurrentUser();
 
+    console.log(isCollected)
 
 
   return (
@@ -61,10 +56,10 @@ export default function CharacterCard({
           <Badge className={`${getRarityColour(rarity)}`}>{rarity}</Badge>
         </div>
         {user && (
-          <FavouriteButton
+          <CollectionButtonChar
           className= "absolute bottom-1 left-1"
           characterId={id}
-          isFavourited={isFavourited}
+          isCollected={isCollected as boolean}
           />
         )}
       </div>

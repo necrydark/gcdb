@@ -15,30 +15,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import stupidhusky from "/public/stupid-husky.jpg"
-
-// interface CharacterSkills {
-//   regularSkills: Skill[]; // Or a similar type for regular skills
-//   ultimate: Ultimate; // Or a similar type for the ultimate skill
-// }
-
-// interface Skill { // Based on your Prisma schema
-//   id: string;
-//   name: string;
-//   jpName: string;
-//   imageUrl: string;
-//   characterId: string;
-//   // ... other skill properties, potentially skillRanks
-// }
-
-// interface Ultimate { // Based on your Prisma schema for CharacterUltimate
-//   id: string; // Assuming ultimate has an ID
-//   name: string;
-//   jpName: string;
-//   imageUrl: string;
-//   description: string;
-//   extraInfo: string | null; // Or string | undefined
-//   characterId?: string | null; // Optional if relation is on Character
-// }
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
+import { EllipsisVertical } from "lucide-react";
 
 async function getCharacterFromDb(slug: string){
   try{ 
@@ -75,7 +53,7 @@ async function getCharacterFromDb(slug: string){
         CV: true,
         releaseDate: true,
         // Assuming passiveName, etc. were among the 14 you had before
-        Favourite: {
+        Collection: {
           select: {
             userId: true
           }
@@ -143,7 +121,6 @@ async function getCharacterFromDb(slug: string){
   }
 }
 
-
 export default async function CharacterPage({ params: { slug } }: any) {
 
   const user = await currentUser();
@@ -185,7 +162,7 @@ const miscInfo: CharacterMiscInfo = {
       {/* Header */}
       <CharacterHeader
       character={character}
-      isFavourited={user && character.Favourite && Array.isArray(character.Favourite) ? character.Favourite.some(fav => fav.userId === user.id) : false}
+      isCollected={user && character.Collection && Array.isArray(character.Collection) ? character.Collection.some(collected => collected.userId === user.id) : false}
       />
       {(user?.role === "OWNER" || user?.role === "ADMIN" || user?.role === "COOWNER") && (
        <div className="my-4 flex flex-row gap-4">
@@ -231,8 +208,9 @@ const miscInfo: CharacterMiscInfo = {
         <div className="mt-6">
           {comments?.map((comment, idx) => (
             <Card  className="bg-purple-400 px-2 dark:bg-purple-900 text-white rounded-[5px] dark:border-purple-400" key={idx}>
-                <CardHeader className="flex flex-row gap-4">
-                    <Image 
+                <CardHeader className="flex flex-row gap-4 justify-between">
+                <div className="flex flex-row gap-2">
+                <Image 
                     src={stupidhusky}
                     alt={comment.comment}
                     width={75} 
@@ -240,10 +218,26 @@ const miscInfo: CharacterMiscInfo = {
                     className="rounded-full object-cover"
                     />
                   <CardTitle className="flex flex-col gap-2">
+                    <Link className="hover:underline" href={`/profile/${user?.username}`}>
                     {comment.user.username}
+                    </Link>
                   <p className="text-xs">{formatDate(comment.createdAt.toLocaleDateString())}</p>
-
                   </CardTitle>
+                </div>
+                <div>
+                  {(comment.id === user?.id  || user?.role === "ADMIN" || user?.role === "OWNER" || user?.role ==="COOWNER") && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                          <EllipsisVertical className="h-4 w-4 text-white" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {/* Make these dialogs. */}
+                      <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">Edit</DropdownMenuItem>
+                      <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">Delete</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
+                </div>
                 </CardHeader>
                 <CardContent>
                 <div className="flex flex-row items-center justify-between">

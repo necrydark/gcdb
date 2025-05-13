@@ -28,7 +28,7 @@ function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/guides" className=" pointer-events-none text-gray-300  hover:underline hover:text-foreground">
+              <Link href="/resources/" className=" pointer-events-none text-gray-300  hover:underline hover:text-foreground">
                 Guides (Coming Soon)
               </Link>
             </li>
@@ -43,22 +43,22 @@ function Footer() {
           <h4 className="font-medium text-white mb-4">Resources</h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/guides" className=" text-gray-300  hover:underline hover:text-foreground">
+              <Link href="/resources/guides" className=" text-gray-300  hover:underline hover:text-foreground">
                 Guides
               </Link>
             </li>
             <li>
-              <Link href="/tier-lists" className=" text-gray-300  hover:underline hover:text-foreground">
+              <Link href="/resources/tierlist" className=" text-gray-300  hover:underline hover:text-foreground">
                 Tier Lists
               </Link>
             </li>
-            <li>
-              <Link href="/calculators" className=" text-gray-300  hover:underline hover:text-foreground">
+            {/* <li>
+              <Link href="/resources/calculators" className=" text-gray-300  hover:underline hover:text-foreground">
                 Calculators
               </Link>
-            </li>
+            </li> */}
             <li>
-              <Link href="/faq" className=" text-gray-300  hover:underline hover:text-foreground">
+              <Link href="/resources/faq" className=" text-gray-300  hover:underline hover:text-foreground">
                 FAQ
               </Link>
             </li>

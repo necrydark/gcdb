@@ -44,13 +44,15 @@ async function Characters({searchParams}: { searchParams: Record<string, string>
 
   const allCharacters = await db.character.findMany({
     include: {
-      Favourite: {
+      Collection: {
         select: {
           userId: true
         }
       }
     }
   })
+
+  console.log(allCharacters)
 
   return (
     <Suspense fallback={<div><Loader2 className="h-6 w-6 animate-spin mr-2" /> Loading...</div>}>

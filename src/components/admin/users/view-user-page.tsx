@@ -5,7 +5,7 @@ import {
   Account,
   Character,
   Comments,
-  Favourite,
+  Collection,
   ProfileColour,
   TwoFactorConfirmation,
   User,
@@ -35,7 +35,7 @@ import { Separator } from "../../ui/separator";
 
 interface UserInterface {
   user: User & {
-    Favourite: Favourite[];
+    Collection: Collection[];
     Comments: Comments[];
   };
 }
@@ -177,7 +177,7 @@ export default function ViewUserPage({ user }: UserInterface) {
       <Tabs defaultValue="profile">
         <TabsList>
           <TabsTrigger value="profile">Profile</TabsTrigger>
-          <TabsTrigger value="favourites">Favourites</TabsTrigger>
+          <TabsTrigger value="collection">Collection</TabsTrigger>
           <TabsTrigger value="comments">Comments</TabsTrigger>
         </TabsList>
         <TabsContent className="space-y-4 pt-4" value="profile">
@@ -274,8 +274,8 @@ export default function ViewUserPage({ user }: UserInterface) {
                   </div>
                   <Separator className="bg-purple-500 dark:bg-purple-800" />
                   <div className="flex items-center justify-between py-1">
-                    <span className="text-sm font-medium">Favourites</span>
-                    <span>{user.Favourite.length}</span>
+                    <span className="text-sm font-medium">Collection</span>
+                    <span>{user.Collection.length}</span>
                   </div>
                 </div>
               </CardContent>
@@ -305,7 +305,7 @@ export default function ViewUserPage({ user }: UserInterface) {
             </Card>
           </div>
         </TabsContent>
-        <TabsContent className="space-y-4" value="favourites">
+        <TabsContent className="space-y-4" value="collection">
           <Card className="bg-purple-500 dark:bg-purple-900 border-purple-300 dark:border-purple-800 rounded-[5px]">
             <CardContent className="flex justify-center items-center !pt-6">
               Coming soon...

@@ -5,7 +5,7 @@ import { auth } from "../auth";
 import db from "../lib/db";
 import { currentUser } from "../utils/auth";
 
-export async function toggleFavourite(characterId: string) {
+export async function toggleCollectionChar(characterId: string) {
     const user = await currentUser();
 
     if(!user) {
@@ -20,17 +20,17 @@ export async function toggleFavourite(characterId: string) {
       return { error: "User does not have the correct role."}
     }
 
-    const existing = await db.favourite.findUnique({
+    const existing = await db.collection.findUnique({
         where: { userId_characterId: { userId: user.id, characterId } }
       });
 
       if(existing) {
-        await db.favourite.delete({
+        await db.collection.delete({
         where: { userId_characterId: { userId: user.id, characterId } }
             
         })
       } else {
-        await db.favourite.create({
+        await db.collection.create({
             data: {userId: user.id, characterId}
         })
       }
@@ -38,6 +38,40 @@ export async function toggleFavourite(characterId: string) {
     
       revalidatePath(`/characters/${characterId}`);
       revalidatePath(`/characters`);
+
+}
+
+export async function toggleCollectionRelic(relicId: string) {
+  const user = await currentUser();
+
+  if(!user) {
+    return { error: "User is not authorized"}
+  }
+
+  if(!user.id) {
+      return { error: "User id is not valid."}
+  }
+
+  if(user.role === "USER"){
+    return { error: "User does not have the correct role."}
+  }
+
+  const exisitng = await db.collection.findUnique({
+    where: { userId_relicId: { userId: user.id, relicId}}
+  })
+  if(exisitng) {
+    await db.collection.delete({
+    where: { userId_relicId: { userId: user.id, relicId}}
+    })
+  } else{
+    await db.collection.create({
+      data: {userId: user.id, relicId}
+    })
+  }
+
+  revalidatePath(`/characters`);
+  revalidatePath("/profile")
+  revalidatePath("/relics")
 
 }
 
@@ -52,7 +86,7 @@ export async function getFavoriteStatus(characterId: string) {
     
 
     try {
-      const favorite = await db.favourite.findUnique({
+      const favorite = await db.collection.findUnique({
         where: {
           userId_characterId: {
             userId: userId as string,

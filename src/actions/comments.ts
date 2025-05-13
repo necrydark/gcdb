@@ -82,3 +82,22 @@ export const addComment = async (
   revalidatePath(`/profile/${user.id}`)
   return { success: "Comment Added!" };
 };
+
+export const deleteComment = async(commentId: string) => {
+
+
+  if(!commentId) {
+    console.log("Comment ID cannot be found")
+  }
+    await db.comments.delete({
+      where: {id: commentId}
+    })
+
+
+    revalidatePath("/profile")
+    revalidatePath("/characters/[slug]")
+    revalidatePath("/profile/[slug]")
+
+
+
+} 

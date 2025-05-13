@@ -1,6 +1,6 @@
 "use client";
 
-import { Attribute, Race, Rarity, Game, Crossovers, Favourite, User } from "@prisma/client";
+import { Attribute, Race, Rarity, Game, Crossovers, User } from "@prisma/client";
 import { startTransition, Suspense, useEffect, useMemo, useState } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -26,7 +26,7 @@ interface Character {
     game?: Game;
     crossover: Crossovers;
     slug: string;
-    favourite: { userId: string }[];
+    collection: { userId: string }[];
   }
   
 
@@ -55,10 +55,6 @@ export default function CharacterClient({
     const [allCharacters, setAllCharacters] = useState<Character[]>([])
 
 
-
-
-
-    
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -282,12 +278,9 @@ export default function CharacterClient({
              id={character.id}
              name={character.name}
              url={character.imageUrl}
-             attribute={character.attribute}
-             race={character.race}
              rarity={character.rarity}
-             crossover={character.game || "No Game"}
              slug={character.slug}
-             isFavourited={user && character.favourite && Array.isArray(character.favourite) ? character.favourite.some(fav => fav.userId === user.id) : false}
+             isCollected={user && character.collection && Array.isArray(character.collection) ? character.collection.some(collected => collected.userId === user.id) : false}
            />
        ))}
      </div>

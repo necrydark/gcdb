@@ -51,7 +51,7 @@ model User {
   role                  UserRole               @default(USER)
   profileColour         ProfileColour          @default(PURPLE)
   Comments              Comments[]
-  Favourite             Favourite[]
+  Collection             Collection[]
   isTwoFactorEnabled    Boolean?               @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 
@@ -174,7 +174,7 @@ model Character {
   holyRelic          HolyRelic?          @relation(fields: [holyRelicId], references: [id])
   holyRelicId        String?
   ultimate           CharacterUltimate?
-  Favourite          Favourite[]
+  Collection          Collection[]
   Comments           Comments[]
 
   @@index([name])
@@ -307,6 +307,8 @@ model HolyRelic {
   effect      String
   releaseDate DateTime
   materials   Material[] @relation("HolyRelicMaterials")
+  Collection             Collection[]
+
 
   attack     String
   defense    String
@@ -380,15 +382,18 @@ model Gear {
   gearEffect String
 }
 
-model Favourite {
+model Collection {
   id          String     @id @default(cuid())
   character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
   characterId String?
   user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
+  relic HolyRelic? @relation(fields: [relicId], references: [id], onDelete: Cascade)
+  relicId String?
   createdAt   DateTime   @default(now())
   @@unique([userId, characterId])
-  @@map("Favourites")
+  @@unique([userId, relicId])
+  @@map("Collection")
 }
 
 model Comments {

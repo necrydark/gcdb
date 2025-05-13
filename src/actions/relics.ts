@@ -14,6 +14,7 @@ export async function getRelics() {
       include: {
         characters: true, // Include the related characters
         materials: true, // Include the related materials
+        Collection: true
       },
     });
 
@@ -44,6 +45,10 @@ export async function getRelics() {
         location: material.location
         // ... other material properties
       })),
+      collection: relic.Collection.map(collection => ({
+        userId: collection.id,
+        relicId: collection.id
+      }))
     }));
 
     return serializedRelics;

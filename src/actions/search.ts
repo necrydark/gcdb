@@ -27,14 +27,13 @@ export async function searchItems(query: string): Promise<SearchResult[]> {
     
     const searchTerm = validatedFields.data.query.toLowerCase()
     
-    // If using Prisma, your query might look like this:
+
     try {
-      // Search characters
       const characters = await db.character.findMany({
         where: {
           name: {
             contains: searchTerm,
-            mode: 'insensitive', // Case insensitive search
+            mode: 'insensitive', 
           },
         },
         select: {
@@ -44,7 +43,7 @@ export async function searchItems(query: string): Promise<SearchResult[]> {
           tag: true,
           imageUrl: true,
         },
-        take: 5, // Limit results
+        take: 5, 
       })
   
 

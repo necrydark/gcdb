@@ -16,17 +16,17 @@ import { ArrowLeftRight, Calendar, Gamepad2 } from "lucide-react";
 import { useShowJapanese } from "../eng-jp";
 import { Character } from "@prisma/client";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import FavouriteButton from "../favourite-button";
+import CollectionButtonChar from "../collection-button-char";
 
 
 type Props = {
   character: Character;
-  isFavourited: boolean;
+  isCollected: boolean;
 };
 
 function CharacterHeader({
  character,
- isFavourited
+ isCollected
 }: Props) {
 
   const {showJapanese, toggleShowJapanese} = useShowJapanese();
@@ -108,9 +108,9 @@ function CharacterHeader({
             </div>
             <div>
               {user && (
-                 <FavouriteButton
+                 <CollectionButtonChar
                  characterId={character.id}
-                 isFavourited={isFavourited}
+                 isCollected={isCollected}
                  />
               )}
             </div>

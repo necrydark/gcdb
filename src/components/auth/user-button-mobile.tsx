@@ -61,7 +61,7 @@ export const UserButtonMobile = async () => {
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaHeart className="mr-2" />
-              <Link href={"/settings"}>Favourites</Link>
+              <Link href={"/profile/collection"}>Collection</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <FaCog className="mr-2" />
