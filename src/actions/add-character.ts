@@ -95,7 +95,6 @@ export const addCharacter = async (
   const typedCharacterUltimate: CharacterUltimateData = characterUltimate as CharacterUltimateData;
   const typedStats: StatData[] = stats as StatData[];
 
-  console.log("hello wordl")
   const createdUltimate = await db.characterUltimate.create({
     data: {
       // You might need to provide the characterId here if ultimate requires it
@@ -237,7 +236,6 @@ export const addCharacter = async (
     },
   });
 
-  console.log("i ahtelife ")
 
   revalidatePath("/src/app/(protected)/admin/(*.)");
   return { success: "Character Created" };

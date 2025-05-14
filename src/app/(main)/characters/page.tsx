@@ -52,7 +52,6 @@ async function Characters({searchParams}: { searchParams: Record<string, string>
     }
   })
 
-  console.log(allCharacters)
 
   return (
     <Suspense fallback={<div><Loader2 className="h-6 w-6 animate-spin mr-2" /> Loading...</div>}>

@@ -101,3 +101,33 @@ export const deleteComment = async(commentId: string) => {
 
 
 } 
+
+
+export const updateComment = async (values: z.infer<typeof commentSchema>, commentId: string) => {
+  const validatedFields = commentSchema.safeParse(values);
+
+  if(!validatedFields.success) {
+    return { error: "Comment is invalid."}
+  }
+
+  const { comment, characterId} = validatedFields.data;
+
+  
+
+  if(!comment || !characterId) {
+    return { error: "The comment or character ID aren't valid"}
+  }
+
+  await db.comments.update({
+    where: {
+      id: commentId
+    },
+    data: {
+      ...values
+    }
+  })
+
+  revalidatePath("/profile")
+  revalidatePath("/characters")
+  return { success: "Comment updated."}
+}

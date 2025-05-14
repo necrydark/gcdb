@@ -10,3 +10,17 @@ export const getRarityColour = (rarity: Rarity) => {
     };
     return rarityColours[rarity] || "bg-gray-400 text-gray-950 border-gray-600";
   };
+
+  export const cardColours = (colour: string): string => {
+    const colours: Record<string, string> = {
+      purple: "dark:bg-purple-950 bg-purple-800",
+      pink: "dark:bg-pink-950 bg-pink-800",
+      red: "dark:bg-red-950 bg-red-800",
+      orange: "dark:bg-orange-950 bg-orange-800",
+      yellow: "dark:bg-yellow-950 bg-yellow-800",
+      green: "dark:bg-green-950 bg-green-800",
+      blue: "dark:bg-blue-950 bg-blue-800",
+      cyan: "dark:bg-cyan-950 bg-cyan-800",
+    };
+    return colours[colour] || "dark:bg-purple-950 bg-purple-800";
+  }

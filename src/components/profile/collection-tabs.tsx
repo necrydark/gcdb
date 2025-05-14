@@ -37,10 +37,12 @@ export interface HolyRelicWithIncludes {
 
 interface CollectionProps {
   characters?: CharacterForTabs[];
-  relics?: HolyRelicWithIncludes[]
+  relics?: HolyRelicWithIncludes[];
+  relicCount?: number;
+  characterCount?: number;
 }
 
-export const CollectionTabs = ({ characters, relics }: CollectionProps) => {
+export const CollectionTabs = ({ characters, relics, relicCount, characterCount }: CollectionProps) => {
   const [activeTab, setActiveTab] = useState("characters");
 
   if (!characters) {
@@ -51,7 +53,7 @@ export const CollectionTabs = ({ characters, relics }: CollectionProps) => {
     return null;
   }
 
-  console.log(relics)
+ 
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -62,9 +64,12 @@ export const CollectionTabs = ({ characters, relics }: CollectionProps) => {
       <TabsContent value="characters">
         {characters?.length > 0 ? (
           <>
-            <h1 className="text-3xl font-extrabold text-center tracking-tight my-6">
+         <div className="my-6">
+         <h1 className="text-3xl font-extrabold text-center tracking-tight">
             Your Collected Characters
             </h1>
+            <p className="text-center mt-2">Collected: {characters.length}/{characterCount}</p>
+         </div>
             <div className="flex flex-wrap justify-evenly gap-6 mb-8">
               {characters.map((char, idx) => (
                 <CharacterCard
@@ -94,9 +99,13 @@ export const CollectionTabs = ({ characters, relics }: CollectionProps) => {
       <TabsContent value="relics">
       {relics?.length > 0 ? (
             <>
-                    <h1 className="text-3xl font-extrabold text-center tracking-tight my-6">
+                  <div className="my-6">
+                  <h1 className="text-3xl font-extrabold text-center tracking-tight">
               Your Collected Relics
             </h1>
+            <p className="text-center mt-2">Collected: {relics.length}/{relicCount}</p>
+
+                  </div>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-6 mb-8">
                 {relics.map((relic, idx) => (
                     <Relic key={idx} holyRelic={JSON.parse(JSON.stringify(relic))} isCollected={true} />

@@ -100,3 +100,5 @@ export async function getFavoriteStatus(characterId: string) {
       return { isFavorited: false, error: 'Error fetching status' };
     }
   }
+
+

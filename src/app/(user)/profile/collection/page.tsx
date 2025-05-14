@@ -1,9 +1,8 @@
-import CharacterCard from "@/src/components/characters/character-card";
+import { getCharacterCount } from "@/data/character";
+import { getRelicCount } from "@/data/relics";
 import { CharacterForTabs, CollectionTabs, HolyRelicWithIncludes } from "@/src/components/profile/collection-tabs";
-import { Tabs, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
 import db from "@/src/lib/db";
 import { currentUser } from "@/src/utils/auth";
-import Link from "next/link";
 
 async function CollectionPage() {
 
@@ -46,6 +45,9 @@ async function CollectionPage() {
     }
   })
 
+  const allRelics = await getRelicCount();
+  const allCharacters = await getCharacterCount();
+
   if(!res) {
     return <div className="min-h-screen flex justify-center items-center  pt-[10rem]">
       <h1 className="text-3xl font-extrabold text-center tracking-tight mt-6">You need to add a character or relic to your collection </h1>
@@ -72,13 +74,12 @@ async function CollectionPage() {
     ?.map(item => item.relic) // Extract the nested 'relic' object
     .filter(Boolean) as HolyRelicWithIncludes[];
 
-
     
 
   return (
     <div className="min-h-screen pt-[10rem]">
       <section className="container mx-auto flex flex-col max-w-5xl px-4">
-      <CollectionTabs characters={formattedCharacters ?? []} relics={formattedRelics ?? []}/>
+      <CollectionTabs characters={formattedCharacters ?? []} relics={formattedRelics ?? []} relicCount={allRelics || 0} characterCount={allCharacters || 0} />
   
     </section>
     </div>

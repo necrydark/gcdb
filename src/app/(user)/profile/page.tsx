@@ -9,11 +9,12 @@ import React from "react";
 import { Badge } from "@/src/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { UserBanner } from "@/src/components/profile/user-banner";
-import { getCommentsByUser } from "@/src/actions/comments";
+import { deleteComment, getCommentsByUser } from "@/src/actions/comments";
 import { formatDate } from "@/src/lib/date-format";
 import chineseman from "/public/chinese.png"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
-import { EllipsisVertical } from "lucide-react";
+import { ArrowRight, EllipsisVertical } from "lucide-react";
+import CommentCard from "@/src/components/comment-card";
 
 async function getCollection(userId: string) {
   const res = await db.collection.findMany({
@@ -21,7 +22,8 @@ async function getCollection(userId: string) {
       userId: userId
     },
     include: {
-      character: true
+      character: true,
+      relic: true
     }
   })
 
@@ -44,6 +46,7 @@ async function ProfilePage() {
 
   const cardColour = data?.profileColour;
   const colour = cardColour?.toLocaleLowerCase();
+
 
   const cardColours = (userColour: string): string => {
     const colours: Record<string, string> = {
@@ -77,17 +80,24 @@ async function ProfilePage() {
 
       {/* Favorite Characters */}
       <div className="mb-8">
- 
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
         <div>
           {collection.length > 0 ? (
                 <>
+                 <div className="flex flex-row justify-between gap-4">
                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-                   Favorite Characters
+                   Collected Characters
                  </h2>
-              <div  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {collection.map((character, index) => (
+                 <Link href={"/profile/collected"} className="inline-flex items-center">
+                 View All <ArrowRight className="h-4 w-4 ml-2" />
+                 </Link>
+                 </div>
+              <div  className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {collection.
+                filter((item) => item.character).
+                map((character) => (
             <Card
-              key={index}
+              key={character.character?.id}
               className={`${cardColours(
                 colour as string
               )} border-0 rounded-[5px]`}
@@ -162,6 +172,74 @@ async function ProfilePage() {
                 </div>
           )}
         </div>
+        <div>
+          {collection.length > 0 ? (
+                <>
+                      <div className="flex flex-row justify-between gap-4">
+                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+                   Collected Relics
+                 </h2>
+                 <Link href={"/profile/collected"} className="inline-flex items-center">
+                 View All <ArrowRight className="h-4 w-4 ml-2" />
+                 </Link>
+                 </div>
+              <div  className="grid grid-cols-1 md:grid-cols-2  gap-4">
+                {collection.
+                filter((item) => item.relic).
+                map((relic) => (
+            <Card
+              key={relic.relic?.id}
+              className={`${cardColours(
+                colour as string
+              )} border-0 rounded-[5px] h-full`}
+            >
+              <CardContent className="p-4">
+                <div className="flex flex-col items-center space-y-4">
+                  <Image
+                    src={relic.relic?.imageUrl || "/placeholder.svg"}
+                    alt={relic.relic?.name || "Relic"}
+                    width={80}
+                    height={80}
+                  />
+            
+                  <div className="text-center space-y-4">
+                    <h3 className="font-semibold text-white">
+                      {relic.relic?.name}
+                    </h3>
+                    <Badge
+                      className="mt-1  text-white"
+                      variant={
+                        colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined
+                      }
+                    >
+                      {relic.relic?.beast}
+                    </Badge>
+                  <p>{relic.relic?.effect}</p>
+                  
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+                </div></>
+          ): (
+              <div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
+                <p className="text-center">Visit the character page to add a character to your collection!</p>
+                </div>
+          )}
+        </div>
+        </div>
       </div>
 
       {/* Recent Comments */}
@@ -173,63 +251,7 @@ async function ProfilePage() {
          </h2>
          <div className="space-y-4">
            {comments?.map((comment, index) => (
-             <Card
-               key={index}
-               className={`${cardColours(colour as string)} border-0`}
-             >
-              <CardHeader className="flex flex-row justify-between">
-               <div>
-               <CardTitle className="flex flex-row gap-2">
-                  {comment.character.name}
-                  ・ <p>{comment.character.tag}</p>
-                </CardTitle>
-                <p className="text-xs mt-2">
-                 {formatDate(comment.createdAt.toLocaleDateString())}
-                </p>
-               </div>
-                  {(comment.userId === user.id || user.role === "ADMIN" || user.role === "OWNER" || user.role ==="COOWNER") && (
-               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                <EllipsisVertical className="h-4 w-4 text-white" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="dark:bg-purple-950 bg-purple-700">
-                  <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">Edit</DropdownMenuItem>
-                  <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">Delete</DropdownMenuItem>
-
-                </DropdownMenuContent>
-               </DropdownMenu>
-                  )}
-              </CardHeader>
-               <CardContent>
-                 <div className="flex flex-row items-center justify-between">
-                 <p className="text-white">{comment.comment}</p>
-                 <p className="text-sm text-white dark:text-muted-foreground mt-2">
-                 </p>
-                 </div>
-                 <Link
-                 href={`/characters/${comment.character.slug}`}>
-                
-                 <Button
-                   variant={
-                     colour as
-                       | "red"
-                       | "green"
-                       | "blue"
-                       | "yellow"
-                       | "orange"
-                       | "pink"
-                       | "cyan"
-                       | "purple"
-                       | null
-                       | undefined
-                   }
-                   className="mt-4 rounded-[5px]"
-                 >
-                   View
-                 </Button>
-                   </Link>
-               </CardContent>
-             </Card>
+              <CommentCard key={index} comment={comments[index]} idx={index} userId={user.id || ""} userRole={user.role || "USER"} colour={colour || "purple"} />
            ))}
          </div></>
        ): (

@@ -35,7 +35,8 @@ async function getCollection(userId: string) {
     include: {
       character: true,
       relic: true,
-    }
+    },
+    take: 2
   })
 
   return data;
@@ -60,14 +61,8 @@ async function ProfilePage({ params }: PageProps) {
 
   const collection = await getCollection(data.id as string)
   const comments = await getCommentsByUser(data.id as string)
-
-  
-
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
   const randomName = names[Math.floor(Math.random() * names.length)];
-
-  // const userData = await getData(user.id as string);
-  // const userFavourites = await getFavourites(user.id as string);
   const cardColour = data?.profileColour;
   const colour = cardColour?.toLocaleLowerCase();
 
@@ -113,14 +108,17 @@ async function ProfilePage({ params }: PageProps) {
 
       {/* Profile Section */}
       <div className="mb-8">
-        <div>
-        {collection.length > 0 ? (
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+            <div>
+            {collection.length > 0 ? (
                 <>
-                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
+                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4 text-white">
                   {data.username}&apos;s Collected Characters
                  </h2>
-              <div  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {collection.map((character, index) => (
+              <div  className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {collection
+                .filter((item) => item.character)
+                .map((character, index) => (
             <Card
               key={index}
               className={`${cardColours(
@@ -165,6 +163,7 @@ async function ProfilePage({ params }: PageProps) {
                       {character.character?.rarity}
                     </Badge>
                   </div>
+                  <Link className="w-full" href={`/characters/${character.character?.slug}`}>
                   <Button
                     variant={
                       colour as
@@ -183,6 +182,7 @@ async function ProfilePage({ params }: PageProps) {
                   >
                     View
                   </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -193,6 +193,67 @@ async function ProfilePage({ params }: PageProps) {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">  {data.username} has not favourited a character.</h2>
                 </div>
           )}
+            </div>
+            <div>
+            {collection.length > 0 ? (
+                <>
+                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4 text-white">
+                  {data.username}&apos;s Collected Relics
+                 </h2>
+              <div  className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {collection
+                .filter((item) => item.relic)
+                .map((relic) => (
+            <Card
+              key={relic.id}
+              className={`${cardColours(
+                colour as string
+              )} border-0 rounded-[5px]`}
+            >
+              <CardContent className="p-4">
+                <div className="flex flex-col items-center space-y-4">
+                  <Image
+                    src={relic.relic?.imageUrl || "/placeholder.svg"}
+                    alt={relic.relic?.name || "Character"}
+                    width={80}
+                    height={80}
+                    // className="rounded-full"
+                  />
+                  <div className="text-center">
+                    <h3 className="font-semibold text-white">
+                      {relic.relic?.name}
+                    </h3>
+                    <Badge
+                      className="mt-1  text-white"
+                      variant={
+                        colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined
+                      }
+                    >
+                      {relic.relic?.beast}
+                    </Badge>
+                  <p>{relic.relic?.effect}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+                </div></>
+          ): (
+              <div className="my-[6rem]">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">  {data.username} has not favourited a character.</h2>
+                </div>
+          )}
+            </div>
         </div>
       </div>
 

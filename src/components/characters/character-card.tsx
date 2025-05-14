@@ -37,11 +37,10 @@ export default function CharacterCard({
 
     const user = useCurrentUser();
 
-    console.log(isCollected)
 
 
   return (
-    <Card className="h-full hover:shadow-md transition-shadow w-fit hover:dark:shadow-white duration-200 dark:bg-purple-950 bg-purple-800 border-0 overflow-hidden">
+    <Card className="h-full hover:shadow-md transition-shadow w-fit  duration-200 dark:bg-purple-950 bg-purple-800 border-0 overflow-hidden">
       <div className="relative w-full">
         <Link href={`/characters/${slug}`}>
         <Image
