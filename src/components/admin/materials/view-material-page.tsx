@@ -4,7 +4,15 @@ import { useRouter } from "next/navigation";
 import { useToast } from "../../ui/use-toast";
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ClipboardCopy, Edit, Eye, EyeClosed, Loader2, Trash } from "lucide-react";
+import {
+  ArrowLeft,
+  ClipboardCopy,
+  Edit,
+  Eye,
+  EyeClosed,
+  Loader2,
+  Trash,
+} from "lucide-react";
 import { Button } from "../../ui/button";
 import {
   Dialog,
@@ -55,7 +63,6 @@ export default function ViewMaterialPage({
       router.push("/dashboard/materials");
     }, 1500);
   };
-
 
   const locations = relicMaterials?.location?.split(" | ");
 
@@ -197,11 +204,17 @@ export default function ViewMaterialPage({
                   {relicMaterials?.imageUrl.substring(0, 20)}
                   <Button
                     className="inline-flex dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
-                    onClick={() => {navigator.clipboard.writeText(relicMaterials?.imageUrl as string)}}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        relicMaterials?.imageUrl as string
+                      );
 
+                      toast({
+                        title: "Copied to clipboard.",
+                      });
+                    }}
                   >
-                                    <ClipboardCopy className="h-4 w-4 text-white" />
-
+                    <ClipboardCopy className="h-4 w-4 text-white" />
                   </Button>
                 </span>
               </div>
@@ -252,18 +265,17 @@ export default function ViewMaterialPage({
                     <p className="text-sm dark:text-gray-300 text-gray-500">
                       ID: {relic.id.substring(0, 8)}...
                     </p>
-               
                   </div>
                   <Button
-                      className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all rounded-[5px] duration-250"
-                      variant={"outline"}
-                      size={"sm"}
-                      asChild
-                    >
-                      <Link href={`/dashboard/relics/view/${relic.id}`}>
-                        View
-                      </Link>
-                    </Button>
+                    className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all rounded-[5px] duration-250"
+                    variant={"outline"}
+                    size={"sm"}
+                    asChild
+                  >
+                    <Link href={`/dashboard/relics/view/${relic.id}`}>
+                      View
+                    </Link>
+                  </Button>
                 </div>
               ))}
             </div>

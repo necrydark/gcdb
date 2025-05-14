@@ -1,10 +1,18 @@
 "use client";
-import { Character, Gift, } from "@prisma/client";
+import { Character, Gift } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useToast } from "../../ui/use-toast";
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ClipboardCopy, Edit, Eye, EyeClosed, Loader2, Trash } from "lucide-react";
+import {
+  ArrowLeft,
+  ClipboardCopy,
+  Edit,
+  Eye,
+  EyeClosed,
+  Loader2,
+  Trash,
+} from "lucide-react";
 import { Button } from "../../ui/button";
 import {
   Dialog,
@@ -27,16 +35,13 @@ import { Separator } from "../../ui/separator";
 import { Badge } from "../../ui/badge";
 
 interface GiftInterface {
-  gift?: Gift
+  gift?: Gift;
   giftCharacters?: Gift & {
-    characters?: Character[]
-  }
+    characters?: Character[];
+  };
 }
 
-export default function ViewGiftPage({
-  gift,
-  giftCharacters
-}: GiftInterface) {
+export default function ViewGiftPage({ gift, giftCharacters }: GiftInterface) {
   const router = useRouter();
   const { toast } = useToast();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -59,8 +64,6 @@ export default function ViewGiftPage({
   };
 
   const length = giftCharacters?.characters?.length;
-
-
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -103,12 +106,10 @@ export default function ViewGiftPage({
             </DialogTrigger>
             <DialogContent className="bg-purple-300 dark:bg-purple-700">
               <DialogHeader>
-                <DialogTitle className="text-white">
-                  Delete Gift
-                </DialogTitle>
+                <DialogTitle className="text-white">Delete Gift</DialogTitle>
                 <DialogDescription className="text-gray-500 dark:text-gray-300">
-                  Are you sure you want to delete this gift? This action
-                  cannot be undone.
+                  Are you sure you want to delete this gift? This action cannot
+                  be undone.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4">
@@ -120,8 +121,7 @@ export default function ViewGiftPage({
                 {giftCharacters?.characters &&
                   giftCharacters.characters.length > 0 && (
                     <p className="mr-2 text-destructive">
-                      Warning: This gift is equipped by {length}{" "}
-                      character(s).
+                      Warning: This gift is equipped by {length} character(s).
                     </p>
                   )}
               </div>
@@ -198,54 +198,59 @@ export default function ViewGiftPage({
                   {giftCharacters?.imageUrl.substring(0, 20)}
                   <Button
                     className="inline-flex dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
-                    onClick={() => {navigator.clipboard.writeText(giftCharacters?.imageUrl as string)}}
-
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        giftCharacters?.imageUrl as string
+                      );
+                      toast({
+                        title: "Copied to clipboard."
+                      })
+                    }}
                   >
-                                      <ClipboardCopy className="h-4 w-4 text-white" />
-
+                    <ClipboardCopy className="h-4 w-4 text-white" />
                   </Button>
                 </span>
               </div>
             </div>
           </CardContent>
         </Card>
-        {giftCharacters?.characters && giftCharacters?.characters?.length > 0 ? (
+        {giftCharacters?.characters &&
+        giftCharacters?.characters?.length > 0 ? (
           <Card className="bg-purple-500 dark:bg-purple-900 border-purple-300 dark:border-purple-800">
-          <CardHeader className="pb-2">
-            <CardTitle>Equipped Characters</CardTitle>
-            <CardDescription>
-              This gift is used in {length} characters.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {giftCharacters?.characters?.map((char) => (
-                <div
-                  key={char.id}
-                  className="flex items-center gap-4 border rounded-[5px] border-purple-400 dark:border-purple-700 p-3"
-                >
-                  <div className="rounded-md overflow-hidden">
-                    <Image
-                      src={char.imageUrl}
-                      alt={char.name as string}
-                      width={50}
-                      height={50}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <Link
-                      href={`/dashboard/characters/view/${char.id}`}
-                      className="font-medium hover:underline"
-                    >
-                      {char.name}
-                    </Link>
-                    <p className="text-sm dark:text-gray-300 text-gray-500">
-                      ID: {char.id.substring(0, 8)}...
-                    </p>
-               
-                  </div>
-                  <Button
+            <CardHeader className="pb-2">
+              <CardTitle>Equipped Characters</CardTitle>
+              <CardDescription>
+                This gift is used in {length} characters.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {giftCharacters?.characters?.map((char) => (
+                  <div
+                    key={char.id}
+                    className="flex items-center gap-4 border rounded-[5px] border-purple-400 dark:border-purple-700 p-3"
+                  >
+                    <div className="rounded-md overflow-hidden">
+                      <Image
+                        src={char.imageUrl}
+                        alt={char.name as string}
+                        width={50}
+                        height={50}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <Link
+                        href={`/dashboard/characters/view/${char.id}`}
+                        className="font-medium hover:underline"
+                      >
+                        {char.name}
+                      </Link>
+                      <p className="text-sm dark:text-gray-300 text-gray-500">
+                        ID: {char.id.substring(0, 8)}...
+                      </p>
+                    </div>
+                    <Button
                       className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all rounded-[5px] duration-250"
                       variant={"outline"}
                       size={"sm"}
@@ -255,17 +260,15 @@ export default function ViewGiftPage({
                         View
                       </Link>
                     </Button>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         ) : (
           <Card className="bg-purple-500 dark:bg-purple-900 border-purple-300 dark:border-purple-800">
             <CardHeader>
-              <CardTitle>
-                No characters have this equipped.
-              </CardTitle>
+              <CardTitle>No characters have this equipped.</CardTitle>
             </CardHeader>
           </Card>
         )}

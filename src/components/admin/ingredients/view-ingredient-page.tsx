@@ -201,7 +201,12 @@ export default function ViewIngredientPage({
                   {foodIngredients?.imageUrl?.substring(0, 20)}
                   <Button
                     className="inline-flex dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
-                    onClick={() => {navigator.clipboard.writeText(foodIngredients?.imageUrl as string)}}
+                    onClick={() => {
+                      navigator.clipboard.writeText(foodIngredients?.imageUrl as string)
+                      toast({
+                        title: "Copied to clipboard."
+                      })
+                    }}
                   >
                     <ClipboardCopy className="h-4 w-4 text-white" />
                   </Button>

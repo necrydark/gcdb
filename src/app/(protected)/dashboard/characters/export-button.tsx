@@ -2,10 +2,10 @@
 
 import { Button } from "@/src/components/ui/button";
 import { Download } from "lucide-react";
-import { Character } from "./columns"; // Make sure to adjust the import path as needed
+import { CharacterCols } from "./columns"; // Make sure to adjust the import path as needed
 
 interface ExportButtonProps {
-  data: Character[];
+  data: CharacterCols[];
 }
 
 const ExportButton = ({ data }: ExportButtonProps) => {
@@ -17,7 +17,7 @@ const ExportButton = ({ data }: ExportButtonProps) => {
       ...data.map(item => 
         headers.map(header => {
           // Handle commas and quotes in the data to ensure proper CSV format
-          const value = item[header as keyof Character];
+          const value = item[header as keyof CharacterCols];
           if (typeof value === 'string') {
             return `"${value.replace(/"/g, '""')}"`;
           }

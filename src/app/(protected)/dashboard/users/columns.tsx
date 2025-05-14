@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
+import { toast, useToast } from "@/src/components/ui/use-toast";
 import { UserRole } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -76,7 +77,10 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600"
-              onClick={() => navigator.clipboard.writeText(user.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(user.id);
+            
+              }}
             >
               Copy User ID
             </DropdownMenuItem>

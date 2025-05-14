@@ -1,3 +1,4 @@
+'use client'
 import {
   Body,
   Container,
@@ -17,28 +18,31 @@ interface EmailTemplateProps {
   senderEmail: string;
 }
 
-export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
-  message,
-  senderEmail,
-}) => (
-  <Html>
-    <Head />
-    <Preview>New Message submitted from GCWiki</Preview>
-    <Tailwind>
-      <Body>
-        <Container>
-          <Section>
-            <Heading>
-              You have received the following message from the contact form
-            </Heading>
-            <Text>{message}</Text>
-            <Hr />
-            <Text>The sender email is: {senderEmail}</Text>
-          </Section>
-        </Container>
-      </Body>
-    </Tailwind>
-  </Html>
-);
+export function EmailTemplate (
+{  message,
+  senderEmail} : EmailTemplateProps
+) {
+  return (
+    <Html>
+  <Head />
+  <Preview>New Message submitted from GCWiki</Preview>
+  <Tailwind>
+    <Body>
+      <Container>
+        <Section>
+          <Heading>
+            You have received the following message from the contact form
+          </Heading>
+          <Text>{message}</Text>
+          <Hr />
+          <Text>The sender email is: {senderEmail}</Text>
+        </Section>
+      </Container>
+    </Body>
+  </Tailwind>
+</Html>
+  )
+}
+
 
 export default EmailTemplate;

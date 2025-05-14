@@ -143,3 +143,4 @@ export const columns: ColumnDef<CharacterCols>[] = [
     },
   },
 ];
+

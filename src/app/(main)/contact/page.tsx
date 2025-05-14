@@ -14,7 +14,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-4xl text-center font-bold text-[#5f7e9f] dark:text-white"
+            
           >
             Contact Us
           </motion.h1>
