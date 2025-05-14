@@ -113,7 +113,7 @@ function EditCharacterForm({
     name: gift.name,
     imageUrl: gift.imageUrl,
     description: gift.description,
-    value: gift.name,
+    value: gift.id,
     label: (
       <div>
         <Image src={gift.imageUrl} alt={gift.name} height={30} width={30} />
@@ -125,7 +125,7 @@ function EditCharacterForm({
   const FoodOptions = Foods?.map((food) => ({
     name: food.name,
     imageUrl: food.imageUrl,
-    value: food.name,
+    value: food.id,
     description: food.name,
     label: (
       <div>
@@ -1903,7 +1903,7 @@ function EditCharacterForm({
         // Map the form's current array value back to ReactSelect's expected value format
         value={
            field.value?.map(formFood => ({
-             value: formFood.name,
+             value: formFood.id,
              label: formFood.name,
              imageUrl: formFood.imageUrl,
            })) || [] // Use an empty array for no selections in multi-select
