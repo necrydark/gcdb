@@ -496,9 +496,9 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
                     isSearchable={isSearchable}
                     value={field.value}
                     isDisabled={isPending || !materials?.length}
-                    onChange={(selectedOptions) => {
+                    onChange={(selectedOptions: any) => {
                       field.onChange(
-                        selectedOptions.map((option) => ({
+                        selectedOptions.map((option: any) => ({
                           ...option
                         }))
                       );
@@ -527,9 +527,9 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
                     isSearchable={isSearchable}
                     value={field.value}
                     isDisabled={isPending || !characters?.length}
-                    onChange={(selectedOptions) => {
+                    onChange={(selectedOptions: any) => {
                       field.onChange(
-                        selectedOptions.map((option) => ({
+                        selectedOptions.map((option: any) => ({
                           ...option
                         }))
                       );

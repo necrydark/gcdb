@@ -3,10 +3,14 @@ import db from "@/src/lib/db";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 
-export default async function UserViewPage({ params} : { params: { slug: string}}) {
+type Params = Promise<{slug: string}>
+
+
+export default async function UserViewPage({ params} : { params: Params}) {
+    const {slug } = await params;
     const user = await db.user.findUnique({
         where: {
-            id: params.slug
+            id: slug
         },
         include: {
             Comments: true,

@@ -5,13 +5,16 @@ import db from "@/src/lib/db";
 import ViewRelicPage from "@/src/components/admin/relics/view-relic-page";
 import { Loader2 } from "lucide-react";
 
-export default async function RelicViewPage({params} : {params: {slug: string}}) {
-    
-    const relic = await getRelicById(params.slug as string);
+
+type Params = Promise<{slug: string}>
+
+export default async function RelicViewPage({params} : {params: Params}) {
+    const { slug } = await params;
+    const relic = await getRelicById(slug as string);
     const materials = await getMaterials();
     const characters = await getCharacters();
     const existingMaterials = await db.holyRelic.findUnique({
-      where: { id: params.slug },
+      where: { id: slug },
       include: {
         materials: true,
         characters: true

@@ -3,8 +3,12 @@ import { getGiftById } from "@/src/actions/admin";
 import EditGiftForm from "@/src/components/admin/gifts/edit-gift-form";
 import EditIngredientForm from "@/src/components/admin/ingredients/edit-ingredient-form";
 
-async function EditIngredientPage({params}: { params: { slug: string}}) {
-    const gift = await getGiftById(params.slug as string);
+type Params = Promise<{slug: string}>
+
+
+async function EditIngredientPage({params}: { params: Params}) {
+    const { slug } = await params;
+    const gift = await getGiftById(slug as string);
 
     if(!gift) {
         return <div>Gift not found.</div>

@@ -3,12 +3,15 @@ import { getMaterials, getRelicById } from "@/data/relics";
 import EditRelicForm from "@/src/components/admin/relics/edit-relic-form";
 import db from "@/src/lib/db";
 
-async function EditRelicPage({ params }: { params: { slug: string } }) {
-  const relic = await getRelicById(params.slug as string);
+type Params = Promise<{slug: string}>
+
+async function EditRelicPage({ params }: { params: Params }) {
+  const {slug } = await params;
+  const relic = await getRelicById(slug as string);
   const materials = await getMaterials();
   const characters = await getCharacters();
   const existingMaterials = await db.holyRelic.findUnique({
-    where: { id: params.slug },
+    where: { id: slug },
     include: {
       materials: true,
       characters: true

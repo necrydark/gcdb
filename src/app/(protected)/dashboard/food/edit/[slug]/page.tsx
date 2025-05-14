@@ -2,11 +2,15 @@ import { getFoodById, getIngredients } from "@/data/food"
 import EditFoodForm from "@/src/components/admin/food/edit-food-form";
 import db from "@/src/lib/db";
 
-async function EditFoodPage({ params}: { params: {slug: string}}) {
-    const food = await getFoodById(params.slug as string)
+type Params = Promise<{slug: string}>
+
+
+async function EditFoodPage({ params}: { params: Params}) {
+    const { slug } = await params;
+    const food = await getFoodById(slug as string)
     const ingredients = await getIngredients();
     const existingFood = await db.food.findUnique({
-        where: { id: params.slug},
+        where: { id: slug},
         include: {
             ingredients: true,
         }

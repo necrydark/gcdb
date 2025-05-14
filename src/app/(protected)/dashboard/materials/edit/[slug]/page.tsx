@@ -1,8 +1,12 @@
 import { getMaterialById } from "@/data/relics";
 import EditMaterialForm from "@/src/components/admin/materials/edit-material-form";
 
-async function EditMaterialPage({ params }: { params: { slug: string } }) {
-  const material = await getMaterialById(params.slug as string);
+
+type Params = Promise<{slug: string}>
+
+async function EditMaterialPage({ params }: { params: Params}) {
+  const { slug } = await params;
+  const material = await getMaterialById(slug as string);
 
 
 

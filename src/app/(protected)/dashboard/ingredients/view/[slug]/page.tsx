@@ -6,12 +6,17 @@ import db from "@/src/lib/db";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 
-export default async function FoodViewPage({ params}: { params: { slug: string}}) {
-    const ingredient = await getIngredientById(params.slug as string);
+type Params = Promise<{slug: string}>
+
+
+export default async function FoodViewPage({ params}: { params: Params}) {
+
+    const { slug } = await params;
+    const ingredient = await getIngredientById(slug as string);
     const ingredients = await getIngredients();
     const characters = await getCharacters();
     const existingIngredients = await db.ingredient.findUnique({
-        where: { id: params.slug},
+        where: { id: slug},
         include: {
             foods: true,
         }

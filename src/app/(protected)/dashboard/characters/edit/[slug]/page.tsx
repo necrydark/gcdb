@@ -6,7 +6,6 @@ import {
 } from "@/data/character";
 import EditCharacterForm from "@/src/components/admin/characters/edit-character-form";
 import db from "@/src/lib/db";
-import { Decimal } from "@prisma/client/runtime/library";
 import React from "react";
 
 async function getStats(slug: string) {
@@ -20,7 +19,7 @@ async function getStats(slug: string) {
       skills: {
         select: {
           id: true, name: true, jpName: true, imageUrl: true, characterId: true,
-        skillRanks: true
+          skillRanks: true
         }
       },
       associations: true,
@@ -28,7 +27,7 @@ async function getStats(slug: string) {
       food: true,
       gift: true,
     },
-  })
+  });
 
   if(!res) {
     return null;
@@ -36,35 +35,34 @@ async function getStats(slug: string) {
 
   res.stats = res.stats || [];
 
-
   return res;
 }
 
-async function EditCharacterPage({ params }: { params: { slug: string } }) {
-  const character = await getCharacterById(params.slug as string);
+// Updated type definition to match Next.js 15 expectations
+type Params = Promise<{slug: string}>
+
+export default async function EditCharacterPage({ params }: {params: Params}) {
+  const { slug } = await params;
+  const character = await getCharacterById(slug as string);
   const skills = await getSkillsById(character?.id as string);
   const skillIds = skills?.map((skill) => skill.id);
   const skillRanks = await getSkillRanksById(skillIds || []);
 
-  const res = await getStats(params.slug);
-
+  const res = await getStats(slug);
 
   const ultimate =
     (await getUltimateByCharacterId(character?.id as string)) || undefined;
 
   if (!character) {
-    return <p>Character not found.</p>; // Redirect to 404 page if character not found.  Note: replace "/404" with your 404 page path.
+    return <p>Character not found.</p>;
   }
 
   if(!res) {
     return <p>Character Not Found.</p>
   }
 
- 
-
-
   return (
-    <div className="container mx-auto py-10 ">
+    <div className="container mx-auto py-10">
       <div>
         <EditCharacterForm
           Character={res}
@@ -77,5 +75,3 @@ async function EditCharacterPage({ params }: { params: { slug: string } }) {
     </div>
   );
 }
-
-export default EditCharacterPage;

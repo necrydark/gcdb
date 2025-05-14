@@ -50,6 +50,7 @@ import {
   Rarity,
   StatLevel,
 } from "@prisma/client";
+
 import { Trash } from "lucide-react";
 import cuid from "cuid";
 import { format } from "date-fns";
@@ -57,7 +58,7 @@ import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, Plus } from "lucide-rea
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
+import { JSX, useEffect, useState, useTransition } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import ReactSelect from "react-select";
 import * as z from "zod";
@@ -97,15 +98,15 @@ interface AssociatedWithFormData {
   imageUrl: string;
 }
 
-interface AssociatedWithOptions {
-  value: string; // Using character ID as value
-  label: JSX.Element; // Your custom label with image
-  characterId: string;
-  imageUrl: string;
-  slug: string | null;
-  tag: string | null;
-  name: string | null;
-}
+// interface AssociatedWithOptions {
+//   value: string; // Using character ID as value
+//   label: JSX.ReactElement; // Your custom label with image
+//   characterId: string;
+//   imageUrl: string;
+//   slug: string | null;
+//   tag: string | null;
+//   name: string | null;
+// }
 
 function AddCharacterForm({
   Gifts,
@@ -180,26 +181,26 @@ FormProps) {
     ),
   }));
 
-  const AssociatedWithOptions: AssociatedWithOptions[] | undefined = Characters?.map((character) => ({
-    name: character.name ?? "",
-    characterId: character.id,
-    imageUrl: character.imageUrl,
-    slug: character.slug  ?? "",
-    value: character.name ?? "",
-    description: character.name ?? "",
-    tag: character.tag ?? "",
-    label: (
-      <div className="flex flex-row gap-3 items-center">
-        <Image
-          src={character.imageUrl}
-          alt={character?.name ?? ""}
-          height={30}
-          width={30}
-        />
-        {character.name}
-      </div>
-    ),
-  }));
+  // const AssociatedWithOptions: AssociatedWithOptions[] | undefined = Characters?.map((character) => ({
+  //   name: character.name ?? "",
+  //   characterId: character.id,
+  //   imageUrl: character.imageUrl,
+  //   slug: character.slug  ?? "",
+  //   value: character.name ?? "",
+  //   description: character.name ?? "",
+  //   tag: character.tag ?? "",
+  //   label: (
+  //     <div className="flex flex-row gap-3 items-center">
+  //       <Image
+  //         src={character.imageUrl}
+  //         alt={character?.name ?? ""}
+  //         height={30}
+  //         width={30}
+  //       />
+  //       {character.name}
+  //     </div>
+  //   ),
+  // }));
 
   const form = useForm<z.infer<typeof addCharacterSchema>>({
     resolver: zodResolver(addCharacterSchema),
@@ -377,29 +378,29 @@ const max_stats = 3;
     setSlug(slug);
   }
 
-  const handleAssociationWithSelect = (selectedOptions: any) => {
-    const currentCharacterIds = fields.map(field => (field as AssociatedWithFormData).characterId);
-    const selectedCharacterIds = selectedOptions.map((option: AssociatedWithOptions) => option.characterId);
+  // const handleAssociationWithSelect = (selectedOptions: any) => {
+  //   const currentCharacterIds = fields.map(field => (field as AssociatedWithFormData).characterId);
+  //   const selectedCharacterIds = selectedOptions.map((option: AssociatedWithOptions) => option.characterId);
 
-    fields.forEach((field, idx) => {
-      if(!selectedCharacterIds.includes((field as AssociatedWithFormData).characterId)) {
-        remove(idx);
-      }
-    });
+  //   fields.forEach((field, idx) => {
+  //     if(!selectedCharacterIds.includes((field as AssociatedWithFormData).characterId)) {
+  //       remove(idx);
+  //     }
+  //   });
 
-    selectedOptions.forEach((option: AssociatedWithOptions) => {
-      if(!currentCharacterIds.includes(option.characterId)) {
-        append({
-          characterId: option.characterId,
-          slug: option.slug ?? "",
-          tag: option.tag ?? "",
-          bonus: '', // Initialize bonus as empty
-          name: option.name ?? "", // Include display fields
-          imageUrl: option.imageUrl,
-        }) 
-      }
-    })
-  }
+  //   selectedOptions.forEach((option: AssociatedWithOptions) => {
+  //     if(!currentCharacterIds.includes(option.characterId)) {
+  //       append({
+  //         characterId: option.characterId,
+  //         slug: option.slug ?? "",
+  //         tag: option.tag ?? "",
+  //         bonus: '', // Initialize bonus as empty
+  //         name: option.name ?? "", // Include display fields
+  //         imageUrl: option.imageUrl,
+  //       }) 
+  //     }
+  //   })
+  // }
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -1842,7 +1843,7 @@ const max_stats = 3;
         })) || []}
         isSearchable={isSearchable}
         isDisabled={isPending || !Gifts?.length}
-        onChange={(selectedOption) => {
+        onChange={(selectedOption: any) => {
           if (selectedOption) {
             // Transform the selected option to match your schema's expected format
             field.onChange({
@@ -1897,9 +1898,9 @@ const max_stats = 3;
         })) || []}
         isSearchable={isSearchable}
         isDisabled={isPending || !Foods?.length}
-        onChange={(selectedOptions) => {
+        onChange={(selectedOptions: any) => {
           // Map selected options to the format expected by your schema
-          const transformedValue = selectedOptions.map((option) => ({
+          const transformedValue = selectedOptions.map((option: any) => ({
             id: option.value,
             name: option.label, // Use label for name
             imageUrl: option.imageUrl,
@@ -1948,9 +1949,9 @@ const max_stats = 3;
         })) || []}
         isSearchable={isSearchable}
         isDisabled={isPending || !AssociationsOptions?.length}
-        onChange={(selectedOptions) => {
+        onChange={(selectedOptions: any) => {
           // Map selected options to the format expected by your schema
-          const transformedValue = selectedOptions.map((option) => ({
+          const transformedValue = selectedOptions.map((option: any) => ({
             charaterId: option.value, // Use option.value for characterId
             name: option.label, // Use option.label for name (which is now string)
             slug: option.slug,   // Use option.slug (which is now string)
@@ -1981,7 +1982,7 @@ const max_stats = 3;
 />
 
                 <div className="flex flex-col space-y-4">
-                  <FormField
+                  {/* <FormField
                   control={form.control}
                   name="associationsWith"
                   render={({ field }) => (
@@ -2007,7 +2008,7 @@ const max_stats = 3;
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
                 {fields.length > 0 && (
                   <div>
                   <h3 className="text-white mb-2">Bonuses for associations with:</h3>

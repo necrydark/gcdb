@@ -42,14 +42,13 @@ async function getCollection(userId: string) {
   return data;
 }
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
 
-async function ProfilePage({ params }: PageProps) {
-  const { slug } = params;
+
+type Params = Promise<{slug: string}>
+
+
+async function ProfilePage({params}: {params:Params}) {
+  const { slug } = await params;
 
 
   const data = await getUserDataByUsername({ username: slug as string });

@@ -271,9 +271,9 @@ const AddFoodForm = ({ ingredients}: FoodInterface) => {
                         options={ingredientOptions}
                         isSearchable={isSearchable}
                         isDisabled={isPending || !ingredients?.length}
-                        onChange={(selectedOptions) => {
+                        onChange={(selectedOptions: any) => {
                           field.onChange(
-                            selectedOptions.map((option) => ({
+                            selectedOptions.map((option: any) => ({
                               id: option.id,
                               name: option.name,
                               imageUrl: option.imageUrl,

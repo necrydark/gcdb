@@ -1,8 +1,11 @@
 import { getIngredientById } from "@/data/food";
 import EditIngredientForm from "@/src/components/admin/ingredients/edit-ingredient-form";
 
-async function EditIngredientPage({params}: { params: { slug: string}}) {
-    const ingredient = await getIngredientById(params.slug as string);
+type Params = Promise<{slug: string}>
+
+async function EditIngredientPage({params}: { params: Params}) {
+    const { slug } = await params;
+    const ingredient = await getIngredientById(slug as string);
 
     if(!ingredient) {
         return <div>Ingredient not found.</div>

@@ -414,9 +414,9 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                         options={materialOptions}
                         isSearchable={isSearchable}
                         isDisabled={isPending || !materials?.length}
-                        onChange={(selectedOptions) => {
+                        onChange={(selectedOptions: any) => {
                           field.onChange(
-                            selectedOptions.map((option) => ({
+                            selectedOptions.map((option: any) => ({
                               id: option.id,
                               name: option.name,
                               imageUrl: option.imageUrl,
@@ -448,9 +448,9 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                         options={characterOptions}
                         isSearchable={isSearchable}
                         isDisabled={isPending || !characters?.length}
-                        onChange={(selectedOptions) => {
+                        onChange={(selectedOptions: any) => {
                           field.onChange(
-                            selectedOptions.map((option) => ({
+                            selectedOptions.map((option: any) => ({
                               id: option.characterId,
                               name: option.name,
                               imageUrl: option.imageUrl,

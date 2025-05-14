@@ -5,10 +5,15 @@ import db from "@/src/lib/db";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 
-export default async function GiftViewPage({ params}: { params: { slug: string}}) {
-    const gift = await getGiftById(params.slug);
+type Params = Promise<{slug: string}>
+
+
+export default async function GiftViewPage({ params}: { params: Params}) {
+
+    const {slug } = await params;
+    const gift = await getGiftById(slug);
     const existingGifts = await db.gift.findUnique({
-        where: {id: params.slug},
+        where: {id: slug},
         include: {
             Character: true
         }

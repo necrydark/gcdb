@@ -3,9 +3,13 @@ import EditUserForm from "@/src/components/admin/users/edit-user-form"
 import { Loader2 } from "lucide-react"
 import { Suspense } from "react"
 
-export default async function EditUserPage({ params}: { params: {slug: string}}) {
+type Params = Promise<{slug: string}>
 
-    const user = await getUserById(params.slug as string)
+
+export default async function EditUserPage({ params}: { params: Params}) {
+
+    const { slug } = await params;
+    const user = await getUserById(slug as string)
 
     if(!user) {
         return (
