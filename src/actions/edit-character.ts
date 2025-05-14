@@ -7,12 +7,12 @@ import {
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { characterUltimateSchema, editCharacterSchema, skillSchema } from "../schemas/schema";
+import { characterUltimateSchema, editCharacterSchema, skillSchema, statsSchema } from "../schemas/schema";
 
 type EditCharacterData = z.infer<typeof editCharacterSchema>
 type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
 type SkillData = z.infer<typeof skillSchema>
-
+type StatData = z.infer<typeof statsSchema>
 
 export const editCharacter = async (
   values: EditCharacterData
@@ -37,20 +37,7 @@ export const editCharacter = async (
     race,
     attribute,
     rarity,
-    combatClass,
-    attack,
-    defense,
-    hp,
-    pierceRate,
-    resistance,
-    regeneration,
-    critChance,
-    critDamage,
-    critDefense,
-    releaseDate,
-    critResistance,
-    recoveryRate,
-    lifesteal,
+
     gender,
     bloodType,
     age,
@@ -71,11 +58,20 @@ export const editCharacter = async (
     skills,
     // holyRelic,
     characterUltimate,
+    stats
   } = validatedFields.data;
 
+
+  
+  const MAX_STATS = 3;
+  if(stats.length > MAX_STATS) {
+    return { error: `a character cannot have more ${MAX_STATS} stats.`}
+  }
+  
   const typedId = id as string;
   const typedCharacterUltimate = characterUltimate as CharacterUltimateData;
   const typedSkills = skills as SkillData[];
+  const typedStats = stats as StatData[];
 
   const existingCharacterById = await getCharacterById(id as string);
 
@@ -123,33 +119,52 @@ export const editCharacter = async (
       passiveJpName,
       passiveDescription,
       passiveCCNeeded,
-      // ultimate: {
-      //   update: {
-      //     where: {
-      //       id: typedCharacterUltimate.ultimateId,
-      //     },
-      //     data: {
-      //       name: typedCharacterUltimate.name,
-      //       jpName: typedCharacterUltimate.jpName,
-      //       imageUrl: typedCharacterUltimate.imageUrl,
-      //       description: typedCharacterUltimate.description,
-      //       extraInfo: {
-      //         set: typedCharacterUltimate.extraInfo?.filter(
-      //             (info) => typeof info === "string"
-      //           ) ?? [], 
-      //       },
-      //     },
-      //   },
-      // },
+      stats: {
+        updateMany: typedStats.map(stat => ({
+          where: {
+            id: (stat as any).id
+          },
+          data: {
+            level: stat.level,
+            combatClass: stat.combatClass,
+            attack: stat.attack,
+            defense: stat.defense,
+            hp: stat.hp,
+            pierceRate: stat.pierceRate,
+            resistance: stat.resistance,
+            regeneration: stat.regeneration,
+            critChance: stat.critChance,
+            critDamage: stat.critDamage,
+            critResistance: stat.critResistance,
+            critDefense: stat.critDefense,
+            recoveryRate: stat.recoveryRate,
+            lifesteal: stat.lifesteal,
+          }
+        }))
+      },
+      ultimate: {
+        update: {
+          where: {
+            id: typedCharacterUltimate.ultimateId,
+          },
+          data: {
+            name: typedCharacterUltimate.name,
+            jpName: typedCharacterUltimate.jpName,
+            imageUrl: typedCharacterUltimate.imageUrl,
+            description: typedCharacterUltimate.description,
+            extraInfo: typedCharacterUltimate.extraInfo,
+          },
+        },
+      },
       skills: {
         update: typedSkills.map((skill,) => ({
-          where: { id: (skill as any).id }, // Add the id property to the where object
+          where: { id: (skill as any).id }, 
           data: {
             name: skill.name,
             jpName: skill.jpName,
             imageUrl: skill.imageUrl,
             skillRanks: {
-              deleteMany: {}, // Clear existing skillRanks
+              deleteMany: {}, 
               create: skill.skillRanks.map((sr) => ({
                 rank: sr.rank,
                 description: sr.description,
@@ -202,27 +217,7 @@ export const editCharacter = async (
   //       bonus: a.bonus,
   //     })) || [],
   // },
-  // holyRelic: holyRelic
-  //   ? {
-  //       create: holyRelic.map((a) => ({
-  //         name: a.name || "",
-  //         effect: a.effect,
-  //         attack: a.attack.toString(),
-  //         hp: a.hp.toString(),
-  //         defense: a.defense.toString(),
-  //         beast: a.beast,
-  //         materials: {
-  //           create: a.materials
-  //             .filter((material) => material.imageUrl !== undefined)
-  //             .map((material) => ({
-  //               name: material.name || "",
-  //               imageUrl: material.imageUrl!, // Non-null assertion, since we filtered out undefined
-  //             })),
-  //         },
-  //       })),
-  //     }
-  //   : undefined,
-
   revalidatePath("/src/app/(protected)/admin/(*.)");
+  revalidatePath("/characters")
   return { success: "Character Created" };
 };
