@@ -25,33 +25,21 @@ interface Character {
   slug: string;
 }
 
-type SearchParams = {
-  page?: string;
-  search?: string;
-  attribute?: string;
-  race?: string;
-  rarity?: string;
-  game?: string;
-};
 
-interface Props {
-  searchParams: SearchParams;
-}
-
-
-
+type searchParams = Promise<{ params: Record<string, string>}>
 
 // This is a Server Component
-async function Characters({ searchParams }: Props) {
+async function Characters({ searchParams }: { searchParams: searchParams}) {
 
+  const { params } = await searchParams;
   
-  const page = parseInt(searchParams.page || "1", 10);
-  const search = searchParams.search || "";
-  const attribute = searchParams.attribute || "";
-  const race = searchParams.race || "";
-  const rarity = searchParams.rarity || "";
-  const game = searchParams.game || "";
-searchParams
+  const page = parseInt(params.page || "1", 10);
+  const search = params.search || "";
+  const attribute = params.attribute || "";
+  const race = params.race || "";
+  const rarity = params.rarity || "";
+  const game = params.game || "";
+
   const user = await auth();
 
   const allCharacters = await db.character.findMany({
