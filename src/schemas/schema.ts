@@ -12,7 +12,7 @@ import {
   UserRole,
 } from "@prisma/client";
 import { z } from "zod";
-import { giftSchema } from "./admin/schema";
+import { foodSchema, giftSchema } from "./admin/schema";
 
 export const adminSchema = z.object({
   name: z.optional(z.string()),
@@ -503,13 +503,7 @@ export const editCharacterSchema = z.object({
   ),
   food: z.optional(
     z.array(
-      z.object({
-        name: z.string().min(1, "Food name is required"),
-        imageUrl: z.string(),
-        effect: z.string(),
-        mealId: z.number().min(1, "Meal ID is required"),
-        characterId: z.string(),
-      })
+      foodSchema
     )
   ),
   passiveName: z.string().min(1, "Passive Name is required"),

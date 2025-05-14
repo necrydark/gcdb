@@ -82,7 +82,7 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
     const typedCharacters = characters  as CharacterData[];
 
 
-      const createdRelic = await db.holyRelic.create({
+     await db.holyRelic.create({
         data: {
           name,
           imageUrl,

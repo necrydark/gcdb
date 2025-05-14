@@ -8,11 +8,14 @@ import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
 import { characterUltimateSchema, editCharacterSchema, skillSchema, statsSchema } from "../schemas/schema";
+import { foodSchema, giftSchema } from "../schemas/admin/schema";
 
 type EditCharacterData = z.infer<typeof editCharacterSchema>
 type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
 type SkillData = z.infer<typeof skillSchema>
 type StatData = z.infer<typeof statsSchema>
+type GiftData = z.infer<typeof giftSchema>
+type FoodData = z.infer<typeof foodSchema>
 
 export const editCharacter = async (
   values: EditCharacterData
@@ -46,8 +49,8 @@ export const editCharacter = async (
     weight,
     location,
     CV,
-    // gifts,
-    // food,
+    gifts,
+    food,
     // associations,
     // associationsWith,
     passiveName,
@@ -72,6 +75,8 @@ export const editCharacter = async (
   const typedCharacterUltimate = characterUltimate as CharacterUltimateData;
   const typedSkills = skills as SkillData[];
   const typedStats = stats as StatData[];
+  const typedGift = gifts as GiftData;
+  const typedFood = food as FoodData[];
 
   const existingCharacterById = await getCharacterById(id as string);
 
@@ -156,6 +161,14 @@ export const editCharacter = async (
           },
         },
       },
+      gift: {
+        connect: {
+          id: typedGift.id
+        }
+      },
+      food: {
+        connect: typedFood.map((food) => ({id: food.id}))
+      },
       skills: {
         update: typedSkills.map((skill,) => ({
           where: { id: (skill as any).id }, 
@@ -176,15 +189,6 @@ export const editCharacter = async (
       },
     },
   });
-
-  // gift: {
-  //   create: (gifts ?? []).map((gift) => ({
-  //     name: gift.name,
-  //     description: gift.description,
-  //     imageUrl: gift.imageUrl,
-  //     characterId: gift.characterId,
-  //   })),
-  // },
 
   // associations: {
   //   create:

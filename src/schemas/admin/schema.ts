@@ -75,6 +75,7 @@ export const userSchema = z.object({
 
 
   export const foodSchema = z.object({
+  id: z.string(),
     name: z.string().min(2, {
       message: "Name must be at least 2 characters.",
     }),
