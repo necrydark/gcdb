@@ -114,6 +114,20 @@ export const getGiftByName = async(name: string) => {
   }
 }
 
+export const getGiftById = async (giftId: string) => {
+  try {
+    const gift = await db.gift.findUnique({
+      where: {
+        id: giftId
+      }
+    })
+
+    return gift;
+  } catch {
+    return null
+  }
+}
+
 export const addGift = async (values: z.infer<typeof giftSchema>) => {
   const validatedFields = giftSchema.safeParse(values);
 
