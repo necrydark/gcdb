@@ -23,6 +23,10 @@ export default async function Navbar() {
       url: "/relics",
     },
     {
+      name: "Resources",
+      url: "/resources"
+    },
+    {
       name: "Login",
       url: "/auth/login",
     },

@@ -13,6 +13,8 @@ export const publicRoutes = [
   "/status_effect",
   "/contact",
   "/gear",
+  "/resources",
+  "/resources/(*)",
   /^\/characters\/[a-zA-Z0-9_-]+$/,
   "/auth/confirm-email",
   /^\/profile\/[a-zA-Z0-9_-]+$/,
