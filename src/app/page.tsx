@@ -17,6 +17,7 @@ import { Rarity } from "@prisma/client";
 import Image from "next/image";
 import { getRarityColour } from "../lib/rarity-colours";
 import { currentUser } from "../utils/auth";
+import { getAllPosts } from "../lib/posts";
 
 async function getCharactersByDate() {
   try {
@@ -58,11 +59,8 @@ export default async function HomePage() {
     return date.toLocaleDateString("en-GB", { year: "numeric", month: "short", day: "numeric" })
   }
 
+  const changelogs = getAllPosts();
 
-
-  // const relics = await getRelicsByReleaseDate();
-  // const visible = { opacity: 1, y: 0, transition: { duration: 0.5 } };
-  // const hidden = { opacity: 0, y: -10 };
   return (
     <div
       className="min-h-screen flex flex-col  bg-background transition-all duration-300"
@@ -215,6 +213,29 @@ export default async function HomePage() {
       
 
       {/* Latest Content Additions */}
+      <section className="py-12 px-4 bg-purple-700/50">
+      <div className="container mx-auto max-w-6xl">
+        <h2 className="text-3xl font-bold mb-8 text-white">
+          Changelogs
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {changelogs?.slice(0,2).map((changelog, idx) => (
+                       <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0" key={idx}>
+                       <CardHeader>
+                           <CardTitle>{changelog.data.title}</CardTitle>
+                           <CardDescription className="text-gray-300">{changelog.data.date}</CardDescription>
+                       </CardHeader>
+                       <CardFooter>
+                           <Button  className="w-full rounded-[5px] transition-all duration-250 bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white" asChild >
+                           <Link className="no-underline" href={`/changelog/${changelog.data.slug}`}>Read More</Link>
+                           </Button>
+                       </CardFooter>
+                   </Card>
+          ))}
+        </div>
+      </div>
+      </section>
 
       {/* Community & Resources */}
       <section className="py-12 px-4 bg-purple-700/50">

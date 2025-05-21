@@ -6,7 +6,6 @@ function Loading() {
       <h1 className="text-3xl font-extrabold text-center tracking-tight mt-6">
         Your Collection
       </h1>
-
       <div className="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-8 mt-8">
         <Skeleton />
         <Skeleton />

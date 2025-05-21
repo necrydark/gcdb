@@ -124,7 +124,7 @@ export default function CommentCard({
     </div>
        {(comment.userId === userId || userRole === "ADMIN" || userRole === "OWNER" || userRole ==="COOWNER") && (
     <DropdownMenu modal={false}>
-     <DropdownMenuTrigger className='hover:bg-purple-950 rounded-full' asChild>
+     <DropdownMenuTrigger className='hover:bg-purple-950 dark:hover:bg-purple-950 rounded-full' asChild>
      <EllipsisVertical className="h-4 w-4 text-white" />
      </DropdownMenuTrigger>
      <DropdownMenuContent className="dark:bg-purple-950 bg-purple-700">

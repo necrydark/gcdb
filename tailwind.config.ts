@@ -15,6 +15,15 @@ const config = {
   prefix: "",
   theme: {
   	extend: {
+		typography: () => ({
+			DEFAULT: {
+				css: {
+					"--tw-prose-headings": "text-white",
+					"--tw-prose-quotes": "text-white",
+					"--tw-prose-counters": "text-white",
+				}
+			}
+		}),
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',

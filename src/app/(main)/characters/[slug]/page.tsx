@@ -14,7 +14,7 @@ import { currentUser } from "@/src/utils/auth";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import stupidhusky from "/public/stupid-husky.jpg"
+import stupidhusky from "@/public/stupid-husky.jpg"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
 import { EllipsisVertical } from "lucide-react";
 
@@ -121,7 +121,12 @@ async function getCharacterFromDb(slug: string){
   }
 }
 
-export default async function CharacterPage({ params: { slug } }: any) {
+export default async function CharacterPage(props: any) {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
 
   const user = await currentUser();
   //find a character using custom handler
@@ -138,16 +143,16 @@ export default async function CharacterPage({ params: { slug } }: any) {
     description: character?.passiveDescription || "",
 }
 
-const miscInfo: CharacterMiscInfo = {
-  gender: character?.gender || "",
-  location: character?.location || "",
-  age: character?.age || "",
-  birthday: character?.birthday || "",
-  bloodType: character?.bloodType || "",
-  CV: character?.CV || "",
-  height: character?.height || "",
-  weight: character?.weight || ""
-}
+  const miscInfo: CharacterMiscInfo = {
+    gender: character?.gender || "",
+    location: character?.location || "",
+    age: character?.age || "",
+    birthday: character?.birthday || "",
+    bloodType: character?.bloodType || "",
+    CV: character?.CV || "",
+    height: character?.height || "",
+    weight: character?.weight || ""
+  }
 
 
   // If a character is not found then redirect to the characters page and display a message

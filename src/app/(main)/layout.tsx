@@ -26,29 +26,10 @@ export default async function RootLayout({
 }) {
   const session = await auth();
   return (
-      <html lang="en" className="dark">
-        <body className={inter.className}>
-          <Providers >
             <div className="min-h-screen flex flex-col text-gray-900 bg-background transition-all duration-300 dark:text-white">
-              {session && <AuthNavbar />}
-              {!session && <Navbar />}
-              <div className="flex-1  transition-all duration-300 bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900" suppressHydrationWarning>
-                <NextSSRPlugin
-                  /**
-                   * The `extractRouterConfig` will extract **only** the route configs
-                   * from the router to prevent additional information from being
-                   * leaked to the client. The data passed to the client is the same
-                   * as if you were to fetch `/api/uploadthing` directly.
-                   */
-                  routerConfig={extractRouterConfig(ourFileRouter)}
-                />
+              <div className="flex-1  transition-all duration-300 bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900">
                 {children}
               </div>
-              <Toaster />
-              <Footer />
             </div>
-          </Providers>
-        </body>
-      </html>
   );
 }
