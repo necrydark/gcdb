@@ -54,8 +54,11 @@ model User {
   Collection             Collection[]
   isTwoFactorEnabled    Boolean?               @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-
-
+  stripeCustomerId String? @unique @map("stripe_customer_id")
+  stripeSubscriptionId String? @unique @map("stripe_subscription_id")
+  stripePriceId String?
+  stripeCurrentEndPeriod DateTime?
+  subscriptionStatus String?
 
   @@unique([email])
   @@map("users")
@@ -409,3 +412,4 @@ model Comments {
 
   @@map("comments")
 }
+

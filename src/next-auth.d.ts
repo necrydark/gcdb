@@ -10,6 +10,11 @@ export type ExtendedUser = DefaultSession["user"] & {
   bio: string;
   boxCC: string;
   ingameRank: string;
+  stripeCustomerId?: string | null;
+      stripeSubscriptionId?: string | null;
+      stripePriceId?: string | null;
+      stripeCurrentPeriodEnd?: Date | null;
+      subscriptionStatus?: string | null;
 };
 
 declare module "next-auth" {
