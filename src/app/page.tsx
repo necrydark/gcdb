@@ -17,6 +17,7 @@ import { Rarity } from "@prisma/client";
 import Image from "next/image";
 import { getRarityColour } from "../lib/rarity-colours";
 import { currentUser } from "../utils/auth";
+import Pricing from "../components/pricing";
 
 async function getCharactersByDate() {
   try {
@@ -351,6 +352,16 @@ export default async function HomePage() {
             </Card>
           </div>
         </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="py-12 px-4 bg-purple-700/50">
+      <div className="container mx-auto max-w-6xl">
+      <h2 className="text-3xl font-bold mb-8 text-white">
+            Pricing
+          </h2>
+          <Pricing />
+      </div>
       </section>
       <Footer />
     </div>
