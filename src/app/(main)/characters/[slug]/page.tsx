@@ -210,7 +210,7 @@ export default async function CharacterPage(props: any) {
           </div>
         )}
 
-        <div className="mt-6">
+        <div className="mt-6 space-y-6">
           {comments?.map((comment, idx) => (
             <Card  className="bg-purple-400 px-2 dark:bg-purple-900 text-white rounded-[5px] dark:border-purple-400" key={idx}>
                 <CardHeader className="flex flex-row gap-4 justify-between">

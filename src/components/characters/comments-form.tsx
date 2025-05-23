@@ -84,7 +84,7 @@ function CommentsForm({ characterId, slug }: Props) {
               )}
             />
            <div className="flex justify-end mt-5 w-full">
-           <Button type="submit" className="rounded-[5px] border-white border-[1px] bg-purple-500/70 z-50 hover:bg-purple-600 dark:hover:bg-purple-900 transition-all duration-300" disabled={isPending}>
+           <Button type="submit" className="rounded-[5px] border-white border-[1px] bg-purple-500/70 z-50 hover:bg-purple-600 dark:hover:bg-purple-900 transition-all text-white duration-300" disabled={isPending}>
               Add Comment
             </Button>
            </div>

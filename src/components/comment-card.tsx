@@ -104,7 +104,6 @@ export default function CommentCard({
     )
   }
 
-  console.log(isPending);
 
   return (
     <Card
