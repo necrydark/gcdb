@@ -1,6 +1,6 @@
 "use client";
 
-import AddUserForm from "@/src/components/admin/add-user-form";
+
 import { Button } from "@/src/components/ui/button";
 import {
   Dialog,
@@ -123,7 +123,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead className="text-white" key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(

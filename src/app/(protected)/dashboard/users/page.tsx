@@ -11,7 +11,6 @@ import { DataTable } from "./data-table";
 import { getCharacterCount } from "@/data/character";
 import { getRelicCount } from "@/data/relics";
 import { Dialog, DialogContent, DialogTrigger } from "@/src/components/ui/dialog";
-import AddUserForm from "@/src/components/admin/add-user-form";
 import { Download, Plus } from "lucide-react";
 import ExportButton from "./export-button";
 

@@ -109,22 +109,22 @@ export default function CommentCard({
   return (
     <Card
     key={idx}
-    className={`${cardColours(colour as string)} border-0`}
+    className={`${cardColours(colour as string)} border-0 rounded-[5px]`}
   >
    <CardHeader className="flex flex-row justify-between">
     <div>
-    <CardTitle className="flex flex-row gap-2">
+    <CardTitle className="flex text-white flex-row gap-2">
       <h1> {comment.character.name}</h1>
        ・{" "} 
        <p>{comment.character.tag}</p>
      </CardTitle>
-     <p className="text-xs mt-2">
+     <p className="text-xs text-gray-300 mt-2">
       {formatDate(comment.createdAt.toLocaleDateString())}
      </p>
     </div>
        {(comment.userId === userId || userRole === "ADMIN" || userRole === "OWNER" || userRole ==="COOWNER") && (
     <DropdownMenu modal={false}>
-     <DropdownMenuTrigger className='hover:bg-purple-950 dark:hover:bg-purple-950 rounded-full' asChild>
+     <DropdownMenuTrigger className='hover:bg-purple-950 dark:hover:bg-purple-950 rounded-[5px]' asChild>
      <EllipsisVertical className="h-4 w-4 text-white" />
      </DropdownMenuTrigger>
      <DropdownMenuContent className="dark:bg-purple-950 bg-purple-700">

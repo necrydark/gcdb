@@ -14,9 +14,10 @@ import {
 } from "@/src/components/ui/tooltip";
 import { ArrowLeftRight, Calendar, Gamepad2 } from "lucide-react";
 import { useShowJapanese } from "../eng-jp";
-import { Character } from "@prisma/client";
+import { AchievementCategory, AchievementType, Character } from "@prisma/client";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import CollectionButtonChar from "../collection-button-char";
+
 
 
 type Props = {
@@ -83,17 +84,17 @@ function CharacterHeader({
       <div className="flex flex-col justify-center flex-1">
         <div className="flex flex-col md:flex-row justify-between items-center gap-2 mb-2">
           <div className="flex-1">
-            <h1 className="text-3xl md:text-left text-center  font-bold">
+            <h1 className="text-3xl md:text-left text-white text-center  font-bold">
               {showJapanese ? character?.jpName : character?.name}
             </h1>
-            <p className="text-muted-foreground md:text-left text-center">
+            <p className="text-white md:text-left text-center">
               {showJapanese ? character?.jpTag  : character?.tag}
             </p>
           </div>
 
           <div className="flex items-center h-full gap-2 md:self-start">
             <div className="flex items-center space-x-2">
-              <Label htmlFor="language-toggle" className="text-sm">
+              <Label htmlFor="language-toggle" className="text-sm text-white">
                 EN
               </Label>
               <Switch
@@ -102,7 +103,7 @@ function CharacterHeader({
                 checked={showJapanese}
                 onCheckedChange={toggleShowJapanese}
               />
-              <Label htmlFor="language-toggle" className="text-sm">
+              <Label htmlFor="language-toggle" className="text-sm text-white">
                 JP
               </Label>
             </div>
@@ -150,11 +151,11 @@ function CharacterHeader({
                   <TooltipTrigger asChild>
                   <button className="inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-purple-400 text-purple-600 gap-1">
                       <ArrowLeftRight className="w-3 h-3" />
-                      <span>Crossover: {character?.Crossover}</span>
+                      <span>Crossover: {character?.Crossover === "NotCrossover" ? "Not Crossover" : "Crossover" }</span>
                     </button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{character?.Crossover}</p>
+                    <p>{character?.Crossover === "NotCrossover" ? "Not Crossover" : "Crossover" }</p>
                   </TooltipContent>
                 </Tooltip>
           )}

@@ -417,7 +417,7 @@ function EditCharacterForm({
             <h1 className="text-2xl leading-tight tracking-tight font-extrabold text-white">
               Edit Character
             </h1>
-            <p className="text-gray-300">
+            <p className="dark:text-gray-300 text-gray-500">
               Edit {Character?.name}
             </p>
           </div>
@@ -437,8 +437,8 @@ function EditCharacterForm({
           <TabsContent value="basic" className="space-y-6">
             <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
               <CardHeader>
-              <CardTitle>Basic Information</CardTitle>
-              <CardDescription>Enter the basic information about {Character?.name}</CardDescription>
+              <CardTitle className="text-white">Basic Information</CardTitle>
+              <CardDescription className="text-gray-300">Enter the basic information about {Character?.name}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                   <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
@@ -447,7 +447,7 @@ function EditCharacterForm({
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>English Name</FormLabel>
+                          <FormLabel className="text-white">English Name</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -466,7 +466,7 @@ function EditCharacterForm({
                       name="jpName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Japanese Name</FormLabel>
+                          <FormLabel className="text-white">Japanese Name</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -487,7 +487,7 @@ function EditCharacterForm({
                       name="tag"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>English Tag</FormLabel>
+                          <FormLabel className="text-white">English Tag</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -506,7 +506,7 @@ function EditCharacterForm({
                       name="jpTag"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Japanese Tag</FormLabel>
+                          <FormLabel className="text-white">Japanese Tag</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -528,7 +528,7 @@ function EditCharacterForm({
                       render={({ field }) => (
                         <FormItem>
                           <div className="flex justify-between items-center  flex-row gap-6">
-                          <FormLabel>Slug</FormLabel>
+                          <FormLabel className="text-white">Slug</FormLabel>
                           <Button
                                 onClick={generateSlug}
                                 type="button"
@@ -550,7 +550,7 @@ function EditCharacterForm({
                               />
                          
                           </FormControl>
-                          <FormDescription>
+                          <FormDescription className="text-gray-300">
                             URL-friendly version of the name
                           </FormDescription>
                           <FormMessage />
@@ -563,7 +563,7 @@ function EditCharacterForm({
                       name="imageUrl"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Image URL</FormLabel>
+                          <FormLabel className="text-white">Image URL</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -584,7 +584,7 @@ function EditCharacterForm({
                       name="race"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Race</FormLabel>
+                          <FormLabel className="text-white">Race</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -650,7 +650,7 @@ function EditCharacterForm({
                       name="attribute"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Attribute</FormLabel>
+                          <FormLabel className="text-white">Attribute</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -704,7 +704,7 @@ function EditCharacterForm({
                       name="rarity"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Rarity</FormLabel>
+                          <FormLabel className="text-white">Rarity</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -760,7 +760,7 @@ function EditCharacterForm({
                       name="game"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Race</FormLabel>
+                          <FormLabel className="text-white">Race</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -851,7 +851,7 @@ function EditCharacterForm({
                       name="crossover"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Crossover</FormLabel>
+                          <FormLabel className="text-white">Crossover</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -887,7 +887,7 @@ function EditCharacterForm({
                       name="event"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Event</FormLabel>
+                          <FormLabel className="text-white">Event</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -937,7 +937,7 @@ function EditCharacterForm({
                       name="releaseDate"
                       render={({ field }) => (
                         <FormItem className="flex w-full flex-col">
-                          <FormLabel>Character Release Date</FormLabel>
+                          <FormLabel className="text-white">Character Release Date</FormLabel>
                           <Popover>
                             <PopoverTrigger
                               className="bg-purple-600 dark:bg-purple-800 border-purple-900 border-[2px] w-full rounded-[5px]"
@@ -988,8 +988,8 @@ function EditCharacterForm({
           <TabsContent value="details" className="space-y-6">
             <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
                 <CardHeader>
-                  <CardTitle>Character Details</CardTitle>
-                  <CardDescription>
+                  <CardTitle  className="text-white">Character Details</CardTitle>
+                  <CardDescription className="text-gray-300">
                   Enter additional details about the character.
                   </CardDescription>
                 </CardHeader> 
@@ -1000,7 +1000,7 @@ function EditCharacterForm({
                       name="bloodType"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Blood Type</FormLabel>
+                          <FormLabel className="text-white">Blood Type</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1019,7 +1019,7 @@ function EditCharacterForm({
                       name="age"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Age</FormLabel>
+                          <FormLabel className="text-white">Age</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1040,7 +1040,7 @@ function EditCharacterForm({
                       name="birthday"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Birthday</FormLabel>
+                          <FormLabel className="text-white">Birthday</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1059,7 +1059,7 @@ function EditCharacterForm({
                       name="height"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Height</FormLabel>
+                          <FormLabel className="text-white">Height</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1080,7 +1080,7 @@ function EditCharacterForm({
                       name="weight"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Weight</FormLabel>
+                          <FormLabel className="text-white">Weight</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1099,7 +1099,7 @@ function EditCharacterForm({
                       name="location"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Location</FormLabel>
+                          <FormLabel className="text-white">Location</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1120,7 +1120,7 @@ function EditCharacterForm({
                       name="gender"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Gender</FormLabel>
+                          <FormLabel className="text-white">Gender</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -1162,7 +1162,7 @@ function EditCharacterForm({
                       name="CV"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Voice Actor (CV)</FormLabel>
+                          <FormLabel className="text-white">Voice Actor (CV)</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1184,7 +1184,7 @@ function EditCharacterForm({
                       name="passiveName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Passive Name</FormLabel>
+                          <FormLabel className="text-white">Passive Name</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1203,7 +1203,7 @@ function EditCharacterForm({
                       name="passiveJpName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Passive Name (Japanese)</FormLabel>
+                          <FormLabel className="text-white">Passive Name (Japanese)</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1224,7 +1224,7 @@ function EditCharacterForm({
                       name="passiveImageUrl"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Passive Image URL</FormLabel>
+                          <FormLabel className="text-white">Passive Image URL</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1243,7 +1243,7 @@ function EditCharacterForm({
                       name="passiveCCNeeded"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Passive CC Needed</FormLabel>
+                          <FormLabel className="text-white">Passive CC Needed</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1263,7 +1263,7 @@ function EditCharacterForm({
                           name="passiveDescription"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Passive Description</FormLabel>
+                              <FormLabel className="text-white">Passive Description</FormLabel>
                               <FormControl>
                                 <Textarea
                                   {...field}
@@ -1281,16 +1281,16 @@ function EditCharacterForm({
             <TabsContent value="stats" className="space-y-6">
            <Card className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
                   <CardHeader>
-                    <CardTitle>
+                    <CardTitle  className="text-white">
                       Charater Skills
                     </CardTitle>
-                    <CardDescription>Enter the characters skills and ranks.</CardDescription>
+                    <CardDescription className="text-gray-300">Enter the characters skills and ranks.</CardDescription>
                   </CardHeader>
                   <CardContent >
                     {statFields.map((field, idx) => (
                       <div className="p-4 space-y-6" key={idx}>
                       <div className="flex flex-row justify-between items-center gap-4">
-                      <h3 className="text-md font-medium">Stat {idx + 1}</h3>
+                      <h3 className="text-md font-medium text-white">Stat {idx + 1}</h3>
                         {statFields.length > 1 && (
                 <Button type="button" 
               className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
@@ -1306,7 +1306,7 @@ function EditCharacterForm({
                 name={`stats.${idx}.level`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Level</FormLabel>
+                    <FormLabel className="text-white">Level</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger className="border-purple-900 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 ">
@@ -1345,7 +1345,7 @@ function EditCharacterForm({
                 name={`stats.${idx}.combatClass`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Combat Class</FormLabel>
+                    <FormLabel className="text-white">Combat Class</FormLabel>
                     <FormControl>
                       <Input type="number"
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1361,7 +1361,7 @@ function EditCharacterForm({
                 name={`stats.${idx}.attack`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Attack</FormLabel>
+                    <FormLabel className="text-white">Attack</FormLabel>
                     <FormControl>
                       <Input type="number" {...field}
                       
@@ -1379,7 +1379,7 @@ function EditCharacterForm({
                 name={`stats.${idx}.defense`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Defense</FormLabel>
+                    <FormLabel className="text-white">Defense</FormLabel>
                     <FormControl>
                       <Input type="number" {...field}
                       
@@ -1395,7 +1395,7 @@ function EditCharacterForm({
                 name={`stats.${idx}.hp`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>HP</FormLabel>
+                    <FormLabel className="text-white">HP</FormLabel>
                     <FormControl>
                       <Input type="number" 
                       
@@ -1413,7 +1413,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.pierceRate`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Pierce Rate</FormLabel>
+                        <FormLabel className="text-white">Pierce Rate</FormLabel>
                         <FormControl>
                           <Input 
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1428,7 +1428,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.resistance`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Resistance</FormLabel>
+                        <FormLabel className="text-white">Resistance</FormLabel>
                         <FormControl>
                           <Input
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1445,7 +1445,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.regeneration`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Regeneration</FormLabel>
+                        <FormLabel className="text-white">Regeneration</FormLabel>
                         <FormControl>
                           <Input
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1460,7 +1460,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.critChance`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Crit Chance</FormLabel>
+                        <FormLabel className="text-white">Crit Chance</FormLabel>
                         <FormControl>
                           <Input  
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1477,7 +1477,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.critDamage`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Crit Damage</FormLabel>
+                        <FormLabel className="text-white">Crit Damage</FormLabel>
                         <FormControl>
                           <Input 
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1492,7 +1492,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.critResistance`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Crit Resistance</FormLabel>
+                        <FormLabel className="text-white">Crit Resistance</FormLabel>
                         <FormControl>
                           <Input 
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1509,7 +1509,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.critDefense`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Crit Defense</FormLabel>
+                        <FormLabel className="text-white">Crit Defense</FormLabel>
                         <FormControl>
                           <Input 
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1524,7 +1524,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.recoveryRate`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Recovery Rate</FormLabel>
+                        <FormLabel className="text-white">Recovery Rate</FormLabel>
                         <FormControl>
                           <Input
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1541,7 +1541,7 @@ function EditCharacterForm({
                     name={`stats.${idx}.lifesteal`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Lifesteal</FormLabel>
+                        <FormLabel className="text-white">Lifesteal</FormLabel>
                         <FormControl>
                           <Input  
                               className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
@@ -1572,15 +1572,15 @@ function EditCharacterForm({
                 <TabsContent value="skills" className="space-y-6">
               <Card className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
                   <CardHeader>
-                    <CardTitle>
+                    <CardTitle className="text-white">
                       Charater Skills
                     </CardTitle>
-                    <CardDescription>Enter the characters skills and ranks.</CardDescription>
+                    <CardDescription className="text-gray-300">Enter the characters skills and ranks.</CardDescription>
                   </CardHeader>
                   <CardContent>
                   {[0, 1].map((skillIndex) => (
                 <div className="p-4 " key={skillIndex}>
-                    <h3  className="text-lg font-medium">
+                    <h3  className="text-lg font-medium text-white">
                     Skill {skillIndex + 1}
 
                     </h3>
@@ -1590,7 +1590,7 @@ function EditCharacterForm({
                       name={`skills.${skillIndex}.name`}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Skill Name</FormLabel>
+                          <FormLabel className="text-white">Skill Name</FormLabel>
                           <FormControl>
                             <Input {...field} placeholder="Skill Name"
                             
@@ -1606,7 +1606,7 @@ function EditCharacterForm({
                       name={`skills.${skillIndex}.jpName`}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Japanese Skill Name</FormLabel>
+                          <FormLabel className="text-white">Japanese Skill Name</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -1623,7 +1623,7 @@ function EditCharacterForm({
                       name={`skills.${skillIndex}.imageUrl`}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Image URL</FormLabel>
+                          <FormLabel className="text-white">Image URL</FormLabel>
                           <FormControl>
                             <Input {...field} placeholder="Image URL"
                             disabled={isPending}
@@ -1636,19 +1636,19 @@ function EditCharacterForm({
                     />
                   </div>
 
-                  <h4 className="text-md font-medium mt-4 mb-2">
+                  <h4 className="text-md font-medium text-white mt-4 mb-2">
                     Skill Ranks
                   </h4>
                   <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
                     {[0, 1, 2].map((rankIndex) => (
                       <div className="flex flex-col gap-4" key={rankIndex}>
-                        <h6>Rank {rankIndex + 1}</h6>
+                        <h6 className="text-white">Rank {rankIndex + 1}</h6>
                         <FormField
                           control={form.control}
                           name={`skills.${skillIndex}.skillRanks.${rankIndex}.rank`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Rank</FormLabel>
+                              <FormLabel className="text-white">Rank</FormLabel>
                               <FormControl>
                                 <Input
                                   {...field}
@@ -1668,7 +1668,7 @@ function EditCharacterForm({
                           name={`skills.${skillIndex}.skillRanks.${rankIndex}.type`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Rank Type</FormLabel>
+                              <FormLabel className="text-white">Rank Type</FormLabel>
                               <FormControl>
                                 <Input {...field} placeholder="Rank Type" 
                                                             disabled={isPending}
@@ -1683,7 +1683,7 @@ function EditCharacterForm({
                           name={`skills.${skillIndex}.skillRanks.${rankIndex}.description`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Rank Description</FormLabel>
+                              <FormLabel className="text-white">Rank Description</FormLabel>
                               <FormControl>
                                 <Textarea
                                   {...field}
@@ -1702,7 +1702,7 @@ function EditCharacterForm({
               ))}
                <Separator className="my-4 bg-white" />
               <div className="space-y-4">
-              <h4 className="text-3xl leading-tight font-extrabold py-3">
+              <h4 className="text-3xl leading-tight text-white font-extrabold py-3">
                 Ultimate
               </h4>
               <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
@@ -1712,7 +1712,7 @@ function EditCharacterForm({
                   name="characterUltimate.name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ultimate Name</FormLabel>
+                      <FormLabel className="text-white">Ultimate Name</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -1731,7 +1731,7 @@ function EditCharacterForm({
                   name="characterUltimate.jpName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ultimate JP Name</FormLabel>
+                      <FormLabel className="text-white">Ultimate JP Name</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -1750,7 +1750,7 @@ function EditCharacterForm({
                   name="characterUltimate.imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ultimate Image URL</FormLabel>
+                      <FormLabel className="text-white">Ultimate Image URL</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -1771,7 +1771,7 @@ function EditCharacterForm({
                   name="characterUltimate.description"
                   render={({ field }) => (
                     <FormItem className="mt-2">
-                      <FormLabel>Ultimate Description</FormLabel>
+                      <FormLabel className="text-white">Ultimate Description</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Ultimate Description"
@@ -1789,7 +1789,7 @@ function EditCharacterForm({
                   name="characterUltimate.extraInfo"
                   render={({ field }) => (
                     <FormItem className="mt-2">
-                      <FormLabel>Extra Info</FormLabel>
+                      <FormLabel className="text-white">Extra Info</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Extra Info"
@@ -1812,8 +1812,8 @@ function EditCharacterForm({
             <TabsContent value="extras" className="space-y-6">
              <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
               <CardHeader>
-                <CardTitle>Extra Info</CardTitle>
-                <CardDescription>Select the characters extra info</CardDescription>
+                <CardTitle  className="text-white">Extra Info</CardTitle>
+                <CardDescription className="text-gray-300">Select the characters extra info</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
               <div className="grid md:grid-cols-2 grid-cols-1 gap-6">

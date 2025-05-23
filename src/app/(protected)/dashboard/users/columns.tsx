@@ -1,28 +1,18 @@
 "use client";
 
-import { deleteUser } from "@/src/actions/admin";
-import EditUserForm from "@/src/components/admin/users/edit-user-form";
-import ViewUser from "@/src/components/admin/view-user";
+import { deleteUser } from "@/src/actions/user";
 import { Button } from "@/src/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/src/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { toast, useToast } from "@/src/components/ui/use-toast";
 import { UserRole } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { GoTrash } from "react-icons/go";
 
 export type User = {
   id: string;

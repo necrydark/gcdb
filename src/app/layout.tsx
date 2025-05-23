@@ -33,8 +33,7 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <Providers>
             <ContextProvider>
-            {session && <AuthNavbar />}
-            {!session && <Navbar />}
+  
             <div className="flex-1 flex-col flex">
               <div  suppressHydrationWarning>
                 <NextSSRPlugin

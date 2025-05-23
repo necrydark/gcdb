@@ -26,10 +26,15 @@ export default async function RootLayout({
 }) {
   const session = await auth();
   return (
+    <>
+              {session && <AuthNavbar />}
+              {!session && <Navbar />}
             <div className="min-h-screen flex flex-col text-gray-900 bg-background transition-all duration-300 dark:text-white">
-              <div className="flex-1  transition-all duration-300 bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900">
+              <div className="flex-1 min-h-screen  transition-all duration-300 bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900">
                 {children}
               </div>
             </div>
+            <Footer />
+    </>
   );
 }

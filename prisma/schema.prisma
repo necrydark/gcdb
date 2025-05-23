@@ -59,6 +59,7 @@ model User {
   stripePriceId String?
   stripeCurrentEndPeriod DateTime?
   subscriptionStatus String?
+  userProgress UserAchievement[]
 
   @@unique([email])
   @@map("users")
@@ -413,3 +414,45 @@ model Comments {
   @@map("comments")
 }
 
+enum AchievementType {
+  COMMENT
+  LOGIN
+  EMAIL_VERIFIED
+  COLLECTION  
+  TWO_FA_ADDED
+  GENERAL
+  REGISTERED
+}
+
+enum AchievementCategory {
+  SOCIAL
+  EXPLORATION
+  PROGRESS
+  COLLECTIBLES
+}
+
+model Achievement {
+  id String @id @default(cuid())
+  name String @unique
+  description String
+  imageUrl String
+  targetValue Int?
+  type AchievementType
+  category AchievementCategory
+userProgress UserAchievement[]
+
+}
+
+model UserAchievement {
+  id String @id @default(cuid())
+  userId String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+achievementId String
+achievement   Achievement @relation(fields: [achievementId], references: [id])
+progress Int @default(0)
+unlocked Boolean @default(false)
+favourited Boolean? @default(false)
+unlockedAt DateTime?
+
+@@unique([userId, achievementId])
+}

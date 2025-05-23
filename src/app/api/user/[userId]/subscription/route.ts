@@ -3,18 +3,20 @@ import { auth } from "@/src/auth";
 import db from "@/src/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
+type Params = Promise<{userId: string}>
+
 export async function GET(
   req: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Params}
 ) {
   const session = await auth();
+  const { userId } = await params;
 
   // Ensure the user is authenticated and requesting their own data
-  if (!session || session.user?.id !== params.userId) {
+  if (!session || session.user?.id !== userId) {
     return NextResponse.json({ message: "Forbidden" }, { status: 403 });
   }
 
-  const userId = params.userId;
 
   try {
     const user = await db.user.findUnique({

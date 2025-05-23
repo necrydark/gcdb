@@ -4,12 +4,15 @@ import { auth } from "@/src/auth";
 import db from "@/src/lib/db";
 import ManageSubscriptionButton from "@/src/components/manage-subscription-button";
 
+type searchParams = Promise<{params: Record<string, string>}>
+
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: searchParams
 }) {
   const session = await auth();
+  const { params } = await searchParams;
 
   // Redirect if not authenticated
   if (!session || !session.user?.id) {
@@ -36,7 +39,7 @@ export default async function DashboardPage({
     redirect("/auth/login");
   }
 
-  const sessionId = searchParams?.session_id;
+  const sessionId = params?.session_id;
 
   // You might want to display a success message if coming from Stripe Checkout
   let successMessage = null;

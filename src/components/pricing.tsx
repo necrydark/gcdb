@@ -58,33 +58,31 @@ export default function Pricing() {
     console.log("Basic Price ID:", process.env.NEXT_PUBLIC_BASIC_PRICE_ID);
     console.log("Premium Price ID:", process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID);
 
-    const isPremium =
+  const isPremium =
     session?.user?.subscriptionStatus === "active" &&
     session?.user?.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
   const isBasic =
     session?.user?.subscriptionStatus === "active" &&
     session?.user?.stripePriceId === process.env.NEXT_PUBLIC_BASIC_PRICE_ID;
 
-    console.log("Is Basic:", isBasic);
-    console.log("Is Premium:", isPremium);
 
+    
     return (
-        <div className="container mx-auto p-4">
-          <h1 className="text-3xl font-bold mb-8">Choose Your Plan</h1>
+        <div className="container mx-auto">
     
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Basic Plan */}
             <Card  className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
                 <CardHeader>
-                    <CardTitle>
+                    <CardTitle className="text-white">
                         SR Plan
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription  className="text-gray-300">
                         Access to core features
                     </CardDescription>
                 </CardHeader>
              <CardContent>
-              <p className="text-4xl font-bold mb-6">£3.99 / month</p>
+              <p className="text-4xl font-bold mb-6 text-white">£3.99 / month</p>
              </CardContent>
              <CardFooter>
              {isBasic ? (
@@ -111,17 +109,17 @@ export default function Pricing() {
             {/* Premium Plan */}
             <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
               <CardHeader>
-                <CardTitle>
+                <CardTitle  className="text-white">
                 Premium Plan
 
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-300">
                         Access to all features
                     </CardDescription>
               </CardHeader>
               <CardContent>
            
-              <p className="text-4xl font-bold mb-6">£7.99 / month</p>
+              <p className="text-4xl font-bold mb-6 text-white">£7.99 / month</p>
               </CardContent>
               <CardFooter>
               {isPremium ? (

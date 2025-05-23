@@ -2,7 +2,6 @@
 "use client";
 
 import { getUserById } from "@/data/user";
-import { editUser } from "@/src/actions/admin";
 import { ExtendedUser } from "@/src/next-auth";
 import { userSchema } from "@/src/schemas/admin/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,7 +38,7 @@ import {
 } from "../../ui/card";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { addUser } from "@/src/actions/add-user";
+import { addUser } from "@/src/actions/user";
 import { Separator } from "../../ui/separator";
 
 interface UserInterface {

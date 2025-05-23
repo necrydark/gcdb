@@ -28,7 +28,14 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "pbs.twimg.com",
                 port: ""
+            },
+            {
+                protocol: "https",
+            hostname: "3duibobjm6.ufs.sh",
+                
+                port: ""
             }
+
 
         ]
     }

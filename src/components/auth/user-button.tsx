@@ -50,27 +50,34 @@ export const UserButton = async ({ className }: Props) => {
           {user?.username && <p className="text-center text-white p-2">{user.username}</p>}
           <DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+              <Link className="text-white inline-flex items-center" href={"/profile"}>
               <FaUser className="mr-2 text-white" />
-              <Link className="text-white" href={"/profile"}>Profile</Link>
+              
+              Profile</Link>
             </DropdownMenuItem>
             <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+              <Link className="text-white inline-flex items-center" href={"/profile/collection"}>
               <FaHeart className="mr-2 text-white" />
-              <Link className="text-white" href={"/profile/collection"}>Collection</Link>
+              
+              Collection</Link>
             </DropdownMenuItem>
             <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+              <Link className="text-white inline-flex items-center" href={"/settings"}>
               <FaCog className="mr-2 text-white" />
-              <Link className="text-white" href={"/settings"}>Settings</Link>
+              
+              Settings</Link>
             </DropdownMenuItem>
             {(user?.role === "ADMIN" || user?.role === "OWNER") && (
               <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+                <Link className="text-white inline-flex items-center" href={"/dashboard"}>
                 <MdAdminPanelSettings className="mr-2 text-white" />
-                <Link className="text-white" href={"/dashboard"}>Admin</Link>
+                
+                Admin</Link>
               </DropdownMenuItem>
             )}
           </DropdownMenuGroup>
           <DropdownMenuSeparator  className="bg-white" />
           <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-            <FaSignOutAlt className="mr-2 text-white" />
             <SignOutBtn />
           </DropdownMenuItem>
         </DropdownMenuContent>

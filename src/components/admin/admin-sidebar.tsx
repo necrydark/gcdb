@@ -129,7 +129,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" className="!bg-purple-950">
+    <Sidebar collapsible="icon" className="bg-purple-950">
       <SidebarHeader>
       <div className="flex items-center gap-2 py-2 px-4 transition-all duration-200 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0">
           <Shield className="h-6 w-6 text-white shrink-0" />
@@ -140,7 +140,7 @@ export function AppSidebar() {
       </SidebarHeader>  
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="dark:text-gray-300 text-gray-500">Main Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-white">Main Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (

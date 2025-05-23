@@ -22,7 +22,7 @@ interface Character {
 type searchParams = Promise<{ params: Record<string, string>}>
 
 // This is a Server Component
-async function Characters({ searchParams }: { searchParams: searchParams}) {
+async function CharactersPage({ searchParams }: { searchParams: searchParams}) {
   const user = await auth();
   const { params } = await searchParams;
 
@@ -56,4 +56,4 @@ async function Characters({ searchParams }: { searchParams: searchParams}) {
   );
 }
 
-export default Characters;
+export default CharactersPage;

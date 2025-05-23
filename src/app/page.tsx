@@ -9,7 +9,7 @@ import { Button } from "../components/ui/button";
 import Link from "next/link";
 import { ExternalLink, Shield, Sparkles, Star, Users } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { getUserCount } from "../actions/admin";
+import { getUserCount } from "../actions/user";
 import db from "../lib/db";
 import { resourceLimits } from "worker_threads";
 import { Badge } from "../components/ui/badge";
@@ -224,7 +224,7 @@ export default async function HomePage() {
           {changelogs?.slice(0,2).map((changelog, idx) => (
                        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0" key={idx}>
                        <CardHeader>
-                           <CardTitle>{changelog.data.title}</CardTitle>
+                           <CardTitle className="text-white">{changelog.data.title}</CardTitle>
                            <CardDescription className="text-gray-300">{changelog.data.date}</CardDescription>
                        </CardHeader>
                        <CardFooter>

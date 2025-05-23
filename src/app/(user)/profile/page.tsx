@@ -30,9 +30,20 @@ async function getCollection(userId: string) {
   return res;
 }
 
+async function getAchievements(userId: string) {
+  const res = await db.userAchievement.findMany({
+    where: { userId},
+    include: {
+      achievement: true
+    }
+  })
+  return res;
+}
+
 
 async function ProfilePage() {
   const user = await currentUser();
+
   
   if (!user) {
     redirect("/auth/login");
@@ -41,6 +52,8 @@ async function ProfilePage() {
   const collection = await getCollection(user.id as string)
   const data =  await getUserData({ userId: user.id as string });
   const comments = await getCommentsByUser(user.id as string)
+  const achievements = await getAchievements(user.id as string);
+
   const names = ["Meliodas", "Elizabeth", "Diane", "Zeldris", "Escanor"];
   const randomName = names[Math.floor(Math.random() * names.length)];
 
@@ -62,10 +75,25 @@ async function ProfilePage() {
     return colours[userColour] || "dark:bg-purple-950 bg-purple-800";
   };
 
+  const formattedAchievements = achievements?.filter(a => a.unlocked === true).map((achievement => ({
+    name: achievement.achievement.name,
+    imageUrl: achievement.achievement.imageUrl,
+    description: achievement.achievement.description,
+  })))
 
+
+  const isPremium =
+  user?.subscriptionStatus === "active" &&
+  user?.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
+const isBasic =
+  user?.subscriptionStatus === "active" &&
+  user?.stripePriceId === process.env.NEXT_PUBLIC_BASIC_PRICE_ID;
+
+  console.log(user?.subscriptionStatus)
+  console.log(user?.stripePriceId)
 
   return (
-    <div className="container mx-auto p-4 pt-[6rem]">
+    <div className="container mx-auto max-w-6xl p-4 pt-[6rem]">
       {/* Banner, Avatar, and User Info */}
       <div className="mb-8">
         <UserBanner
@@ -75,20 +103,23 @@ async function ProfilePage() {
           colour={colour}
           inGameRank={data?.ingameRank || "110"}
           boxCC={data?.boxCC || "11,000,000"}
+          achievements={JSON.parse(JSON.stringify(formattedAchievements))}
+          isBasic={isBasic}
+          isPremium={isPremium}
         />
       </div>
 
       {/* Favorite Characters */}
       <div className="mb-8">
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-6">
         <div>
           {collection.length > 0 ? (
                 <>
-                 <div className="flex flex-row justify-between gap-4">
-                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-                   Collected Characters
+                 <div className="flex flex-row justify-between gap-4 items-center mb-4">
+                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl   text-white">
+                  Characters
                  </h2>
-                 <Link href={"/profile/collected"} className="inline-flex items-center">
+                 <Link href={"/profile/collected"} className="inline-flex text-white items-center">
                  View All <ArrowRight className="h-4 w-4 ml-2" />
                  </Link>
                  </div>
@@ -167,7 +198,7 @@ async function ProfilePage() {
                 </div></>
           ): (
               <div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
                 <p className="text-center">Visit the character page to add a character to your collection!</p>
                 </div>
           )}
@@ -175,11 +206,11 @@ async function ProfilePage() {
         <div>
           {collection.length > 0 ? (
                 <>
-                      <div className="flex flex-row justify-between gap-4">
-                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">
-                   Collected Relics
+                      <div className="flex flex-row justify-between gap-4 mb-4 items-center">
+                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl  text-white">
+                  Relics
                  </h2>
-                 <Link href={"/profile/collected"} className="inline-flex items-center">
+                 <Link href={"/profile/collected"} className="inline-flex text-white items-center">
                  View All <ArrowRight className="h-4 w-4 ml-2" />
                  </Link>
                  </div>
@@ -224,7 +255,7 @@ async function ProfilePage() {
                     >
                       {relic.relic?.beast}
                     </Badge>
-                  <p>{relic.relic?.effect}</p>
+                  <p className="text-white">{relic.relic?.effect}</p>
                   
                   </div>
                 </div>
@@ -234,13 +265,125 @@ async function ProfilePage() {
                 </div></>
           ): (
               <div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
                 <p className="text-center">Visit the character page to add a character to your collection!</p>
                 </div>
           )}
         </div>
         </div>
       </div>
+
+      {/* Achievements */}
+      {/* <div className="mb-8">
+          <div>
+            <div>
+              {achievements.length > 0 ? (
+                 <>
+                 <div className="flex flex-row justify-between gap-4 mb-4 items-center">
+                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl  text-white">
+                   Collected Achievements
+                 </h2>
+                 <Link href={"/profile/achievements"} className="inline-flex items-center">
+                 View All <ArrowRight className="h-4 w-4 ml-2" />
+                 </Link>
+                 </div>
+
+                 <div className="grid gird-cols-2 md:grid-cols-4 gap-4">
+                  {achievements.slice(0,3).map((achievement, idx) => (
+                    <Card    
+                    key={idx}    
+                    className={`${cardColours(
+                      colour as string
+                    )} border-0 rounded-[5px]`}
+                    >
+                      <CardContent className="p-4">
+                      <div className="flex flex-col items-center space-y-4">
+                        <Image src={achievement?.achievement.imageUrl}
+                        alt={achievement.achievement.description}
+                        className={achievement.unlocked ? "" : "grayscale"}
+                        width={200}
+                        height={200} />
+
+                        <div className="text-center">
+                        <h3 className="font-semibold text-white">
+                      {achievement.achievement?.name}
+                    </h3>
+                    <p className="text-sm text-gray-300">
+                      {achievement.achievement.description}
+                    </p>
+                    <div className="flex flex-row gap-2 flex-wrap">
+                    <Badge
+                      className="mt-1  text-white"
+                      variant={
+                        colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined
+                      }
+                    >
+                      {achievement.achievement.category}
+                    </Badge>
+                    <Badge
+                      className="mt-1  text-white"
+                      variant={
+                        colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined
+                      }
+                    >
+                      {achievement.achievement.type}
+                    </Badge>
+                    <Badge
+                      className="mt-1  text-white"
+                      variant={
+                        colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined
+                      }
+                    >
+                      {achievement.unlocked ? "Unlocked" : "Not Unlocked" }
+                    </Badge>
+                    </div>
+                    <p className="text-sm text-gray-300 mt-2">{achievement.unlocked ? `Unlocked at ${achievement.unlockedAt?.toDateString()}` : ""}</p>
+                        </div>
+                      </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                 </div>
+                 </>
+              ) : (
+                <div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white text-center">You have no achievements yet.</h2>
+                <p className="text-center">Create a comment, add a character to your collection and more to start earning achievements!</p>
+                </div>
+              )}
+            </div>
+          </div>
+      </div> */}
 
       {/* Recent Comments */}
       <div className="pb-[5rem]">
@@ -261,132 +404,7 @@ async function ProfilePage() {
        )}
       </div>
     </div>
-    // <div className=" flex flex-col pb-20">
-    //   {/* Banner */}
-    //   <div>
-    //     <Image
-    //       alt={`${data?.username}'s Banner`}
-    //       priority
-    //       width={1920}
-    //       height={200}
-    //       src={data?.banner ?? testimg}
-    //       className="h-[200px] w-full object-cover border-b-[1px] border-b-white"
-    //     />
-
-    //     {/* Profile Picture */}
-    //     <Image
-    //       src={
-    //         data?.image ??
-    //         "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
-    //       }
-    //       alt="User profile picture"
-    //       priority
-    //       width={75}
-    //       height={75}
-    //       className="rounded-full aspect-[1] border mx-auto -translate-y-[35px] border-white"
-    //     />
-    //     {/* Username */}
-    //     <div className="flex flex-row justify-center items-center">
-    //       <h1 className="text-3xl pr-[10px] font-extrabold text-center -translate-y-[25px] tracking-tight">
-    //         {data?.username ?? randomName}
-    //       </h1>
-    //       <Badge
-    //         className=" -translate-y-[20px] border-transparent text-white "
-    //         variant={
-    //           colour as
-    //             | "red"
-    //             | "green"
-    //             | "blue"
-    //             | "yellow"
-    //             | "orange"
-    //             | "pink"
-    //             | "cyan"
-    //             | "purple"
-    //             | null
-    //             | undefined
-    //         }
-    //       >
-    //         {data?.role === "USER"
-    //           ? "User"
-    //           : data?.role === "ADMIN"
-    //           ? "Admin"
-    //           : data?.role === "OWNER"
-    //           ? "Owner"
-    //           : null}
-    //       </Badge>
-    //     </div>
-    //   </div>
-
-    //   {/* Profile Section */}
-    //   <div className="max-w-[1200px] md:mx-auto md:px-0 px-8">
-    //     <p className="py-4 px-2">{data?.bio ?? "No Bio Found"}</p>
-    //     <div className="flex justify-between items-center mt-6 flex-row">
-    //       <h1 className="md:text-3xl text-2xl font-extrabold tracking-tight">
-    //         Your Recent Favourites
-    //       </h1>
-    //       <Button
-    //         className="hover-btn"
-    //         variant={
-    //           colour as
-    //             | "red"
-    //             | "green"
-    //             | "blue"
-    //             | "yellow"
-    //             | "orange"
-    //             | "pink"
-    //             | "cyan"
-    //             | "purple"
-    //             | null
-    //             | undefined
-    //         }
-    //         asChild
-    //       >
-    //         <Link href={"/profile/favourites"}>View All Favourites</Link>
-    //       </Button>
-    //     </div>
-    //     <CardSection sectionColour={cardColour as ProfileColour}>
-    //       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
-    //         {/* @TODO: Add recent favourites from DB */}
-    //         <SmallCharacterCard
-    //           attribute="Strength"
-    //           imageUrl="https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
-    //           name="Queen Diane"
-    //           race="Giant"
-    //           rarity="SSR"
-    //           slug="queen_diane_2"
-    //           colour={colour as ProfileColour}
-    //         />
-    //         <SmallCharacterCard
-    //           attribute="Strength"
-    //           imageUrl="https://gcdatabase.com/images/characters/jyu_viole_grace/ssrr_portrait.png"
-    //           name="Jue Viole Grace"
-    //           race="Human"
-    //           rarity="SSR"
-    //           slug="jue_viole_grace"
-    //           colour={colour as ProfileColour}
-    //         />
-    //         <SmallCharacterCard
-    //           attribute="HP"
-    //           imageUrl="https://gcdatabase.com/images/characters/alioni/rg_portrait.webp"
-    //           name="Alioni"
-    //           race="Human"
-    //           rarity="R"
-    //           slug="alioni"
-    //           colour={colour as ProfileColour}
-    //         />
-    //         <SmallCharacterCard
-    //           attribute="HP"
-    //           imageUrl="https://gcdatabase.com/images/characters/eren/ssrg_portrait.webp"
-    //           name="Eren Yeager"
-    //           race="Human / Giant"
-    //           rarity="SSR"
-    //           slug="eren_yeager"
-    //           colour={colour as ProfileColour}
-    //         />
-    //       </div>
-    //     </CardSection>
-    //   </div>
-    // </div>
+    
   );
 }
 

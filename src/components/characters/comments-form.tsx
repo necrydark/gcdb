@@ -41,7 +41,7 @@ function CommentsForm({ characterId, slug }: Props) {
         if (data?.error) {
           toast({
             title: "Error",
-            variant: "purple",
+            variant: "destructive",
             description: data?.error,
             duration: 5000,
           });
@@ -74,7 +74,7 @@ function CommentsForm({ characterId, slug }: Props) {
                       {...field}
                       maxLength={300}
                       placeholder="Leave a comment about this character..."
-                      className="resize-none dark:bg-purple-900 rounded-[5px] dark:placeholder:text-white dark:text-white dark:border-purple-600 focus-visible:ring-0"
+                      className="resize-none dark:bg-purple-900 bg-purple-400 rounded-[5px] placeholder:text-white text-white dark:border-purple-600 focus-visible:ring-0"
                     />
                   </FormControl>
                   <div className="text-right text-white">
@@ -84,7 +84,7 @@ function CommentsForm({ characterId, slug }: Props) {
               )}
             />
            <div className="flex justify-end mt-5 w-full">
-           <Button type="submit" className="rounded-[5px] bg-purple-500 hover:bg-purple-600 dark:bg-purple-800 text-white dark:hover:bg-purple-900" disabled={isPending}>
+           <Button type="submit" className="rounded-[5px] border-white border-[1px] bg-purple-500/70 z-50 hover:bg-purple-600 dark:hover:bg-purple-900 transition-all duration-300" disabled={isPending}>
               Add Comment
             </Button>
            </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { getUserById } from "@/data/user";
-import { editUser } from "@/src/actions/admin";
+import { editUser } from "@/src/actions/user";
 import { ExtendedUser } from "@/src/next-auth";
 import { userSchema } from "@/src/schemas/admin/schema";
 import { zodResolver } from "@hookform/resolvers/zod";

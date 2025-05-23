@@ -100,7 +100,7 @@ export function CharacterDataTable<TData, TValue>({
         </DropdownMenu>
       </div>
 
-      <p className="pb-2">There are {length} characters.</p>
+      <p className="pb-2 text-white">There are {length} characters.</p>
       <div className="rounded-[5px]">
         <Table className="bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
           <TableHeader>
@@ -108,7 +108,7 @@ export function CharacterDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead className="text-white" key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(

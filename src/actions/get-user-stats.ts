@@ -1,13 +1,10 @@
-// app/actions/user-stats.ts
 'use server'
 
 
-import { auth } from '../auth'
 import db from '../lib/db'
 import { currentUser } from '../utils/auth'
 
 export async function getUserGrowthStats() {
-  // Verify authentication (optional - you can also do this in the component)
   const user = await currentUser()
   
   if(!user) {

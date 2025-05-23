@@ -184,7 +184,7 @@ export default function CharacterClient({
 
   return (
     <Suspense fallback={<div><Loader2 className="h-4 w-4 animate-spin" /> Loading...</div> }>
-           <div className="transition-all duration-300 pb-[7rem] pt-[5rem] bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900">
+           <div className="transition-all min-h-screen duration-300 pb-[7rem] pt-[5rem] bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900">
   
 
     <Suspense fallback={<div><Loader2 className="h-4 w-4 animate-spin" /> Loading...</div> }>
