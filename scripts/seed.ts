@@ -4,24 +4,37 @@ import { AchievementType, AchievementCategory } from "@prisma/client";
 
 const achievements = [
     {
-      name: "Comment Rookie",
-      target: 10,
-      achievementType: AchievementType.COMMENT,
-      AchievementCategory: AchievementCategory.SOCIAL
-    },
-    {
-      name: "Comment Veteran",
-      target: 50,
-      achievementType: AchievementType.COMMENT,
-      AchievementCategory: AchievementCategory.SOCIAL
-    },
-    {
-      name: "Comment Pro",
-      target: 100,
-      achievementType: AchievementType.COMMENT,
+      name: "Registered",
+      target: true,
+      achievementType: AchievementType.REGISTERED,
       AchievementCategory: AchievementCategory.SOCIAL,
-      imageUrl: "https://3duibobjm6.ufs.sh/f/BVooQWfmjDnKi71rLead7uWlGH2UVFLjY1fOXka8TrQJ9ECo"
+      imageUrl: "https://3duibobjm6.ufs.sh/f/BVooQWfmjDnKzyGSWA7pBthblDsidXP0oSj9Y5Lx4WRIT7EZ"
     },
+    {
+      name: "Email Verified",
+      target: true,
+      achievementType: AchievementType.EMAIL_VERIFIED,
+      description: "Verified your email address",
+      AchievementCategory: AchievementCategory.SOCIAL,
+      imageUrl: "https://3duibobjm6.ufs.sh/f/BVooQWfmjDnKzyGSWA7pBthblDsidXP0oSj9Y5Lx4WRIT7EZ"
+    },
+    {
+      name: "Security Expert",
+      target: true,
+      achievementType: AchievementType.TWO_FA_ADDED,
+      description: "Added two factor authentication",
+      AchievementCategory: AchievementCategory.SOCIAL,
+      imageUrl: "https://3duibobjm6.ufs.sh/f/BVooQWfmjDnKzyGSWA7pBthblDsidXP0oSj9Y5Lx4WRIT7EZ"
+    }, 
+    {
+      name: "Login",
+      target: true,
+      achievementType: AchievementType.LOGIN,
+      description: "Logged in to the website",
+      AchievementCategory: AchievementCategory.SOCIAL,
+      imageUrl: "https://3duibobjm6.ufs.sh/f/BVooQWfmjDnKzyGSWA7pBthblDsidXP0oSj9Y5Lx4WRIT7EZ"
+    },
+   
   ]
   
   const seedAchievements = async () => {
@@ -35,16 +48,16 @@ const achievements = [
             // You might want to update fields if the achievement already exists
             // For seeding, leaving this empty often works if you just want to ensure creation.
             // Or update values if they change over time:
-            description: `Made ${achievement.target} or more comments`,
-            targetValue: achievement.target,
+            description: achievement.description || `Achievement for ${achievement.name}`,
+            targetBool: achievement.target,
             type: achievement.achievementType,
             category: achievement.AchievementCategory, // Corrected typo
             imageUrl: achievement.imageUrl ?? "",
           },
           create: {
             name: achievement.name,
-            description: `Made ${achievement.target} or more comments`,
-            targetValue: achievement.target,
+            description: achievement.description || `Achievement for ${achievement.name}`,
+            targetBool: achievement.target,
             type: achievement.achievementType,
             category: achievement.AchievementCategory, // Corrected typo
             imageUrl: achievement.imageUrl ?? "",

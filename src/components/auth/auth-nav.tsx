@@ -19,8 +19,12 @@ export default function AuthNavbar() {
       url: "/gear",
     },
     {
-      name: "Holy Relics",
+      name: "Relics",
       url: "/relics",
+    },
+    {
+      name: "Resources",
+      url: "/resources"
     },
   ];
 

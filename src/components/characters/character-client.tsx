@@ -97,6 +97,7 @@ export default function CharacterClient({
           if (!res.ok) {
             throw new Error("Failed to fetch characters");
           }
+
           const data: Character[] = await res.json();
           setAllCharacters(data);
         } catch (err: any) {

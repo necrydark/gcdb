@@ -437,6 +437,7 @@ model Achievement {
   description String
   imageUrl String
   targetValue Int?
+  targetBool Boolean?
   type AchievementType
   category AchievementCategory
 userProgress UserAchievement[]

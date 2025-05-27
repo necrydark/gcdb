@@ -331,7 +331,7 @@ export default async function HomePage() {
             </Card>
 
             
-            <Card className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <CardTitle className="text-white">Community</CardTitle>
                 <CardDescription className="text-gray-300">Join the conversation and get help</CardDescription>

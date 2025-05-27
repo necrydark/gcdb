@@ -77,7 +77,8 @@ export const getCharacters = async () => {
   try {
     const characters = await db.character.findMany();
     return characters;
-  } catch {
+  } catch(err) {
+    console.error("Error fetching characters:", err);
     return null;
   }
 }

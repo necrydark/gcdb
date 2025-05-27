@@ -19,7 +19,7 @@ export default async function Navbar() {
       url: "/gear",
     },
     {
-      name: "Holy Relics",
+      name: "Relics",
       url: "/relics",
     },
     {

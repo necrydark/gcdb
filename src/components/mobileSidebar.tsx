@@ -17,8 +17,12 @@ export const MobileSidebar = () => {
       url: "/gear",
     },
     {
-      title: "Holy Relics",
+      title: "Relics",
       url: "/relics",
+    },
+    {
+      title: "Resources",
+      url: "/resources"
     },
     {
       title: "Login",

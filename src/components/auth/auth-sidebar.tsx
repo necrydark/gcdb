@@ -24,8 +24,12 @@ const AuthSidebar = async ({ className }: Props) => {
       url: "/gear",
     },
     {
-      name: "Holy Relics",
+      name: "Relics",
       url: "/relics",
+    },
+    {
+      name: "Resources",
+      url: "/resources"
     },
   ];
 

@@ -31,10 +31,15 @@ const nextConfig = {
             },
             {
                 protocol: "https",
-            hostname: "3duibobjm6.ufs.sh",
-                
+                hostname: "3duibobjm6.ufs.sh",
+                port: ""
+            },
+            {
+                protocol: "https",
+                hostname: "cdn.sanity.io",
                 port: ""
             }
+
 
 
         ]

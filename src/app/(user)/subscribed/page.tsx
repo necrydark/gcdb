@@ -20,7 +20,7 @@ export default async function DashboardPage({
   }
 
   // Fetch the latest user data from the database
-  const user = await db.user.findUnique({
+   const user = await db.user.findUnique({
     where: { id: session.user.id },
     select: {
       name: true,

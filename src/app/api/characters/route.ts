@@ -1,6 +1,23 @@
-import db from "@/src/lib/db";
+import db from "../../../lib/db";
 import { NextResponse } from "next/server";
 
+
+const ALLOWED_ORIGIN =
+  process.env.NODE_ENV === 'production'
+    ? 'http://gcwiki.vercel.app'
+    : 'http://localhost:3333';
+
+    export async function OPTIONS() {
+        return new Response(null, {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "http://localhost:3333",
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Credentials": "true"
+          }
+        });
+      }
 export async function GET() {
     try {
         const characters = await db.character.findMany({
@@ -8,6 +25,7 @@ export async function GET() {
                 id: true,
                 name: true,
                 imageUrl:true,
+                tag: true,
                 slug: true,
                 attribute: true,
                 race: true,
@@ -22,6 +40,7 @@ export async function GET() {
             id: char.id,
             name: char.name,
             imageUrl: char.imageUrl,
+            tag: char.tag,
             slug: char.slug,
             attribute: char.attribute,
             race: char.race,
@@ -31,7 +50,13 @@ export async function GET() {
             collection: char.Collection
         })));
 
-        return NextResponse.json(formattedCharacters);
+        return NextResponse.json(formattedCharacters, {
+            status: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "http://localhost:3333",
+                "Content-Type": "application/json"
+              }
+        });
     } catch (err) {
         console.error("Error fetching characters", err);
         return NextResponse.json({ error: "Failed to fetch characters"}, { status: 500});
