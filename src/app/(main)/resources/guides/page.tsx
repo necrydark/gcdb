@@ -1,10 +1,14 @@
+import { getGuides } from '@/src/actions/guides';
 import CategoryFilter from '@/src/components/category-filtering';
+import GuideSearch from '@/src/components/guides/guide-search';
+import SortOptions from '@/src/components/guides/sort-options';
+import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar';
 import { Badge } from '@/src/components/ui/badge';
 import { Button } from '@/src/components/ui/button';
 import { Card, CardDescription, CardTitle,CardHeader, CardContent, CardFooter } from '@/src/components/ui/card';
 import { client } from '@/src/sanity/lib/client';
 import { urlFor } from '@/src/sanity/lib/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Clock, Eye } from 'lucide-react';
 import { SanityDocument } from 'next-sanity';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,13 +16,26 @@ import React from 'react'
 
 const  option = { next: { revalidate: 30}}
 
-interface Guide extends SanityDocument {
+export interface Guide extends SanityDocument {
   _id: string;
   title: string;
   slug: { current: string };
   image: any;
   description: string;
   publishedAt: string;
+  views: number;
+  difficulty: {
+    name: string;
+  };
+  author: {
+    name: string;
+    image: any;
+  },
+  category: {
+    _id: string;
+    title: string;
+    slug: { current: string };
+  }
   tags: Array<{
     _id: string;
     title: string;
@@ -31,6 +48,8 @@ interface Category extends SanityDocument {
   title: string;
   slug: { current: string };
 }
+
+
 
 
 
@@ -48,6 +67,19 @@ async function getGuidesData(categorySlug?: string) {
       image, 
       description, 
       publishedAt,
+      views
+      difficulty->{
+        name
+      },
+      author->{
+        name,
+        image
+      },
+      category->{
+        _id,
+        title,
+        slug
+      },
       tags[]->{
         _id,
         title,
@@ -69,6 +101,19 @@ async function getGuidesData(categorySlug?: string) {
       image, 
       description, 
       publishedAt,
+      views
+      difficulty->{
+        name
+      },
+      author->{
+        name,
+        image
+      },
+      category->{
+        _id,
+        title,
+        slug
+      },
       tags[]->{
         _id,
         title,
@@ -94,6 +139,7 @@ async function getCategoriesData() {
 }
 
 
+
 // async function getData() {
 //   const query = `*[
 //     _type == "guide"
@@ -105,31 +151,51 @@ async function getCategoriesData() {
 // }
 
 
-export default async function GuidesPage({ searchParams }: { searchParams: Promise<{category?: string}>}) {
+export default async function GuidesPage({ searchParams }: { searchParams: Promise<{category?: string; query: string; sort: string;}>}) {
 
-  const { category} = await searchParams
+  const { category, query, sort} = await searchParams
   const selectedCategory = category || 'all';
   
-  const [guides, categories] = await Promise.all([
-    getGuidesData(selectedCategory),
-    getCategoriesData()
+  const [categories] = await Promise.all([
+    // getGuidesData(selectedCategory),
+    getCategoriesData(),
   ]);
 
-  // const guides = await getData();
+  const searchQuery = query|| '';
+  const searchSort = sort || "recent"
+
+  const guides = await getGuides(searchQuery, searchSort, category);
+
+
+
   
   console.log("Guides Data:", guides);
-
+  
   return (
-    <div className='min-h-screen pt-[10rem]'>
-      <section className='container px-12 max-w-6xl mx-auto py-6'>
-        <h1 className="text-4xl md:text-5xl text-white font-bold text-center mb-[2rem]">Guides</h1>
-        
+    <div className='pt-[3.75rem]'>
+          <div className='mb-[1.1rem]'>
+          <h1 className="text-4xl md:text-5xl text-white font-bold text-center mb-4">Game Guides</h1>
+          <p className="text-xl text-gray-300 text-center">Comprehensive guides and tutorials to help you master every aspect of the game</p>
+        </div>
+      <GuideSearch initialQuery={query} />
+    <div className='min-h-screen pt-[1rem]'>
+      <section>
+    
+
         {/* Category Filter */}
         <CategoryFilter 
           categories={categories} 
           selectedCategory={selectedCategory}
         />
 
+      <div className='container max-w-6xl mx-auto py-6'>
+        <div className="flex justify-between items-center flex-row mb-6">
+        <h1 className="text-2xl text-white font-bold text-center">Recent Guides</h1>
+        
+        <SortOptions currentSort={sort} />
+
+        </div>
+      
         {/* Results count */}
         <div className="mb-6">
           <p className="text-gray-300 text-center">
@@ -143,8 +209,8 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
         {/* Guides Grid */}
         {guides && guides.length > 0 ? (
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            {guides.map((guide) => (
-              <Card key={guide._id} className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            {guides.map((guide: any) => (
+              <Card key={guide._id} className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
                 <Image 
                   src={urlFor(guide.image).url()} 
                   alt={guide.title}
@@ -153,37 +219,63 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
                   className="w-full h-64 object-cover rounded-t-[5px]"
                   priority 
                 />
+               
                 <CardHeader>
-                  <CardTitle className='text-white mt-[1.5rem]'>
+                <div className='flex justify-between items-start'>
+                    <div>
+                      <div className='flex flex-row gap-2 flex-wrap'>
+                          <Badge variant={"purple"}  className='text-gray-300'>
+                            {guide.category?.title}
+                          </Badge>
+                      </div>
+                    </div> 
+                   <Badge variant={"purple"}className='text-gray-300'>
+                            {guide.difficulty?.name}
+                          </Badge>
+                </div>
+                  <CardTitle className='text-white mt-2 py-2'>
                     {guide.title}
                   </CardTitle>
-                  <CardDescription className='text-gray-300'>
+                  <CardDescription className="flex items-center gap-2">
+                      <Avatar className="h-6 w-6">
+                        <AvatarImage src={guide.author.image || "/placeholder.svg"} alt={guide.author.name} />
+                        <AvatarFallback>{guide.author.name.substring(0, 2)}</AvatarFallback>
+                      </Avatar>
+                      <span>{guide.author.name}</span>
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-white line-clamp-3 text-lg">
+                    {guide.description || "No description available."}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                      {guide.tags.map((tag: any, idx:any) => (
+                        <Badge key={idx} variant="purple" className="text-xs">
+                          {tag.title}
+                        </Badge>
+                      ))}
+                      {guide.tags.length > 3 && (
+                        <Badge variant="purple" className="text-xs">
+                          +{guide.tags.length - 3} more
+                        </Badge>
+                      )}
+                    </div>
+                </CardContent>
+                <CardFooter className='mt-auto flex justify-between items-center'>
+                 <div className="flex flex-row gap-2">
+                 <p> 
+                    <Clock className='h-4 w-4 inline-flex text-white text-sm mr-2' />
                     {new Date(guide.publishedAt).toLocaleDateString('en-GB', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
-                    })}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-white">
-                    {guide.description || "No description available."}
-                  </p>
-                  {guide.tags && guide.tags.length > 0 && (
-                    <div className='mt-4'>
-                      <h3 className='text-gray-200 font-semibold mb-2'>Tags:</h3>
-                      <div className='flex flex-row gap-2 flex-wrap'>
-                        {guide.tags.map((tag) => (
-                          <Badge variant={"purple"} key={tag._id} className='text-gray-300'>
-                            {tag.title}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div> 
-                  )}
-                </CardContent>
-                <CardFooter className='mt-auto'>
-                  <Button className="w-full rounded-[5px] bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white" asChild>
+                    })}</p>
+                    <p>
+                      <Eye className='h-4 w-4 inline-flex text-sm text-white mr-2' />
+                      {guide.views || 0} 
+                    </p>
+                 </div>
+                  <Button size={"lg"} className="w-full rounded-[5px] bg-purple-700 max-w-48 hover:opacity-75 dark:bg-purple-950 text-white" asChild>
                     <Link href={`/resources/guides/${guide.slug.current}`}>
                       Read More <ArrowRight className='text-white w-4 h-4 ml-1' />
                     </Link>
@@ -202,7 +294,26 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
             </Link>
           </div>
         )}
+        </div>
+      
+      </section>
+      <section  className="py-12 px-4">
+      <div className="container mx-auto max-w-6xl">
+          <div className='flex md:flex-row flex-col p-8 bg-purple-800/50 justify-between items-center'>
+            <div className='mb-6 md:mb-0 md:mr-6'>
+              <h2 className='text-2xl text-white font-semibold'>Got Knowledge?</h2>
+              <p className='text-gray-300 text-sm max-w-xl'>Have strategies or insights to share? Write a guide and help other players improve their game. The community appreciates quality content from experienced players.</p>
+            </div>
+            <Button size={"lg"} className="w-full rounded-[5px] max-w-[150px] bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white" asChild>
+                    <Link href={"/contact"}>
+                      Join Us <ArrowRight className='text-white w-4 h-4 ml-1' />
+                    </Link>
+                  </Button>
+          </div>
+        </div>
       </section>
     </div>
+    </div>
   )
+  
 }

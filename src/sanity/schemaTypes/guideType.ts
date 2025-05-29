@@ -46,12 +46,47 @@ export const guideType = defineType({
     defineField({
       name: 'publishedAt',
       type: 'datetime',
+      initialValue: new Date().toISOString(),
+    }),
+    defineField({
+      name: 'updatedAt',
+      title: 'Updated At',
+      type: 'datetime',
+      readOnly: true, // This field will be updated programmatically
+      initialValue: new Date().toISOString(),
+    }),
+    {
+      name: "read",
+      title: "Read Time",
+      type: "number",
+      description: "put number in minutes for reading time",
+      validation: (Rule) => Rule.required(),
+    },
+    defineField({
+      name: 'views',
+      title: 'Views',
+      type: 'number',
+      initialValue: 0,
+      readOnly: true, // This field will be updated programmatically
+      validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
+      name: "category",
+      type: "reference",
+      to: {type: "category"},
+       validation: Rule => Rule.required(),
     }),
     defineField({
       name: "tags",
       title: "Tags",
       type: "array",
-      of: [{ type: 'reference', to: [{ type: "category"}]}],
+      of: [{ type: 'reference', to: [{ type: "tag"}]}],
+    }),
+    defineField({
+      name: "difficulty",
+      type: "reference",
+      to: {type: "difficulty"},
+       validation: Rule => Rule.required(),
     }),
     defineField({
       name: "teams", // Changed from 'characters' to 'teams'

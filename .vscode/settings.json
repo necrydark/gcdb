@@ -7,5 +7,6 @@
         "Nidhoggr",
         "Ratatoskr",
         "Skoll"
-    ]
+    ],
+    "postman.settings.dotenv-detection-notification-visibility": false
 }

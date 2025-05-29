@@ -35,7 +35,7 @@ export default function CategoryFilter({ categories, selectedCategory }: Categor
   }, [router, searchParams]);
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 border-b-[1px] border-b-white px-8 py-12">
       <div className="flex flex-wrap gap-3 justify-center">
         {/* All Categories Button */}
         <Button
@@ -47,7 +47,7 @@ export default function CategoryFilter({ categories, selectedCategory }: Categor
               : 'bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600'
           }`}
         >
-          All Categories
+          All Guides
         </Button>
 
         {/* Individual Category Buttons */}

@@ -46,7 +46,7 @@ export default function ResourcesPage() {
                             <Link href={resource.link}>
                             <Button className="w-full text-white hover:opacity-75 bg-purple-500 dark:bg-purple-800 rounded-[5px]">
                                 Visit 
-                                <ArrowRight className='w-4 h-4' />
+                                <ArrowRight className='w-4 h-4 ml-2' />
                             </Button>
                             </Link>
                         </CardFooter>

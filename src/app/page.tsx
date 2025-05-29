@@ -229,7 +229,7 @@ export default async function HomePage() {
                        </CardHeader>
                        <CardFooter>
                            <Button  className="w-full rounded-[5px] transition-all duration-250 bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white" asChild >
-                           <Link className="no-underline" href={`/changelog/${changelog.data.slug}`}>Read More</Link>
+                           <Link className="no-underline" href={`/changelog/${changelog.slug}`}>Read More</Link>
                            </Button>
                        </CardFooter>
                    </Card>

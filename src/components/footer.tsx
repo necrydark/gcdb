@@ -38,7 +38,7 @@ function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="https://www.notion.so/4179b297686d400eadfb18aa7cec20b8?v=4caa8c236a7c486aae15a65416e003c3&pvs=4" className=" pointer-events-none text-gray-300  hover:underline hover:text-foreground">
+              <Link href="https://www.notion.so/4179b297686d400eadfb18aa7cec20b8?v=4caa8c236a7c486aae15a65416e003c3&pvs=4" target="_blank" className="text-gray-300  hover:underline hover:text-foreground">
                 Roadmap
               </Link>
             </li>
