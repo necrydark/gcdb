@@ -37,10 +37,10 @@ export default function SortOptions({ currentSort = 'recent' }: SortOptionsProps
         </SelectTrigger>
         <SelectContent className="bg-purple-600 rounded-[5px] text-white dark:bg-purple-800">
           <SelectItem 
-          className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+          className="hover:bg-purple-400 focus:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950 dark:focus:bg-purple-950"
           value="recent">Recently Added</SelectItem>
           <SelectItem 
-          className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+          className="hover:bg-purple-400 focus:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950 dark:focus:bg-purple-950"
           value="views">Most Viewed</SelectItem>
           {/* <SelectItem value="alphabetical">Alphabetical (A-Z)</SelectItem> */}
         </SelectContent>

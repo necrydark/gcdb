@@ -172,7 +172,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
   console.log("Guides Data:", guides);
   
   return (
-    <div className='pt-[3.75rem]'>
+    <div className='pt-[5rem]'>
           <div className='mb-[1.1rem]'>
           <h1 className="text-4xl md:text-5xl text-white font-bold text-center mb-4">Game Guides</h1>
           <p className="text-xl text-gray-300 text-center">Comprehensive guides and tutorials to help you master every aspect of the game</p>
@@ -210,7 +210,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
         {guides && guides.length > 0 ? (
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             {guides.map((guide: any) => (
-              <Card key={guide._id} className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
+              <Card key={guide._id} className="flex flex-col bg-purple-800/50 rounded-[5px] border-0">
                 <Image 
                   src={urlFor(guide.image).url()} 
                   alt={guide.title}

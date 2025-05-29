@@ -40,11 +40,11 @@ export default function CategoryFilter({ categories, selectedCategory }: Categor
         {/* All Categories Button */}
         <Button
           onClick={() => handleCategoryChange('all')}
-          variant={selectedCategory === 'all' ? 'default' : 'outline'}
+          variant={selectedCategory === 'all' ? 'default' : 'purple'}
           className={`rounded-full ${
             selectedCategory === 'all'
-              ? 'bg-purple-600 hover:bg-purple-700 text-white border-purple-600'
-              : 'bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+              ? 'bg-purple-600 hover:bg-purple-700 text-white border-purple-600 rounded-[5px]'
+              : 'bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-[5px]'
           }`}
         >
           All Guides
@@ -55,11 +55,11 @@ export default function CategoryFilter({ categories, selectedCategory }: Categor
           <Button
             key={category._id}
             onClick={() => handleCategoryChange(category.slug.current)}
-            variant={selectedCategory === category.slug.current ? 'default' : 'outline'}
+            variant={selectedCategory === category.slug.current ? 'default' : 'purple'}
             className={`rounded-full ${
               selectedCategory === category.slug.current
-                ? 'bg-purple-600 hover:bg-purple-700 text-white border-purple-600'
-                : 'bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600'
+                ? 'bg-purple-600 hover:bg-purple-700 text-white border-purple-600 rounded-[5px]'
+                : 'bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-[5px]'
             }`}
           >
             {category.title}
