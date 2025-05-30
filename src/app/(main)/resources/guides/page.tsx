@@ -1,5 +1,6 @@
 import { getGuides } from '@/src/actions/guides';
 import CategoryFilter from '@/src/components/category-filtering';
+import DifficultyFilter from '@/src/components/guides/difficulty-filter';
 import GuideSearch from '@/src/components/guides/guide-search';
 import SortOptions from '@/src/components/guides/sort-options';
 import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar';
@@ -24,9 +25,7 @@ export interface Guide extends SanityDocument {
   description: string;
   publishedAt: string;
   views: number;
-  difficulty: {
-    name: string;
-  };
+  difficulty: number;
   author: {
     name: string;
     image: any;
@@ -102,9 +101,7 @@ async function getGuidesData(categorySlug?: string) {
       description, 
       publishedAt,
       views
-      difficulty->{
-        name
-      },
+      difficulty,
       author->{
         name,
         image
@@ -139,21 +136,28 @@ async function getCategoriesData() {
 }
 
 
+function switchDifficulties(difficulty: number) {
+  
+  
 
-// async function getData() {
-//   const query = `*[
-//     _type == "guide"
-//     && defined(slug.current)
-//   ]|order(publishedAt desc)[0..12]{_id, title, slug, image, description, publishedAt}`
+  switch (difficulty) {
+    case 1:
+      return "Beginner"
+    case 2:
+      return "Intermediate"
+    case 3:
+      return "Advanced"
+    case 4:
+        return "Expert"
+          
+       
+}
+}
 
-//   const data = await client.fetch<SanityDocument[]>(query, {}, option)
-//   return data;
-// }
 
+export default async function GuidesPage({ searchParams }: { searchParams: Promise<{category?: string; query: string; sort: string; difficulty: string}>}) {
 
-export default async function GuidesPage({ searchParams }: { searchParams: Promise<{category?: string; query: string; sort: string;}>}) {
-
-  const { category, query, sort} = await searchParams
+  const { category, query, sort, difficulty} = await searchParams
   const selectedCategory = category || 'all';
   
   const [categories] = await Promise.all([
@@ -163,9 +167,8 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
 
   const searchQuery = query|| '';
   const searchSort = sort || "recent"
-
-  const guides = await getGuides(searchQuery, searchSort, category);
-
+  const searchDifficulty = difficulty || "all"
+  const guides = await getGuides(searchQuery, searchSort, category, searchDifficulty);
 
 
   
@@ -181,7 +184,6 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
     <div className='min-h-screen pt-[1rem]'>
       <section>
     
-
         {/* Category Filter */}
         <CategoryFilter 
           categories={categories} 
@@ -192,8 +194,12 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
         <div className="flex justify-between items-center flex-row mb-6">
         <h1 className="text-2xl text-white font-bold text-center">Recent Guides</h1>
         
+        <div className='flex flex-row gap-4'>
+          
+        <DifficultyFilter initialSelectedDifficulty={searchDifficulty} />
         <SortOptions currentSort={sort} />
 
+        </div>
         </div>
       
         {/* Results count */}
@@ -230,7 +236,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
                       </div>
                     </div> 
                    <Badge variant={"purple"}className='text-gray-300'>
-                            {guide.difficulty?.name}
+                            {switchDifficulties(guide.difficulty)}
                           </Badge>
                 </div>
                   <CardTitle className='text-white mt-2 py-2'>

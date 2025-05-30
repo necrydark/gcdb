@@ -84,9 +84,18 @@ export const guideType = defineType({
     }),
     defineField({
       name: "difficulty",
-      type: "reference",
-      to: {type: "difficulty"},
-       validation: Rule => Rule.required(),
+      title: "Difficulty",
+      type: 'number',
+      options: {
+        list: [
+          { title: "Beginner", value: 1},
+          { title: 'Intermediate', value: 2 },
+          { title: 'Advanced', value: 3 },
+          { title: 'Expert', value: 4 },
+        ],
+        layout: "radio"
+      },
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: "teams", // Changed from 'characters' to 'teams'

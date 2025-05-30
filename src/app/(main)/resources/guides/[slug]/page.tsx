@@ -85,8 +85,6 @@ export default async function GuidePostPage({
 }) {
   const guide = await client.fetch<Guide>(GUIDE_QUERY, await params, options);
 
-  console.log(guide);
-
   const portableTextComponents: Partial<PortableTextReactComponents> = {
     types: {
       image: ({ value }: PortableTextComponentProps<any>) => (

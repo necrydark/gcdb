@@ -13,9 +13,7 @@ interface Guide extends SanityDocument {
   image: any;
   description: string;
   publishedAt: string;
-  difficulty: {
-    name: string;
-  };
+  difficulty: number;
   author: {
     name: string;
     image: any;
@@ -37,6 +35,7 @@ export async function getGuides(
   searchQuery: string = '',
   sortOption: string = 'recent',
   categorySlug?: string, // Add categorySlug parameter
+  difficultyOption: string = "beginner"
 ): Promise<Guide[]> {
   let orderClause = '';
   switch (sortOption) {
@@ -46,20 +45,59 @@ export async function getGuides(
     case 'views':
       orderClause = 'views desc';
       break;
+      case 'difficultyAsc': // New sort option for ascending difficulty
+    orderClause = 'difficulty asc';
+    break;
+  case 'difficultyDesc': // New sort option for descending difficulty
+    orderClause = 'difficulty desc';
+    break;
     default:
       orderClause = 'publishedAt desc';
   }
 
-  let filterClause = `_type == "guide" && defined(slug.current)`;
+
+
+  let filters: string[] = [`_type == "guide" && defined(slug.current)`];
+  const params: { [key: string]: any } = {};
 
   if (searchQuery) {
     // Case-insensitive search on title and description
-    filterClause += ` && (title match "*${searchQuery}*")`;
+    filters.push(`(title match "*${searchQuery}*")`);
   }
 
   if (categorySlug && categorySlug !== 'all') {
-    filterClause += ` && references(*[_type == "category" && slug.current == "${categorySlug}"]._id)`;
+    filters.push(` category->slug.current == "${categorySlug}"`);
+    params.categorySlug = categorySlug;
   }
+
+  let numericalDifficultyLevel: number | undefined;
+  if (difficultyOption && difficultyOption !== 'all') {
+    switch(difficultyOption) {
+        case "beginner":
+            numericalDifficultyLevel = 1;
+            break;
+        case "intermediate":
+            numericalDifficultyLevel = 2;
+            break;
+        case "advanced":
+            numericalDifficultyLevel = 3;
+            break;
+        case "expert":
+            numericalDifficultyLevel = 4;
+            break;
+        default:
+            console.warn(`Unrecognized difficultyOption: "${difficultyOption}". No difficulty filter applied.`);
+    }
+
+    // Only add difficulty filter to GROQ and the param if a valid numerical level was found
+    if (numericalDifficultyLevel !== undefined) {
+        filters.push(`difficulty == ${numericalDifficultyLevel}`);
+        params.difficultyLevel = numericalDifficultyLevel; // Param is set ONLY when filter is added
+    }
+  }
+  // Join all filters with ' && '
+  const filterClause = filters.join(' && ');
+
 
   const query = `*[
     ${filterClause}
@@ -70,10 +108,8 @@ export async function getGuides(
     image,
     description,
     publishedAt,
-    views, // Include views in the query
-    difficulty->{
-      name
-    },
+    views, 
+    difficulty,
     author->{
       name,
       image
@@ -90,6 +126,9 @@ export async function getGuides(
     }
   }`;
 
+
+console.log(query)
+
   const data = await client.fetch<Guide[]>(query, {}, option);
   return data;
 }
@@ -102,7 +141,6 @@ export async function incrementGuideViews(guideId: string) {
       .setIfMissing({ views: 0 }) // Initialize views to 0 if not present
       .inc({ views: 1 }) // Increment views by 1
       .commit();
-    console.log(`Guide views incremented for ${guideId}:`, result.views);
     return result;
   } catch (error) {
     console.error('Error incrementing guide views:', error);
