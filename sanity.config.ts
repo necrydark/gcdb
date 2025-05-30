@@ -46,12 +46,10 @@ export default defineConfig({
           }
           console.log("Characters fetched for asyncList:", result);
           return result.map((char: any) => ({
-            value: char.tag,
-            title: char.name,
-            slug: char.slug,
-            tag: char.tag,
-            description: char.tag, 
-            media: char.imageUrl, 
+              value: char.slug,
+              title: char.name,
+              media: char.imageUrl,
+              slug: char.slug,
           }));
         } catch (err) {
           console.error("Error fetching characters for asyncList:", err);

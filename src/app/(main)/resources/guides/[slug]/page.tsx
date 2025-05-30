@@ -7,7 +7,6 @@ import {
   PortableTextComponentProps,
   PortableTextReactComponents,
 } from '@portabletext/react'
-import type { PortableTextBlock } from 'sanity'
 import {
   Card,
   CardContent,
@@ -25,6 +24,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Guide } from "../page";
 import React from "react";
+import { getCharacterBySlug } from "@/data/character";
 
 interface SanityImage {
   _type: "image"
@@ -34,36 +34,6 @@ interface SanityImage {
   }
   alt?: string
 }
-
-// export interface Guide extends SanityDocument {
-//   _id: string;
-//   title: string;
-//   slug: { current: string };
-//   image: any;
-//   description: string;
-//   publishedAt: string;
-//   updatedAt?: string;
-//   read: number;
-//   views: number;
-//   content: any[];
-//   difficulty: {
-//     name: string;
-//   };
-//   author: {
-//     name: string;
-//     image: any;
-//   };
-//   category: {
-//     _id: string;
-//     title: string;
-//     slug: { current: string };
-//   };
-//   tags: Array<{
-//     _id: string;
-//     title: string;
-//     slug: { current: string };
-//   }>;
-// }
 
 const GUIDE_QUERY = `*[_type == "guide" && slug.current == $slug][0]{
     _id,
@@ -93,6 +63,7 @@ const GUIDE_QUERY = `*[_type == "guide" && slug.current == $slug][0]{
       title,
       slug
     },
+    teams[],
     "headings": content[style in ["h1", "h2", "h3", "h4", "h5", "h6"]]
 }`;
 const POST_AUTHOR = `*[_type == "author"]{
@@ -114,14 +85,17 @@ export default async function GuidePostPage({
 }) {
   const guide = await client.fetch<Guide>(GUIDE_QUERY, await params, options);
 
+  console.log(guide);
 
   const portableTextComponents: Partial<PortableTextReactComponents> = {
     types: {
       image: ({ value }: PortableTextComponentProps<any>) => (
         <div className="my-8">
-          <img
+          <Image
             src={`/placeholder.svg?height=400&width=800&text=${encodeURIComponent(value.alt || 'Guide Image')}`}
             alt={value.alt || 'Guide image'}
+            width={800}
+            height={400}
             className="w-full rounded-lg"
           />
           {value.alt && <p className="text-sm text-muted-foreground text-center mt-2">{value.alt}</p>}
@@ -209,7 +183,7 @@ export default async function GuidePostPage({
       <div className="min-h-screen bg-background flex items-center justify-center">
       <div className="text-center">
         <h1 className="text-2xl font-bold mb-4">Guide Not Found</h1>
-        <p className="text-muted-foreground mb-6">The guide you're looking for doesn't exist.</p>
+        <p className="text-muted-foreground mb-6">The guide you&apos;re looking for doesn&apos;t exist.</p>
         <Button variant={"purple"} asChild>
           <Link href="/guides">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -225,7 +199,7 @@ export default async function GuidePostPage({
 
   return (
     <div className="min-h-screen pt-[3.75rem] scroll-smooth">
-      <div className="border-b bg-muted/50">
+      <div className="bg-muted/50">
         <div className="container mx-auto max-w-6xl p-4">
           <nav className="flex items-center space-x-2 text-sm">
             <Link
@@ -259,7 +233,7 @@ export default async function GuidePostPage({
           <div className="hidden lg:block lg:col-span-1">
             <div className="sticky top-[4.5rem]">
             {" "}
-              <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
+              <Card className="bg-purple-800/50 rounded-[5px] border-0">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg text-white">Table of Contents</CardTitle>
                 </CardHeader>
@@ -292,8 +266,14 @@ export default async function GuidePostPage({
                           </Link>
                           )
                       })}
-                   
-                   
+                  {guide.teams && (
+                          <Link 
+                          href={"#recommended-teams"}
+                          className={`block py-2 text-sm hover:bg-purple-700 dark:hover:bg-purple-950 text-white rounded-[5px] pl-2`}
+                          >
+                            Recommended Teams
+                          </Link>
+                  )}
                     </nav>
                   </ScrollArea>
                 </CardContent>
@@ -352,6 +332,40 @@ export default async function GuidePostPage({
             </div>
             <div className="prose prose-lg max-w-none dark:prose-invert mb-12">
                 <PortableText value={guide.content} components={portableTextComponents} />
+            </div>
+            <div className="flex flex-col mt-[2rem] p-4  bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0 gap-4" id="recommended-teams">
+            {guide.teams && guide.teams.map((team: any, idx: any) => (
+              <>
+              <h1 className="text-3xl font-bold">Recommended Teams</h1>
+            <div>
+            <h1 className="font-bold text-lg">{team.teamName}</h1>
+            <p className="text-sm">{team.teamNotes}</p>
+              </div>
+              <div key={idx} className="flex flex-row gap-4 items-center justify-evenly my-4">
+                {team.members.map(async (member: any, idx: any) => {
+                  const char = member.split(" ");
+                  const joined = char.join("-").toLowerCase()
+                  const searched = await getCharacterBySlug(joined as string);
+                  return (
+                    <div key={idx}>
+                     <Link className="flex flex-col gap-2 items-center justify-center" href={`/characters/${searched?.slug}`}>
+                     <Image 
+                      alt={searched?.name as string}
+                      src={searched?.imageUrl as string}
+                      width={75}
+                      height={75} 
+                      />
+                      <p className="text-sm">{searched?.name}</p>
+                      <p className="text-[10px]">{searched?.tag}</p></Link>
+                    </div>
+                  )
+                })}
+              </div>
+              </>
+              
+
+             
+            ))}
             </div>
           </div>
         </div>
