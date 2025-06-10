@@ -22,7 +22,7 @@ import { ArrowLeft, Calendar, ChevronRight, Clock, Eye, Share2, Tag } from "luci
 import { PortableText, PortableTextBlockComponent, PortableTextMarkComponent, SanityDocument } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
-import { Guide } from "../page";
+import { Guide, switchDifficulties } from "../page";
 import React from "react";
 import { getCharacterBySlug } from "@/data/character";
 
@@ -46,9 +46,7 @@ const GUIDE_QUERY = `*[_type == "guide" && slug.current == $slug][0]{
     _updatedAt,
     read,
     views,
-    difficulty->{
-      name
-    },
+    difficulty,
     author->{
       name,
       image
@@ -282,7 +280,7 @@ export default async function GuidePostPage({
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-4">
                 <Badge variant="purple">{guide.category?.title}</Badge>
-                <Badge variant="purple">{guide.difficulty?.name}</Badge>
+                <Badge variant="purple">{switchDifficulties(guide.difficulty)}</Badge>
                 {guide.tags.slice(0, 3).map((tag: any, idx: any) => (
                   <Badge key={idx} variant="purple" className="text-xs">
                     <Tag className="h-3 w-3 mr-1" />

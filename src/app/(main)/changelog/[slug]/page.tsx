@@ -11,7 +11,7 @@ export async function generateStaticParams() {
     const slugs = getPostSlugs()
     return slugs.map((slug) => ({
         slug: slug.replace(/\md$/, ''),
-    }))
+    }));
 }
 
 export default async function Post(props: any) {

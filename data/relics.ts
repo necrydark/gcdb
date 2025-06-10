@@ -18,6 +18,33 @@ export const getMaterialById = async (id: string) => {
   }
 };
 
+export const getEnhanceMaterials = async () => {
+  try {
+    const materials = await db.relicEnhanceMaterial.findMany();
+    return materials;
+  } catch {
+    return null;
+  }
+}
+
+export const getEnhanceMaterialByName = async (name: string) => {
+  try {
+    const material = await db.relicEnhanceMaterial.findFirst({ where: { name } });
+    return material;
+  } catch {
+    return null;
+  }
+};
+
+export const getEnhanceMaterialById = async (id: string) => {
+  try {
+    const material = await db.relicEnhanceMaterial.findFirst({ where: { id } });
+    return material;
+  } catch {
+    return null;
+  }
+};
+
 export const getMaterials = async () => {
   try {
     const materials = await db.material.findMany();

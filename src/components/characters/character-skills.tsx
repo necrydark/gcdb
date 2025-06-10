@@ -1,5 +1,5 @@
 "use client"
-import type { CharacterSkills } from "@/src/types/skill"
+import type { CharacterSkills, CharacterUltimate } from "@/src/types/skill"
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
 import { Label } from "../ui/label"
@@ -11,7 +11,6 @@ import { Separator } from "../ui/separator"
 import attack from "@/public/attack.png";
 import taunt from "@/public/taunt.png";
 import damage_debuff from "@/public/damage_debuff.png";
-import { CharacterUltimate } from "@prisma/client"
 import { SkillWithRanks } from "@/src/lib/interface"
 
 

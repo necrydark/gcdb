@@ -101,11 +101,10 @@ export const addRelic = async (values: z.infer<typeof addHolyRelic>) => {
         },
       });
 
-
-    
-
     // Revalidate the path after adding the relic
     revalidatePath("/src/app/(protected)/admin/(*.)");
+
+    console.log("hello")
 
     return { success: "Relic Added" };
   } catch (error) {

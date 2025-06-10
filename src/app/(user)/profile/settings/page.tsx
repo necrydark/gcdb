@@ -28,7 +28,9 @@ import {
 } from "@/src/components/ui/select";
 import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
-import { useToast } from "@/src/components/ui/use-toast";
+import { toast } from "sonner";
+
+
 import { UploadButton } from "@/src/lib/uploadthing";
 import { settingsSchema } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -71,7 +73,7 @@ const SettingsPage = () => {
     },
   });
 
-  const { toast } = useToast();
+
 
   const onSubmit = (values: z.infer<typeof settingsSchema>) => {
     startTransition(() => {

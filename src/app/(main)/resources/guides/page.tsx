@@ -136,10 +136,7 @@ async function getCategoriesData() {
 }
 
 
-function switchDifficulties(difficulty: number) {
-  
-  
-
+export function switchDifficulties(difficulty: number) {
   switch (difficulty) {
     case 1:
       return "Beginner"
@@ -149,8 +146,6 @@ function switchDifficulties(difficulty: number) {
       return "Advanced"
     case 4:
         return "Expert"
-          
-       
 }
 }
 

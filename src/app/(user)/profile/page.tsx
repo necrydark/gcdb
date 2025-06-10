@@ -82,9 +82,9 @@ async function ProfilePage() {
   })))
 
 
-  const isPremium =
-  user?.subscriptionStatus === "active" &&
-  user?.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
+  // const isPremium =
+  // user?.subscriptionStatus === "active" &&
+  // user?.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
 const isBasic =
   user?.subscriptionStatus === "active" &&
   user?.stripePriceId === process.env.NEXT_PUBLIC_BASIC_PRICE_ID;
@@ -105,7 +105,7 @@ const isBasic =
           boxCC={data?.boxCC || "11,000,000"}
           achievements={JSON.parse(JSON.stringify(formattedAchievements))}
           isBasic={isBasic}
-          isPremium={isPremium}
+          // isPremium={isPremium}
         />
       </div>
 

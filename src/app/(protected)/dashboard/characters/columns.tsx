@@ -24,7 +24,7 @@ export type CharacterCols = {
   jpName: string;
   imageUrl: string
   tag: string;
-  race: Race;
+  race: Race[];
   attribute: Attribute;
   rarity: Rarity;
   game?: Game;
@@ -117,7 +117,7 @@ export const columns: ColumnDef<CharacterCols>[] = [
               <MoreHorizontal className=" text-white" size={20} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="bg-purple-400 text-white  dark:bg-purple-700">
+          <DropdownMenuContent align="end" className="bg-purple-400 text-white rounded-[5px] dark:bg-purple-700">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600" asChild>
               <Link href={`/dashboard/characters/edit/${character.id}`}>Edit</Link>

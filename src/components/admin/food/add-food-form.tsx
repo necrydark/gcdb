@@ -14,7 +14,9 @@ import {
 } from "@/src/components/ui/form";
 import { Input } from "@/src/components/ui/input";
 import ReactSelect from "react-select";
-import { useToast } from "@/src/components/ui/use-toast";
+import { toast } from "sonner";
+
+
 import { addRelicMaterials } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Ingredient, ProfileColour, Towns } from "@prisma/client";
@@ -65,37 +67,37 @@ const AddFoodForm = ({ ingredients}: FoodInterface) => {
   const form = useForm<z.infer<typeof foodSchema>>({
     resolver: zodResolver(foodSchema),
     defaultValues: {
-      name: undefined,
-      imageUrl: undefined,
-      location: undefined,
-      effect: undefined,
+      name: "",
+      imageUrl: "",
+      location: "Vanya",
+      effect: "",
       ingredients: []
     },
   });
 
-  const { toast } = useToast();
+
 
   const onSubmit = (values: z.infer<typeof foodSchema>) => {
-    console.log(values)
     startTransition(() => {
       addFood(values)
         .then((data) => {
+          console.log("Data from food", data);
           if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
 
           if (data.success) {
             update();
             setSuccess(data.success);
-            toast({
-              title: "Success!",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
             setTimeout(() => {
               router.push('/dashboard/food')
@@ -113,6 +115,7 @@ const AddFoodForm = ({ ingredients}: FoodInterface) => {
             <Button
               variant="outline"
               size="icon"
+              type="button"
               className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
               asChild
             >
@@ -130,7 +133,9 @@ const AddFoodForm = ({ ingredients}: FoodInterface) => {
           </div>
         </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form
+        onSubmit={form.handleSubmit(onSubmit)} className="space-y-6"
+        >
     <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
       <CardHeader className="flex justify-between flex-row gap-5">
         <CardTitle>
@@ -267,7 +272,7 @@ const AddFoodForm = ({ ingredients}: FoodInterface) => {
                       <ReactSelect
                         name="ingredients"
                         isMulti
-                        className="text-black bg-blue"
+                        className="text-black"
                         options={ingredientOptions}
                         isSearchable={isSearchable}
                         isDisabled={isPending || !ingredients?.length}
@@ -277,11 +282,8 @@ const AddFoodForm = ({ ingredients}: FoodInterface) => {
                               id: option.id,
                               name: option.name,
                               imageUrl: option.imageUrl,
-              
                             }))
                           );
-
-                          console.log(selectedOptions)
                         }}
                         placeholder={
                           (ingredients?.length ?? 0) >= 1
@@ -289,14 +291,12 @@ const AddFoodForm = ({ ingredients}: FoodInterface) => {
                             : "No ingredients Available!"
                         }
                       />
-                      <FormMessage   />
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
        </div>
           </CardContent>
-          {/* <FormError message={error} />
-              <FormSuccess message={success} /> */}
                         </Card>
                       <div className="flex flex-row gap-4 justify-end items-center">
               <Button
@@ -318,3 +318,5 @@ className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px
 };
 
 export default AddFoodForm;
+
+// bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg

@@ -14,7 +14,9 @@ import {
 } from "@/src/components/ui/form";
 import { Input } from "@/src/components/ui/input";
 import ReactSelect from "react-select";
-import { useToast } from "@/src/components/ui/use-toast";
+import { toast } from "sonner";
+
+
 import { addRelicMaterials } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Food, Ingredient, Towns } from "@prisma/client";
@@ -98,7 +100,7 @@ const EditFoodForm = ({ food, ingredients, foodIngredients} : props) => {
     },
   });
 
-  const { toast } = useToast();
+
 
   const onSubmit = (values: z.infer<typeof foodSchema>) => {
     startTransition(() => {
@@ -113,20 +115,20 @@ const EditFoodForm = ({ food, ingredients, foodIngredients} : props) => {
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
 
           if (data.success) {
             update();
             setSuccess(data.success);
-            toast({
-              title: "Success!",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
             setTimeout(() => {
               router.push('/dashboard/food')

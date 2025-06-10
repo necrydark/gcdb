@@ -29,13 +29,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { useToast } from "../../ui/use-toast";
+import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { ArrowLeft, CalendarIcon, MoveLeft } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Calendar } from "../../ui/calendar";
 import { cn } from "@nextui-org/react";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 
 interface RelicInterface {
   characters?: Character[] | null;
@@ -183,8 +184,9 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
   }, [form.formState.errors]);
 
   
-  const { toast } = useToast();
+
   const { update } = useSession();
+  const router = useRouter()
 
   const onSubmit = (values: z.infer<typeof editHolyRelic>) => {
     startTransition(() => {
@@ -201,24 +203,26 @@ function EditRelicForm({ characters, materials, relic, relicMaterials }: RelicIn
       };
       editRelic(formattedValues, relic.id)
         .then((data) => {
-          if (data?.error) {
+          if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
 
-          if (data?.success) {
+          if (data.success) {
             update();
-
             setSuccess(data.success);
-            toast({
-              title: "Success!",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
+            setTimeout(() => {
+              router.push('/dashboard/relics')
+            }, 1500)
           }
         })
         .catch((err) => setError(err));

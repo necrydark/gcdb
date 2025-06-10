@@ -20,7 +20,9 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 import { Textarea } from "@/src/components/ui/textarea";
-import { useToast } from "@/src/components/ui/use-toast";
+import { toast } from "sonner";
+
+
 import { cn } from "@/src/lib/utils";
 import { addNewUserSchema, characterUltimateSchema, editCharacterSchema } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,17 +62,12 @@ import { Separator } from "@/src/components/ui/separator";
 import { SkillWithRanks } from "@/src/lib/interface";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
+import { characterSchema } from "@/src/schemas/character/schema";
+import { useRouter } from "next/navigation";
 
 interface FormProps {
   Character?: Character & {
-    stats: Stats[]
-    gifts?: Gift[]
-    foods?: Food[];
-    associations?: Association[];
-    associatedWith?: AssociationWith[];
-    ultimateEdit?: CharacterUltimate;
-    skills?: SkillWithRanks[];
-    
+    stats: Stats[]    
   }
   Gifts?: Gift[];
   Foods?: Food[];
@@ -108,6 +105,15 @@ function EditCharacterForm({
   const skills = SkillsEdit;
   const ranks = RanksEdit;
   const [slug, setSlug] = useState<string>(Character?.slug as string);
+
+  const raceOptions = Object.values(Race).map((race) => ({
+    value: race, // The actual enum value (e.g., RaceType.Demon)
+    label: race.replace(/([A-Z])/g, " $1").trim().replace(" ", " / "), // Pretty label (e.g., "HumanGiant" -> "Human / Giant")
+  }));
+
+
+  // Prepare default selected materials
+  const formDefaultRaces = Character?.race || [Race.Human];
   
   const GiftOptions = Gifts?.map((gift) => ({
     name: gift.name,
@@ -175,6 +181,7 @@ function EditCharacterForm({
     ),
   }));
 
+  console.log(Character);
 
     
   const form = useForm<z.infer<typeof editCharacterSchema>>({
@@ -190,7 +197,7 @@ function EditCharacterForm({
       releaseDate: Character?.releaseDate || undefined,
       game: Character?.game || Game.Base,
       crossover: Character?.Crossover || Crossovers.NotCrossover,
-      race: Character?.race || Race.Demon,
+      races: formDefaultRaces,
       attribute: Character?.attribute || Attribute.HP,
       rarity: Character?.rarity || Rarity.R,
       gender: Character?.gender || Genders.Male,
@@ -206,6 +213,12 @@ function EditCharacterForm({
       passiveCCNeeded: Character?.passiveCCNeeded || undefined,
       passiveDescription: Character?.passiveDescription || undefined,
       stats: Character?.stats ?? [],
+      characterUnity: {
+        name: Character?.unityName || undefined,
+        description: Character?.unityDescription || undefined,
+        jpName: Character?.unityJpName || undefined,
+        imageUrl: Character?.unityImageUrl || undefined
+      },
       // gifts: [
       //   {
       //     name: "Gift of the Sun",
@@ -355,8 +368,9 @@ function EditCharacterForm({
     }
   };
 
-  const { toast } = useToast();
+
   const { update } = useSession();
+  const router = useRouter();
 
   const onSubmit = (values: z.infer<typeof editCharacterSchema>) => {
     values.id = uniqueId;
@@ -366,21 +380,24 @@ function EditCharacterForm({
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
+
           if (data.success) {
             update();
-            form.reset();
             setSuccess(data.success);
-            toast({
-              title: "Success!",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
+            setTimeout(() => {
+              router.push('/dashboard/food')
+            }, 1500)
           }
         })
         .catch((err) => setError(err));
@@ -579,72 +596,56 @@ function EditCharacterForm({
                     />
                   </div>
                   <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="race"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-white">Race</FormLabel>
-                          <Select
-                            disabled={isPending}
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger className="border-purple-900 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 ">
-                                <SelectValue placeholder="Select the units race." />
-                              </SelectTrigger>
-                            </FormControl>
-                            <FormMessage />
-
-                            <SelectContent className="bg-purple-600 rounded-[5px] text-white dark:bg-purple-800">
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Demon}
-                              >
-                                Demon
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Fairy}
-                              >
-                                Fairy
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Giant}
-                              >
-                                Giant
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Goddess}
-                              >
-                                Goddess
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Human}
-                              >
-                                Human
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.HumanGiant}
-                              >
-                                Human / Giant
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Unknown}
-                              >
-                                Unknown
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      )}
-                    />
+                  <FormField
+          control={form.control}
+          name="races"
+          render={() => (
+            <FormItem>
+              <FormLabel className="text-white">Race(s)</FormLabel>
+                <FormField
+                  control={form.control}
+                  name="races"
+                  render={({ field }) => {
+                    return (
+                      <FormItem
+                        className="flex flex-row items-start space-x-3 space-y-0"
+                      >
+                        <FormControl>
+                        <ReactSelect
+                            {...field} // Spread field props
+                            className="text-black w-full"
+                            options={
+                              raceOptions
+                            }
+                            isMulti
+                            isSearchable={isSearchable}
+                            isDisabled={isPending}
+                            onChange={(selectedOptions: any) => {
+                              const newValues = selectedOptions
+                                ? selectedOptions.map((option: any) => option.value)
+                                : [];
+                              field.onChange(newValues); 
+                            }}
+                            onBlur={field.onBlur}
+                            
+                            value={
+                              field.value
+                                ? raceOptions.filter((option) =>
+                                    field.value.includes(option.value),
+                                  )
+                                : []
+                            }
+                          />
+                        </FormControl>
+                    
+                      </FormItem>
+                    );
+                  }}
+                />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
                     <FormField
                       control={form.control}
                       name="attribute"
@@ -1329,7 +1330,7 @@ function EditCharacterForm({
                               </SelectItem>
                               <SelectItem
                                 className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={StatLevel.SUPER_AWAKENING}
+                                value={StatLevel.TRUE_AWAKENING}
                               >
                                 Super Awakening
                               </SelectItem>
@@ -1804,6 +1805,92 @@ function EditCharacterForm({
                 />
               </div>
               </div>
+              <Separator className="my-4 bg-white" />
+              <div className="space-y-4">
+              <h4 className="text-3xl leading-tight font-extrabold py-3">
+                Unity
+              </h4>
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+          
+                <FormField
+                  control={form.control}
+                  name="characterUnity.name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Unity Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Unity Name"
+                          type="text"
+                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="characterUnity.jpName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Unity JP Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Unity JP Name"
+                          type="text"
+                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="characterUnity.imageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Unity Image URL</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Unity Image URL"
+                          type="text"
+                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              
+                <FormField
+                  control={form.control}
+                  name="characterUnity.description"
+                  render={({ field }) => (
+                    <FormItem className="mt-2">
+                      <FormLabel>Unity Description</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Unity Description"
+                          className="border-purple-900 resize-none mt-4 h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+
+                          {...field}
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+      
+              </div>
                   </CardContent>
         
               </Card>
@@ -1903,7 +1990,7 @@ function EditCharacterForm({
         // Map the form's current array value back to ReactSelect's expected value format
         value={
            field.value?.map(formFood => ({
-             value: formFood.id,
+             value: formFood.name,
              label: formFood.name,
              imageUrl: formFood.imageUrl,
            })) || [] // Use an empty array for no selections in multi-select

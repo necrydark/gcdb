@@ -29,7 +29,7 @@ function CommentsForm({ characterId, slug }: Props) {
     },
   });
 
-  const { toast } = useToast();
+
 
   const onSubmit = (values: z.infer<typeof commentSchema>) => {
     setErr("");

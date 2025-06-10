@@ -10,6 +10,7 @@ async function HolyRelicsPage() {
         Collection: true,
         characters: true,
         materials: true,
+        enhanceMaterials: true,
       }
     })
 

@@ -1,23 +1,64 @@
+import { getYoutubeVideos } from "@/data/get-youtube-videos";
 import { Button } from "@/src/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
+import { formatDate } from "@/src/lib/date-format";
+import { formatYoutubeDuration } from "@/src/lib/youtube-duration";
 import {
   Award,
+  Calendar,
+  ChevronDown,
   ExternalLink,
+  Eye,
   Heart,
+  MessageCircle,
   MessageSquare,
   Users,
   Youtube,
+  YoutubeIcon,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function CommunityPage() {
+export type YoutubeRes = {
+  kind: string;
+  etag: string
+  items: Video[];
+}
+
+export type Video = {
+  kind: string;
+  etag: string; 
+  id: string; 
+  snippet: {
+    title:string;
+    publishedAt: string;
+    description: string;
+
+    thumbnails: {
+      high: {
+        url: string;
+      }
+    }
+  }
+contentDetails:{
+  duration: string;
+  caption: string;
+}
+statistics: {
+  viewCount: string
+  commentCount: string;
+}
+}
+
+export default async function CommunityPage() {
   const communityPlatforms = [
     {
       id: "discord",
@@ -32,7 +73,7 @@ export default function CommunityPage() {
     },
     {
       id: "youtube",
-      name: "YouTube",
+      name: "YouTube - Amazing",
       description: "Watch guides, gameplay, and analysis from Amazing.",
       icon: Youtube,
       url: "https://www.youtube.com/@AmazingGrandCross",
@@ -42,7 +83,7 @@ export default function CommunityPage() {
     },
     {
       id: "youtube2",
-      name: "YouTube",
+      name: "YouTube - Marilli",
       description: "Watch guides, gameplay, and analysis from Marilli.",
       icon: Youtube,
       url: "https://www.youtube.com/@Marilli",
@@ -52,7 +93,7 @@ export default function CommunityPage() {
     },
     {
       id: "youtube3",
-      name: "YouTube",
+      name: "YouTube - Sora",
       description: "Watch guides, gameplay, and analysis from Sora.",
       icon: Youtube,
       url: "https://www.youtube.com/@Sora-GrandCross",
@@ -61,6 +102,46 @@ export default function CommunityPage() {
       cta: "Visit Channel",
     },
   ];
+
+  const contributionAreas = [
+    {
+      id: "1",
+      name: "Data Entry",
+      description: "Help us keep character stats, skills, and equipment information up to date.",
+      difficulty: "Easy",
+      icon: "📊",
+    },
+    {
+      id: "2",
+      name: "Guide Writing",
+      description: "Create guides for characters, game mechanics, or events to help other players.",
+      difficulty: "Medium",
+      icon: "📝",
+    },
+    {
+      id: "3",
+      name: "Code Contribution",
+      description: "Contribute to our open-source tools and website on GitHub.",
+      difficulty: "Hard",
+      icon: "💻",
+    },
+    {
+      id: "4",
+      name: "Community Moderation",
+      description: "Help maintain a positive and helpful community across our platforms.",
+      difficulty: "Medium",
+      icon: "🛡️",
+    },
+    {
+      id: "5",
+      name: "Content Creation",
+      description: "Create videos, infographics, or other visual content for the community.",
+      difficulty: "Medium",
+      icon: "🎨",
+    },
+  ]
+
+  const videos = await getYoutubeVideos();
   return (
     <div className="pt-[7rem] container mx-auto px-6">
       <section className="flex flex-col">
@@ -124,6 +205,130 @@ export default function CommunityPage() {
         </div>
       </section>
 
+      {/* Youtube videos */}
+      <section className="py-12 px-4">
+        <div className="container mx-auto max-w-6xl">
+           <div className="flex justify-between items-center mb-8">
+            <div>
+            <h3 className="text-2xl font-bold">Latest Youtube Videos - Amazing</h3>
+              <p>
+                Check out the latest videos from Amazing on his channel.
+              </p>
+            </div>
+              <Button
+                variant="purple"
+                className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"
+                size="lg"
+                asChild
+              >
+                <Link href="https://www.youtube.com/@AmazingGrandCross" target="_blank" rel="noopener noreferrer">
+                <YoutubeIcon className="mr-2 h-5 w-5" /> Visit Channel
+                </Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {videos.map((video: Video) => (
+                <Card key={video.id} className="overflow-hidden  group-hover:shadow-lg transition-shadow bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
+                  <div className="relative">
+                    <Image src={video.snippet.thumbnails.high.url || ""}
+                    alt={video.snippet.title || "Youtube video thumbnail"}
+                    width={320}
+                    height={160}
+                    className="w-full h-[160px] object-cover group-hover:scale-105 transition-transform duration-300" />         
+                    <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded-[5px] text-xs font-medium">
+                    {formatYoutubeDuration(video.contentDetails.duration)}
+                    </div>     
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-red-600 rounded-full p-3">
+                      <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    </div>  
+                  </div>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                      {video.snippet.title}
+                    </CardTitle>
+                    <div className="flex items-center gap-4 text-sm text-gray-300">
+                      <div className="flex items-center">
+                        <Eye className="h-4 w-4 mr-1" />
+                        {video.statistics.viewCount}
+                      </div>
+                      <div className="flex items-center">
+                        <Calendar className="h-4 w-4 mr-1" />
+                        {formatDate(video.snippet.publishedAt)}
+                      </div>
+                      <div className="flex items-center">
+                        <MessageCircle className="h-4 w-4 mr-1" />
+                        {video.statistics.commentCount}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <p className="text-sm text-gray-300 line-clamp-2 mb-4">
+                      {video.snippet.description}
+                    </p>
+                    <Button variant={"purple"} 
+  asChild
+className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 w-full rounded-[5px]"
+>
+  <Link href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener noreferrer">
+  <ExternalLink className="mr-2 h-4 w-4" />
+  Watch Video
+  </Link>
+</Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+        </div>
+      </section>
+
+      {/* How To Contribute */}
+      {/* <section className="py-12 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="mt-12 =">
+            <div className="p-8 max-w-2xl text-center mx-auto">
+              <Heart className="w-12 h-12 text-white mx-auto p-4" />
+              <h3 className="text-2xl font-bold mb-2">How To Contribute</h3>
+              <p className="mb-6">
+                There are many ways to help improve the website and community. Find the perfect fit for your skills and interests
+              </p>
+             
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {contributionAreas.map((area) => (
+                <Card key={area.id} className="overflow-hidden bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">{area.icon}</span>
+                      <CardTitle>{area.name}</CardTitle>
+                    </div>
+                      <CardDescription>Difficulty: {area.difficulty}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p>{area.description}</p>
+                  </CardContent>
+                  <CardFooter className="mt-auto">
+                  <Button variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 w-full rounded-[5px]"
+ asChild>
+                    <Link href={`/contribute/${area.id}`}>
+                      Get Started <ChevronDown className="ml-2 h-4 w-4 rotate-[-90deg]" />
+                    </Link>
+                  </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="mt-12 text-center">
@@ -136,7 +341,7 @@ export default function CommunityPage() {
               </p>
               <Button
                 variant="purple"
-                className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"
+                className="dark:hover:bg-purple-950 mt-6 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"
                 size="lg"
                 asChild
               >

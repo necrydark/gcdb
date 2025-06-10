@@ -1,6 +1,4 @@
-import { getRelicById } from "@/data/relics";
 import { getCommentsFromDb } from "@/src/actions/comments";
-import { deleteCharacter } from "@/src/actions/delete-character";
 import CharacterHeader from "@/src/components/characters/character-header";
 import CharacterTabs from "@/src/components/characters/character-tabs";
 import CommentsForm from "@/src/components/characters/comments-form";
@@ -8,7 +6,7 @@ import { Button } from "@/src/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { formatDate } from "@/src/lib/date-format";
 import db from "@/src/lib/db";
-import { CharacterMiscInfo } from "@/src/types/character";
+import { CharacterMiscInfo, Talent, Unity } from "@/src/types/character";
 import { Passive } from "@/src/types/passive";
 import { currentUser } from "@/src/utils/auth";
 import Image from "next/image";
@@ -60,16 +58,16 @@ async function getCharacterFromDb(slug: string){
         },
         stats: true,
 
-        ultimate: { // Assuming ultimate is a relation and you need its fields
+        ultimate: {
            select: {
-             id: true, // Select ultimate's ID if needed
+             id: true, 
              name: true,
              jpName: true,
              imageUrl: true,
              characterId: true,
              description: true,
-             extraInfo: true, // Ensure extraInfo is selected
-             // ... other ultimate fields you need
+             extraInfo: true,
+
            }
         },
         skills: {
@@ -78,7 +76,16 @@ async function getCharacterFromDb(slug: string){
             skillRanks: true, // You likely need skill ranks too
           }
         },
-        
+        talentDescription: true,
+        talentImageUrl: true,
+        talentJpName: true,
+        talentName: true,
+        hasTalent:true,
+        unityDescription: true,
+        unityImageUrl: true,
+        unityJpName: true,
+        unityName: true,
+        hasUnity: true,
         gift: true,
         food: true,
         associations: true,
@@ -100,10 +107,19 @@ async function getCharacterFromDb(slug: string){
             defense: true,
             hp: true,
             beast: true,
+            enhancable: true,
+            enhanceAttack: true,
+            enhanceDefense: true,
+            enhanceHp: true,
             // You might also need to select materials if the receiving component uses them
             materials: {
               select: {
                 id: true, name: true, imageUrl: true, // Select material fields
+              }
+            },
+            enhanceMaterials: {
+              select: {
+                id: true, name: true, imageUrl: true,
               }
             }
          }
@@ -133,6 +149,10 @@ export default async function CharacterPage(props: any) {
 
   const character = await getCharacterFromDb(slug);
   const comments = await getCommentsFromDb(character?.id as string)
+
+  if(!character?.ultimate) { 
+     return <div>Missing character data</div>;
+  }
   // console.log(character); - USED FOR DEBUGGING
 
   const passive: Passive = {
@@ -152,6 +172,23 @@ export default async function CharacterPage(props: any) {
     CV: character?.CV || "",
     height: character?.height || "",
     weight: character?.weight || ""
+  }
+
+
+  const unity: Unity = {
+    name: character?.unityName || "",
+    jpName: character?.unityJpName || "",
+    imageUrl: character?.unityImageUrl || "",
+    description: character?.unityDescription || "",
+    hasUnity: character?.hasUnity || undefined,
+  }
+
+  const talent: Talent = {
+    name: character?.talentName || "",
+    jpName: character?.talentJpName || "",
+    imageUrl: character?.talentImageUrl || "",
+    description: character?.talentDescription || "",
+    hasTalent: character?.hasTalent || undefined,
   }
 
 
@@ -187,9 +224,10 @@ export default async function CharacterPage(props: any) {
         passive={passive || ""}
         gift={character?.gift}
         miscInfo={miscInfo}
-        ultimate={character?.ultimate || undefined}
         associations={character?.associations}
-      
+        ultimate={character?.ultimate || undefined}
+        talent={talent}
+        unity={unity}
       />
       {user ? (
           <div>

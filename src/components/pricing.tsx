@@ -56,11 +56,11 @@ export default function Pricing() {
     console.log("Session Status:", status);
     console.log("Session User:", session?.user);
     console.log("Basic Price ID:", process.env.NEXT_PUBLIC_BASIC_PRICE_ID);
-    console.log("Premium Price ID:", process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID);
+    // console.log("Premium Price ID:", process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID);
 
-  const isPremium =
-    session?.user?.subscriptionStatus === "active" &&
-    session?.user?.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
+  // const isPremium =
+  //   session?.user?.subscriptionStatus === "active" &&
+  //   session?.user?.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
   const isBasic =
     session?.user?.subscriptionStatus === "active" &&
     session?.user?.stripePriceId === process.env.NEXT_PUBLIC_BASIC_PRICE_ID;
@@ -107,7 +107,7 @@ export default function Pricing() {
             </Card>
     
             {/* Premium Plan */}
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            {/* <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
               <CardHeader>
                 <CardTitle  className="text-white">
                 Premium Plan
@@ -141,7 +141,7 @@ export default function Pricing() {
                 </Button>
               )}
               </CardFooter>
-            </Card>
+            </Card> */}
           </div>
         </div>
       );

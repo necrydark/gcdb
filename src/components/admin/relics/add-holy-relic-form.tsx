@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "../../ui/separator";
 import ReactSelect from "react-select";
 import { addRelic } from "@/src/actions/relics";
-import { Beast, Character, Material } from "@prisma/client";
+import { Beast, Character, Material, RelicEnhanceMaterial } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +16,7 @@ import { Button } from "../../ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,24 +30,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { useToast } from "../../ui/use-toast";
+import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { ArrowLeft, CalendarIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Calendar } from "../../ui/calendar";
 import { cn } from "@nextui-org/react";
 import { format } from "date-fns";
+import { Switch } from "../../ui/switch";
+import { useRouter } from "next/navigation";
 
 interface RelicInterface {
   characters?: Character[];
   materials?: Material[];
+  enhanceMaterials: RelicEnhanceMaterial[]
 }
 
-function AddRelicForm({ characters, materials }: RelicInterface) {
+function AddRelicForm({ characters, materials, enhanceMaterials }: RelicInterface) {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
   const [isSearchable, setIsSearchable] = useState(true);
+  const [isEnhancable, setIsEnhancable] = useState(false);
   
 
   const characterOptions = characters?.map((character) => ({
@@ -65,7 +70,26 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
           width={30}
         />
         {character.name}
+        {" "}
         {character.tag}
+      </div>
+    ),
+  }));
+
+  const enhanceMaterialsOptions = enhanceMaterials?.map((enhanceMaterial) => ({
+    id: enhanceMaterial.id,
+    name: enhanceMaterial.name,
+    imageUrl: enhanceMaterial.imageUrl,
+    value: enhanceMaterial.name,
+    label: (
+      <div className="flex flex-row gap-3 items-center">
+        <Image
+          src={enhanceMaterial.imageUrl}
+          alt={enhanceMaterial.name}
+          height={30}
+          width={30}
+        />
+        {enhanceMaterial.name}
       </div>
     ),
   }));
@@ -83,6 +107,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
           height={30}
           width={30}
         />
+        
         {material.name}
       </div>
     ),
@@ -101,34 +126,47 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
       releaseDate: undefined,
       materials: [],
       characters: [],
+      enhancable: false,
+      enhanceAttack: undefined,
+      enhanceDefense: undefined,
+      enhanceHp: undefined,
+      enhanceMaterials: []
     },
   });
 
-  const { toast } = useToast();
+
   const { update } = useSession();
+  const router = useRouter();
+
+  const enhanceChange = () => {
+    setIsEnhancable(!isEnhancable)
+  }
 
   const onSubmit = (values: z.infer<typeof addHolyRelic>) => {
+    values.enhancable = isEnhancable;
     startTransition(() => {
       addRelic(values)
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
 
           if (data.success) {
             update();
-
             setSuccess(data.success);
-            toast({
-              title: "Success!",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
+            setTimeout(() => {
+              router.push('/dashboard/relics')
+            }, 1500)
           }
         })
         .catch((err) => setError(err));
@@ -361,14 +399,14 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                       <FormLabel>Relic Added Date</FormLabel>
                       <Popover>
                         <PopoverTrigger
-                          className="bg-purple-600 dark:bg-purple-800 rounded-[5px]"
+                          className="bg-purple-600 text-white dark:bg-purple-800 border-purple-900 rounded-[5px]"
                           asChild
                         >
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "w-[240px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
+                              "w-[240px] pl-3 text-left !border-purple-900  font-normal",
+                              !field.value && "text-white"
                             )}
                           >
                             {" "}
@@ -467,7 +505,130 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
                     </FormItem>
                   )}
                 />
+         
               </div>
+                <FormField
+              control={form.control}
+              name="enhancable"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg p-3">
+                  <div className="space-y-0.5">
+                    <FormLabel>Enhancable</FormLabel>
+                    <FormDescription>
+                      Select if a relic is enhancable or not.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                                 className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900 "
+                      checked={isEnhancable}
+                      onCheckedChange={enhanceChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+         {isEnhancable == true && (
+        <>
+               <FormField
+               control={form.control}
+               name="enhanceMaterials"
+               render={({ field }) => (
+                 <FormItem>
+                   <FormLabel className="text-white">Enhance Materials</FormLabel>
+                   <ReactSelect
+                     name="enhanceMaterials"
+                     isMulti
+                     className="text-black"
+                     options={enhanceMaterialsOptions}
+                     isSearchable={isSearchable}
+                     isDisabled={isPending || !enhanceMaterials?.length}
+                     onChange={(selectedOptions: any) => {
+                       field.onChange(
+                         selectedOptions.map((option: any) => ({
+                           id: option.id,
+                           name: option.name,
+                           imageUrl: option.imageUrl,
+                         }))
+                       );
+                       console.log(selectedOptions)
+
+                     }}
+                     placeholder={
+                       (enhanceMaterials?.length ?? 0) >= 1
+                         ? "Select materials!"
+                         : "No enhnace materials Available!"
+                     }
+                   />
+                   <FormMessage />
+                 </FormItem>
+               )}
+             />
+             <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
+             <FormField
+                  control={form.control}
+                  name="enhanceAttack"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">Enhance Attack</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                          placeholder="Enhance Attack"
+                          type="text"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />{" "}
+                <FormField
+                  control={form.control}
+                  name="enhanceDefense"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">
+                        Enhance Defense
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                          placeholder="Enhance Defense"
+                          type="text"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />{" "}
+                <FormField
+                  control={form.control}
+                  name="enhanceHp"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">
+                        Enhance HP
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                          placeholder="Enhance HP"
+                          type="text"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+             </div>
+        </>
+         )}
             </CardContent>
           </Card>
           <div className="flex flex-row gap-4 justify-end items-center">
@@ -486,6 +647,7 @@ function AddRelicForm({ characters, materials }: RelicInterface) {
           </div>
         </form>
       </Form>
+
     </div>
   );
 }

@@ -61,6 +61,7 @@ export const editCharacter = async (
     skills,
     // holyRelic,
     characterUltimate,
+    characterUnity,
     stats
   } = validatedFields.data;
 

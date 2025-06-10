@@ -1,11 +1,4 @@
-import AddCharacterForm from "@/src/components/admin/characters/add-character-form";
 import { Button } from "@/src/components/ui/button";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/src/components/ui/tabs";
 import { currentRole } from "@/src/utils/auth";
 import db from "@/src/lib/db";
 import { UserRole } from "@prisma/client";

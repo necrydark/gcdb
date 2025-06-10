@@ -25,10 +25,10 @@ type Props = {
     inGameRank?: string
     achievements?: Achievement[];
     isBasic?: boolean;
-    isPremium? :boolean;
+    // isPremium? :boolean;
 }
 
-export const UserBanner = ({username, imageUrl, role, colour, boxCC, inGameRank, achievements, isBasic, isPremium}: Props) => {
+export const UserBanner = ({username, imageUrl, role, colour, boxCC, inGameRank, achievements, isBasic}: Props) => {
     return (
         <div className={`dark:bg-${colour}-950 bg-${colour}-800  shadow-md  rounded-[5px] flex flex-col p-12`}>
            <div className="flex md:flex-row flex-col justify-between md:gap-4 gap-8">
@@ -70,12 +70,12 @@ export const UserBanner = ({username, imageUrl, role, colour, boxCC, inGameRank,
           <Badge
             className={cn("w-fit text-white",
               isBasic && "bg-[#ae4e12]",
-              isPremium && "bg-[#9b7ddf]"
+              // isPremium && "bg-[#9b7ddf]"
             )}
          
           >
             {isBasic ? "SR" : ""}
-            {isPremium ? "SSR" : ""}
+            {/* {isPremium ? "SSR" : ""} */}
             
           </Badge>
             </div>

@@ -22,7 +22,7 @@ export function SettingsForm({
   username: string | null | undefined;
 }) {
   const [state, formAction] = useFormState(updateUsername, initialState);
-  const { toast } = useToast();
+
 
   useEffect(() => {
     if (state?.status === "green") {

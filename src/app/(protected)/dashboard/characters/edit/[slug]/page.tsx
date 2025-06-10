@@ -43,6 +43,8 @@ type Params = Promise<{slug: string}>
 
 export default async function EditCharacterPage({ params }: {params: Params}) {
   const { slug } = await params;
+
+  console.log(slug);
   const character = await getCharacterById(slug as string);
   const skills = await getSkillsById(character?.id as string);
   const skillIds = skills?.map((skill) => skill.id);

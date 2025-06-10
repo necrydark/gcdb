@@ -39,7 +39,7 @@ const hasLevel100Stats = Array.isArray(stats)
   ? stats.some((stat) => stat.level === "LEVEL_100")
   : false
 
-const hasSuperAwakening = Array.isArray(stats) ? stats.some((stat) => stat.level === "SUPER_AWAKENING") : false
+const hasSuperAwakening = Array.isArray(stats) ? stats.some((stat) => stat.level === "TRUE_AWAKENING") : false
 
   const hasBothLevels = hasLevel1Stats && hasLevel100Stats;
 
@@ -60,8 +60,8 @@ const hasSuperAwakening = Array.isArray(stats) ? stats.some((stat) => stat.level
       case StatLevel.LEVEL_100: {
         return "Level 100"
       } 
-      case StatLevel.SUPER_AWAKENING: {
-        return "Super Awakening"
+      case StatLevel.TRUE_AWAKENING: {
+        return "True Awakening"
       }
       default: {
         return "Level 1"
@@ -100,7 +100,7 @@ const hasSuperAwakening = Array.isArray(stats) ? stats.some((stat) => stat.level
             )}
             </div>
         </CardTitle>
-        <CardDescription className=" flex flex-row gap-1 text-gray-700 dark:text-gray-300">{currentStats?.level === "SUPER_AWAKENING" ? (
+        <CardDescription className=" flex flex-row gap-1 text-gray-700 dark:text-gray-300">{currentStats?.level === "TRUE_AWAKENING" ? (
             <p>Stats for a super awakened character</p>
         ): (
           <p>Base Stats at level {formattedStat(currentStats?.level || StatLevel.LEVEL_1)}</p>

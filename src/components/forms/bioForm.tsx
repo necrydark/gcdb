@@ -17,7 +17,7 @@ const initialState = {
 
 function BioForm({ bio }: { bio: string | null | undefined }) {
   const [state, formAction] = useFormState(updateBio, initialState);
-  const { toast } = useToast();
+
 
   useEffect(() => {
     if (state?.status === "green") {

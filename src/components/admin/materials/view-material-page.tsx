@@ -1,7 +1,7 @@
 "use client";
 import { HolyRelic, Material } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useToast } from "../../ui/use-toast";
+import { toast } from "sonner";
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -44,7 +44,7 @@ export default function ViewMaterialPage({
   relicMaterials,
 }: MaterialsInterface) {
   const router = useRouter();
-  const { toast } = useToast();
+
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -126,8 +126,8 @@ export default function ViewMaterialPage({
                 {relicMaterials?.holyRelics &&
                   relicMaterials.holyRelics.length > 0 && (
                     <p className="mr-2 text-destructive">
-                      Warning: This holy relic is equipped by {length}{" "}
-                      character(s).
+                      Warning: This material is equipped by {length}{" "}
+                      relics(s).
                     </p>
                   )}
               </div>

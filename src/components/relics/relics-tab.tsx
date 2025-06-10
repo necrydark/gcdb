@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import Relic from './relic'
-import { Beast, Character, Collection, HolyRelic, Material } from '@prisma/client';
+import { Beast, Character, Collection, HolyRelic, Material, RelicEnhanceMaterial } from '@prisma/client';
 import { useCurrentUser } from '@/hooks/use-current-user';
 
 export interface relic {
@@ -19,6 +19,12 @@ export interface relic {
   beast: Beast;
   isCollected: boolean;
   collection: Collection[]
+  enhanceable: boolean;
+  enhancedAttack: string;
+  enhancedDefense: string;
+  enhancedHp: string;
+  enhancedMaterials: RelicEnhanceMaterial[]
+
 }
 
 type Props = {

@@ -8,22 +8,29 @@ import {
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { addCharacterSchema, characterUltimateSchema, skillRankSchema, skillSchema, statsSchema } from "../schemas/schema";
 import { auth } from "../auth";
 import { stat } from "fs";
-import { giftSchema } from "../schemas/admin/schema";
 import { currentUser } from "../utils/auth";
+import { characterSchema } from "../schemas/character/schema";
+import { characterUltimateSchema } from "../schemas/character/character-ultimate-schema";
+import { skillSchema } from "../schemas/character/skillSchema";
+import { statsSchema } from "../schemas/character/statsSchema";
+import { giftSchema } from "../schemas/character/giftSchema";
+import { Crossovers } from "@prisma/client";
+import { foodSchema } from "../schemas/admin/schema";
 
 type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
 type SkillData = z.infer<typeof skillSchema>
-type AddCharacterData = z.infer<typeof addCharacterSchema>
+type AddCharacterData = z.infer<typeof characterSchema>
 type StatData = z.infer<typeof statsSchema>
 type GiftData = z.infer<typeof giftSchema>
+type FoodData = z.infer<typeof foodSchema>
+
 
 export const addCharacter = async (
-  values: AddCharacterData
+  values: z.infer<typeof characterSchema>
 ) => {
-  const validatedFields = addCharacterSchema.safeParse(values);
+  const validatedFields = characterSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "Invalid Fields!" };
@@ -49,7 +56,7 @@ export const addCharacter = async (
     game,
     crossover,
     event,
-    race,
+    races,
     attribute,
     rarity,
     stats,
@@ -63,7 +70,7 @@ export const addCharacter = async (
     location,
     CV,
     gifts,
-    // food,
+    food,
     // associations,
     // associationsWith,
     passiveName,
@@ -73,7 +80,10 @@ export const addCharacter = async (
     passiveCCNeeded,
     skills,
     characterUltimate,
-  }: AddCharacterData = validatedFields.data;
+    characterUnity,
+    characterTalent,
+    characterFriendshipRewards
+  } = validatedFields.data;
 
   const existingCharacterBySlug = await getCharacterBySlug(slug as string);
   const existingCharacterByTag = await getCharacterByTag(tag as string);
@@ -87,49 +97,67 @@ export const addCharacter = async (
   }
 
   const max_stats = 3;
-  if(stats.length > max_stats) {
+  if(stat.length > max_stats) {
     return {error: `A character cannot have more than ${max_stats} stats.`}
   }
 
   const typedSkills: SkillData[] = skills as SkillData[];
   const typedCharacterUltimate: CharacterUltimateData = characterUltimate as CharacterUltimateData;
   const typedStats: StatData[] = stats as StatData[];
+  const typedGifts = gifts as GiftData[];
+  const typedFood = food as FoodData[]
 
   const createdUltimate = await db.characterUltimate.create({
     data: {
-      // You might need to provide the characterId here if ultimate requires it
-      // characterId: characterId, // If CharacterUltimate schema requires characterId on creation
+      // characterId: id  ,
       name: typedCharacterUltimate.name,
       jpName: typedCharacterUltimate.jpName,
       imageUrl: typedCharacterUltimate.imageUrl,
       description: typedCharacterUltimate.description,
-      extraInfo: typedCharacterUltimate.extraInfo ?? "", // Or || undefined based on schema
+      extraInfo: typedCharacterUltimate.extraInfo ?? "",
     },
   });
 
   await db.character.create({
     data: {
       name,
-      tag,
-      jpName,
-      jpTag,
-      slug,
-      imageUrl,
-      game,
-      Crossover: crossover,
-      event,
-      race,
-      attribute,
-      rarity,
-      releaseDate,
-      gender,
-      bloodType,
-      age,
-      birthday,
-      height,
-      weight,
-      location,
-      CV,
+        tag,
+        jpName,
+        jpTag,
+        slug,
+        imageUrl,
+        game,
+        Crossover: crossover,
+        event,
+        race: races,
+        attribute,
+        rarity,
+        releaseDate,
+        gender,
+        bloodType,
+        age,
+        birthday,
+        height,
+        weight,
+        location,
+        CV,
+        passiveName,
+        passiveImageUrl,
+        passiveJpName,
+        passiveDescription,
+        passiveCCNeeded,
+        talentDescription: characterTalent.talentDescription,
+        hasTalent: characterTalent.hasTalent,
+        talentImageUrl: characterTalent.talentImageUrl,
+        talentJpName: characterTalent.talentJpName,
+        talentName: characterTalent.talentName,
+        unityDescription: characterUnity.description,
+        unityImageUrl: characterUnity.imageUrl,
+        unityJpName: characterUnity.jpName,
+        unityName: characterUnity.name,
+        hasUnity: characterUnity.hasUnity,
+
+
       stats: {
         createMany: {
           data: typedStats.map(stat => ({
@@ -150,17 +178,11 @@ export const addCharacter = async (
           }))
         }
       },
-      passiveName,
-      passiveImageUrl,
-      passiveJpName,
-      passiveDescription,
-      passiveCCNeeded,
-      gift: gifts ? {
-        create: {
-          name: gifts.name, // No need for ?. because we checked if gifts exists
-            imageUrl: gifts.imageUrl,
-            description: gifts.description,
-        }
+      gift: gifts && gifts.length > 0 ? {
+          connect:  typedGifts.map((gift) => ({ id: gift.id}))
+      }: undefined ,
+      food: food && food.length > 0 ? { 
+        connect:  typedFood.map((food) => ({ id: food.id}))
       }: undefined,
       skills: {
         create: typedSkills.map((skill) => ({
@@ -176,9 +198,20 @@ export const addCharacter = async (
           },
         })),
       },
-      // holyRelic: {
-      //   connect: { id: holyRelicId },
-      // },
+      characterFriendshipRewards: 
+      crossover === Crossovers.NotCrossover && characterFriendshipRewards
+      ? {
+        create: characterFriendshipRewards.map(reward => ({
+          friendshipLevelId: reward.friendShipLevelId,
+          artworkUrl: reward.artworkUrl,
+          voiceLineText: reward.voiceLineText,
+                  voiceLineAudioUrl: reward.voiceLineAudioUrl,
+                  diamondAmount: reward.diamondAmount,
+                  motionUrl: reward.motionUrl,
+                  cosmeticUrl: reward.cosmeticUrl,
+                  cosmeticName: reward.cosmeticName,
+        }))
+      } : undefined,
       ultimate: {
        connect: { id: createdUltimate.id}
       },
@@ -213,26 +246,6 @@ export const addCharacter = async (
       //       bonus: a.bonus,
       //     })) || [],
       // },
-      // holyRelic: holyRelic
-      //   ? {
-      //       create: holyRelic.map((a) => ({
-      //         name: a.name || "",
-      //         effect: a.effect,
-      //         attack: a.attack.toString(),
-      //         hp: a.hp.toString(),
-      //         defense: a.defense.toString(),
-      //         beast: a.beast,
-      //         materials: {
-      //           create: a.materials
-      //             .filter((material) => material.imageUrl !== undefined)
-      //             .map((material) => ({
-      //               name: material.name || "",
-      //               imageUrl: material.imageUrl!, // Non-null assertion, since we filtered out undefined
-      //             })),
-      //         },
-      //       })),
-      //     }
-      //   : undefined,
     },
   });
 

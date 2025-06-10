@@ -53,6 +53,22 @@ export default function ResourcesPage() {
                     </Card>
                 ))}
             </div>
+            <Card  className="bg-purple-500 dark:bg-purple-900 rounded-lg mt-6 border-0">
+                        <CardHeader >
+                            <CardTitle>Community</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className='text-white text-sm'>View community resources and how to get involved in the community.</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Link href="/community">
+                            <Button className="w-full text-white hover:opacity-75 bg-purple-500 dark:bg-purple-800 rounded-[5px]">
+                                Visit 
+                                <ArrowRight className='w-4 h-4 ml-2' />
+                            </Button>
+                            </Link>
+                        </CardFooter>
+                    </Card>
         </section>
     </div>
   )

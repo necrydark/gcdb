@@ -85,7 +85,7 @@ export default function CommandSearch() {
           <CommandInput 
             placeholder="Search characters, users..." 
             value={query}
-            className='ring-0 focus:ring-0 focus-visible:ring-0 border-0'
+            className='ring-0 focus:ring-0 focus-visible:ring-0 placeholder:text-white rounded-[5px] border-0'
             onValueChange={setQuery}
             autoFocus
           />

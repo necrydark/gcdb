@@ -1,17 +1,24 @@
-"use client";
 import FoodTabs from "@/src/components/food/food-tabs";
+import db from "@/src/lib/db";
 import { Meals } from "@/src/utils/dummy/townMeals";
-import React, { useState } from "react";
 
 // cooking page
-function CookingPage() {
-  const towns = [   "Vanya",
-          "Dalmally",
-          "Post Town Tala",
-          "Vaziel",
-          "Ordan Village",
-          "Liones Castle",]
+async function CookingPage() {
 
+  const food = await db.food.findMany({
+    include: {
+      Character: true,
+      ingredients: true,
+    }
+  })
+
+  
+  console.log(food);
+
+
+    const formattedFood = food?.map(food => {
+      return { ...food };
+    })
 
           // Adding string splits for towns
           // str.split(/([A-Z]+)/g).join(" ");
@@ -30,8 +37,8 @@ function CookingPage() {
     //     ]}
     //   />
     // </>
-      <div className="pt-[7rem] p-10 container mx-auto flex max-w-5xl">
-      <FoodTabs towns={towns} food={Meals}/>
+      <div className="pt-[7rem] p-10 h-full container mx-auto flex max-w-5xl">
+      <FoodTabs  food={JSON.parse(JSON.stringify(formattedFood))}/>
   </div>
   );
 }

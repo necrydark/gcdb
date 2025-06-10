@@ -16,6 +16,7 @@ import CollectionButtonRelic from "../collection-button-relic";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { relic } from "./relics-tab";
+import { Switch } from "../ui/switch";
 
 type Props = {
   holyRelic?: relic
@@ -26,6 +27,7 @@ type Props = {
 export default function Relic({ holyRelic, isCollected}: Props) {
   // const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("effect");
+  const [isEnhancable, setIsEnhancable] = useState(false);
 
   // const filteredRelics = holyRelic?.map((relicArray: HolyRelic[]) => 
   //   relicArray.filter((relic: HolyRelic) => {
@@ -67,6 +69,19 @@ export default function Relic({ holyRelic, isCollected}: Props) {
              <CardContent className="space-y-4 w-full">
              <div className="flex flex-col gap-4 w-full">
                 <h2 className="font-bold text-lg text-center text-white">{holyRelic.name}</h2>
+              {holyRelic.enhanceable && (
+                 <div className="flex flex-row gap-2 items-center absolute top-2 left-2">
+                 <label className="text-xs">Unenhanced</label>
+  
+                 <Switch
+                                   className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900 "
+                        checked={isEnhancable}
+                        onCheckedChange={setIsEnhancable}
+                      />
+                      <label className="text-xs">Enhanced</label>
+  
+                 </div>
+              )}
                 <Tabs defaultValue="effect"  value={activeTab} onValueChange={setActiveTab} className="w-full ">
                     <TabsList className="grid grid-cols-3 w-full">
                       <TabsTrigger value="effect">Effect</TabsTrigger>
@@ -87,7 +102,7 @@ export default function Relic({ holyRelic, isCollected}: Props) {
                       <div className="text-xs text-gray-500 dark:text-gray-300">Attack</div>
                     </div>
                     <div className="font-medium text-white">
-                      +{holyRelic.attack}
+                      +{isEnhancable ? holyRelic.enhancedAttack : holyRelic.attack}
                     </div>
                   </div>
                   <div className="bg-purple-500 dark:bg-purple-800 p-2 rounded-[5px]">
@@ -96,7 +111,7 @@ export default function Relic({ holyRelic, isCollected}: Props) {
                       <div className="text-xs text-gray-500 dark:text-gray-300">Defense</div>
                     </div>
                     <div className="font-medium text-white">
-                      +{holyRelic.defense}
+                      +{isEnhancable ? holyRelic.enhancedDefense : holyRelic.defense}
                     </div>
                   </div>
                   <div className="bg-purple-500 dark:bg-purple-800 p-2 rounded-[5px]">
@@ -105,7 +120,7 @@ export default function Relic({ holyRelic, isCollected}: Props) {
                       <div className="text-xs text-gray-500 dark:text-gray-300">HP</div>
                     </div>
                     <div className="font-medium text-white">
-                      +{holyRelic.hp}
+                      +{isEnhancable ? holyRelic.enhancedHp : holyRelic.hp}
                     </div>
                   </div>
                 </div>
@@ -114,23 +129,45 @@ export default function Relic({ holyRelic, isCollected}: Props) {
                 <h4 className="text-sm font-medium mb-2 text-white">Required Materials</h4>
                   
                 <div className="flex flex-row flex-wrap gap-2">
-                  {holyRelic.materials?.map((material, idx) => (
-                    <div key={idx} className="flex items-center flex-row gap-2">
-                      <Image
-                            src={material.imageUrl as string}
-                            alt={material.name}
-                            width={50}
-                            height={50}
-                          />
-                     <div className="flex flex-col gap-1">
-                     <h4 className="text-sm font-medium text-white">{material.name}</h4>
-                      {material.location && (
-                         <h4 className="text-xs text-gray-700 dark:text-muted-foreground font-medium">{material.location}</h4>
-                      )}
-                      
+                  {holyRelic.enhanceable ? (
+                      <>
+                      {holyRelic.enhancedMaterials?.map((material, idx) => (
+                        <div key={idx} className="flex items-center flex-row gap-2">
+                          <Image
+                                src={material.imageUrl as string}
+                                alt={material.name}
+                                width={50}
+                                height={50}
+                              />
+                         <div className="flex flex-col gap-1">
+                         <h4 className="text-sm font-medium text-white">{material.name}</h4>
+                          {material.location && (
+                             <h4 className="text-xs text-gray-700 dark:text-muted-foreground font-medium">{material.location}</h4>
+                          )}
+                          
+                          </div>
+                        </div>
+                      ))}</>
+                  ): (
+                   <>
+                    {holyRelic.materials?.map((material, idx) => (
+                      <div key={idx} className="flex items-center flex-row gap-2">
+                        <Image
+                              src={material.imageUrl as string}
+                              alt={material.name}
+                              width={50}
+                              height={50}
+                            />
+                       <div className="flex flex-col gap-1">
+                       <h4 className="text-sm font-medium text-white">{material.name}</h4>
+                        {material.location && (
+                           <h4 className="text-xs text-gray-700 dark:text-muted-foreground font-medium">{material.location}</h4>
+                        )}
+                        
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}</>
+                  )}
                 </div>
                 </TabsContent>
                 <TabsContent value="characters" className="space-y-4 mt-4">

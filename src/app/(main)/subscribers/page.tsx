@@ -29,7 +29,7 @@ export default async function SubscribersPage() {
      </div>
 
        <div className='flex flex-col gap-6'>
-        <div>
+        {/* <div>
         <h1 className="text-4xl md:text-5xl text-white font-bold mb-4 text-center">SSR</h1>
         {subscribers.filter(sub => sub.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID).map((sub, idx) => (
             <div key={idx} className='grid md:grid-cols-4 grid-cols-2 gap-6'>
@@ -44,7 +44,7 @@ export default async function SubscribersPage() {
                 </div>
             </div>
         ))}
-        </div>
+        </div> */}
         <div>
         <h1 className="text-4xl md:text-5xl text-white font-bold mb-4 text-center">SR</h1>
         {subscribers.filter(sub => sub.stripePriceId === process.env.NEXT_PUBLIC_BASIC_PRICE_ID).map((sub, idx) => (

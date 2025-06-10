@@ -11,6 +11,7 @@ import {
 } from "@/src/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export type Ingredients = {
@@ -24,6 +25,8 @@ export const columns: ColumnDef<Ingredients>[] = [
   {
     accessorKey: "id",
     header: "ID",
+    cell: ({ row }) => <div className="font-medium">{row.original.id.substring(0,8 )}...</div>
+
   },
   {
     accessorKey: "name",
@@ -32,6 +35,12 @@ export const columns: ColumnDef<Ingredients>[] = [
   {
     accessorKey: "imageUrl",
     header: "Image URL",
+    cell: ({ row}) => (
+      <Image 
+      src={row.original.imageUrl || "/placehover.svg"} alt={row.original.name} width={32} height={32} 
+      className="mx-auto object-cover"
+      />
+    )
   },
   {
     accessorKey: "location",

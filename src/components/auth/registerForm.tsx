@@ -42,7 +42,7 @@ export const RegisterForm = () => {
     },
   });
 
-  const { toast } = useToast();
+
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
     setErr("");

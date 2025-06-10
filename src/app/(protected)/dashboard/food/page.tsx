@@ -1,11 +1,4 @@
-import AddCharacterForm from "@/src/components/admin/characters/add-character-form";
 import { Button } from "@/src/components/ui/button";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/src/components/ui/tabs";
 import { currentRole } from "@/src/utils/auth";
 import db from "@/src/lib/db";
 import { UserRole } from "@prisma/client";
@@ -13,18 +6,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import { Foods, columns } from "./columns";
-import { Material } from "@prisma/client";
 import { FoodDataTable } from "./data-table";
-import { Download, Plus } from "lucide-react";
+import {  Plus } from "lucide-react";
 import ExportButton from "./export-button";
 import { getFoods } from "@/data/food";
 
-async function getFood(): Promise<Foods[]> {
-  const data = await db.ingredient.findMany();
-
-
-  return data as Foods[];
-}
 
 const AdminFoodPage = async () => {
   const role = await currentRole();
@@ -49,7 +35,7 @@ const AdminFoodPage = async () => {
         <div className="flex items-center gap-2">
         <ExportButton data={data} />
         <Button size="sm" variant="outline" className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600" asChild>
-        <Link href={"/dashboard/foods/new"} ><Plus className="mr-2 h-4 w-4"  />
+        <Link href={"/dashboard/food/new"} ><Plus className="mr-2 h-4 w-4"  />
         Add Food</Link>
 
         </Button>

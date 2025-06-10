@@ -46,8 +46,9 @@ export const UserButton = async ({ className }: Props) => {
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="center" side="bottom" className="dark:bg-purple-950 bg-purple-700" sideOffset={15}>
+        <DropdownMenuContent align="center" side="bottom" className="dark:bg-purple-950 bg-purple-700 rounded-[5px]" sideOffset={15}>
           {user?.username && <p className="text-center text-white p-2">{user.username}</p>}
+          <DropdownMenuSeparator  className="bg-white" />
           <DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
               <Link className="text-white inline-flex items-center" href={"/profile"}>

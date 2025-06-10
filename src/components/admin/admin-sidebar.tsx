@@ -37,6 +37,16 @@ const navigationItems = [
     href: "/dashboard",
   },
   {
+    title: "Characters",
+    icon: Wand2,
+    href: "/characters",
+    subItems: [
+      { title: "View All", href: "/dashboard/characters" },
+      { title: "Add New", href: "/dashboard/characters/new" },
+    ],
+    disabled: false,
+  },
+  {
     title: "Materials",
     icon: Package,
     href: "/materials",
@@ -47,12 +57,12 @@ const navigationItems = [
     disabled: false,
   },
   {
-    title: "Characters",
-    icon: Wand2,
-    href: "/characters",
+    title: "Enhance Materials",
+    icon: Package,
+    href: "/enhance-materials",
     subItems: [
-      { title: "View All", href: "/dashboard/characters" },
-      { title: "Add New", href: "/dashboard/characters/new" },
+      { title: "View All", href: "/dashboard/enhance-materials" },
+      { title: "Add New", href: "/dashboard/enhance-materials/new" },
     ],
     disabled: false,
   },

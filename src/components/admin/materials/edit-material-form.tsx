@@ -13,7 +13,9 @@ import {
 } from "@/src/components/ui/form";
 import { Input } from "@/src/components/ui/input";
 
-import { useToast } from "@/src/components/ui/use-toast";
+import { toast } from "sonner";
+
+
 import { addRelicMaterials } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Material, ProfileColour, UserRole } from "@prisma/client";
@@ -46,7 +48,7 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
     },
   });
 
-  const { toast } = useToast();
+
   const router = useRouter();
 
   const onSubmit = (values: z.infer<typeof addRelicMaterials>) => {
@@ -55,23 +57,24 @@ const EditMaterialForm = ({ materialsEdit }: FormProps) => {
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
 
           if (data.success) {
             update();
-            form.reset();
             setSuccess(data.success);
-            toast({
-              title: "Success!",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
-            router.back();
+            setTimeout(() => {
+              router.push('/dashboard/materials')
+            }, 1500)
           }
         })
         .catch((err) => setError(err));

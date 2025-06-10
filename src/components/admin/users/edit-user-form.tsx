@@ -28,7 +28,7 @@ import {
   SelectValue,
 } from "../../ui/select";
 import { Switch } from "../../ui/switch";
-import { useToast } from "../../ui/use-toast";
+import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -38,6 +38,7 @@ import {
 } from "../../ui/card";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface UserInterface {
   user: User
@@ -69,7 +70,9 @@ function EditUserForm({
     },
   });
 
-  const { toast } = useToast();
+  const router = useRouter();
+
+
 
   const onSubmit = (values: z.infer<typeof userSchema>) => {
     startTransition(() => {
@@ -77,21 +80,24 @@ function EditUserForm({
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
 
           if (data.success) {
-            form.reset();
+      
             setSuccess(data.success);
-            toast({
-              title: "Success",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
+            setTimeout(() => {
+              router.push('/dashboard/users')
+            }, 1500)
           }
         })
         .catch((err) => setError(err));

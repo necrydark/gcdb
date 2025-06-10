@@ -1,11 +1,4 @@
-import AddCharacterForm from "@/src/components/admin/characters/add-character-form";
 import { Button } from "@/src/components/ui/button";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/src/components/ui/tabs";
 import { currentRole } from "@/src/utils/auth";
 import db from "@/src/lib/db";
 import { UserRole } from "@prisma/client";
@@ -13,9 +6,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import { Materials, columns } from "./columns";
-import { Material } from "@prisma/client";
 import { MaterialDataTable } from "./data-table";
-import { Download, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import ExportButton from "./export-button";
 
 async function getRelics(): Promise<Materials[]> {

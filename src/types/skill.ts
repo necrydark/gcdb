@@ -17,7 +17,7 @@ export type CharacterUltimate = {
   jpName: string;
   imageUrl: string;
   description: string;
-  extraInfo: string[];
+  extraInfo: string;
 };
 
 export type CharacterSkills = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useToast } from "../../ui/use-toast";
+import { toast } from "sonner";
 import { useState } from "react";
 import { Beast, Character, HolyRelic, Material } from "@prisma/client";
 import { Button } from "../../ui/button";
@@ -46,7 +46,7 @@ export default function ViewRelicPage({
   relicMaterials,
 }: RelicInterface) {
   const router = useRouter();
-  const { toast } = useToast();
+
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -57,9 +57,10 @@ export default function ViewRelicPage({
       setIsDeleting(false);
       setIsDeleteDialogOpen(false);
 
-      toast({
-        title: "Holy relic deleted",
+      toast.success("Relic Deleted",{
         description: "The holy relic has been successfully deleted.",
+        className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+
       });
 
       router.push("/dashboard/relics");

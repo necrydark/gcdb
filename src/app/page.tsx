@@ -109,7 +109,7 @@ export default async function HomePage() {
       <section className="py-12 px-4 bg-purple-700/50">
       <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardContent className="pt-6">
                 <div className="flex text-white items-center gap-2">
                   <Users className="h-5 w-5 text-white" />
@@ -117,7 +117,7 @@ export default async function HomePage() {
                 </div>
                 <div className="flex flex-wrap justify-evenly gap-6 mb-8">
                 {releasedCharacters?.map((char, idx) => (
-                  <div key={idx} className="overflow-hidden mt-4 border-0">
+                  <div key={idx} className="overflow-hidden mt-4 border-0 hover:scale-105 transition-all duration-300">
                      <Link href={`/characters/${char.slug}`}>
                      <div className="relative w-fit">
                    <Image
@@ -138,7 +138,7 @@ export default async function HomePage() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-white" />
@@ -146,7 +146,7 @@ export default async function HomePage() {
                 </div>
                 <div className="flex flex-wrap justify-evenly gap-6 mb-8">
                 {releasedRelics?.map((relic, idx) => (
-                  <div key={idx} className="overflow-hidden mt-4 border-0">
+                  <div key={idx} className="overflow-hidden mt-4 border-0 hover:scale-105 transition-all duration-300">
                      <Link href={`/relics`}>
                      <div className="relative w-fit">
                    <Image
@@ -173,7 +173,7 @@ export default async function HomePage() {
       <section className="py-12 px-4 bg-purple-700/50">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardContent className="pt-6">
                 <div className="flex text-white items-center gap-2">
                   <Users className="h-5 w-5 text-white" />
@@ -184,7 +184,7 @@ export default async function HomePage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-white" />
@@ -195,7 +195,7 @@ export default async function HomePage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 text-white" />
@@ -222,7 +222,7 @@ export default async function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {changelogs?.slice(0,2).map((changelog, idx) => (
-                       <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0" key={idx}>
+                       <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0" key={idx}>
                        <CardHeader>
                            <CardTitle className="text-white">{changelog.data.title}</CardTitle>
                            <CardDescription className="text-gray-300">{changelog.data.date}</CardDescription>
@@ -246,7 +246,7 @@ export default async function HomePage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <CardTitle className="text-white">Game Guides</CardTitle>
                 <CardDescription className="text-gray-300">Helpful guides for beginners & advanced players.</CardDescription>
@@ -288,7 +288,7 @@ export default async function HomePage() {
               </CardFooter>
             </Card>
 
-            <Card className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="flex flex-col bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <CardTitle className="text-white">Tier Lists</CardTitle>
                 <CardDescription className="text-gray-300">Current rankings of characters and equipment</CardDescription>

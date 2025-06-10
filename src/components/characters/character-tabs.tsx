@@ -9,10 +9,11 @@ import CharacterAssociationsTab from "./character-associations";
 import CharacterGiftsFoodTab from "./character-gifts-food";
 import CharacterSkillsTab from "./character-skills";
 import CharacterHolyRelic from "./character-holy-relic";
-import { Association, Character, CharacterUltimate, Gift, HolyRelic, SkillRank, Stats } from "@prisma/client";
+import { Association, Character, Gift, HolyRelic, SkillRank, Stats } from "@prisma/client";
 import { SkillWithRanks } from "@/src/lib/interface";
 import { Passive } from "@/src/types/passive";
-import { CharacterMiscInfo } from "@/src/types/character";
+import { CharacterMiscInfo, Talent, Unity } from "@/src/types/character";
+import { CharacterUltimate } from "@/src/types/skill";
 
 
 
@@ -26,9 +27,21 @@ type Props = {
   miscInfo?: CharacterMiscInfo;
   associations?: Association[]
   ultimate?: CharacterUltimate;
+  unity: {
+    name: string | undefined;
+    jpName: string | undefined;
+    imageUrl: string | undefined;
+    description: string | undefined
+  }
+  talent: {
+    name: string | undefined;
+    jpName: string | undefined;
+    imageUrl: string | undefined;
+    description: string | undefined
+  }
 };
 
-function CharacterTabs({ character, skills, relic, stats, passive, gift, miscInfo, associations, ultimate}: Props) {
+function CharacterTabs({ character, skills, relic, stats, passive, gift, miscInfo, associations, ultimate, talent, unity}: Props) {
   const [activeTab, setActiveTab] = useState("stats-info");
   
   return (

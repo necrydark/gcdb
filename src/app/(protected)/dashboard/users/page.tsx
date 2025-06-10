@@ -1,6 +1,8 @@
 import { useCurrentRole } from "@/hooks/use-current-role";
 import { Button } from "@/src/components/ui/button";
-import { useToast } from "@/src/components/ui/use-toast";
+import { toast } from "sonner";
+
+
 import { currentRole } from "@/src/utils/auth";
 import db from "@/src/lib/db";
 import { UserRole } from "@prisma/client";

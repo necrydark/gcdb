@@ -1,7 +1,7 @@
 import { auth } from "@/src/auth";
 import Footer from "@/src/components/footer";
 import Navbar from "@/src/components/navbar";
-import { Toaster } from "@/src/components/ui/toaster";
+import { Toaster } from "@/src/components/ui/sonner";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
@@ -48,7 +48,7 @@ export default async function RootLayout({
           
                 {children}
               </div>
-              <Toaster />
+              <Toaster closeButton />
             </div>
                  </ContextProvider>
 

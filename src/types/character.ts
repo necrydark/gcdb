@@ -58,6 +58,23 @@ export type CharacterMiscInfo = {
   CV?: string;
 };
 
+export type Unity = {
+  name: string | undefined;
+  jpName: string | undefined
+  imageUrl: string | undefined
+  description: string | undefined
+  hasUnity: boolean | undefined;
+}
+
+export type Talent = {
+  name: string | undefined;
+  jpName: string | undefined
+  imageUrl: string | undefined
+  description: string | undefined
+  hasTalent: boolean | undefined;
+}
+
+
 export type Character = {
   id?: number;
   name: string;

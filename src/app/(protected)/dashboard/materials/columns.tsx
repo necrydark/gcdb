@@ -17,6 +17,7 @@ import { Game } from "@prisma/client";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export type Materials = {
@@ -30,6 +31,7 @@ export const columns: ColumnDef<Materials>[] = [
   {
     accessorKey: "id",
     header: "ID",
+    cell: ({ row }) => <div className="font-medium">{row.original.id.substring(0,8 )}...</div>
   },
   {
     accessorKey: "name",
@@ -38,6 +40,12 @@ export const columns: ColumnDef<Materials>[] = [
   {
     accessorKey: "imageUrl",
     header: "Image URL",
+    cell: ({ row}) => (
+      <Image 
+      src={row.original.imageUrl || "/placehover.svg"} alt={row.original.name} width={32} height={32} 
+      className="mx-auto object-cover"
+      />
+    )
   },
   {
     accessorKey: "location",

@@ -11,7 +11,7 @@ import {
   User,
 } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useToast } from "../../ui/use-toast";
+import { toast } from "sonner";
 import { use, useState } from "react";
 import { Button } from "../../ui/button";
 import Link from "next/link";
@@ -42,7 +42,7 @@ interface UserInterface {
 
 export default function ViewUserPage({ user }: UserInterface) {
   const router = useRouter();
-  const { toast } = useToast();
+
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 

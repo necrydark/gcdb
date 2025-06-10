@@ -184,11 +184,10 @@ export default function CharacterClient({
   
 
   return (
-    <Suspense fallback={<div><Loader2 className="h-4 w-4 animate-spin" /> Loading...</div> }>
+ 
            <div className="transition-all min-h-screen duration-300 pb-[7rem] pt-[5rem] bg-gradient-to-b from-purple-300 via-purple-400/60 to-purple-600 dark:from-purple-500/30 dark:via-purple-700/60 dark:to-purple-900">
   
 
-    <Suspense fallback={<div><Loader2 className="h-4 w-4 animate-spin" /> Loading...</div> }>
     <div className="container mx-auto p-4 max-w-7xl">
    <h1 className="text-3xl font-bold mb-6 text-white">Characters</h1>
 
@@ -205,12 +204,12 @@ export default function CharacterClient({
        </div>
 
        <Select value={attribute} onValueChange={setAttribute}>
-         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
+         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white h-full  border-0 rounded-[5px]">
            <SelectValue placeholder="Attribute" />
          </SelectTrigger>
          <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
            {attributes.map((attr) => (
-             <SelectItem key={attr} value={attr} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800">
+             <SelectItem key={attr} value={attr} className="rounded-[5px] focus:bg-purple-800 dark:focus:bg-purple-950">
                {attr}
              </SelectItem>
            ))}
@@ -218,12 +217,12 @@ export default function CharacterClient({
        </Select>
 
        <Select value={race} onValueChange={setRace}>
-         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
+         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white  h-full border-0 rounded-[5px]">
            <SelectValue placeholder="Races" />
          </SelectTrigger>
          <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
            {races.map((r) => (
-             <SelectItem key={r} value={r} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800">
+             <SelectItem key={r} value={r} className="rounded-[5px] focus:bg-purple-800 dark:focus:bg-purple-950">
                {r}
              </SelectItem>
            ))}
@@ -231,12 +230,12 @@ export default function CharacterClient({
        </Select>
 
        <Select value={rarity} onValueChange={setRarity}>
-         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
+         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white  h-full border-0 rounded-[5px]">
            <SelectValue placeholder="Rarity" />
          </SelectTrigger>
          <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
            {rarities.map((r) => (
-             <SelectItem key={r} value={r} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800">
+             <SelectItem key={r} value={r} className="rounded-[5px] focus:bg-purple-800 dark:focus:bg-purple-950">
                {r}
              </SelectItem>
            ))}
@@ -244,12 +243,12 @@ export default function CharacterClient({
        </Select>
 
        <Select value={game} onValueChange={setGame}>
-         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
+         <SelectTrigger className="dark:bg-purple-800 bg-purple-950 text-white  h-full border-0 rounded-[5px]">
            <SelectValue placeholder="Games" />
          </SelectTrigger>
          <SelectContent className="dark:bg-purple-800 bg-purple-950 text-white border-0 rounded-[5px]">
            {games.map((g) => (
-             <SelectItem key={g} value={g as string} className="dark:hover:bg-purple-950 rounded-[5px] hover:bg-purple-800">
+             <SelectItem key={g} value={g as string} className="rounded-[5px] focus:bg-purple-800 dark:focus:bg-purple-950">
                {g}
              </SelectItem>
            ))}
@@ -273,7 +272,13 @@ export default function CharacterClient({
      Showing {filteredCharacters.length > 0 ? startIndex + 1 : 0}-{Math.min(endIndex, filteredCharacters.length)} of {filteredCharacters.length} characters
    </div>
 
-   {currentCharacters.length > 0 ? (
+ {loading ? (
+  <div className="flex justify-center items-center p-10">
+    <Loader2 className="h-6 w-6 text-white animate-spin" />  
+  </div>
+ ) : (
+  <>
+    {currentCharacters.length > 0 ? (
      <div className="flex flex-wrap justify-evenly gap-6 mb-8">
        {currentCharacters.map((character) => (
            <CharacterCard
@@ -293,6 +298,8 @@ export default function CharacterClient({
        <p className="text-gray-200">Try adjusting your search or filters</p>
      </div>
    )}
+  </>
+ )}
 
    {/* Pagination */}
    {totalPages > 1 && (
@@ -353,8 +360,6 @@ export default function CharacterClient({
      </Pagination>
    )}
  </div>
-    </Suspense>
 </div>
-    </Suspense>
   );
 }

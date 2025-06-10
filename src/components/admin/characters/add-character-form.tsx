@@ -28,10 +28,12 @@ import {
 } from "@/src/components/ui/select";
 import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
-import { useToast } from "@/src/components/ui/use-toast";
+import { toast } from "sonner";
+
+
 import { UploadButton } from "@/src/lib/uploadthing";
 import { cn } from "@/src/lib/utils";
-import { addCharacterSchema, addNewUserSchema } from "@/src/schemas/schema";
+import { characterSchema } from "@/src/schemas/character/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Association,
@@ -41,6 +43,8 @@ import {
   Character,
   Crossovers,
   Food,
+  FriendshipLevel,
+  FriendshipRewardType,
   Game,
   GameEvent,
   Genders,
@@ -54,7 +58,13 @@ import {
 import { Trash } from "lucide-react";
 import cuid from "cuid";
 import { format } from "date-fns";
-import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, Plus } from "lucide-react";
+import {
+  ArrowLeft,
+  CalendarIcon,
+  Check,
+  ChevronsUpDown,
+  Plus,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,6 +88,7 @@ import {
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
+import { useRouter } from "next/navigation";
 
 interface FormProps {
   Gifts?: Gift[];
@@ -86,6 +97,7 @@ interface FormProps {
   AssociatedWith?: AssociationWith[];
   Characters?: Character[];
   Relics?: HolyRelic[];
+  genericFriendshipLevels?: FriendshipLevel[];
 }
 
 interface AssociatedWithFormData {
@@ -93,20 +105,9 @@ interface AssociatedWithFormData {
   slug: string | null;
   tag: string | null;
   bonus: string;
-  // Include display fields for convenience
   name: string | null;
   imageUrl: string;
 }
-
-// interface AssociatedWithOptions {
-//   value: string; // Using character ID as value
-//   label: JSX.ReactElement; // Your custom label with image
-//   characterId: string;
-//   imageUrl: string;
-//   slug: string | null;
-//   tag: string | null;
-//   name: string | null;
-// }
 
 function AddCharacterForm({
   Gifts,
@@ -114,22 +115,25 @@ function AddCharacterForm({
   Associations,
   AssociatedWith,
   Characters,
-  Relics
-}:
-FormProps) {
+  Relics,
+  genericFriendshipLevels,
+}: FormProps) {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [slug, setSlug] = useState<string>();
   const [isPending, startTransition] = useTransition();
   const [isSearchable, setIsSearchable] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [giftOpen, setGiftOpen] = useState(false)
-  const [relicValue, setRelicValue] = useState("")
-  const [giftValue, setGiftValue] = useState("")
-  const [value, setValue] = useState("");
+  // const [open, setOpen] = useState(false);
+  // const [giftOpen, setGiftOpen] = useState(false);
+  // const [giftValue, setGiftValue] = useState("");
+  // const [value, setValue] = useState("");
   const [activeTab, setActiveTab] = useState("basic");
-  
+  const [isSlugGenerating, setIsSlugGenerating] = useState(false)
 
+  const raceOptions = Object.values(Race).map((race) => ({
+    value: race, // The actual enum value (e.g., RaceType.Demon)
+    label: race.replace(/([A-Z])/g, " $1").trim().replace(" ", " / "), // Pretty label (e.g., "HumanGiant" -> "Human / Giant")
+  }));
 
   const GiftOptions = Gifts?.map((gift) => ({
     id: gift.id,
@@ -144,6 +148,8 @@ FormProps) {
       </div>
     ),
   }));
+
+
 
   const FoodOptions = Foods?.map((food) => ({
     id: food.id,
@@ -169,7 +175,6 @@ FormProps) {
     tag: character.tag,
     label: (
       <div className="flex flex-row gap-3 items-center">
-
         <Image
           src={character.imageUrl}
           alt={character.name ?? ""}
@@ -202,8 +207,8 @@ FormProps) {
   //   ),
   // }));
 
-  const form = useForm<z.infer<typeof addCharacterSchema>>({
-    resolver: zodResolver(addCharacterSchema),
+  const form = useForm<z.infer<typeof characterSchema>>({
+    resolver: zodResolver(characterSchema),
     defaultValues: {
       id: undefined,
       name: undefined,
@@ -215,7 +220,7 @@ FormProps) {
       releaseDate: undefined,
       game: Game.Base,
       crossover: Crossovers.NotCrossover,
-      race: Race.Human,
+      races: [Race.Human],
       attribute: Attribute.HP,
       rarity: Rarity.SSR,
       stats: [
@@ -225,16 +230,16 @@ FormProps) {
           combatClass: undefined,
           critChance: undefined,
           critDamage: undefined,
-           critDefense: undefined,
-           critResistance: undefined,
-           defense: undefined,
-           hp: undefined,
-           lifesteal: undefined,
-           pierceRate: undefined,
-           recoveryRate: undefined,
-           regeneration: undefined,
-           resistance: undefined,
-        }
+          critDefense: undefined,
+          critResistance: undefined,
+          defense: undefined,
+          hp: undefined,
+          lifesteal: undefined,
+          pierceRate: undefined,
+          recoveryRate: undefined,
+          regeneration: undefined,
+          resistance: undefined,
+        },
       ],
       gender: Genders.Male,
       bloodType: undefined,
@@ -280,6 +285,20 @@ FormProps) {
         extraInfo: undefined,
         characterId: undefined,
       },
+      characterUnity: {
+        name: undefined,
+        jpName: undefined,
+        imageUrl: undefined,
+        description: undefined,
+        hasUnity: undefined,
+      },
+      characterTalent: {
+        hasTalent: undefined,
+        talentDescription: undefined,
+        talentImageUrl: undefined,
+        talentJpName: undefined,
+        talentName: undefined,
+      },
       associations: [],
       associationsWith: [],
       // holyRelic: [
@@ -290,15 +309,51 @@ FormProps) {
       //   },
       // ],
       event: GameEvent.None,
-      
+      characterFriendshipRewards: [],
     },
   });
 
-  const {
-      fields,
-    append,
-    remove,
-  } = useFieldArray({
+  const currentCrossoverStatus = form.watch("crossover");
+  const isCrossoverCharacter = currentCrossoverStatus === Crossovers.Crossover;
+
+  const { fields: friendshipRewardFields } = useFieldArray({
+    control: form.control,
+    name: "characterFriendshipRewards",
+  });
+
+  useEffect(() => {
+    if (
+      currentCrossoverStatus === Crossovers.NotCrossover &&
+      friendshipRewardFields.length !== 5
+    ) {
+      form.setValue(
+        "characterFriendshipRewards",
+        genericFriendshipLevels?.map((lvl) => ({
+          friendShipLevelId: lvl.id,
+          level: lvl.level,
+          artworkUrl: undefined,
+          voiceLineText: undefined,
+          voiceLineAudioUrl: undefined,
+          diamondAmount: undefined,
+          motionUrl: undefined,
+          cosmeticUrl: undefined,
+          cosmeticName: undefined,
+        })) ?? []
+      );
+    } else if (
+      currentCrossoverStatus === Crossovers.Crossover &&
+      friendshipRewardFields.length > 0
+    ) {
+      form.setValue("characterFriendshipRewards", []); // Clear the array for crossover
+    }
+  }, [
+    currentCrossoverStatus,
+    genericFriendshipLevels,
+    form,
+    friendshipRewardFields.length,
+  ]);
+
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "associationsWith",
   });
@@ -306,77 +361,103 @@ FormProps) {
   const {
     fields: statFields,
     append: statAppend,
-    remove: statRemove
+    remove: statRemove,
   } = useFieldArray({
     control: form.control,
-    name: "stats"
+    name: "stats",
   });
 
-const max_stats = 3;
+  const max_stats = 3;
 
   const handleAddStat = () => {
-    if(statFields.length < max_stats) {
+    if (statFields.length < max_stats) {
       statAppend({
         level: StatLevel.LEVEL_100,
         combatClass: 0,
         attack: 0,
         defense: 0,
         hp: 0,
-        pierceRate: 0.00,
-        resistance: 0.00,
-        regeneration: 0.00,
-        critChance: 0.00,
-        critDamage: 0.00,
-        critResistance: 0.00,
-        critDefense: 0.00,
-        recoveryRate: 0.00,
-        lifesteal: 0.00,
-      })
+        pierceRate: 0.0,
+        resistance: 0.0,
+        regeneration: 0.0,
+        critChance: 0.0,
+        critDamage: 0.0,
+        critResistance: 0.0,
+        critDefense: 0.0,
+        recoveryRate: 0.0,
+        lifesteal: 0.0,
+      });
     }
-  }
+  };
 
   const handleRemoveStat = (idx: number) => {
     statRemove(idx);
-  }
+  };
 
-  const { toast } = useToast();
+
   const { update } = useSession();
+  const router = useRouter()
 
-  const onSubmit = (values: z.infer<typeof addCharacterSchema>) => {
-    console.log("called")
-    values.slug = slug;
+ 
+  const onSubmit = (values: z.infer<typeof characterSchema>) => {
     startTransition(() => {
       addCharacter(values)
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast({
-              title: "Error",
+            toast.error("An error has occured",{
               description: data.error,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
             });
           }
+
           if (data.success) {
             update();
-            form.reset();
             setSuccess(data.success);
-            toast({
-              title: "Success!",
+            toast.success("Form submitted",{
+       
               description: data.success,
-              variant: "purple",
+              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+      
             });
+            setTimeout(() => {
+              router.push('/dashboard/characters')
+            }, 1500)
           }
         })
         .catch((err) => setError(err));
     });
-    console.log("error?")
   };
 
-  function generateSlug() {
-    const tag = form.getValues("tag");
-    const slug = tag?.toLowerCase().split(" ").join("-");
-    setSlug(slug);
+  const watchedCharacterName = form.watch("tag");
+
+
+  const generateSlug = async (name: string) => {
+    if(!name) {
+      form.setValue("slug", "")
+      return;
+    }
+
+    setIsSlugGenerating(true);
+
+    await new Promise((res) => setTimeout(res, 300));
+
+    const generated = name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
+    form.setValue("slug", generated);
+    setIsSlugGenerating(false);
   }
+
+  useEffect(() => {
+    if(watchedCharacterName && !isSlugGenerating) {
+      generateSlug(watchedCharacterName)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchedCharacterName])
 
   // const handleAssociationWithSelect = (selectedOptions: any) => {
   //   const currentCharacterIds = fields.map(field => (field as AssociatedWithFormData).characterId);
@@ -397,10 +478,11 @@ const max_stats = 3;
   //         bonus: '', // Initialize bonus as empty
   //         name: option.name ?? "", // Include display fields
   //         imageUrl: option.imageUrl,
-  //       }) 
+  //       })
   //     }
   //   })
   // }
+
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -422,20 +504,21 @@ const max_stats = 3;
               <h1 className="text-2xl leading-tight tracking-tight font-extrabold text-white">
                 Add Character
               </h1>
-              <p className="text-gray-300">
-                Add a new character
-              </p>
+              <p className="text-gray-300">Add a new character</p>
             </div>
           </div>
         </div>
       </div>
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid md:grid-cols-5 grid-cols-1 mb-8 h-full">
+        <TabsList className="grid md:grid-cols-6 grid-cols-1 mb-8 h-full">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="details">Character Details</TabsTrigger>
           <TabsTrigger value="stats">Stats</TabsTrigger>
           <TabsTrigger value="skills">Skills</TabsTrigger>
           <TabsTrigger value="extras">Extras</TabsTrigger>
+          <TabsTrigger value="friendship" disabled={isCrossoverCharacter}>
+            Friendship
+          </TabsTrigger>
         </TabsList>
 
         <Form {...form}>
@@ -536,27 +619,24 @@ const max_stats = 3;
                       render={({ field }) => (
                         <FormItem>
                           <div className="flex justify-between items-center  flex-row gap-6">
-                          <FormLabel>Slug</FormLabel>
-                          <Button
-                                onClick={generateSlug}
-                                type="button"
-                                className=" bg-transparent hover:bg-transparent !p-0 h-full text-white rounded-[5px]"
-                              >
-                                Generate Slug
-                              </Button>
+                            <FormLabel>Slug</FormLabel>
+                            <Button
+                              onClick={() => generateSlug(watchedCharacterName)}
+                              type="button"
+                              disabled={isPending || isSlugGenerating}
+                              className=" bg-transparent hover:bg-transparent !p-0 h-full text-white rounded-[5px]"
+                            >
+                              {isSlugGenerating ? "Generating..." : "Generate Slug"}
+                            </Button>
                           </div>
                           <FormControl>
-                         
-                              <Input
-                                {...field}
-                                placeholder="character-slug"
-                                type="text"
-                                disabled={isPending}
-                                value={slug || ""}
-                                onChange={generateSlug}
-                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              />
-                         
+                            <Input
+                              {...field}
+                              placeholder="character-slug"
+                              type="text"
+                              disabled={isPending || isSlugGenerating}
+                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                            />
                           </FormControl>
                           <FormDescription>
                             URL-friendly version of the name
@@ -587,72 +667,56 @@ const max_stats = 3;
                     />
                   </div>
                   <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="race"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Race</FormLabel>
-                          <Select
-                            disabled={isPending}
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger className="border-purple-900 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 ">
-                                <SelectValue placeholder="Select the units race." />
-                              </SelectTrigger>
-                            </FormControl>
-                            <FormMessage />
-
-                            <SelectContent className="bg-purple-600 rounded-[5px] text-white dark:bg-purple-800">
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Demon}
-                              >
-                                Demon
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Fairy}
-                              >
-                                Fairy
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Giant}
-                              >
-                                Giant
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Goddess}
-                              >
-                                Goddess
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Human}
-                              >
-                                Human
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.HumanGiant}
-                              >
-                                Human / Giant
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={Race.Unknown}
-                              >
-                                Unknown
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      )}
-                    />
+                  <FormField
+          control={form.control}
+          name="races"
+          render={() => (
+            <FormItem>
+              <FormLabel className="text-white">Race(s)</FormLabel>
+                <FormField
+                  control={form.control}
+                  name="races"
+                  render={({ field }) => {
+                    return (
+                      <FormItem
+                        className="flex flex-row items-start space-x-3 space-y-0"
+                      >
+                        <FormControl>
+                        <ReactSelect
+                            {...field} // Spread field props
+                            className="text-black w-full"
+                            options={
+                              raceOptions
+                            }
+                            isMulti
+                            isSearchable={isSearchable}
+                            isDisabled={isPending}
+                            onChange={(selectedOptions: any) => {
+                              const newValues = selectedOptions
+                                ? selectedOptions.map((option: any) => option.value)
+                                : [];
+                              field.onChange(newValues); 
+                            }}
+                            onBlur={field.onBlur}
+                            
+                            value={
+                              field.value
+                                ? raceOptions.filter((option) =>
+                                    field.value.includes(option.value),
+                                  )
+                                : []
+                            }
+                          />
+                        </FormControl>
+                    
+                      </FormItem>
+                    );
+                  }}
+                />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
                     <FormField
                       control={form.control}
                       name="attribute"
@@ -768,7 +832,7 @@ const max_stats = 3;
                       name="game"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Race</FormLabel>
+                          <FormLabel>Game</FormLabel>
                           <Select
                             disabled={isPending}
                             onValueChange={field.onChange}
@@ -994,15 +1058,15 @@ const max_stats = 3;
               </Card>
             </TabsContent>
             <TabsContent value="details" className="space-y-6">
-            <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+              <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
                 <CardHeader>
                   <CardTitle>Character Details</CardTitle>
                   <CardDescription>
-                  Enter additional details about the character.
+                    Enter additional details about the character.
                   </CardDescription>
-                </CardHeader> 
+                </CardHeader>
                 <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                  <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
                     <FormField
                       control={form.control}
                       name="bloodType"
@@ -1123,7 +1187,7 @@ const max_stats = 3;
                     />
                   </div>
                   <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-                  <FormField
+                    <FormField
                       control={form.control}
                       name="gender"
                       render={({ field }) => (
@@ -1187,7 +1251,7 @@ const max_stats = 3;
                   </div>
                   <Separator />
                   <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-                  <FormField
+                    <FormField
                       control={form.control}
                       name="passiveName"
                       render={({ field }) => (
@@ -1206,7 +1270,7 @@ const max_stats = 3;
                         </FormItem>
                       )}
                     />
-                            <FormField
+                    <FormField
                       control={form.control}
                       name="passiveJpName"
                       render={({ field }) => (
@@ -1227,7 +1291,7 @@ const max_stats = 3;
                     />
                   </div>
                   <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-                  <FormField
+                    <FormField
                       control={form.control}
                       name="passiveImageUrl"
                       render={({ field }) => (
@@ -1246,7 +1310,7 @@ const max_stats = 3;
                         </FormItem>
                       )}
                     />
-                            <FormField
+                    <FormField
                       control={form.control}
                       name="passiveCCNeeded"
                       render={({ field }) => (
@@ -1267,420 +1331,441 @@ const max_stats = 3;
                     />
                   </div>
                   <FormField
+                    control={form.control}
+                    name="passiveDescription"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Passive Description</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            placeholder="Description of the passive skill."
+                            disabled={isPending}
+                            className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="stats" className="space-y-6">
+              <Card className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
+                <CardHeader>
+                  <CardTitle>Charater Stats</CardTitle>
+                  <CardDescription>
+                    Enter the characters stats.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {statFields.map((field, idx) => (
+                    <div className="p-4 space-y-6" key={idx}>
+                      <div className="flex flex-row justify-between items-center gap-4">
+                        <h3 className="text-md font-medium">Stat {idx + 1}</h3>
+                        {statFields.length > 1 && (
+                          <Button
+                            type="button"
+                            className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+                            onClick={() => handleRemoveStat(idx)}
+                          >
+                            <Trash className="h-4 mr-2 w-4 " />
+                            Remove Stat
+                          </Button>
+                        )}
+                      </div>
+                      <FormField
+                        control={form.control}
+                        name={`stats.${idx}.level`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Level</FormLabel>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="border-purple-900 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 ">
+                                  <SelectValue placeholder="Select a level" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-purple-600 rounded-[5px] text-white dark:bg-purple-800">
+                                {/* Map over your StatLevel enum */}
+                                <SelectItem
+                                  className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                  value={StatLevel.LEVEL_1}
+                                >
+                                  Level 1
+                                </SelectItem>
+                                <SelectItem
+                                  className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                  value={StatLevel.LEVEL_100}
+                                >
+                                  Level 100
+                                </SelectItem>
+                                <SelectItem
+                                  className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                  value={StatLevel.TRUE_AWAKENING}
+                                >
+                                  True Awakening
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField
                           control={form.control}
-                          name="passiveDescription"
+                          name={`stats.${idx}.combatClass`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Passive Description</FormLabel>
+                              <FormLabel>Combat Class</FormLabel>
                               <FormControl>
-                                <Textarea
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
                                   {...field}
-                                  placeholder="Description of the passive skill."
-                                                          disabled={isPending}
-                          className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseInt(event.target.value, 10)
+                                    )
+                                  }
                                 />
                               </FormControl>
+                              <FormMessage />
                             </FormItem>
                           )}
                         />
-                </CardContent>
-                </Card>
-            </TabsContent>
-            <TabsContent value="stats" className="space-y-6">
-           <Card className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
-                  <CardHeader>
-                    <CardTitle>
-                      Charater Skills
-                    </CardTitle>
-                    <CardDescription>Enter the characters skills and ranks.</CardDescription>
-                  </CardHeader>
-                  <CardContent >
-                    {statFields.map((field, idx) => (
-                      <div className="p-4 space-y-6" key={idx}>
-                      <div className="flex flex-row justify-between items-center gap-4">
-                      <h3 className="text-md font-medium">Stat {idx + 1}</h3>
-                        {statFields.length > 1 && (
-                <Button type="button" 
-              className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
-                
-                onClick={() => handleRemoveStat(idx)}>
-                  <Trash className="h-4 mr-2 w-4 " />
-                  Remove Stat
-                </Button>
-              )}
-                      </div>
                         <FormField
-                control={form.control}
-                name={`stats.${idx}.level`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Level</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="border-purple-900 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 ">
-                          <SelectValue placeholder="Select a level" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className="bg-purple-600 rounded-[5px] text-white dark:bg-purple-800">
-                        {/* Map over your StatLevel enum */}
-                        <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={StatLevel.LEVEL_1}
-                              >
-                                Level 1
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={StatLevel.LEVEL_100}
-                              >
-                                Level 100
-                              </SelectItem>
-                              <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                                value={StatLevel.SUPER_AWAKENING}
-                              >
-                                Super Awakening
-                              </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-         <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-         <FormField
-                control={form.control}
-                name={`stats.${idx}.combatClass`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Combat Class</FormLabel>
-                    <FormControl>
-                      <Input type="number"
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                      
-                      {...field} onChange={event => field.onChange(parseInt(event.target.value, 10))} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-                   <FormField
-                control={form.control}
-                name={`stats.${idx}.attack`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Attack</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field}
-                      
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                      onChange={event => field.onChange(parseInt(event.target.value, 10))} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-         </div>
-         <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-         <FormField
-                control={form.control}
-                name={`stats.${idx}.defense`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Defense</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field}
-                      
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                      onChange={event => field.onChange(parseInt(event.target.value, 10))} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem> 
-                )}
-              />
-                  <FormField
-                control={form.control}
-                name={`stats.${idx}.hp`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>HP</FormLabel>
-                    <FormControl>
-                      <Input type="number" 
-                      
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                      {...field} onChange={event => field.onChange(parseInt(event.target.value, 10))} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-         </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-              <FormField
-                    control={form.control}
-                    name={`stats.${idx}.pierceRate`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Pierce Rate</FormLabel>
-                        <FormControl>
-                          <Input type="number" 
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`stats.${idx}.resistance`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Resistance</FormLabel>
-                        <FormControl>
-                          <Input type="number" 
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-              <FormField
-                    control={form.control}
-                    name={`stats.${idx}.regeneration`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Regeneration</FormLabel>
-                        <FormControl>
-                          <Input type="number"
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`stats.${idx}.critChance`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Crit Chance</FormLabel>
-                        <FormControl>
-                          <Input type="number" 
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-              <FormField
-                    control={form.control}
-                    name={`stats.${idx}.critDamage`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Crit Damage</FormLabel>
-                        <FormControl>
-                          <Input type="number" 
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`stats.${idx}.critResistance`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Crit Resistance</FormLabel>
-                        <FormControl>
-                          <Input type="number" 
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-              <FormField
-                    control={form.control}
-                    name={`stats.${idx}.critDefense`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Crit Defense</FormLabel>
-                        <FormControl>
-                          <Input type="number" 
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`stats.${idx}.recoveryRate`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Recovery Rate</FormLabel>
-                        <FormControl>
-                          <Input type="number" 
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                              step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-              <FormField
-                    control={form.control}
-                    name={`stats.${idx}.lifesteal`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Lifesteal</FormLabel>
-                        <FormControl>
-                          <Input type="number"   
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                          
-                          step="0.01" {...field} onChange={event => field.onChange(parseFloat(event.target.value))} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-      
-              </div>
-          
+                          control={form.control}
+                          name={`stats.${idx}.attack`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Attack</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  {...field}
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseInt(event.target.value, 10)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                       </div>
-                    ))}
-                    <div className="flex justify-end">
-                    <Button type={"button"}
-              className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
-                    
-                    onClick={handleAddStat}
-                    disabled={isPending || statFields.length >= max_stats}>
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.defense`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Defense</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  {...field}
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseInt(event.target.value, 10)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.hp`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>HP</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseInt(event.target.value, 10)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.pierceRate`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Pierce Rate</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.resistance`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Resistance</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.regeneration`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Regeneration</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.critChance`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Crit Chance</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.critDamage`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Crit Damage</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.critResistance`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Crit Resistance</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.critDefense`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Crit Defense</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.recoveryRate`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Recovery Rate</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                        <FormField
+                          control={form.control}
+                          name={`stats.${idx}.lifesteal`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Lifesteal</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  step="0.01"
+                                  {...field}
+                                  onChange={(event) =>
+                                    field.onChange(
+                                      parseFloat(event.target.value)
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <div className="flex justify-end">
+                    <Button
+                      type={"button"}
+                      className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+                      onClick={handleAddStat}
+                      disabled={isPending || statFields.length >= max_stats}
+                    >
                       Add Stat ({statFields.length}/{max_stats})
                     </Button>
-                    </div>
-                  </CardContent>
-                  </Card>
+                  </div>
+                </CardContent>
+              </Card>
             </TabsContent>
             <TabsContent value="skills" className="space-y-6">
               <Card className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
-                  <CardHeader>
-                    <CardTitle>
-                      Charater Skills
-                    </CardTitle>
-                    <CardDescription>Enter the characters skills and ranks.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
+                <CardHeader>
+                  <CardTitle>Charater Skills</CardTitle>
+                  <CardDescription>
+                    Enter the characters skills and ranks.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
                   {[0, 1].map((skillIndex) => (
-                <div className="p-4 " key={skillIndex}>
-                    <h3  className="text-lg font-medium">
-                    Skill {skillIndex + 1}
-
-                    </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <FormField
-                      control={form.control}
-                      name={`skills.${skillIndex}.name`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Skill Name</FormLabel>
-                          <FormControl>
-                            <Input {...field} placeholder="Skill Name"
-                            
-                                                   disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                          />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name={`skills.${skillIndex}.jpName`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Japanese Skill Name</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              placeholder="Japanese Skill Name"
-                                                    disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name={`skills.${skillIndex}.imageUrl`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Image URL</FormLabel>
-                          <FormControl>
-                            <Input {...field} placeholder="Image URL"
-                            disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                          />
-                          </FormControl>
-                        </FormItem>
-                        
-                      )}
-                    />
-                  </div>
-
-                  <h4 className="text-md font-medium mt-4 mb-2">
-                    Skill Ranks
-                  </h4>
-                  <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
-                    {[0, 1, 2].map((rankIndex) => (
-                      <div className="flex flex-col gap-4" key={rankIndex}>
-                        <h6>Rank {rankIndex + 1}</h6>
+                    <div className="p-4 " key={skillIndex}>
+                      <h3 className="text-lg font-medium">
+                        Skill {skillIndex + 1}
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                         <FormField
                           control={form.control}
-                          name={`skills.${skillIndex}.skillRanks.${rankIndex}.rank`}
+                          name={`skills.${skillIndex}.name`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Rank</FormLabel>
+                              <FormLabel>Skill Name</FormLabel>
                               <FormControl>
                                 <Input
                                   {...field}
-                                  type="number"
-                                  placeholder="Rank"
-                                                              disabled
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                                  value={rankIndex + 1}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        
-                        <FormField
-                          control={form.control}
-                          name={`skills.${skillIndex}.skillRanks.${rankIndex}.type`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Rank Type</FormLabel>
-                              <FormControl>
-                                <Input {...field} placeholder="Rank Type" 
-                                                            disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  placeholder="Skill Name"
+                                  disabled={isPending}
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
                                 />
                               </FormControl>
                             </FormItem>
@@ -1688,301 +1773,568 @@ const max_stats = 3;
                         />
                         <FormField
                           control={form.control}
-                          name={`skills.${skillIndex}.skillRanks.${rankIndex}.description`}
+                          name={`skills.${skillIndex}.jpName`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Rank Description</FormLabel>
+                              <FormLabel>Japanese Skill Name</FormLabel>
                               <FormControl>
-                                <Textarea
+                                <Input
                                   {...field}
-                                  placeholder="Rank Description"
-                                                          disabled={isPending}
-                          className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                  placeholder="Japanese Skill Name"
+                                  disabled={isPending}
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`skills.${skillIndex}.imageUrl`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Image URL</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder="Image URL"
+                                  disabled={isPending}
+                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
                                 />
                               </FormControl>
                             </FormItem>
                           )}
                         />
                       </div>
-                    ))}
+
+                      <h4 className="text-md font-medium mt-4 mb-2">
+                        Skill Ranks
+                      </h4>
+                      <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+                        {[0, 1, 2].map((rankIndex) => (
+                          <div className="flex flex-col gap-4" key={rankIndex}>
+                            <h6>Rank {rankIndex + 1}</h6>
+                            <FormField
+                              control={form.control}
+                              name={`skills.${skillIndex}.skillRanks.${rankIndex}.rank`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Rank</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      type="number"
+                                      placeholder="Rank"
+                                      disabled
+                                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                      value={rankIndex + 1}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name={`skills.${skillIndex}.skillRanks.${rankIndex}.type`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Rank Type</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      {...field}
+                                      placeholder="Rank Type"
+                                      disabled={isPending}
+                                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`skills.${skillIndex}.skillRanks.${rankIndex}.description`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Rank Description</FormLabel>
+                                  <FormControl>
+                                    <Textarea
+                                      {...field}
+                                      placeholder="Rank Description"
+                                      disabled={isPending}
+                                      className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  <Separator className="my-4 bg-white" />
+                  <div className="space-y-4">
+                    <h4 className="text-3xl leading-tight font-extrabold py-3">
+                      Ultimate
+                    </h4>
+                    <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+                      <FormField
+                        control={form.control}
+                        name="characterUltimate.name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Ultimate Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="Ultimate Name"
+                                type="text"
+                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                disabled={isPending}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="characterUltimate.jpName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Ultimate JP Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="Ultimate JP Name"
+                                type="text"
+                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                disabled={isPending}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="characterUltimate.imageUrl"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Ultimate Image URL</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="Ultimate Image URL"
+                                type="text"
+                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                disabled={isPending}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+                      <FormField
+                        control={form.control}
+                        name="characterUltimate.description"
+                        render={({ field }) => (
+                          <FormItem className="mt-2">
+                            <FormLabel>Ultimate Description</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Ultimate Description"
+                                className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                {...field}
+                                disabled={isPending}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="characterUltimate.extraInfo"
+                        render={({ field }) => (
+                          <FormItem className="mt-2">
+                            <FormLabel>Extra Info</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Extra Info"
+                                className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                {...field}
+                                disabled={isPending}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-               <Separator className="my-4 bg-white" />
-              <div className="space-y-4">
-              <h4 className="text-3xl leading-tight font-extrabold py-3">
-                Ultimate
-              </h4>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
-          
-                <FormField
-                  control={form.control}
-                  name="characterUltimate.name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ultimate Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Ultimate Name"
-                          type="text"
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                  <Separator className="my-4 bg-white" />
+                  <div className="space-y-4">
+                    <div className="flex flex-row justify-between items-center">
+                      <h4 className="text-3xl leading-tight font-extrabold py-3">
+                        Unity
+                      </h4>
+                      <FormField
+                        control={form.control}
+                        name="characterUnity.hasUnity"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3  space-y-0 rounded-[5px] p-4">
+                            <FormControl>
+                              <Switch
+                                disabled={isPending}
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    {form.watch("characterUnity.hasUnity") ? (
+                      <>
+                        <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+                          <FormField
+                            control={form.control}
+                            name="characterUnity.name"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Unity Name</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    placeholder="Unity Name"
+                                    type="text"
+                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="characterUnity.jpName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Unity JP Name</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    placeholder="Unity JP Name"
+                                    type="text"
+                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="characterUnity.imageUrl"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Unity Image URL</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    placeholder="Unity Image URL"
+                                    type="text"
+                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
 
-                          disabled={isPending}
+                        <FormField
+                          control={form.control}
+                          name="characterUnity.description"
+                          render={({ field }) => (
+                            <FormItem className="mt-2">
+                              <FormLabel>Unity Description</FormLabel>
+                              <FormControl>
+                                <Textarea
+                                  placeholder="Unity Description"
+                                  className="border-purple-900 resize-none mt-4 h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                  {...field}
+                                  disabled={isPending}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
                         />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="characterUltimate.jpName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ultimate JP Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Ultimate JP Name"
-                          type="text"
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                      </>
+                    ) : null}
+                  </div>
+                  <Separator className="my-4 bg-white" />
+                  <div className="space-y-4">
+                    <div className="flex flex-row justify-between items-center">
+                      <h4 className="text-3xl leading-tight font-extrabold py-3">
+                        Talent
+                      </h4>
+                      <FormField
+                        control={form.control}
+                        name="characterTalent.hasTalent"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3  space-y-0 rounded-[5px] p-4">
+                            <FormControl>
+                              <Switch
+                                disabled={isPending}
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    {form.watch("characterTalent.hasTalent") ? (
+                      <>
+                        <div className="grid md:grid-cols-3 grid-cols-1 gap-5">
+                          <FormField
+                            control={form.control}
+                            name="characterTalent.talentName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Unity Name</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    placeholder="Talent Name"
+                                    type="text"
+                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="characterTalent.talentJpName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Talent JP Name</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    placeholder="Talent JP Name"
+                                    type="text"
+                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="characterTalent.talentImageUrl"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Talent Image URL</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    {...field}
+                                    placeholder="Unity Image URL"
+                                    type="text"
+                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
 
-                          disabled={isPending}
+                        <FormField
+                          control={form.control}
+                          name="characterTalent.talentDescription"
+                          render={({ field }) => (
+                            <FormItem className="mt-2">
+                              <FormLabel>Talent Description</FormLabel>
+                              <FormControl>
+                                <Textarea
+                                  placeholder="Talent Description"
+                                  className="border-purple-900 resize-none mt-4 h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                  {...field}
+                                  disabled={isPending}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
                         />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="characterUltimate.imageUrl"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ultimate Image URL</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Ultimate Image URL"
-                          type="text"
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
-                          disabled={isPending}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
-                <FormField
-                  control={form.control}
-                  name="characterUltimate.description"
-                  render={({ field }) => (
-                    <FormItem className="mt-2">
-                      <FormLabel>Ultimate Description</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Ultimate Description"
-                          className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
-
-                          {...field}
-                          disabled={isPending}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="characterUltimate.extraInfo"
-                  render={({ field }) => (
-                    <FormItem className="mt-2">
-                      <FormLabel>Extra Info</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Extra Info"
-                          className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
-
-                          {...field}
-                          disabled={isPending}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              </div>
-                  </CardContent>
-        
+                      </>
+                    ) : null}
+                  </div>
+                </CardContent>
               </Card>
-
             </TabsContent>
             <TabsContent value="extras" className="space-y-6">
-             <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
-              <CardHeader>
-                <CardTitle>Extra Info</CardTitle>
-                <CardDescription>Select the characters extra info</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+              <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+                <CardHeader>
+                  <CardTitle>Extra Info</CardTitle>
+                  <CardDescription>
+                    Select the characters extra info
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="gifts" // This name must match your addCharacterSchema field name
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-white">Gift</FormLabel>
+                          <ReactSelect
+                            {...field} // Spread field props
+                            className="text-black"
+                            options={
+                              GiftOptions
+                            }
+                            isMulti
+                            isSearchable={isSearchable}
+                            isDisabled={isPending || !Gifts?.length}
+                            onChange={(selectedOption: any) => {
+                              if (selectedOption) {
+                                field.onChange({
+                                  id: selectedOption.value,
+                                  name: selectedOption.label,
+                                  imageUrl: selectedOption.imageUrl,
+                                  description: selectedOption.description,
+                                });
+                              } else {
+                                // Handle clearing the selection
+                                field.onChange(null);
+                              }
+                            }}
+                            placeholder={
+                              (Gifts?.length ?? 0) >= 1
+                                ? "Select gift!"
+                                : "No gifts Available!"
+                            }
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-<FormField
-  control={form.control}
-  name="gifts" // This name must match your addCharacterSchema field name
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel className="text-white">Gift</FormLabel>
-      <ReactSelect
-        {...field} // Spread field props
-        className="text-black"
-        options={Gifts?.map(gift => ({
-          value: gift.id, // Use the unique ID as the value for ReactSelect
-          label: gift.name, // Use the name as the displayed label
-          imageUrl: gift.imageUrl, // Include other properties in options
-          description: gift.description,
-        })) || []}
-        isSearchable={isSearchable}
-        isDisabled={isPending || !Gifts?.length}
-        onChange={(selectedOption: any) => {
-          if (selectedOption) {
-            // Transform the selected option to match your schema's expected format
-            field.onChange({
-              id: selectedOption.value,
-              name: selectedOption.label, // Use label for name
-              imageUrl: selectedOption.imageUrl,
-              description: selectedOption.description,
-            });
-          } else {
-            // Handle clearing the selection
-            field.onChange(null);
-          }
-          console.log(selectedOption); // Keep console log for debugging
-        }}
-        // Map the form's current value back to ReactSelect's expected value format
-        value={
-          field.value // Check if the form value exists
-          ? {
-              value: field.value.id,
-              label: field.value.name,
-              imageUrl: field.value.imageUrl,
-              description: field.value.description,
-            }
-          : null // Use null for no selection in single select
-        }
-        placeholder={
-          (Gifts?.length ?? 0) >= 1
-            ? "Select gift!"
-            : "No gifts Available!"
-        }
-      />
-      <FormMessage />
-    </FormItem>
-  )}
-/>
+                    <FormField
+                      control={form.control}
+                      name="food" // This name must match your addCharacterSchema field name
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-white">Food(s)</FormLabel>
+                          <ReactSelect
+                            {...field} // Spread field props
+                            isMulti
+                            className="text-black"
+                            options={
+                             FoodOptions
+                            }
+                            isSearchable={isSearchable}
+                            isDisabled={isPending || !Foods?.length}
+                            onChange={(selectedOptions: any) => {
+                              // Map selected options to the format expected by your schema
+                              const transformedValue = selectedOptions.map(
+                                (option: any) => ({
+                                  id: option.value,
+                                  name: option.label, // Use label for name
+                                  imageUrl: option.imageUrl,
+                                })
+                              );
+                              field.onChange(transformedValue); // Pass the array to react-hook-form
+                              console.log(selectedOptions); // Keep console log
+                            }}
+                            // Map the form's current array value back to ReactSelect's expected value format
+                            value={
+                              field.value?.map((formFood) => ({
+                                value: formFood.name,
+                                label: formFood.name,
+                                imageUrl: formFood.imageUrl,
+                              })) || [] // Use an empty array for no selections in multi-select
+                            }
+                            placeholder={
+                              (Foods?.length ?? 0) >= 1
+                                ? "Select foods!"
+                                : "No foods Available!"
+                            }
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="associations" // This name must match your addCharacterSchema field name
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-white">
+                            Association(s)
+                          </FormLabel>
+                          <ReactSelect
+                            {...field} // Spread field props
+                            isMulti
+                            className="text-black"
+                            options={
+                              AssociationsOptions?.map((assoc) => ({
+                                value: assoc.characterId, // Use characterId as the unique value
+                                label: assoc.name || "", // Ensure label is string, handle null
+                                slug: assoc.slug || "", // Ensure slug is string, handle null
+                                tag: assoc.tag || "", // Ensure tag is string, handle null
+                                imageUrl: assoc.imageUrl, // Include other properties
+                              })) || []
+                            }
+                            isSearchable={isSearchable}
+                            isDisabled={
+                              isPending || !AssociationsOptions?.length
+                            }
+                            onChange={(selectedOptions: any) => {
+                              // Map selected options to the format expected by your schema
+                              const transformedValue = selectedOptions.map(
+                                (option: any) => ({
+                                  charaterId: option.value, // Use option.value for characterId
+                                  name: option.label, // Use option.label for name (which is now string)
+                                  slug: option.slug, // Use option.slug (which is now string)
+                                  tag: option.tag, // Use option.tag (which is now string)
+                                  imageUrl: option.imageUrl,
+                                })
+                              );
+                              field.onChange(transformedValue); // Pass the array to react-hook-form
+                            }}
+                            // Map the form's current array value back to ReactSelect's expected value format
+                            value={
+                              field.value?.map((formAssoc) => ({
+                                value: formAssoc.characterId, // Map back using characterId
+                                label: formAssoc.name || "", // Ensure label is string
+                                slug: formAssoc.slug || "", // Ensure slug is string
+                                tag: formAssoc.tag || "", // Ensure tag is string
+                                imageUrl: formAssoc.imageUrl,
+                              })) || []
+                            }
+                            placeholder={
+                              (AssociationsOptions?.length ?? 0) >= 1
+                                ? "Select Associations!"
+                                : "No associations Available!"
+                            }
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-
-<FormField
-  control={form.control}
-  name="food" // This name must match your addCharacterSchema field name
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel className="text-white">Food(s)</FormLabel>
-      <ReactSelect
-        {...field} // Spread field props
-        isMulti
-        className="text-black"
-        options={Foods?.map(food => ({
-          value: food.id, // Use the unique ID as the value
-          label: food.name, // Use the name as the displayed label
-          imageUrl: food.imageUrl, // Include other properties
-        })) || []}
-        isSearchable={isSearchable}
-        isDisabled={isPending || !Foods?.length}
-        onChange={(selectedOptions: any) => {
-          // Map selected options to the format expected by your schema
-          const transformedValue = selectedOptions.map((option: any) => ({
-            id: option.value,
-            name: option.label, // Use label for name
-            imageUrl: option.imageUrl,
-          }));
-          field.onChange(transformedValue); // Pass the array to react-hook-form
-          console.log(selectedOptions); // Keep console log
-        }}
-        // Map the form's current array value back to ReactSelect's expected value format
-        value={
-           field.value?.map(formFood => ({
-             value: formFood.name,
-             label: formFood.name,
-             imageUrl: formFood.imageUrl,
-           })) || [] // Use an empty array for no selections in multi-select
-         }
-        placeholder={
-          (Foods?.length ?? 0) >= 1
-            ? "Select foods!"
-            : "No foods Available!"
-        }
-      />
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-
-<FormField
-  control={form.control}
-  name="associations" // This name must match your addCharacterSchema field name
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel className="text-white">Association(s)</FormLabel>
-      <ReactSelect
-        {...field} // Spread field props
-        isMulti
-        className="text-black"
-        options={AssociationsOptions?.map(assoc => ({
-           value: assoc.characterId, // Use characterId as the unique value
-           label: assoc.name || '', // Ensure label is string, handle null
-           slug: assoc.slug || '', // Ensure slug is string, handle null
-           tag: assoc.tag || '',   // Ensure tag is string, handle null
-           imageUrl: assoc.imageUrl, // Include other properties
-        })) || []}
-        isSearchable={isSearchable}
-        isDisabled={isPending || !AssociationsOptions?.length}
-        onChange={(selectedOptions: any) => {
-          // Map selected options to the format expected by your schema
-          const transformedValue = selectedOptions.map((option: any) => ({
-            charaterId: option.value, // Use option.value for characterId
-            name: option.label, // Use option.label for name (which is now string)
-            slug: option.slug,   // Use option.slug (which is now string)
-            tag: option.tag,     // Use option.tag (which is now string)
-            imageUrl: option.imageUrl,
-          }));
-          field.onChange(transformedValue); // Pass the array to react-hook-form
-        }}
-        // Map the form's current array value back to ReactSelect's expected value format
-        value={
-           field.value?.map(formAssoc => ({
-             value: formAssoc.characterId, // Map back using characterId
-             label: formAssoc.name || '', // Ensure label is string
-             slug: formAssoc.slug || '', // Ensure slug is string
-             tag: formAssoc.tag || '',   // Ensure tag is string
-             imageUrl: formAssoc.imageUrl,
-           })) || []
-         }
-        placeholder={
-          (AssociationsOptions?.length ?? 0) >= 1
-            ? "Select Associations!"
-            : "No associations Available!"
-        }
-      />
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-
-                <div className="flex flex-col space-y-4">
-                  {/* <FormField
+                    <div className="flex flex-col space-y-4">
+                      {/* <FormField
                   control={form.control}
                   name="associationsWith"
                   render={({ field }) => (
@@ -2009,69 +2361,148 @@ const max_stats = 3;
                     </FormItem>
                   )}
                 /> */}
-                {fields.length > 0 && (
-                  <div>
-                  <h3 className="text-white mb-2">Bonuses for associations with:</h3>
-                  {fields.map((field, idx) => (
-                      <div key={field.id} className="flex flex-rows gap-3 items-center mb-2">
-                      <Image 
-                      src={(field as AssociatedWithFormData).imageUrl}
-                      alt={(field as AssociatedWithFormData)?.name ?? ""}
-                      />
-                 <FormField
-                control={form.control}
-                name={`associationsWith.${idx}.bonus`} // Dynamic name for bonus input
-                render={({ field: bonusField }) => (
-                  <FormItem className="flex-grow"> {/* Add flex-grow to make input fill space */}
-                      <FormLabel className="text-white">Character Bonus</FormLabel>
-
-                     <input
-                      type="text"
-                      className="border text-black p-1 rounded w-full" // Make input full width
-                      placeholder={`Bonus for ${ (field as AssociatedWithFormData).name || (field as AssociatedWithFormData).tag}`}
-                      {...bonusField} // Spread the react-hook-form field props
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button variant={"purple"} 
-               type="button" 
-               
-               onClick={() => remove(idx)}>
-                
-                Remove
-              </Button>
-                      </div>
-                  ))}
+                      {fields.length > 0 && (
+                        <div>
+                          <h3 className="text-white mb-2">
+                            Bonuses for associations with:
+                          </h3>
+                          {fields.map((field, idx) => (
+                            <div
+                              key={field.id}
+                              className="flex flex-rows gap-3 items-center mb-2"
+                            >
+                              <Image
+                                src={(field as AssociatedWithFormData).imageUrl}
+                                alt={
+                                  (field as AssociatedWithFormData)?.name ?? ""
+                                }
+                              />
+                              <FormField
+                                control={form.control}
+                                name={`associationsWith.${idx}.bonus`} // Dynamic name for bonus input
+                                render={({ field: bonusField }) => (
+                                  <FormItem className="flex-grow">
+                                    {" "}
+                                    {/* Add flex-grow to make input fill space */}
+                                    <FormLabel className="text-white">
+                                      Character Bonus
+                                    </FormLabel>
+                                    <input
+                                      type="text"
+                                      className="border text-black p-1 rounded w-full" // Make input full width
+                                      placeholder={`Bonus for ${(field as AssociatedWithFormData).name || (field as AssociatedWithFormData).tag}`}
+                                      {...bonusField} // Spread the react-hook-form field props
+                                    />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <Button
+                                variant={"purple"}
+                                type="button"
+                                onClick={() => remove(idx)}
+                              >
+                                Remove
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="friendship" className="space-y-6">
+              {isCrossoverCharacter ? (
+                <div className="text-center text-xl text-white p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px]">
+                  <p>
+                    Friendship rewards are not applicable for crossover
+                    characters.
+                  </p>
                 </div>
-              </div>
-              </CardContent>
-             </Card>
+              ) : (
+                <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+                  <CardHeader>
+                    <CardTitle>Friendship Rewards</CardTitle>
+                    <CardDescription>
+                      Define the specific reward details for each friendship
+                      level
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <CardContent className="space-y-6">
+                      {/* Render fields dynamically */}
+                      {friendshipRewardFields.map((field, index) => {
+                        const genericLevel = genericFriendshipLevels?.find(
+                          (lvl) => lvl.id === field.friendShipLevelId
+                        );
+                        if (!genericLevel) return null;
+
+                        return (
+                          <div
+                            key={field.id}
+                            className="space-y-4 border p-4 rounded-md border-purple-900"
+                          >
+                            <h4 className="text-lg font-semibold text-white">
+                              Level {genericLevel.level}: Reward Type:{" "}
+                              {genericLevel.rewardType.replace(/_/g, " ")}{" "}
+                              (Requires {genericLevel.requiredAffinity}{" "}
+                              Affinity)
+                            </h4>
+                            {/* Conditional rendering for specific input fields */}
+                            {/* Use form.control and specific field name like `characterFriendshipRewards.${index}.artworkUrl` */}
+                            {genericLevel.rewardType ===
+                              FriendshipRewardType.HERO_ARTWORK && (
+                              <FormField
+                                control={form.control}
+                                name={`characterFriendshipRewards.${index}.artworkUrl`}
+                                render={({ field: inputField }) => (
+                                  <FormItem>
+                                    <FormLabel>Hero Artwork URL</FormLabel>
+                                    <FormControl>
+                                      <Input
+                                        {...inputField}
+                                        placeholder="e.g., https://example.com/artwork.png"
+                                        disabled={isPending}
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
+                    </CardContent>
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
             <div className="flex flex-row gap-4 justify-end items-center">
-            <Button
-              type="button"
-              className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
-            >
-              <Link href={"/dashboard/characters"}>Cancel</Link>
-            </Button>
-            <Button
-              type="submit"
-              className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
-            >
-              {isPending ? (
-                <>Saving Character...</>
-              ): (
-                <>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Character
-                </>
-              )}
-            </Button>
-          </div>
+              <Button
+                type="button"
+                disabled={isPending || isSlugGenerating}
+                className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+              >
+                <Link href={"/dashboard/characters"}>Cancel</Link>
+              </Button>
+              <Button
+                type="submit"
+                disabled={isPending || isSlugGenerating}
+                className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+              >
+                {isPending ? (
+                  <>Saving Character...</>
+                ) : (
+                  <>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Character
+                  </>
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
       </Tabs>

@@ -49,9 +49,9 @@ export default async function DashboardPage({
     successMessage = "Subscription successful! Welcome aboard.";
   }
 
-  const isPremium =
-    user.subscriptionStatus === "active" &&
-    user.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
+  // const isPremium =
+  //   user.subscriptionStatus === "active" &&
+  //   user.stripePriceId === process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID;
   const isBasic =
     user.subscriptionStatus === "active" &&
     user.stripePriceId === process.env.NEXT_PUBLIC_BASIC_PRICE_ID;
@@ -114,7 +114,7 @@ export default async function DashboardPage({
         <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Core Dashboard Access</h3>
           <p className="text-gray-700 dark:text-gray-300">This feature is available to all active subscribers.</p>
-          {(isBasic || isPremium) ? (
+          {(isBasic) ? (
             <span className="text-green-600 dark:text-green-400 text-sm font-medium mt-2 block">Access Granted!</span>
           ) : (
             <span className="text-red-600 dark:text-red-400 text-sm font-medium mt-2 block">Subscribe to unlock.</span>
@@ -122,7 +122,7 @@ export default async function DashboardPage({
         </div>
 
         {/* Premium Feature (Locked behind Premium) */}
-        <div className="bg-white dark:bg-gray-600 p-6 rounded-lg shadow-md border border-purple-300 dark:border-purple-700">
+        {/* <div className="bg-white dark:bg-gray-600 p-6 rounded-lg shadow-md border border-purple-300 dark:border-purple-700">
           <h3 className="text-xl font-semibold text-purple-700 dark:text-purple-300 mb-2">Exclusive Premium Content</h3>
           {isPremium ? (
             <p className="text-gray-700 dark:text-gray-300">
@@ -140,7 +140,7 @@ export default async function DashboardPage({
               Upgrade now!
             </a>
           )}
-        </div>
+        </div> */}
       </div>
 
       <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">

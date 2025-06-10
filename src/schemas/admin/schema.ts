@@ -75,18 +75,17 @@ export const userSchema = z.object({
 
 
   export const foodSchema = z.object({
-  id: z.string(),
     name: z.string().min(2, {
       message: "Name must be at least 2 characters.",
     }),
     imageUrl: z.string().min(2, {
       message: "Image URL must be at least 2 characters.",
     }),
-    location: z.enum([Towns.Dalmally, Towns.LionesCastle, Towns.OrdanVillage, Towns.PostTownTala, Towns.Vanya, Towns.Vaziel]).optional(),
+    location: z.enum([Towns.Dalmally, Towns.LionesCastle, Towns.OrdanVillage, Towns.PostTownTala, Towns.Vanya, Towns.Vaziel]),
     effect: z.string().min(2, {
       message: "Effect must be at least 2 characters.",
-    }).optional(),
+    }),
     ingredients: z.array(
       ingredientSchema
-    ).optional(),
+    ),
   })

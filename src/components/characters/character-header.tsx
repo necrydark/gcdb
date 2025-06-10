@@ -107,6 +107,7 @@ function CharacterHeader({
                 JP
               </Label>
             </div>
+            {" | "}
             <div>
               {user && (
                  <CollectionButtonChar

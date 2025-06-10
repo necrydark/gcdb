@@ -99,38 +99,27 @@ type IngredientData = z.infer<typeof ingredientSchema>
 export const addFood = async(values: z.infer<typeof foodSchema>) => {
   const validatedFields = foodSchema.safeParse(values);
 
-  if (!validatedFields) {
-    return { error: "Invalid Fields" };
-  }
-
+  console.log("called")
   if (!validatedFields.success) {
     return { error: "Invalid Fields" };
   }
 
   const { name, imageUrl, location, effect, ingredients } = validatedFields.data;
-
   const typedIngredients = ingredients as IngredientData[];
 
-
-  if (!name || !imageUrl || !location || !effect) {
-    return { error: "A field is not valid." };
-  }
-
-
  try {
-  const existingFood = await getFoodByName(name as string);
+  const existingFood = await getFoodByName(name);
 
   if (existingFood) {
     return { error: "Food already exists." };
   }
-
-
   await db.food.create({
     data: {
       name,
       imageUrl,
       effect,
       location,
+      affinityValue: 100,
       ingredients: {
         connect: typedIngredients.map((ingredient) => ({ id: ingredient.id}))
       }
@@ -142,8 +131,9 @@ export const addFood = async(values: z.infer<typeof foodSchema>) => {
   return {error: "Failed to add food."}
  }
 
-  revalidatePath("/src");
-  return { success: "Ingredient Added" };
+ revalidatePath("/dashboard/food");
+ revalidatePath("/cooking");
+  return { success: "Food added successfully" };
 }
 
 export const editFood = async(

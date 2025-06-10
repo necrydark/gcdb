@@ -13,6 +13,7 @@ import {
 } from "@prisma/client";
 import { z } from "zod";
 import { foodSchema, giftSchema } from "./admin/schema";
+import { friendshipRewardSchema } from "./character/friendship-reward-schema";
 
 export const adminSchema = z.object({
   name: z.optional(z.string()),
@@ -199,10 +200,23 @@ export const characterUltimateSchema = z.object({
     extraInfo: z.optional((z.string())), 
 })
 
+export const characterUnitySchema = z.object({
+  unityId: z.string().min(1, "Unity ID is required").optional(),
+  name: z.string().min(1, "Unity Name is required").optional(),
+  jpName: z.string().min(1, "Unity Japanese Name is required").optional(),
+  imageUrl: z
+    .string()
+    .url("Invalid URL")
+    .min(1, "Unity Image URL is required").optional(),
+  description: z.string().min(1, "Unity Description is required").optional(),
+
+})
+
+
 
 
 export const statsSchema = z.object({
-  level: z.enum([StatLevel.LEVEL_1, StatLevel.LEVEL_100, StatLevel.SUPER_AWAKENING]).default("LEVEL_1").describe("Stat Level is reuiqred."),
+  level: z.enum([StatLevel.LEVEL_1, StatLevel.LEVEL_100, StatLevel.TRUE_AWAKENING]).default("LEVEL_1").describe("Stat Level is reuiqred."),
   combatClass: z.number().int().nonnegative("Combat Class must be a non-negative integer").min(0, "Combat Class is required"),
   attack: z.number().int().nonnegative("Attack must be a non-negative integer").min(0, "Attack is required"),
   defense: z.number().int().nonnegative("Defense must be a non-negative integer").min(0, "Defense is required"),
@@ -248,7 +262,6 @@ export const addCharacterSchema = z.object({
     Race.Giant,
     Race.Goddess,
     Race.Human,
-    Race.HumanGiant,
     Race.Unknown,
   ]),
   attribute: z.enum([
@@ -290,10 +303,18 @@ export const addCharacterSchema = z.object({
       })
     )
   ),
-  passiveName: z.string().min(1, "Passive Name is required"),
-  passiveImageUrl: z.string().min(1, "Passive Image URL is required"),
-  passiveJpName: z.string().min(1, "Passive Japanese Name is required"),
-  passiveDescription: z.string().min(1, "Passive Description is required"),
+  passiveName: z.string().default("").refine(val => val.length > 0, {
+    message: "Passive Name is required",
+  }),
+  passiveImageUrl: z.string().default("").refine(val => val.length > 0, {
+    message: "Passive Image URL is required",
+  }),
+  passiveJpName: z.string().default("").refine(val => val.length > 0, {
+    message: "Passive Japanese Name is required",
+  }),
+  passiveDescription: z.string().default("").refine(val => val.length > 0, {
+    message: "Passive Description is required",
+  }),
   passiveCCNeeded: z.optional(z.string()),
   skills: z.array(skillSchema).min(2, "At least one skill is required"),
   associations: z.optional(
@@ -328,6 +349,16 @@ export const addCharacterSchema = z.object({
     GameEvent.None,
   ]),
   characterUltimate: characterUltimateSchema,
+  characterUnity: characterUnitySchema,
+  characterFriendshipRewards: z.array(friendshipRewardSchema)
+  .length(5, "A character must have exactly 5 friendship rewards defined")
+  .refine(rewards => {
+    const providedLevelIds = new Set(rewards.map(reward => reward.friendShipLevelId))
+    return providedLevelIds.size === rewards.length;
+  }, {
+    message: "Each friendship level must have a unique reward definition",
+    path: ["characterFriendshipRewards"]
+  })
 });
 
 export const addFoodSchema = z.object({
@@ -365,6 +396,13 @@ export const MaterialSchema = z.object({
   location: z.string().optional(),
 });
 
+export const RelicEnhanceMaterialsSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  imageUrl: z.string().optional(),
+  location: z.string().optional(),
+});
+
 export const addHolyRelic = z.object({
   name: z.string().min(1, "Relic Name is required"),
   imageUrl: z.string().min(1, "Image URL is required"),
@@ -384,12 +422,23 @@ export const addHolyRelic = z.object({
   materials: z.array(
     MaterialSchema
   ),
+  enhancable: z.boolean().default(false),
+  enhanceMaterials: z.optional(z.array(RelicEnhanceMaterialsSchema)),
+  enhanceAttack: z.string().optional(),
+  enhanceDefense: z.string().optional(),
+  enhanceHp: z.string().optional(),
   characters: z.array(
     relicCharacterSchema
   ),
 });
 
 export const addRelicMaterials = z.object({
+  name: z.optional(z.string()),
+  imageUrl: z.optional(z.string()),
+  location: z.optional(z.string()),
+});
+
+export const addRelicEnhanceMaterials = z.object({
   name: z.optional(z.string()),
   imageUrl: z.optional(z.string()),
   location: z.optional(z.string()),
@@ -464,15 +513,10 @@ export const editCharacterSchema = z.object({
     Game.Tensura,
   ]),
   crossover: z.enum([Crossovers.Crossover, Crossovers.NotCrossover]),
-  race: z.enum([
-    Race.Demon,
-    Race.Fairy,
-    Race.Giant,
-    Race.Goddess,
-    Race.Human,
-    Race.HumanGiant,
-    Race.Unknown,
-  ]),
+  races: z
+  .array(z.nativeEnum(Race))
+  .default([Race.Human]) // Default to an array with Human
+  .describe("An array of races for the character"),
   attribute: z.enum([
     Attribute.Dark,
     Attribute.HP,
@@ -513,6 +557,7 @@ export const editCharacterSchema = z.object({
   passiveCCNeeded: z.optional(z.string()),
   skills: z.array(editSkillSchema).min(1, "At least one skill is required"),
   characterUltimate: characterUltimateSchema,
+  characterUnity: characterUnitySchema,
   associations: z.optional(
     z.array(
       z.object({

@@ -1,7 +1,7 @@
 "use client";
 import { Character, Gift } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useToast } from "../../ui/use-toast";
+import { toast } from "sonner";
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -43,7 +43,7 @@ interface GiftInterface {
 
 export default function ViewGiftPage({ gift, giftCharacters }: GiftInterface) {
   const router = useRouter();
-  const { toast } = useToast();
+
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 

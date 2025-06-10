@@ -38,9 +38,13 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "cdn.sanity.io",
                 port: ""
+            },
+            {
+                protocol: "https",
+                hostname: "i.ytimg.com",
+                port: ""
+    
             }
-
-
 
         ]
     }
