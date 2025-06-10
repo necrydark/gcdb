@@ -48,24 +48,54 @@ export default function Foods({town, food}: Props) {
                 <h2 className="font-bold text-lg text-center text-white">{food.name}</h2>
        
                 <Tabs defaultValue="effect"  value={activeTab} onValueChange={setActiveTab} className="w-full ">
-                    <TabsList className="grid grid-cols-3 w-full">
-                      <TabsTrigger value="effect">Effect</TabsTrigger>
-                      <TabsTrigger value="materials">Materials</TabsTrigger>
+                    <TabsList className="grid grid-cols-2 w-full">
+                      <TabsTrigger value="effect">Main</TabsTrigger>
                       <TabsTrigger value="characters">Characters</TabsTrigger>
                     </TabsList>
   
                     <TabsContent value="effect" className="space-y-4 mt-4">
-                    <h4 className="text-sm font-medium text-white mb-2">Effect</h4>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 m-0">{food.effect}</p>
+                   <div className='grid grid-cols-2 gap-6'>
+              <div>
+              <h4 className="text-sm font-medium text-white mb-2">Effect</h4>
+              <p className="text-sm text-gray-700 dark:text-gray-300 m-0">{food.effect}</p>
+                </div>
+                <div>
+              <h4 className="text-sm font-medium text-white mb-2">Affinity</h4>
+              <p className="text-sm text-gray-700 dark:text-gray-300 m-0">+{food.affinity} Affinity</p>
+                </div>
+                   </div>
+
+                    <h4 className="text-sm font-medium mb-2 mt-6 text-white">Required Ingredients</h4>
+                  
+                  <div className="flex flex-col flex-wrap gap-2">
+          
+                     <>
+                      {food.ingredients?.map((ingredient, idx) => (
+                        <div key={idx} className="flex items-center flex-row gap-2">
+                          <Image
+                                src={ingredient.imageUrl as string}
+                                alt={ingredient.name}
+                                width={50}
+                                height={50}
+                              />
+                         <div className="flex flex-col gap-1">
+                         <h4 className="text-sm font-medium text-white">{ingredient.name}</h4>
+                          {ingredient.location && (
+                             <h4 className="text-xs text-gray-700 dark:text-muted-foreground font-medium">{ingredient.location}</h4>
+                          )}
+                          
+                          </div>
+                        </div>
+                      ))}</>
+                  </div>
   
-                    <h4 className="text-sm font-medium text-white mb-1">Stats</h4>
   
                
                 </TabsContent>
-                <TabsContent value="materials" className="space-y-4 mt-4">
-                <h4 className="text-sm font-medium mb-2 text-white">Required Materials</h4>
+                <TabsContent value="ingredients" className="space-y-4 mt-4">
+                <h4 className="text-sm font-medium mb-2 text-white">Required Ingredients</h4>
                   
-                <div className="flex flex-row flex-wrap gap-2">
+                <div className="flex flex-col flex-wrap gap-2">
         
                    <>
                     {food.ingredients?.map((ingredient, idx) => (

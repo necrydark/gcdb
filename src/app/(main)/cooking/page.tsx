@@ -13,11 +13,13 @@ async function CookingPage() {
   })
 
   
-  console.log(food);
 
 
     const formattedFood = food?.map(food => {
-      return { ...food };
+      return { 
+        ...food,
+        affinity: food.affinityValue
+       };
     })
 
           // Adding string splits for towns
