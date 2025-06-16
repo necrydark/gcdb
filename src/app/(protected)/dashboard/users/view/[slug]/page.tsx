@@ -12,10 +12,12 @@ export default async function UserViewPage({ params} : { params: Params}) {
         where: {
             id: slug
         },
-        include: {
-            Comments: true,
-            Collection: true
-        }
+    include: {
+        Comments: true,
+        collection: true,
+        userProgress: true,
+        twoFactorConfirmation: true, 
+    }
     })
     
     if(!user) {

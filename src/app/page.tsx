@@ -379,7 +379,7 @@ export default async function HomePage() {
       <section className="py-12 px-4 bg-purple-700/50">
       <div className="container mx-auto max-w-6xl">
       <h2 className="text-3xl font-bold mb-8 text-white">
-            Pricing
+            Donations
           </h2>
           <Pricing />
       </div>

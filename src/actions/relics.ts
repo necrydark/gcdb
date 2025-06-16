@@ -11,11 +11,6 @@ type CharacterData = z.infer<typeof relicCharacterSchema>
 export async function getRelics() {
   try {
     const relicsWithRelations = await db.holyRelic.findMany({
-      include: {
-        characters: true, // Include the related characters
-        materials: true, // Include the related materials
-        Collection: true
-      },
     });
 
     // Map over the results to create plain objects with relevant data
@@ -28,27 +23,11 @@ export async function getRelics() {
       attack: relic.attack,
       defense: relic.defense,
       hp: relic.hp,
-      beast: relic.beast,
-      // ... other relic properties
-      characters: relic.characters.map(character => ({
-        id: character.id,
-        name: character.name,
-        imageUrl: character.imageUrl,
-        slug: character.slug,        
-        tag: character.tag
-        // ... other character properties
-      })),
-      materials: relic.materials.map(material => ({
-        id: material.id,
-        name: material.name,
-        imageUrl: material.imageUrl,
-        location: material.location
-        // ... other material properties
-      })),
-      collection: relic.Collection.map(collection => ({
-        userId: collection.id,
-        relicId: collection.id
-      }))
+      enhancable: relic.enhancable,
+      enhanceAttack: relic.enhanceAttack,
+      enhanceDefense: relic.enhanceDefense,
+      enhanceHp: relic.enhanceHp,
+      beast: relic.beast
     }));
 
     return serializedRelics;

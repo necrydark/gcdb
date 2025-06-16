@@ -70,15 +70,15 @@ export default function Pricing() {
     return (
         <div className="container mx-auto">
     
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {/* Basic Plan */}
             <Card  className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
                 <CardHeader>
                     <CardTitle className="text-white">
-                        SR Plan
+                        SR Plan (Supporter)
                     </CardTitle>
                     <CardDescription  className="text-gray-300">
-                        Access to core features
+                        Support the website!
                     </CardDescription>
                 </CardHeader>
              <CardContent>

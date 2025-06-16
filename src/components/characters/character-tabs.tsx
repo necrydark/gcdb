@@ -9,11 +9,11 @@ import CharacterAssociationsTab from "./character-associations";
 import CharacterGiftsFoodTab from "./character-gifts-food";
 import CharacterSkillsTab from "./character-skills";
 import CharacterHolyRelic from "./character-holy-relic";
-import { Association, Character, Gift, HolyRelic, SkillRank, Stats } from "@prisma/client";
+import {  Character, Gift, HolyRelic, SkillRank, Stat } from "@prisma/client";
 import { SkillWithRanks } from "@/src/lib/interface";
 import { Passive } from "@/src/types/passive";
 import { CharacterMiscInfo, Talent, Unity } from "@/src/types/character";
-import { CharacterUltimate } from "@/src/types/skill";
+import { CharacterUltimate,  } from "@/src/types/skill";
 
 
 
@@ -21,27 +21,17 @@ type Props = {
   character: Character;
   skills?: SkillWithRanks[]
   relic?: HolyRelic;
-  stats?: Stats[];
+  stats?: Stat[];
   passive?: Passive
   gift?: Gift[];
   miscInfo?: CharacterMiscInfo;
-  associations?: Association[]
+  // associations?: Association[]
   ultimate?: CharacterUltimate;
-  unity: {
-    name: string | undefined;
-    jpName: string | undefined;
-    imageUrl: string | undefined;
-    description: string | undefined
-  }
-  talent: {
-    name: string | undefined;
-    jpName: string | undefined;
-    imageUrl: string | undefined;
-    description: string | undefined
-  }
+  unity: Unity;
+  talent: Talent;
 };
 
-function CharacterTabs({ character, skills, relic, stats, passive, gift, miscInfo, associations, ultimate, talent, unity}: Props) {
+function CharacterTabs({ character, skills, relic, stats, passive, gift, miscInfo, ultimate, talent, unity}: Props) {
   const [activeTab, setActiveTab] = useState("stats-info");
   
   return (
@@ -71,7 +61,9 @@ function CharacterTabs({ character, skills, relic, stats, passive, gift, miscInf
         <CharacterPassiveTab passive={passive} />
         </TabsContent> 
         <TabsContent value="associations" className="space-y-4">
-        <CharacterAssociationsTab associations={associations} />
+        <CharacterAssociationsTab 
+        // associations={associations}
+         />
         </TabsContent> 
         <TabsContent value="gifts-food" className="space-y-4">
         <CharacterGiftsFoodTab gifts={gift} />

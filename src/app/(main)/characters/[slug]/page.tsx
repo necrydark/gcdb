@@ -15,6 +15,7 @@ import React from "react";
 import stupidhusky from "@/public/stupid-husky.jpg"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
 import { EllipsisVertical } from "lucide-react";
+import { Comment } from "@prisma/client";
 
 async function getCharacterFromDb(slug: string){
   try{ 
@@ -48,10 +49,10 @@ async function getCharacterFromDb(slug: string){
         height: true,
         weight: true,
         location: true,
-        CV: true,
+        cv: true,
         releaseDate: true,
         // Assuming passiveName, etc. were among the 14 you had before
-        Collection: {
+        collection: {
           select: {
             userId: true
           }
@@ -70,31 +71,43 @@ async function getCharacterFromDb(slug: string){
 
            }
         },
+        talent: {
+          select: {
+            name: true,
+            jpName: true,
+            imageUrl:true,
+            description: true,
+          }
+        },
+        unity: {
+          select: {
+            name: true,
+            jpName:true,
+            imageUrl: true,
+            description: true,
+          }
+        },
+
         skills: {
           select: {
             id: true, name: true, jpName: true, imageUrl: true, characterId: true,
             skillRanks: true, // You likely need skill ranks too
           }
         },
-        talentDescription: true,
-        talentImageUrl: true,
-        talentJpName: true,
-        talentName: true,
-        hasTalent:true,
-        unityDescription: true,
-        unityImageUrl: true,
-        unityJpName: true,
-        unityName: true,
-        hasUnity: true,
         gift: true,
         food: true,
-        associations: true,
-        associationsWith: true,
-        passiveName: true,
-        passiveImageUrl: true,
-        passiveJpName: true,
-        passiveDescription: true,
-        passiveCCNeeded: true,
+        passiveSkillId:true,
+        talentId:true,
+        unityId:true,
+        passiveSkill: {
+          select: {
+            name: true,
+            jpName: true,
+            imageUrl: true,
+            description: true,
+            ccNeeded: true,
+          }
+        },
         holyRelicId: true, // Select the foreign key if needed
         holyRelic: { // If you need details of the holy relic
           select: {
@@ -155,13 +168,13 @@ export default async function CharacterPage(props: any) {
   }
   // console.log(character); - USED FOR DEBUGGING
 
-  const passive: Passive = {
-    name: character?.passiveName || "",
-    jpName: character?.passiveJpName || "",
-    imageUrl: character?.passiveImageUrl || "", // Ensure imageUrl is handled correctly (string or null/undefined)
-    ccNeeded: character?.passiveCCNeeded || "", // Ensure type matches Passive definition
-    description: character?.passiveDescription || "",
-}
+//   const passive: Passive = {
+//     name: character?.passiveName || "",
+//     jpName: character?.passiveJpName || "",
+//     imageUrl: character?.passiveImageUrl || "", // Ensure imageUrl is handled correctly (string or null/undefined)
+//     ccNeeded: character?.passiveCCNeeded || "", // Ensure type matches Passive definition
+//     description: character?.passiveDescription || "",
+// }
 
   const miscInfo: CharacterMiscInfo = {
     gender: character?.gender || "",
@@ -169,26 +182,25 @@ export default async function CharacterPage(props: any) {
     age: character?.age || "",
     birthday: character?.birthday || "",
     bloodType: character?.bloodType || "",
-    CV: character?.CV || "",
+    CV: character?.cv || "",
     height: character?.height || "",
     weight: character?.weight || ""
   }
 
 
   const unity: Unity = {
-    name: character?.unityName || "",
-    jpName: character?.unityJpName || "",
-    imageUrl: character?.unityImageUrl || "",
-    description: character?.unityDescription || "",
-    hasUnity: character?.hasUnity || undefined,
+    name: character?.unity?.name || "",
+    jpName: character?.unity?.jpName || "",
+    imageUrl: character?.unity?.imageUrl || "",
+    description: character?.unity?.description || "",
+
   }
 
   const talent: Talent = {
-    name: character?.talentName || "",
-    jpName: character?.talentJpName || "",
-    imageUrl: character?.talentImageUrl || "",
-    description: character?.talentDescription || "",
-    hasTalent: character?.hasTalent || undefined,
+    name: character?.talent?.name || "",
+  jpName: character?.talent?.jpName || "",
+    imageUrl: character?.talent?.imageUrl || "",
+    description: character?.talent?.description || "",
   }
 
 
@@ -204,7 +216,7 @@ export default async function CharacterPage(props: any) {
       {/* Header */}
       <CharacterHeader
       character={character}
-      isCollected={user && character.Collection && Array.isArray(character.Collection) ? character.Collection.some(collected => collected.userId === user.id) : false}
+      isCollected={user && character.collection && Array.isArray(character.collection) ? character.collection.some(collected => collected.userId === user.id) : false}
       />
       {(user?.role === "OWNER" || user?.role === "ADMIN" || user?.role === "COOWNER") && (
        <div className="my-4 flex flex-row gap-4">
@@ -221,10 +233,10 @@ export default async function CharacterPage(props: any) {
         skills={character.skills || []}
       relic={character?.holyRelic || undefined}
         stats={character?.stats || []}
-        passive={passive || ""}
+        // passive={passive || ""}
         gift={character?.gift}
         miscInfo={miscInfo}
-        associations={character?.associations}
+        // associations={character?.associations}
         ultimate={character?.ultimate || undefined}
         talent={talent}
         unity={unity}
@@ -249,7 +261,7 @@ export default async function CharacterPage(props: any) {
         )}
 
         <div className="mt-6 space-y-6">
-          {comments?.map((comment, idx) => (
+          {comments?.map((comment: any, idx: number) => (
             <Card  className="bg-purple-400 px-2 dark:bg-purple-900 text-white rounded-[5px] dark:border-purple-400" key={idx}>
                 <CardHeader className="flex flex-row gap-4 justify-between">
                 <div className="flex flex-row gap-2">

@@ -63,7 +63,6 @@ export type Unity = {
   jpName: string | undefined
   imageUrl: string | undefined
   description: string | undefined
-  hasUnity: boolean | undefined;
 }
 
 export type Talent = {
@@ -71,7 +70,6 @@ export type Talent = {
   jpName: string | undefined
   imageUrl: string | undefined
   description: string | undefined
-  hasTalent: boolean | undefined;
 }
 
 

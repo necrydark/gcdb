@@ -1,10 +1,10 @@
 import {
   Attribute,
   Beast,
-  Crossovers,
+  CrossoverType,
   Game,
   GameEvent,
-  Genders,
+  Gender,
   ProfileColour,
   Race,
   Rarity,
@@ -255,7 +255,7 @@ export const addCharacterSchema = z.object({
     Game.TOG,
     Game.Tensura,
   ]).default("Base").describe("Game is required."),
-  crossover: z.enum([Crossovers.Crossover, Crossovers.NotCrossover]),
+  crossover: z.enum([CrossoverType.Crossover, CrossoverType.NotCrossover]),
   race: z.enum([
     Race.Demon,
     Race.Fairy,
@@ -272,7 +272,7 @@ export const addCharacterSchema = z.object({
     Attribute.Strength,
   ]),
   rarity: z.enum([Rarity.LR, Rarity.R, Rarity.SR, Rarity.UR, Rarity.SSR]),
-  gender: z.optional(z.enum([Genders.Male, Genders.Female, Genders.Unknown])),
+  gender: z.optional(z.enum([Gender.Male, Gender.Female, Gender.Unknown])),
   bloodType: z.optional(z.string()),
   age: z.optional(z.string()),
   birthday: z.optional(z.coerce.string()),
@@ -512,7 +512,7 @@ export const editCharacterSchema = z.object({
     Game.TOG,
     Game.Tensura,
   ]),
-  crossover: z.enum([Crossovers.Crossover, Crossovers.NotCrossover]),
+  crossover: z.enum([CrossoverType.Crossover, CrossoverType.NotCrossover]),
   races: z
   .array(z.nativeEnum(Race))
   .default([Race.Human]) // Default to an array with Human
@@ -534,7 +534,7 @@ export const editCharacterSchema = z.object({
     message: "Each stat must have a unique level",
     path: ['stats']
   }),
-  gender: z.optional(z.enum([Genders.Male, Genders.Female, Genders.Unknown])),
+  gender: z.optional(z.enum([Gender.Male, Gender.Female, Gender.Unknown])),
   bloodType: z.optional(z.string()),
   age: z.optional(z.string()),
   birthday: z.optional(z.coerce.string()),

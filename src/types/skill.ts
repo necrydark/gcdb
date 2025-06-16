@@ -24,3 +24,4 @@ export type CharacterSkills = {
   regularSkills: CharacterSkill[];
   ultimate: CharacterUltimate;
 };
+

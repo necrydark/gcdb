@@ -1,7 +1,7 @@
 // src/schemas/schema.ts
 import * as z from "zod";
 import {
-  Game, Crossovers, Race, Attribute, Rarity, Genders, GameEvent, StatLevel, FriendshipRewardType
+  Game, CrossoverType, Race, Attribute, Rarity, Gender, GameEvent, StatLevel, FriendshipRewardType
 } from "@prisma/client";
 
 import { giftSchema } from './giftSchema';
@@ -11,6 +11,9 @@ import { characterUltimateSchema } from './character-ultimate-schema';
 import { characterUnitySchema } from './character-unity-schema';
 import { friendshipRewardSchema } from './friendship-reward-schema'; // Our specific reward schema
 import { characterTalentSchema } from "./character-talent-schema";
+import { characterPassiveSchema } from "./character-passive-schema";
+import { characterAssociationSchema } from "./character-association-schema";
+import { characterGraceSchema } from "./character-grace-schema";
 
 // Define common fields for all characters
 const commonCharacterFields = z.object({
@@ -29,7 +32,7 @@ const commonCharacterFields = z.object({
   .describe("An array of races for the character"),
   attribute: z.nativeEnum(Attribute),
   rarity: z.nativeEnum(Rarity),
-  gender: z.nativeEnum(Genders).optional(),
+  gender: z.nativeEnum(Gender).optional(),
   bloodType: z.string().optional(),
   age: z.string().optional(),
   birthday: z.string().optional(),
@@ -51,16 +54,11 @@ const commonCharacterFields = z.object({
       id: z.string(),
       name: z.string().min(1, "Food name is required"),
       imageUrl: z.string().url(),
-      effect: z.string().optional(),
+      effect: z.string().nullable().optional(),
       mealId: z.coerce.number().optional(),
       characterId: z.string().optional(),
     })
   ).optional(),
-  passiveName: z.string().min(1, "Passive Name is required"),
-  passiveImageUrl: z.string().url("Passive Image URL must be a valid URL").min(1, "Passive Image URL is required"),
-  passiveJpName: z.string().min(1, "Passive Japanese Name is required"),
-  passiveDescription: z.string().min(1, "Passive Description is required"),
-  passiveCCNeeded: z.optional(z.string()),
   skills: z.array(skillSchema).min(2, "At least two skills are required"),
   associations: z.array(
     z.object({
@@ -84,9 +82,13 @@ const commonCharacterFields = z.object({
   ).optional(),
   holyRelicId: z.string().optional(),
   event: z.nativeEnum(GameEvent).default(GameEvent.None),
+  characterPassive: characterPassiveSchema,
   characterUltimate: characterUltimateSchema,
+  combinedCharacterUltimate: characterUltimateSchema,
   characterUnity: characterUnitySchema,
   characterTalent: characterTalentSchema,
+  characterGrace: characterGraceSchema,
+  characterAssociations: z.array(characterAssociationSchema).optional(),
 });
 
 
@@ -94,7 +96,7 @@ const commonCharacterFields = z.object({
 export const characterSchema = z.discriminatedUnion("crossover", [
   // Case 1: Not a Crossover Character
   commonCharacterFields.extend({
-    crossover: z.literal(Crossovers.NotCrossover),
+    crossover: z.literal(CrossoverType.NotCrossover),
     characterFriendshipRewards: z.array(friendshipRewardSchema)
       .length(5, "Non-crossover characters must have exactly 5 friendship rewards.")
       .refine(rewards => {
@@ -113,7 +115,7 @@ export const characterSchema = z.discriminatedUnion("crossover", [
   }),
   // Case 2: Crossover Character
   commonCharacterFields.extend({
-    crossover: z.literal(Crossovers.Crossover),
+    crossover: z.literal(CrossoverType.Crossover),
     characterFriendshipRewards: z.array(friendshipRewardSchema) // Still an array type, but must be empty
       .max(0, "Crossover characters cannot have friendship rewards.")
       .optional() // Can be undefined or an empty array

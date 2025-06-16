@@ -24,7 +24,7 @@ async function CollectionPage() {
           imageUrl: true,
           rarity: true,
           slug: true,
-          Collection: true,
+          collection: true,
         }
       }
     }
@@ -62,7 +62,7 @@ async function CollectionPage() {
         name: item.character.name,
         slug: item.character.slug,
         rarity: item.character.rarity, // Ensure type matches Rarity
-        isCollected: item.character.Collection, // This should match the array type
+        isCollected: item.character.collection, // This should match the array type
         imageUrl: item.character.imageUrl
       };
     }

@@ -7,7 +7,7 @@ import React from "react";
 async function HolyRelicsPage() {
     const relics = await db.holyRelic.findMany({
       include: {
-        Collection: true,
+        collection: true,
         characters: true,
         materials: true,
         enhanceMaterials: true,
@@ -18,7 +18,7 @@ async function HolyRelicsPage() {
 
 
      const formattedRelics = relics?.map(relic => {
-      const isRelicCollected = relic.Collection.some(collected => collected.userId === user?.id);
+      const isRelicCollected = relic.collection.some(collected => collected.userId === user?.id);
 
       return {
         ...relic,

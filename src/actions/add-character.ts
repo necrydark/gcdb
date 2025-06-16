@@ -16,8 +16,11 @@ import { characterUltimateSchema } from "../schemas/character/character-ultimate
 import { skillSchema } from "../schemas/character/skillSchema";
 import { statsSchema } from "../schemas/character/statsSchema";
 import { giftSchema } from "../schemas/character/giftSchema";
-import { Crossovers } from "@prisma/client";
+import { CrossoverType } from "@prisma/client";
 import { foodSchema } from "../schemas/admin/schema";
+import { characterPassiveSchema } from "../schemas/character/character-passive-schema";
+import { characterTalentSchema } from "../schemas/character/character-talent-schema";
+import { characterUnitySchema } from "../schemas/character/character-unity-schema";
 
 type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
 type SkillData = z.infer<typeof skillSchema>
@@ -25,6 +28,10 @@ type AddCharacterData = z.infer<typeof characterSchema>
 type StatData = z.infer<typeof statsSchema>
 type GiftData = z.infer<typeof giftSchema>
 type FoodData = z.infer<typeof foodSchema>
+type PassiveData = z.infer<typeof characterPassiveSchema>
+type TalentData = z.infer<typeof characterTalentSchema>
+type UnityData = z.infer<typeof characterUnitySchema>
+
 
 
 export const addCharacter = async (
@@ -71,17 +78,14 @@ export const addCharacter = async (
     CV,
     gifts,
     food,
-    // associations,
-    // associationsWith,
-    passiveName,
-    passiveImageUrl,
-    passiveJpName,
-    passiveDescription,
-    passiveCCNeeded,
+    characterAssociations,
+   characterPassive,
     skills,
     characterUltimate,
     characterUnity,
     characterTalent,
+    characterGrace,
+    combinedCharacterUltimate,
     characterFriendshipRewards
   } = validatedFields.data;
 
@@ -109,7 +113,6 @@ export const addCharacter = async (
 
   const createdUltimate = await db.characterUltimate.create({
     data: {
-      // characterId: id  ,
       name: typedCharacterUltimate.name,
       jpName: typedCharacterUltimate.jpName,
       imageUrl: typedCharacterUltimate.imageUrl,
@@ -117,6 +120,16 @@ export const addCharacter = async (
       extraInfo: typedCharacterUltimate.extraInfo ?? "",
     },
   });
+
+  const createdCombinedUltimate = await db.combinedCharacterUltimate.create({
+    data: {
+      name: combinedCharacterUltimate.name,
+      jpName: combinedCharacterUltimate.jpName,
+      imageUrl: combinedCharacterUltimate.imageUrl,
+      description: combinedCharacterUltimate.description,
+      extraInfo: combinedCharacterUltimate.extraInfo ?? "",
+    },
+  })
 
   await db.character.create({
     data: {
@@ -140,24 +153,7 @@ export const addCharacter = async (
         height,
         weight,
         location,
-        CV,
-        passiveName,
-        passiveImageUrl,
-        passiveJpName,
-        passiveDescription,
-        passiveCCNeeded,
-        talentDescription: characterTalent.talentDescription,
-        hasTalent: characterTalent.hasTalent,
-        talentImageUrl: characterTalent.talentImageUrl,
-        talentJpName: characterTalent.talentJpName,
-        talentName: characterTalent.talentName,
-        unityDescription: characterUnity.description,
-        unityImageUrl: characterUnity.imageUrl,
-        unityJpName: characterUnity.jpName,
-        unityName: characterUnity.name,
-        hasUnity: characterUnity.hasUnity,
-
-
+        cv: CV,
       stats: {
         createMany: {
           data: typedStats.map(stat => ({
@@ -178,6 +174,45 @@ export const addCharacter = async (
           }))
         }
       },
+      unity: {
+        create: {
+          name: characterUnity.name as string,
+          jpName: characterUnity.jpName as string,
+          imageUrl: characterUnity.imageUrl as string,
+          description: characterUnity.description as string,
+          uniqueDisplay: characterUnity.uniqueDisplay
+        }
+      },
+      passiveSkill: {
+        create: {
+          name: characterPassive.name,
+          jpName: characterPassive.jpName,
+          imageUrl: characterPassive.imageUrl,
+          description: characterPassive.description,
+          ccNeeded: characterPassive.ccNeeded, 
+          uniqueDisplay: characterPassive.uniqueDisplay
+
+        }
+      },
+      talent: {
+        create: {
+          name: characterTalent.name as string,
+          jpName: characterTalent.jpName as string,
+          imageUrl: characterTalent.imageUrl as string,
+          description: characterTalent.description as string,
+          uniqueDisplay: characterTalent.uniqueDisplay
+        }
+      },
+      grace: {
+        create: {
+          name: characterGrace.name as string,
+          jpName: characterGrace.jpName as string,
+          imageUrl: characterGrace.imageUrl as string,
+          description: characterGrace.description as string,
+          uniqueDisplay: characterGrace.uniqueDisplay
+        }
+      },
+
       gift: gifts && gifts.length > 0 ? {
           connect:  typedGifts.map((gift) => ({ id: gift.id}))
       }: undefined ,
@@ -199,7 +234,7 @@ export const addCharacter = async (
         })),
       },
       characterFriendshipRewards: 
-      crossover === Crossovers.NotCrossover && characterFriendshipRewards
+      crossover === CrossoverType.NotCrossover && characterFriendshipRewards
       ? {
         create: characterFriendshipRewards.map(reward => ({
           friendshipLevelId: reward.friendShipLevelId,
@@ -215,37 +250,23 @@ export const addCharacter = async (
       ultimate: {
        connect: { id: createdUltimate.id}
       },
-      // associations: {
-      //   create:
-      //     associations?.map((a) => ({
-      //       slug: a.slug,
-      //       imageUrl: a.imageUrl,
-      //       characterId: a.characterId,
-      //       tag: a.tag,
-      //       bonus: a.bonus,
-      //     })) || [],
-      // },
-      // food:
-      //   food && food.length > 0
-      //     ? {
-      //         connect: food.map((f) => ({
-      //           mealId_effect: {
-      //             mealId: f.mealId,
-      //             effect: f.effect,
-      //           },
-      //         })),
-      //       }
-      //     : undefined,
-      // associationsWith: {
-      //   create:
-      //     associationsWith?.map((a) => ({
-      //       slug: a.slug,
-      //       imageUrl: a.imageUrl,
-      //       characterId: a.characterId,
-      //       tag: a.tag,
-      //       bonus: a.bonus,
-      //     })) || [],
-      // },
+      combinedUltimate: {
+        connect: {id: createdCombinedUltimate.id}
+      },
+      associationsAsMain: characterAssociations && characterAssociations.length > 0
+      ? {
+          create: characterAssociations.map(assoc => ({
+            associatedCharacter: {
+              connect: { id: assoc.associatedCharacterId }
+            },
+            associatedCharacterId: assoc.associatedCharacterId,
+      
+            bonusType: assoc.bonusType ?? "ATTACK_FLAT",
+            bonusValue: assoc.bonusValue ?? 0,
+            bonusUnit: assoc.bonusUnit,
+          })),
+        }
+      : undefined,
     },
   });
 

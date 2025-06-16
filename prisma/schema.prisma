@@ -49,8 +49,8 @@ model User {
   accounts              Account[]
   role                  UserRole               @default(USER)
   profileColour         ProfileColour          @default(PURPLE)
-  Comments              Comments[]
-  Collection             Collection[]
+  Comments              Comment[]
+  collection             Collection[]
   isTwoFactorEnabled    Boolean?               @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   stripeCustomerId String? @unique @map("stripe_customer_id")
@@ -129,6 +129,8 @@ model Session {
   @@map("sessions")
 }
 
+
+//Character Enums
 enum GameEvent {
   None
   Valentine
@@ -136,113 +138,16 @@ enum GameEvent {
   Christmas
 }
 
-enum Genders {
+enum Gender {
   Male
   Female
   Unknown
-}
-
-model Character {
-  id                 String              @id @default(cuid())
-  name               String?
-  tag                String?             @unique
-  jpName             String
-  jpTag              String
-  slug               String?             @unique
-  game               Game                @default(Base)
-  imageUrl           String
-  Crossover          Crossovers          @default(NotCrossover)
-  race               Race[]              @default([Human])
-  attribute          Attribute           @default(HP)
-  rarity             Rarity              @default(SSR)
-  event              GameEvent           @default(None)
-  stats              Stats[]
-  gender             Genders             @default(Male)
-  bloodType          String?
-  age                String?
-  birthday           String?
-  height             String?
-  weight             String?
-  location           String
-  CV                 String?
-  gift               Gift[] @relation("CharacterGifts")
-  food               Food[]              @relation("CharactersFood")
-  passiveName        String
-  passiveImageUrl    String
-  passiveJpName      String
-  passiveDescription String
-  passiveCCNeeded    String?
-  releaseDate        DateTime
-  skills             Skill[]
-  associations       Association[]
-  associationsWith   AssociationWith[]
-  holyRelic          HolyRelic?          @relation(fields: [holyRelicId], references: [id])
-  holyRelicId        String?
-  ultimate           CharacterUltimate?
-  Collection          Collection[]
-  Comments           Comments[]
-  hasUnity Boolean? @default(false)
-  unityName String?
-  unityImageUrl String?
-  unityJpName String?
-  unityDescription String?
-  hasTalent Boolean? @default(false)
-  talentName String?
-  talentImageUrl String?
-  talentJpName String?
-  talentDescription String?
-  characterFriendshipRewards CharacterFriendshipReward[]
-
-  @@index([name])
-  @@index([jpName])
-  @@index([game])
-  @@index([rarity])
 }
 
 enum StatLevel {
   LEVEL_1
   LEVEL_100
   TRUE_AWAKENING
-}
-
-model Stats {
-  id             String     @id @default(cuid())
-  level          StatLevel
-  combatClass    Int
-  attack         Int
-  defense        Int
-  hp             Int
-  pierceRate     Int   
-  resistance     Int   
-  regeneration   Int   
-  critChance     Int   
-  critDamage     Int   
-  critResistance Int   
-  critDefense    Int   
-  recoveryRate   Int   
-  lifesteal      Int   
-  Character      Character? @relation(fields: [characterId], references: [id])
-  characterId    String?
-}
-
-model AssociationWith {
-  id          String     @id @default(cuid())
-  imageUrl    String
-  tag         String
-  slug        String
-  bonus       String
-  character   Character? @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  characterId String?
-}
-
-model Association {
-  id          String    @id @default(cuid())
-  slug        String
-  imageUrl    String
-  tag         String
-  bonus       String
-  character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  characterId String
 }
 
 enum Game {
@@ -267,10 +172,239 @@ enum Attribute {
   Strength
 }
 
-enum Crossovers {
+enum CrossoverType {
   NotCrossover
   Crossover
 }
+
+enum Race {
+  Demon
+  Fairy
+  Giant
+  Goddess
+  Human
+  Unknown
+}
+
+enum Rarity {
+  LR
+  R
+  SR
+  SSR
+  UR
+}
+
+enum BonusType { // New enum for association bonuses
+  ATTACK_FLAT
+  ATTACK_PERCENTAGE
+  DEFENSE_FLAT
+  DEFENSE_PERCENTAGE
+  HP_FLAT
+  HP_PERCENTAGE
+  PIERCE_RATE_FLAT
+  PIERCE_RATE_PERCENTAGE
+  RESISTANCE_FLAT
+  RESISTANCE_PERCENTAGE
+  REGENERATION_FLAT
+  REGENERATION_PERCENTAGE
+  CRIT_CHANCE_FLAT
+  CRIT_CHANCE_PERCENTAGE
+  CRIT_DAMAGE_FLAT
+  CRIT_DAMAGE_PERCENTAGE
+  CRIT_RESISTANCE_FLAT
+  CRIT_RESISTANCE_PERCENTAGE
+  CRIT_DEFENSE_FLAT
+  CRIT_DEFENSE_PERCENTAGE
+  RECOVERY_RATE_FLAT
+  RECOVERY_RATE_PERCENTAGE
+  LIFESTEAL_FLAT
+  LIFESTEAL_PERCENTAGE
+}
+
+enum FriendshipRewardType {
+  HERO_ARTWORK
+  VOICE_LINE
+  DIAMOND
+  HERO_MOTION
+  HEAD_COSMETIC
+}
+
+enum UniqueDisplayInfo {
+  Battle_Active
+  Subslot_Active
+  PVP_Only
+  PVP_Outside
+  Death_Match_Only
+  Death_Match_Outside
+  All_Content
+  Demonic_Beast_Only
+  Demonic_Beast_Outside 
+}
+
+//Character Model
+model Character {
+  id                 String              @id @default(cuid())
+  name               String?
+  tag                String?             @unique
+  jpName             String
+  jpTag              String
+  slug               String?             @unique
+  race               Race[]              @default([Human])
+  game               Game                @default(Base)
+  imageUrl           String
+  Crossover          CrossoverType          @default(NotCrossover)
+  attribute          Attribute           @default(HP)
+  rarity             Rarity              @default(SSR)
+  event              GameEvent           @default(None)
+  gender             Gender             @default(Male)
+  bloodType          String?
+  age                String?
+  birthday           String?
+  height             String?
+  weight             String?
+  location           String
+  cv                 String?
+  releaseDate        DateTime
+
+
+  //Relations
+  stats              Stat[]
+  gift               Gift[] @relation("CharacterGifts")
+  food               Food[]              @relation("CharactersFood")
+  skills             Skill[]
+
+  //Associations
+  associationsAsMain      CharacterAssociation[]  @relation("MainCharacterAssociations")
+  associationsAsAssociated CharacterAssociation[] @relation("AssociatedCharacterAssociations")
+
+  //Relic
+  holyRelic          HolyRelic?          @relation(fields: [holyRelicId], references: [id])
+  holyRelicId        String? @unique
+  ultimate           CharacterUltimate?
+  combinedUltimate CombinedCharacterUltimate?
+
+  //Other Relationships
+  collection          Collection[]
+  comments           Comment[]
+
+  
+ passiveSkill       PassiveSkill?       @relation(fields: [passiveSkillId], references: [id])
+  passiveSkillId     String? @unique // Unique if a character has only one main passive
+  unity          Unity?          @relation(fields: [unityId], references: [id])
+  unityId        String? @unique
+  talent             Talent?             @relation(fields: [talentId], references: [id])
+  talentId           String? @unique
+    grace             Grace?             @relation(fields: [graceId], references: [id])
+  graceId           String? @unique
+  characterFriendshipRewards CharacterFriendshipReward[]
+
+  @@index([name])
+  @@index([jpName])
+  @@index([game])
+  @@index([rarity])
+  @@map("characters")
+}
+
+
+
+model Stat {
+  id             String     @id @default(cuid())
+  level          StatLevel
+  combatClass    Int
+  attack         Int
+  defense        Int
+  hp             Int
+  pierceRate     Int   
+  resistance     Int   
+  regeneration   Int   
+  critChance     Int   
+  critDamage     Int   
+  critResistance Int   
+  critDefense    Int   
+  recoveryRate   Int   
+  lifesteal      Int   
+  Character      Character? @relation(fields: [characterId], references: [id])
+  characterId    String?
+}
+
+model PassiveSkill {
+  id                 String    @id @default(cuid())
+  name               String
+  imageUrl           String
+  jpName             String
+  description        String
+  ccNeeded           String?
+  character          Character? // Optional: If a PassiveSkill can only belong to one character
+  characterId        String? @unique // Optional: If a PassiveSkill can only belong to one character
+  uniqueDisplay      UniqueDisplayInfo[]              @default([Battle_Active])
+
+
+  @@map("passive_skills")
+}
+
+model Unity {
+  id                 String    @id @default(cuid())
+  name               String
+  imageUrl           String
+  jpName             String
+  description        String
+  character          Character? // Optional: If a UnityForm can only belong to one character
+  characterId        String? @unique // Optional: If a UnityForm can only belong to one character
+  uniqueDisplay      UniqueDisplayInfo[]              @default([Battle_Active])
+
+
+  @@map("unity")
+}
+
+model Talent {
+  id                 String    @id @default(cuid())
+  name               String
+  imageUrl           String
+  jpName             String
+  description        String
+  character          Character? // Optional: If a Talent can only belong to one character
+  characterId        String? @unique // Optional: If a Talent can only belong to one character
+  uniqueDisplay               UniqueDisplayInfo[]              @default([Battle_Active])
+
+
+  @@map("talents")
+}
+
+model Grace {
+  id                 String    @id @default(cuid())
+  name               String
+  imageUrl           String
+  jpName             String
+  description        String
+  character          Character? // Optional: If a Talent can only belong to one character
+  characterId        String? @unique // Optional: If a Talent can only belong to one character
+  uniqueDisplay               UniqueDisplayInfo[]              @default([Battle_Active])
+
+
+  @@map("grace")
+}
+
+
+model CharacterAssociation {
+  id                   String      @id @default(cuid())
+
+  // The character for whom the bonus applies (e.g., "Merlin" from your example)
+  mainCharacter        Character   @relation("MainCharacterAssociations", fields: [mainCharacterId], references: [id], onDelete: Cascade)
+  mainCharacterId      String
+
+  // The character providing the bonus (e.g., "Ban" from your example)
+  associatedCharacter  Character   @relation("AssociatedCharacterAssociations", fields: [associatedCharacterId], references: [id], onDelete: Cascade)
+  associatedCharacterId String
+
+  bonusType            BonusType 
+  bonusValue           Float     
+  bonusUnit            String?   
+
+
+  @@unique([mainCharacterId, associatedCharacterId]) 
+  @@map("character_associations")
+}
+
 
 enum Towns {
   Vanya
@@ -331,7 +465,7 @@ model HolyRelic {
   imageUrl    String
   effect      String
   releaseDate DateTime
-  Collection             Collection[]
+  collection             Collection[]
   materials   Material[] @relation("HolyRelicMaterials")
   enhanceMaterials RelicEnhanceMaterial[] @relation("HolyRelicEnhanceMaterials")
   attack     String
@@ -344,6 +478,7 @@ model HolyRelic {
 
   characters Character[]
   beast      Beast       @default(Hraesvelgr)
+  @@map("holy_relics")
 }
 
 enum Beast {
@@ -355,22 +490,6 @@ enum Beast {
   Collab
 }
 
-enum Race {
-  Demon
-  Fairy
-  Giant
-  Goddess
-  Human
-  Unknown
-}
-
-enum Rarity {
-  LR
-  R
-  SR
-  SSR
-  UR
-}
 
 model CharacterUltimate {
   id          String     @id @default(cuid())
@@ -379,7 +498,22 @@ model CharacterUltimate {
   imageUrl    String
   description String
   extraInfo   String
-character Character? @relation(fields: [characterId], references: [id])
+  
+
+  character Character? @relation(fields: [characterId], references: [id])
+  characterId String? @unique
+}
+
+model CombinedCharacterUltimate {
+  id          String     @id @default(cuid())
+  name        String
+  jpName      String
+  imageUrl    String
+  description String
+  extraInfo   String
+  
+
+  character Character? @relation(fields: [characterId], references: [id])
   characterId String? @unique
 }
 
@@ -424,7 +558,7 @@ model Collection {
   @@map("Collection")
 }
 
-model Comments {
+model Comment {
   id          String    @id @default(cuid())
   comment     String
   character   Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
@@ -489,13 +623,6 @@ model FriendshipLevel {
   @@map("friendship_levels")
 }
 
-enum FriendshipRewardType {
-  HERO_ARTWORK
-  VOICE_LINE
-  DIAMOND
-  HERO_MOTION
-  HEAD_COSMETIC
-}
 
 
 model CharacterFriendshipReward {
@@ -503,6 +630,7 @@ model CharacterFriendshipReward {
     characterId String
     friendshipLevelId String
     artworkUrl String?
+    motionUrl String?
     voiceLineText String?
     voiceLineAudioUrl String?
     diamondAmount Int? @default(1)

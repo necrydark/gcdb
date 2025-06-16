@@ -1,6 +1,6 @@
 "use client";
 
-import { Attribute, Race, Rarity, Game, Crossovers, User } from "@prisma/client";
+import { Attribute, Race, Rarity, Game, CrossoverType, User } from "@prisma/client";
 import { startTransition, Suspense, useEffect, useMemo, useState } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,7 +24,7 @@ interface Character {
     race: Race;
     rarity: Rarity;
     game?: Game;
-    crossover: Crossovers;
+    crossover: CrossoverType;
     slug: string;
     collection: { userId: string }[];
   }

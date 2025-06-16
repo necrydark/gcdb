@@ -22,23 +22,9 @@ async function CookingPage() {
        };
     })
 
-          // Adding string splits for towns
-          // str.split(/([A-Z]+)/g).join(" ");
+    
   return (
-    // <>
-    //   <Cooking
-    //     tabCount={6}
-    //     food={Meals}
-    //     town={[
-    //       "Vanya",
-    //       "Dalmally",
-    //       "Post Town Tala",
-    //       "Vaziel",
-    //       "Ordan Village",
-    //       "Liones Castle",
-    //     ]}
-    //   />
-    // </>
+
       <div className="pt-[7rem] p-10 h-full container mx-auto flex max-w-5xl">
       <FoodTabs  food={JSON.parse(JSON.stringify(formattedFood))}/>
   </div>

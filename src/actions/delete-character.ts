@@ -28,10 +28,9 @@ export const deleteCharacter = async (characterId: string) => {
       stats: true,
       skills: true,
       ultimate: true,
-      Comments: true,
-      Collection: true,
-      associations: true,
-      associationsWith: true,
+      comments: true,
+      collection: true,
+    
 
     }
   });

@@ -393,7 +393,7 @@ const isBasic =
            Recent Comments
          </h2>
          <div className="space-y-4">
-           {comments?.map((comment, index) => (
+           {comments?.map((comment: any, index: any) => (
               <CommentCard key={index} comment={comments[index]} idx={index} userId={user.id || ""} userRole={user.role || "USER"} colour={colour || "purple"} />
            ))}
          </div></>

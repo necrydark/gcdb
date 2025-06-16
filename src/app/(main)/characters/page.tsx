@@ -1,5 +1,5 @@
 import { Suspense } from "react"; // Use Suspense from react
-import { Attribute, Race, Rarity, Game, Crossovers } from "@prisma/client";
+import { Attribute, Race, Rarity, Game, CrossoverType } from "@prisma/client";
 import db from "@/src/lib/db";
 import { Loader2 } from "lucide-react";
 import CharacterClient from "@/src/components/characters/character-client";
@@ -14,7 +14,7 @@ interface Character {
   race: Race;
   rarity: Rarity;
   game?: Game;
-  crossover: Crossovers;
+  crossover: CrossoverType;
   slug: string;
 }
 
@@ -37,7 +37,7 @@ async function CharactersPage({ searchParams }: { searchParams: searchParams}) {
 
   const allCharacters = await db.character.findMany({
     include: {
-      Collection: {
+      collection: {
         select: {
           userId: true,
         },

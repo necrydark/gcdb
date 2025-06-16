@@ -1,26 +1,28 @@
 "use server";
 
-import {
-  getCharacterById,
-} from "@/data/character";
-// import { Beast, Genders } from "@prisma/client";
+import { getCharacterById } from "@/data/character";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import db from "../lib/db";
-import { characterUltimateSchema, editCharacterSchema, skillSchema, statsSchema } from "../schemas/schema";
-import { foodSchema, giftSchema } from "../schemas/admin/schema";
+import {
+  characterUltimateSchema,
+  skillSchema,
+  statsSchema,
+} from "../schemas/schema";
+import { foodSchema } from "../schemas/admin/schema";
+import { characterSchema } from "../schemas/character/schema";
+import { giftSchema } from "../schemas/character/giftSchema";
+import { CrossoverType } from "@prisma/client";
 
-type EditCharacterData = z.infer<typeof editCharacterSchema>
-type CharacterUltimateData = z.infer<typeof characterUltimateSchema>
-type SkillData = z.infer<typeof skillSchema>
-type StatData = z.infer<typeof statsSchema>
-type GiftData = z.infer<typeof giftSchema>
-type FoodData = z.infer<typeof foodSchema>
+type EditCharacterData = z.infer<typeof characterSchema>;
+type CharacterUltimateData = z.infer<typeof characterUltimateSchema>;
+type SkillData = z.infer<typeof skillSchema>;
+type StatData = z.infer<typeof statsSchema>;
+type GiftData = z.infer<typeof giftSchema>;
+type FoodData = z.infer<typeof foodSchema>;
 
-export const editCharacter = async (
-  values: EditCharacterData
-) => {
-  const validatedFields = editCharacterSchema.safeParse(values);
+export const editCharacter = async (values: EditCharacterData) => {
+  const validatedFields = characterSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "Invalid Fields!" };
@@ -37,10 +39,9 @@ export const editCharacter = async (
     game,
     crossover,
     event,
-    race,
+    races,
     attribute,
     rarity,
-
     gender,
     bloodType,
     age,
@@ -51,32 +52,26 @@ export const editCharacter = async (
     CV,
     gifts,
     food,
-    // associations,
-    // associationsWith,
-    passiveName,
-    passiveImageUrl,
-    passiveJpName,
-    passiveDescription,
-    passiveCCNeeded,
     skills,
-    // holyRelic,
     characterUltimate,
     characterUnity,
-    stats
+    characterPassive,
+    characterTalent,
+    releaseDate,
+    stats,
+    characterFriendshipRewards,
   } = validatedFields.data;
 
-
-  
   const MAX_STATS = 3;
-  if(stats.length > MAX_STATS) {
-    return { error: `a character cannot have more ${MAX_STATS} stats.`}
+  if (stats.length > MAX_STATS) {
+    return { error: `a character cannot have more ${MAX_STATS} stats.` };
   }
-  
-  const typedId = id as string;
+
+  // const typedId = id as string;
   const typedCharacterUltimate = characterUltimate as CharacterUltimateData;
   const typedSkills = skills as SkillData[];
   const typedStats = stats as StatData[];
-  const typedGift = gifts as GiftData;
+  const typedGift = gifts as GiftData[];
   const typedFood = food as FoodData[];
 
   const existingCharacterById = await getCharacterById(id as string);
@@ -85,14 +80,14 @@ export const editCharacter = async (
     return { error: "Character not found" };
   }
 
-  const currentSkills = await db.skill.findMany({
-    where: {
-      characterId: id as string,
-    },
-    include: {
-      skillRanks: true, // Include skill ranks for each skill
-    },
-  });
+  // const currentSkills = await db.skill.findMany({
+  //   where: {
+  //     characterId: id as string,
+  //   },
+  //   include: {
+  //     skillRanks: true, // Include skill ranks for each skill
+  //   },
+  // });
 
   const updatedCharacter = await db.character.update({
     where: {
@@ -109,7 +104,7 @@ export const editCharacter = async (
       game,
       Crossover: crossover,
       event,
-      race,
+      race: races,
       attribute,
       rarity,
       gender,
@@ -119,16 +114,12 @@ export const editCharacter = async (
       height,
       weight,
       location,
-      CV,
-      passiveName,
-      passiveImageUrl,
-      passiveJpName,
-      passiveDescription,
-      passiveCCNeeded,
+      cv: CV,
+      releaseDate,
       stats: {
-        updateMany: typedStats.map(stat => ({
+        updateMany: typedStats.map((stat) => ({
           where: {
-            id: (stat as any).id
+            id: (stat as any).id,
           },
           data: {
             level: stat.level,
@@ -145,9 +136,49 @@ export const editCharacter = async (
             critDefense: stat.critDefense,
             recoveryRate: stat.recoveryRate,
             lifesteal: stat.lifesteal,
-          }
-        }))
+          },
+        })),
       },
+      passiveSkill: {
+        update: {
+          where: {
+            id: characterPassive.id,
+          },
+          data: {
+            name: characterPassive.name,
+            jpName: characterPassive.jpName,
+            imageUrl: characterPassive.imageUrl,
+            description: characterPassive.description,
+          },
+        },
+      },
+      unity: {
+        update: {
+          where: {
+            id: characterUnity.id,
+          },
+          data: {
+            name: characterUnity.name,
+            jpName: characterUnity.jpName,
+            imageUrl: characterUnity.imageUrl,
+            description: characterUnity.description,
+          },
+        },
+      },
+      talent: {
+        update: {
+          where: {
+            id: characterTalent.id,
+          },
+          data: {
+            name: characterTalent.name,
+            jpName: characterTalent.jpName,
+            imageUrl: characterTalent.imageUrl,
+            description: characterTalent.description,
+          },
+        },
+      },
+
       ultimate: {
         update: {
           where: {
@@ -162,23 +193,27 @@ export const editCharacter = async (
           },
         },
       },
-      gift: {
-        connect: {
-          id: typedGift.id
-        }
-      },
-      food: {
-        connect: typedFood.map((food) => ({id: food.id}))
-      },
+      gift:
+        gifts && gifts.length > 0
+          ? {
+              connect: typedGift.map((gift) => ({ id: gift.id })),
+            }
+          : undefined,
+      food:
+        food && food.length > 0
+          ? {
+              connect: typedFood.map((food) => ({ id: food.id })),
+            }
+          : undefined,
       skills: {
-        update: typedSkills.map((skill,) => ({
-          where: { id: (skill as any).id }, 
+        update: typedSkills.map((skill) => ({
+          where: { id: (skill as any).id },
           data: {
             name: skill.name,
             jpName: skill.jpName,
             imageUrl: skill.imageUrl,
             skillRanks: {
-              deleteMany: {}, 
+              deleteMany: {},
               create: skill.skillRanks.map((sr) => ({
                 rank: sr.rank,
                 description: sr.description,
@@ -188,41 +223,27 @@ export const editCharacter = async (
           },
         })),
       },
+      characterFriendshipRewards:
+        crossover === CrossoverType.NotCrossover && characterFriendshipRewards
+          ? {
+              update: characterFriendshipRewards.map((reward) => ({
+                where: { id: reward.friendShipLevelId },
+                data: {
+                  artworkUrl: reward.artworkUrl,
+                  voiceLineText: reward.voiceLineText,
+                  voiceLineAudioUrl: reward.voiceLineAudioUrl,
+                  diamondAmount: reward.diamondAmount,
+                  motionUrl: reward.motionUrl,
+                  cosmeticUrl: reward.cosmeticUrl,
+                  cosmeticName: reward.cosmeticName,
+                },
+              })),
+            }
+          : undefined,
     },
   });
 
-  // associations: {
-  //   create:
-  //     associations?.map((a) => ({
-  //       slug: a.slug,
-  //       imageUrl: a.imageUrl,
-  //       characterId: a.characterId,
-  //       tag: a.tag,
-  //       bonus: a.bonus,
-  //     })) || [],
-  // },
-  // food:
-  //   food && food.length > 0
-  //     ? {
-  //         connect: food.map((f) => ({
-  //           mealId_effect: {
-  //             mealId: f.mealId,
-  //             effect: f.effect,
-  //           },
-  //         })),
-  //       }
-  //     : undefined,
-  // associationsWith: {
-  //   create:
-  //     associationsWith?.map((a) => ({
-  //       slug: a.slug,
-  //       imageUrl: a.imageUrl,
-  //       characterId: a.characterId,
-  //       tag: a.tag,
-  //       bonus: a.bonus,
-  //     })) || [],
-  // },
   revalidatePath("/src/app/(protected)/admin/(*.)");
-  revalidatePath("/characters")
+  revalidatePath("/characters");
   return { success: "Character Created" };
 };

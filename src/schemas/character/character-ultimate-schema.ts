@@ -12,3 +12,4 @@ export const characterUltimateSchema = z.object({
     description: z.string().min(1, "Ultimate Description is required"),
     extraInfo: z.optional((z.string())), 
 })
+

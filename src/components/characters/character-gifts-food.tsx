@@ -25,7 +25,7 @@ const affinityFoods = [
   }, 
   {
     name: "Affinity Increase Elixir",
-    imageUrl: "https://3duibobjm6.ufs.sh/f/BVooQWfmjDnKZ07mytyp0HIuFj6cKXoYGU9kLzihg8OQNDMa",
+    imageUrl: "https://3duibobjm6.ufs.sh/f/BVooQWfmjDnKzbYvIT7pBthblDsidXP0oSj9Y5Lx4WRIT7EZ",
     affinity: 1000,
   }
 ]

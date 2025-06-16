@@ -4,7 +4,7 @@ import { ExtendedUser } from "@/src/next-auth";
 import {
   Account,
   Character,
-  Comments,
+  Comment,
   Collection,
   ProfileColour,
   TwoFactorConfirmation,
@@ -35,8 +35,8 @@ import { Separator } from "../../ui/separator";
 
 interface UserInterface {
   user: User & {
-    Collection: Collection[];
-    Comments: Comments[];
+    collection: Collection[];
+    Comments: Comment[];
   };
 }
 
@@ -53,9 +53,11 @@ export default function ViewUserPage({ user }: UserInterface) {
       setIsDeleting(false);
       setIsDeleteDialogOpen(false);
 
-      toast({
-        title: "Holy relic deleted",
-        description: "The holy relic has been successfully deleted.",
+      toast.success("Holy Relic Deleted",{
+ 
+        description: "The holy relic has been deleted successfully",
+        className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+
       });
 
       router.push("/dashboard/users");
@@ -275,7 +277,7 @@ export default function ViewUserPage({ user }: UserInterface) {
                   <Separator className="bg-purple-500 dark:bg-purple-800" />
                   <div className="flex items-center justify-between py-1">
                     <span className="text-sm font-medium">Collection</span>
-                    <span>{user.Collection.length}</span>
+                    <span>{user.collection.length}</span>
                   </div>
                 </div>
               </CardContent>

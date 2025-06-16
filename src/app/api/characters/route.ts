@@ -32,7 +32,7 @@ export async function GET() {
                 rarity: true,
                 game: true,
                 Crossover: true,
-                Collection: true,
+                collection: true,
             }
         })
         
@@ -47,7 +47,7 @@ export async function GET() {
             rarity: char.rarity,
             game: char.game,
             crossover: char.Crossover,
-            collection: char.Collection
+            collection: char.collection
         })));
 
         return NextResponse.json(formattedCharacters, {
