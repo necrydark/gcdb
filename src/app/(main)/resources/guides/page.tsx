@@ -6,14 +6,13 @@ import SortOptions from '@/src/components/guides/sort-options';
 import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar';
 import { Badge } from '@/src/components/ui/badge';
 import { Button } from '@/src/components/ui/button';
-import { Card, CardDescription, CardTitle,CardHeader, CardContent, CardFooter } from '@/src/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card';
 import { client } from '@/src/sanity/lib/client';
 import { urlFor } from '@/src/sanity/lib/image';
 import { ArrowRight, Clock, Eye } from 'lucide-react';
 import { SanityDocument } from 'next-sanity';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
 
 const  option = { next: { revalidate: 30}}
 
@@ -185,7 +184,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
           selectedCategory={selectedCategory}
         />
 
-      <div className='container max-w-6xl mx-auto py-6'>
+      <div className='container max-w-6xl mx-auto px-4 py-6'>
         <div className="flex justify-between items-center flex-row mb-6">
         <h1 className="text-2xl text-white font-bold text-center">Recent Guides</h1>
         
@@ -299,7 +298,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Promi
       
       </section>
       <section  className="py-12 px-4">
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-6xl ">
           <div className='flex md:flex-row flex-col p-8 bg-purple-800/50 justify-between items-center'>
             <div className='mb-6 md:mb-0 md:mr-6'>
               <h2 className='text-2xl text-white font-semibold'>Got Knowledge?</h2>

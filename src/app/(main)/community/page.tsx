@@ -3,17 +3,15 @@ import { Button } from "@/src/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/src/components/ui/card";
 import { formatDate } from "@/src/lib/date-format";
 import { formatYoutubeDuration } from "@/src/lib/youtube-duration";
 import {
   Award,
   Calendar,
-  ChevronDown,
   ExternalLink,
   Eye,
   Heart,
@@ -21,11 +19,10 @@ import {
   MessageSquare,
   Users,
   Youtube,
-  YoutubeIcon,
+  YoutubeIcon
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export type YoutubeRes = {
   kind: string;
@@ -331,7 +328,7 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
 
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="mt-12 text-center">
+          <div className="mt-12 text-center bg-purple-950 rounded-md">
             <div className="p-8 max-w-2xl mx-auto">
               <Heart className="w-12 h-12 text-white mx-auto p-4" />
               <h3 className="text-2xl font-bold mb-2">Become a Team Member</h3>
@@ -341,7 +338,7 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
               </p>
               <Button
                 variant="purple"
-                className="dark:hover:bg-purple-950 mt-6 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"
+                className=" mt-6 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"
                 size="lg"
                 asChild
               >

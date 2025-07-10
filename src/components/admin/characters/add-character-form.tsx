@@ -28,14 +28,11 @@ import {
 } from "@/src/components/ui/select";
 import { Switch } from "@/src/components/ui/switch";
 import { Textarea } from "@/src/components/ui/textarea";
-import { toast } from "sonner";
-import { UploadButton } from "@/src/lib/uploadthing";
 import { cn } from "@/src/lib/utils";
 import { characterSchema } from "@/src/schemas/character/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Attribute,
-  Beast,
   BonusType,
   Character,
   CrossoverType,
@@ -50,49 +47,36 @@ import {
   Race,
   Rarity,
   StatLevel,
-  UniqueDisplayInfo,
+  UniqueDisplayInfo
 } from "@prisma/client";
+import { toast } from "sonner";
 
-import { Trash } from "lucide-react";
-import cuid from "cuid";
-import { format } from "date-fns";
-import {
-  ArrowLeft,
-  CalendarIcon,
-  Check,
-  ChevronsUpDown,
-  Plus,
-} from "lucide-react";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
-import { JSX, useEffect, useState, useTransition } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import ReactSelect from "react-select";
-import * as z from "zod";
 import { Calendar } from "@/src/components/ui/calendar";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/src/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
+import { format } from "date-fns";
+import {
+  ArrowLeft,
+  CalendarIcon, Plus, Trash
+} from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import ReactSelect from "react-select";
+import * as z from "zod";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 
 interface FormProps {
   Gifts?: Gift[];
   Foods?: Food[];
-  // Associations?: Association[];
-  // AssociatedWith?: AssociationWith[];
+
   Characters?: Character[];
   Relics?: HolyRelic[];
   genericFriendshipLevels?: FriendshipLevel[];
@@ -110,8 +94,6 @@ interface AssociatedWithFormData {
 function AddCharacterForm({
   Gifts,
   Foods,
-  // Associations,
-  // AssociatedWith,
   Characters,
   Relics,
   genericFriendshipLevels,
@@ -121,10 +103,6 @@ function AddCharacterForm({
   const [slug, setSlug] = useState<string>();
   const [isPending, startTransition] = useTransition();
   const [isSearchable, setIsSearchable] = useState(true);
-  // const [open, setOpen] = useState(false);
-  // const [giftOpen, setGiftOpen] = useState(false);
-  // const [giftValue, setGiftValue] = useState("");
-  // const [value, setValue] = useState("");
   const [activeTab, setActiveTab] = useState("basic");
   const [hasUnity, setHasUnity] = useState(false);
   const [hasCombinedUltimate, setHasCombinedUltimate] = useState(false);

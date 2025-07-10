@@ -1,12 +1,9 @@
+import { getCharacterBySlug } from "@/data/character";
 import { incrementGuideViews } from "@/src/actions/guides";
 import BackToTop from "@/src/components/guides/back-to-top";
 import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
-import {
-  PortableTextComponentProps,
-  PortableTextReactComponents,
-} from '@portabletext/react'
 import {
   Card,
   CardContent,
@@ -17,14 +14,16 @@ import { ScrollArea } from "@/src/components/ui/scroll-area";
 import { Separator } from "@/src/components/ui/separator";
 import { formatDate } from "@/src/lib/date-format";
 import { client } from "@/src/sanity/lib/client";
-import { urlFor } from "@/src/sanity/lib/image";
-import { ArrowLeft, Calendar, ChevronRight, Clock, Eye, Share2, Tag } from "lucide-react";
-import { PortableText, PortableTextBlockComponent, PortableTextMarkComponent, SanityDocument } from "next-sanity";
+import {
+  PortableTextComponentProps,
+  PortableTextReactComponents,
+} from '@portabletext/react';
+import { ArrowLeft, Calendar, ChevronRight, Clock, Eye, Tag } from "lucide-react";
+import { PortableText, PortableTextBlockComponent, PortableTextMarkComponent } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
-import { Guide, switchDifficulties } from "../page";
 import React from "react";
-import { getCharacterBySlug } from "@/data/character";
+import { Guide, switchDifficulties } from "../page";
 
 interface SanityImage {
   _type: "image"
@@ -194,7 +193,7 @@ export default async function GuidePostPage({
   await incrementGuideViews(guide._id);
 
   return (
-    <div className="min-h-screen pt-[3.75rem] scroll-smooth">
+    <div className="min-h-screen scroll-smooth">
       <div className="bg-muted/50">
         <div className="container mx-auto max-w-6xl p-4">
           <nav className="flex items-center space-x-2 text-sm">

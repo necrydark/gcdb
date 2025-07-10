@@ -14,11 +14,20 @@ export const publicRoutes = [
   "/contact",
   "/gear",
   "/resources",
-  "/resources/(*)",
   /^\/characters\/[a-zA-Z0-9_-]+$/,
   "/auth/confirm-email",
   /^\/profile\/[a-zA-Z0-9_-]+$/,
-  "/api/webhook"
+  "/api/webhook",
+  "/resources/guides",
+  "/resources/faq",
+  "/resources/tierlist",
+  "/resources/calculators",
+  /^\/resources\/guides\/[a-zA-Z0-9_-]+$/,
+  /^\/changelog\/[a-zA-Z0-9_-]+$/,
+  "/changelog",
+  "/community"
+
+
 ];
 
 /**
