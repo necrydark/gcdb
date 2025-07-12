@@ -2,12 +2,8 @@ import AuthNavbar from "@/src/components/auth/auth-nav";
 import Footer from "@/src/components/footer";
 import Navbar from "@/src/components/navbar";
 import UserLayout from "@/src/components/profile/user-layout";
-import Sidebar from "@/src/components/sidebar";
 import { currentUser } from "@/src/utils/auth";
-import { cn } from "@/src/lib/utils";
-import { ExtendedUser } from "@/src/next-auth";
 import { Metadata } from "next";
-import { useSession } from "next-auth/react";
 
 type Props = {
   children: React.ReactNode;
@@ -24,7 +20,7 @@ const MainLayout = async ({ children }: Props) => {
   const user = await currentUser();
 
   return (
-    <div className="min-h-screen flex flex-col text-gray-900 transition-all duration-300 dark:text-white">
+    <div className="min-h-screen flex flex-col text-gray-900 transition-all duration-300 dark:text-white flex-1">
       {!user && <Navbar />}
       {user && <AuthNavbar />}
       <UserLayout user={user}>

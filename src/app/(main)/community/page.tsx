@@ -100,43 +100,44 @@ export default async function CommunityPage() {
     },
   ];
 
-  const contributionAreas = [
-    {
-      id: "1",
-      name: "Data Entry",
-      description: "Help us keep character stats, skills, and equipment information up to date.",
-      difficulty: "Easy",
-      icon: "📊",
-    },
-    {
-      id: "2",
-      name: "Guide Writing",
-      description: "Create guides for characters, game mechanics, or events to help other players.",
-      difficulty: "Medium",
-      icon: "📝",
-    },
-    {
-      id: "3",
-      name: "Code Contribution",
-      description: "Contribute to our open-source tools and website on GitHub.",
-      difficulty: "Hard",
-      icon: "💻",
-    },
-    {
-      id: "4",
-      name: "Community Moderation",
-      description: "Help maintain a positive and helpful community across our platforms.",
-      difficulty: "Medium",
-      icon: "🛡️",
-    },
-    {
-      id: "5",
-      name: "Content Creation",
-      description: "Create videos, infographics, or other visual content for the community.",
-      difficulty: "Medium",
-      icon: "🎨",
-    },
-  ]
+  // const contributionAreas = [
+  //   {
+  //     id: "1",
+  //     name: "Data Entry",
+  //     description: "Help us keep character stats, skills, and equipment information up to date.",
+  //     difficulty: "Easy",
+  //     icon: "📊",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Guide Writing",
+  //     description: "Create guides for characters, game mechanics, or events to help other players.",
+  //     difficulty: "Medium",
+  //     icon: "📝",
+  //   },
+  //   {
+  //     id: "3",
+  //     url: "https://github.com/necrydark/gcdb",
+  //     name: "Code Contribution",
+  //     description: "Contribute to our open-source tools and website on GitHub.",
+  //     difficulty: "Hard",
+  //     icon: "💻",
+  //   },
+  //   {
+  //     id: "4",
+  //     name: "Community Moderation",
+  //     description: "Help maintain a positive and helpful community across our platforms.",
+  //     difficulty: "Medium",
+  //     icon: "🛡️",
+  //   },
+  //   {
+  //     id: "5",
+  //     name: "Content Creation",
+  //     description: "Create videos, infographics, or other visual content for the community.",
+  //     difficulty: "Medium",
+  //     icon: "🎨",
+  //   },
+  // ]
 
   const videos = await getYoutubeVideos();
   return (
@@ -286,20 +287,24 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
       </section>
 
       {/* How To Contribute */}
-      {/* <section className="py-12 px-4">
+      <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="mt-12 =">
+          <div className="mt-12 bg-purple-950 rounded-md">
             <div className="p-8 max-w-2xl text-center mx-auto">
-              <Heart className="w-12 h-12 text-white mx-auto p-4" />
               <h3 className="text-2xl font-bold mb-2">How To Contribute</h3>
               <p className="mb-6">
                 There are many ways to help improve the website and community. Find the perfect fit for your skills and interests
               </p>
-             
+              <Button variant="purple" 
+                className=" mt-6 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"  asChild>
+                      <Link href={"/contribute"}>
+                      Learn More
+                      </Link>
+            </Button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {contributionAreas.map((area) => (
-                <Card key={area.id} className="overflow-hidden bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
+                <Card key={area.id} className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{area.icon}</span>
@@ -313,17 +318,18 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
                   <CardFooter className="mt-auto">
                   <Button variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 w-full rounded-[5px]"
  asChild>
-                    <Link href={`/contribute/${area.id}`}>
+                    <Link href={area.url ? `${area.url}` : `/contribute`}
+                    target="_blank">
                       Get Started <ChevronDown className="ml-2 h-4 w-4 rotate-[-90deg]" />
                     </Link>
                   </Button>
                   </CardFooter>
                 </Card>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
-      </section> */}
+      </section>
 
 
       <section className="py-12 px-4">

@@ -57,6 +57,7 @@ export const ResetForm = () => {
                     disabled={isPending}
                     placeholder="johndoe@example.com"
                     type="email"
+                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
                   />
                 </FormControl>
                 <FormMessage />
@@ -66,7 +67,7 @@ export const ResetForm = () => {
         </div>
         <FormError message={err} />
         <FormSuccess message={success} />
-        <Button type="submit" disabled={isPending} className="w-full">
+        <Button type="submit" disabled={isPending} className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-500 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-800 transition-all duration-250 w-full">
           {isPending ? (
             <>
               <Loader2 className="animate-spin pr-2 h-4 w-4" />

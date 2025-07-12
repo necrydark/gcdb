@@ -1,20 +1,16 @@
 import { getUserData } from "@/prisma/queries";
+import { getCommentsByUser } from "@/src/actions/comments";
+import CommentCard from "@/src/components/comment-card";
+import { UserBanner } from "@/src/components/profile/user-banner";
+import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
-import { currentUser } from "@/src/utils/auth";
+import { Card, CardContent } from "@/src/components/ui/card";
 import db from "@/src/lib/db";
+import { currentUser } from "@/src/utils/auth";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
-import { Badge } from "@/src/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
-import { UserBanner } from "@/src/components/profile/user-banner";
-import { deleteComment, getCommentsByUser } from "@/src/actions/comments";
-import { formatDate } from "@/src/lib/date-format";
-import chineseman from "/public/chinese.png"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
-import { ArrowRight, EllipsisVertical } from "lucide-react";
-import CommentCard from "@/src/components/comment-card";
 
 async function getCollection(userId: string) {
   const res = await db.collection.findMany({
@@ -197,8 +193,8 @@ const isBasic =
           ))}
                 </div></>
           ): (
-              <div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
+              <div className="bg-purple-950 p-6">
+                <h2 className="text-3xl font-bold tracking-tighter md:text-3xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
                 <p className="text-center">Visit the character page to add a character to your collection!</p>
                 </div>
           )}
@@ -264,9 +260,9 @@ const isBasic =
           ))}
                 </div></>
           ): (
-              <div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
-                <p className="text-center">Visit the character page to add a character to your collection!</p>
+              <div className="bg-purple-950 p-6">
+                <h2 className="text-3xl font-bold tracking-tighter md:text-3xl mb-4 text-white text-center">You have not added a relic to your collection.</h2>
+                <p className="text-center">Visit the relic page to add a relic to your collection!</p>
                 </div>
           )}
         </div>
@@ -398,8 +394,8 @@ const isBasic =
            ))}
          </div></>
        ): (
-        <div>
-            You have not commented on any characters
+        <div className="w-full  bg-purple-950 p-6">
+            <p>  You have not commented on any characters</p>
           </div>
        )}
       </div>

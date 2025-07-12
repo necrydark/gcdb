@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { Badge } from "../ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { ArrowRight, Box, Star } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { ArrowRight, Box, Star } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Badge } from "../ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 
 
@@ -68,7 +68,7 @@ export const UserBanner = ({username, imageUrl, role, colour, boxCC, inGameRank,
               : null}
           </Badge>
           <Badge
-            className={cn("w-fit text-white",
+            className={cn("w-fit text-white hidden",
               isBasic && "bg-[#ae4e12]",
               // isPremium && "bg-[#9b7ddf]"
             )}
