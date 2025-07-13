@@ -3,7 +3,7 @@ import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
-import { AlertCircle, ArrowLeft, Award, Bug, CheckCircle, Code, Database, GitBranch, Plus, Rocket, Settings, Shield, Star, Terminal, Users, Zap } from "lucide-react";
+import { ArrowLeft, Award, Bug, CheckCircle, Code, Database, GitBranch, Plus, Rocket, Settings, Shield, Star, Terminal, Users, Zap } from "lucide-react";
 import Link from "next/link";
 
 const stack = [
@@ -108,7 +108,7 @@ const contribution = [
   {
     name: "Performance",
     difficulty: "Advanced",
-    icon: <Zap className="h-5 w-5 text-red-500" />,
+    icon: <Zap className="h-5 w-5 text-yellow-500" />,
     description: "Optimize application performance, reduce load times and improve user experience.",
     tag: [
       {
@@ -122,7 +122,7 @@ const contribution = [
   {
     name: "Security",
     difficulty: "Critical",
-    icon: <Shield className="h-5 w-5 text-red-500" />,
+    icon: <Shield className="h-5 w-5 text-blue-500" />,
     description: "Identify and fix security vulnerabilities, implement security best practices.",
     tag: [
       {
@@ -157,7 +157,7 @@ export default function CodeContributionPage() {
 
       <div className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-8">
-          <Button variant={"ghost"} className="mb-4 hover:bg-purple-600 hover:text-white" asChild> 
+          <Button variant={"ghost"} className="mb-4 hover:bg-purple-600 text-white hover:text-white" asChild> 
             <Link href={"/contribute"}>
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back To Contribute
@@ -169,11 +169,11 @@ export default function CodeContributionPage() {
                 <Code className="h-8 w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Code Contribution</h1>
+              <h1 className="text-3xl font-bold text-white">Code Contribution</h1>
               <div className="flex items-center gap-2 mt-1">
                 <Badge variant={"secondary"} className="bg-purple-600 hover:bg-purple-600/50 text-white">Hard</Badge>
-                <Badge variant={"outline"} className="border-purple-600">Whenever You Can</Badge>
-                <Badge variant={"outline"} className="border-purple-600">Advanced</Badge>
+                <Badge variant={"outline"} className="border-purple-600 text-white">Whenever You Can</Badge>
+                <Badge variant={"outline"} className="border-purple-600 text-white">Advanced</Badge>
               </div>
             </div>
           </div>
@@ -517,7 +517,6 @@ npm run dev`}</code>
         </Card>
 
         <Alert className=" bg-purple-700 border-purple-900 mb-8 text-white">
-          <AlertCircle className="h-4 w-4 text-white"/>
           <AlertDescription>
           <strong>Code of Conduct:</strong> All contributors must follow our code of conduct. We maintain a welcoming,
             inclusive environment for developers of all skill levels. Harassment, discrimination, or toxic behavior will
@@ -525,19 +524,19 @@ npm run dev`}</code>
           </AlertDescription>
         </Alert>
 
-        <Card className="bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border-purple-200 dark:border-purple-800">
+        <Card className="bg-purple-700 border-purple-900 mb-8 text-white">
           <CardContent className="pt-6 text-center">
-            <Code className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+            <Code className="h-12 w-12 text-white mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-4">Ready to Start Coding?</h2>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
               Join our development team and help build the tools that thousands of gamers rely on. Your code can make a
               real difference in the gaming community while building your open source portfolio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 rounded-[5px]" asChild>
+              <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-800/50 transition-all duration-300 rounded-[5px]" asChild>
                 <Link href="https://github.com/necrydark/gcdb">View on GitHub</Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px] text-black hover:text-white dark:text-white dark:border-purple-800 border-purple-600 dark:hover:bg-purple-900 hover:bg-purple-700" asChild>
+              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-900/50" asChild>
                 <Link href="/contribute/guidelines">Development Guidelines</Link>
               </Button>
             </div>

@@ -43,13 +43,6 @@ export default async function ContributePage() {
       icon: "💻",
     },
     {
-      id: "community-moderation",
-      name: "Community Moderation",
-      description: "Help maintain a positive and helpful community across our platforms.",
-      difficulty: "Medium",
-      icon: "🛡️",
-    },
-    {
       id: "content-creation",
       name: "Content Creation",
       description: "Create videos, infographics, or other visual content for the community.",
@@ -74,19 +67,13 @@ export default async function ContributePage() {
  
 
       {/* How To Contribute */}
-      <section className="py-12 px-4">
+      <section className="pb-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="mt-12 ">
-            <div className="p-8 max-w-2xl text-center mx-auto">
-              <h3 className="text-2xl font-bold mb-2 text-white">Contribute To The Community</h3>
-              <p className="mb-6 text-gray-700 dark:text-gray-300">
-              Help us build the most comprehensive game database. Your contributions make a difference for thousands of players worldwide.
-              </p>
-     
-            </div>
+        
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {contributionAreas.map((area) => (
-                <Card key={area.id} className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
+                <Card key={area.id} className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{area.icon}</span>
@@ -98,7 +85,7 @@ export default async function ContributePage() {
                     <p className="text-white">{area.description}</p>
                   </CardContent>
                   <CardFooter className="mt-auto">
-                  <Button  size="lg" variant={"purple"} className="rounded-[5px] bg-purple-700 hover:bg-purple-700/50 w-full"
+                  <Button  size="lg" variant={"purple"} className=" dark:hover:bg-purple-950 hover:bg-purple-800/50 w-full transition-all duration-300 rounded-[5px]"
  asChild>
                     <Link href={`/contribute/${area.id}`}
                     >
@@ -118,7 +105,7 @@ export default async function ContributePage() {
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold mb-8 text-center text-white">Why Contribute?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 dark:bg-purple-950 rounded-[5px] border-0">
+            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <Star className="h-8 w-8 text-white mb-2" />
                 <CardTitle>Build Your Portfolio</CardTitle>
@@ -131,7 +118,7 @@ export default async function ContributePage() {
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 dark:bg-purple-950 rounded-[5px] border-0">
+            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <Users className="h-8 w-8 text-white mb-2" />
                 <CardTitle>Join a Community</CardTitle>
@@ -144,7 +131,7 @@ export default async function ContributePage() {
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 dark:bg-purple-950 rounded-[5px] border-0">
+            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <Lightbulb className="h-8 w-8 text-white mb-2" />
                 <CardTitle>Learn & Grow</CardTitle>
@@ -162,7 +149,7 @@ export default async function ContributePage() {
 
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-4xl">
-          <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+          <Card className="bg-purple-700 border-purple-900">
             <CardContent className="pt-8 text-center">
               <Heart className="h-12 w-12 text-white mx-auto mb-4" />
               <h2 className="text-3xl font-bold mb-4 text-white">Ready to Make a Difference?</h2>
@@ -171,15 +158,15 @@ export default async function ContributePage() {
                 and passion can help thousands of players improve their gameplay.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant={"purple"} className="rounded-[5px]" asChild>
-                  <Link href="/contribute/application">
-                    Start Contributing <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="rounded-[5px] dark:border-purple-800 border-purple-600 dark:hover:bg-purple-900 hover:bg-purple-700" asChild>
-                  <Link href="/contribute/guidelines">Read Guidelines</Link>
-                </Button>
-              </div>
+              <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-800/50 transition-all duration-300 rounded-[5px]" asChild>
+                <Link href="/contribute">
+                Start Contributing <ArrowRight className="ml-2 h-5 w-5" /></Link>
+              </Button>
+              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-900 dark:hover:bg-purple-900/50" asChild>
+                <Link href="/contribute/guidelines">Read Guidelines</Link>
+              </Button>
+            </div>
+        
             </CardContent>
           </Card>
         </div>
