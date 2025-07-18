@@ -35,15 +35,15 @@ export default function GuideWritingPage() {
           </Button>
 
           <div className="flex items-center gap-4 mb-4">
-            <div className="bg-purple-500 p-3 rounded-lg">
+            <div className="bg-purple-700 border-purple-900 p-3 rounded-lg">
                 <Users className="h-8 w-8 text-white" />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-white">Guide Writing</h1>
               <div className="flex items-center gap-2 mt-1">
-                <Badge variant={"secondary"} className="bg-purple-600 hover:bg-purple-600/50 text-white">Medium</Badge>
-                <Badge variant={"outline"} className="border-purple-600 text-white">Whenever You Can</Badge>
-                <Badge variant={"outline"} className="border-purple-600 text-white">Intermediate</Badge>
+                <Badge variant={"secondary"} className="bg-purple-700 hover:bg-purple-700/50 text-white">Medium</Badge>
+                <Badge variant={"outline"} className="border-purple-700 text-white">Whenever You Can</Badge>
+                <Badge variant={"outline"} className="border-purple-700 text-white">Intermediate</Badge>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function GuideWritingPage() {
           <p className="text-lg dark:text-gray-300 text-muted-foreground">Share your expertise by creating comprehensive guides that help players master characters, game mechanics, and strategies. Perfect for experienced players who love teaching and helping others improve.</p>
         </div>
 
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Settings className="mr-2 w-5 h-5" />
@@ -115,7 +115,7 @@ export default function GuideWritingPage() {
         </Card>
 
 
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <PenTool className="mr-2 h-5 w-5" />
@@ -191,7 +191,7 @@ export default function GuideWritingPage() {
           </CardContent>
         </Card>
 
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Settings className="mr-2 w-5 h-5" />
@@ -255,7 +255,7 @@ export default function GuideWritingPage() {
         </Card>
 
         {/* Code Standards */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <PenTool className="mr-2 w-5 h-5" />
@@ -320,7 +320,7 @@ export default function GuideWritingPage() {
 
 
           {/* Recognition */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Award className="mr-2 w-5 h-5" />
@@ -330,15 +330,15 @@ export default function GuideWritingPage() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Author Badge</Badge>
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Author Badge</Badge>
                 <p className="text-sm text-white">Displayed on your profile and Discord</p>
               </div>
               <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Guide Analytics</Badge>
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Guide Analytics</Badge>
                 <p className="text-sm text-white">Track views, likes, and engagement</p>
               </div>
               <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Community Recognition</Badge>
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Community Recognition</Badge>
                 <p className="text-sm text-white">Featured author spotlights</p>
               </div>
             </div>
@@ -350,19 +350,19 @@ export default function GuideWritingPage() {
               Top-performing guides and authors receive special recognition and advancement opportunities.
               </p>
               <div className="flex justify-center gap-2 flex-wrap">
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Star className="h-3 w-3 mr-1" />
                  Featured Guide
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Users className="h-3 w-3 mr-1" />
                   Community Featured
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Shield className="h-3 w-3 mr-1" />
                   Security Reviewer
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Medal className="h-3 w-3 mr-1" />
                   Guide Of The Month
                 </Badge>
@@ -373,7 +373,7 @@ export default function GuideWritingPage() {
 
     
 
-        <Alert className=" bg-purple-700 border-purple-900 mb-8 text-white">
+        <Alert className=" bg-purple-500 border-0 dark:bg-purple-900 mb-8 text-white">
           <AlertDescription>
           <strong>Code of Conduct:</strong> All contributors must follow our code of conduct. We maintain a welcoming,
             inclusive environment for developers of all skill levels. Harassment, discrimination, or toxic behavior will
@@ -381,7 +381,7 @@ export default function GuideWritingPage() {
           </AlertDescription>
         </Alert>
 
-        <Card className="bg-purple-700 border-purple-900 mb-8 text-white">
+        <Card className="bg-purple-500 border-0 dark:bg-purple-900 mb-8 text-white">
           <CardContent className="pt-6 text-center">
             <BookOpen className="h-12 w-12 text-white mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-4">Ready to Share Your Expertise?</h2>
@@ -389,10 +389,11 @@ export default function GuideWritingPage() {
             Join our team of guide writers and help educate the community. Your knowledge and writing skills can help thousands of players improve their gameplay and enjoy the game more.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-800/50 transition-all duration-300 rounded-[5px]" asChild>
+              <Button size="lg" variant="purple"     className="rounded-[5px] bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white"
+                  asChild >
                 <Link href={"/"}>Apply as Guide Writer</Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-900/50" asChild>
+              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-950/50" asChild>
                 <Link href="/contribute/guidelines">Writing Guidelines</Link>
               </Button>
             </div>

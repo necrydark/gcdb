@@ -2,7 +2,6 @@ import { Button } from '@/src/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
 
 export default function ResourcesPage() {
 
@@ -44,7 +43,8 @@ export default function ResourcesPage() {
                         </CardContent>
                         <CardFooter>
                             <Link href={resource.link}>
-                            <Button className="w-full text-white hover:opacity-75 bg-purple-500 dark:bg-purple-800 rounded-[5px]">
+                            <Button size="lg"  className="w-full rounded-[5px] bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white"
+                  >
                                 Visit 
                                 <ArrowRight className='w-4 h-4 ml-2' />
                             </Button>
@@ -62,7 +62,7 @@ export default function ResourcesPage() {
                         </CardContent>
                         <CardFooter>
                             <Link href="/community">
-                            <Button className="w-full text-white hover:opacity-75 bg-purple-500 dark:bg-purple-800 rounded-[5px]">
+                            <Button  size="lg" variant="purple"     className="w-full rounded-[5px] bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white">
                                 Visit 
                                 <ArrowRight className='w-4 h-4 ml-2' />
                             </Button>

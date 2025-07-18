@@ -303,10 +303,10 @@ const generalFAQs = [
             <section className="relative py-16 px-4">
                 <div className="container mx-auto max-w-6xl px-4">
                     <div className="text-center mb-8">
-                        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
                             Frequently Asked Questions
                         </h1>
-                        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Find answers to common questions about our database, the game and how to contribute.</p>
+                        <p className="text-lg text-white max-w-2xl mx-auto">Find answers to common questions about our database, the game and how to contribute.</p>
                     </div>
                     <div className="max-w-2xl mx-auto relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300" size={20}/>
@@ -346,7 +346,7 @@ const generalFAQs = [
                         </TabsList>
 
                         <TabsContent value="general" className="space-y-6">
-                            <h2 className="text-2xl font-bold mb-4">General Questions</h2>
+                            <h2 className="text-2xl font-bold mb-4 text-white">General Questions</h2>
                             {filteredGeneral.length > 0 
                             ? filteredGeneral.map((faq, idx) => (
                                 <FaqItem key={idx} question={faq.question} answer={faq.answer} />
@@ -401,14 +401,14 @@ const generalFAQs = [
 
             <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold mb-8 text-center">Popular Questions</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center text-white">Popular Questions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 flex flex-col flex-1">
               <CardHeader>
                 <CardTitle>How do I add a new character?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
+                <p className="text-white">
                   To add a new character, you need to be a verified contributor. Once verified, navigate to the Admin
                   section and use the character creation form.
                 </p>
@@ -422,12 +422,12 @@ const generalFAQs = [
               </CardFooter>
             </Card>
 
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 flex flex-col flex-1">
               <CardHeader>
                 <CardTitle>How do I track my collection?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
+                <p className="text-white">
                   Create an account and visit your profile page. From there, you can access the Collection Tracker tool
                   to mark which characters and items you&apos;ve obtained in-game.
                 </p>
@@ -441,12 +441,12 @@ const generalFAQs = [
               </CardFooter>
             </Card>
 
-            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
+            <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 flex flex-col flex-1">
               <CardHeader>
                 <CardTitle>How do I report incorrect information?</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
+                <p className="text-white">
                   On any page with incorrect information, look for the &quot;Report Error&quot; button. Fill out the form with
                   details about what&apos;s wrong and our team will review it.
                 </p>
@@ -466,8 +466,8 @@ const generalFAQs = [
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-4xl">
             <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Still have questions?</h2>
-                <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                <h2 className="text-3xl font-bold mb-4 text-white">Still have questions?</h2>
+                <p className="text-lg dark:text-gray-300 text-gray-700 max-w-2xl mx-auto">
                     Can&apos;t find what you&apos;re looking for? Contact us directly and we&apos;ll get back to you as soon as possible.
                 </p>
             </div>
@@ -477,10 +477,10 @@ const generalFAQs = [
                         <CardTitle className="flex items-center">
                             <Mail className="mr-2 h-5 w-5" /> Email Support
                         </CardTitle>
-                        <CardDescription>Get a response within 24-48 hours.</CardDescription>
+                        <CardDescription className="text-gray-700 dark:text-gray-300">Get a response within 24-48 hours.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                    <p className="mb-4">
+                    <p className="mb-4 text-white">
                     Send us an email with your question and we&apos;ll get back to you as soon as possible. Please include as
                     much detail as you can to help us assist you better.
                     </p>
@@ -495,10 +495,10 @@ const generalFAQs = [
                 <CardTitle className="flex items-center">
                   <MessageSquare className="mr-2 h-5 w-5" /> Community Discord
                 </CardTitle>
-                <CardDescription>Get help from the community</CardDescription>
+                <CardDescription className="text-gray-700 dark:text-gray-300">Get help from the community</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="mb-4">
+                <p className="mb-4 text-white">
                   Join our Discord server to get help from other community members and our moderators. We have dedicated
                   channels for different types of questions.
                 </p>

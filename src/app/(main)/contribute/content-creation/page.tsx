@@ -51,7 +51,7 @@ export default function ContentCreationPage() {
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex justify-center mb-6">
-              <div className="bg-purple-950 p-4 rounded-full">
+              <div className="bg-purple-700 border-purple-900 p-4 rounded-full">
                 <Video className="h-12 w-12" />
               </div>
             </div>
@@ -60,15 +60,15 @@ export default function ContentCreationPage() {
               Create engaging videos, streams, and tutorials to help the community grow
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-600 hover:bg-purple-600/50 text-white">
+              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-700 hover:bg-purple-700/50 text-white">
                 <Video className="h-4 w-4 mr-2" />
                 Video Production
               </Badge>
-              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-600 hover:bg-purple-600/50 text-white" >
+              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-700 hover:bg-purple-700/50 text-white" >
                 <Camera className="h-4 w-4 mr-2" />
                 Live Streaming
               </Badge>
-              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-600 hover:bg-purple-600/50 text-white">
+              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-700 hover:bg-purple-700/50 text-white">
                 <BookOpen className="h-4 w-4 mr-2" />
                 Tutorial Creation
               </Badge>
@@ -80,7 +80,7 @@ export default function ContentCreationPage() {
       <div className="container mx-auto px-4 py-12">
         {/* Overview Section */}
         <div className="max-w-4xl mx-auto mb-16">
-          <Card className=" shadow-lg bg-purple-700 border-purple-900">
+          <Card className=" shadow-lg bg-purple-500 border-0 dark:bg-purple-900">
             <CardHeader className="text-center pb-8">
               <CardTitle className="text-3xl mb-4">What is Content Creation?</CardTitle>
               <CardDescription className="text-lg text-gray-300">
@@ -127,7 +127,7 @@ export default function ContentCreationPage() {
 
             <TabsContent value="types" className="mt-8">
               <div className="grid md:grid-cols-2 gap-6">
-                <Card className="bg-purple-700 border-purple-900">
+                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Video className="h-5 w-5 text-red-600" />
@@ -168,7 +168,7 @@ export default function ContentCreationPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-purple-700 border-purple-900">
+                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Camera className="h-5 w-5 text-purple-600" />
@@ -212,7 +212,7 @@ export default function ContentCreationPage() {
 
             <TabsContent value="tools" className="mt-8">
               <div className="grid md:grid-cols-2 gap-6">
-                <Card className="bg-purple-700 border-purple-900">
+                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Edit className="h-5 w-5 text-blue-600" />
@@ -251,7 +251,7 @@ export default function ContentCreationPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-purple-700 border-purple-900">
+                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Headphones className="h-5 w-5 text-green-600" />
@@ -294,7 +294,7 @@ export default function ContentCreationPage() {
 
             <TabsContent value="distribution" className="mt-8">
               <div className="grid md:grid-cols-1 gap-6">
-                <Card className="bg-purple-700 border-purple-900">
+                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Share2 className="h-5 w-5 text-blue-600" />
@@ -345,7 +345,7 @@ export default function ContentCreationPage() {
 
         {/* Requirements */}
         <div className="max-w-4xl mx-auto mb-16">
-          <Card  className="bg-purple-700 border-purple-900 shadow-lg">
+          <Card  className="bg-purple-500 border-0 dark:bg-purple-900 shadow-lg">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl mb-4">Creator Requirements</CardTitle>
             </CardHeader>
@@ -357,7 +357,7 @@ export default function ContentCreationPage() {
 
         {/* Creator Tiers & Benefits */}
         <div className="max-w-6xl mx-auto mb-16">
-          <Card className="bg-purple-700 border-purple-900 shadow-lg">
+          <Card className="bg-purple-500 border-0 dark:bg-purple-900 shadow-lg">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl mb-4">Creator Program Tiers</CardTitle>
               <CardDescription>Advance through our creator program and unlock exclusive benefits</CardDescription>
@@ -408,7 +408,7 @@ export default function ContentCreationPage() {
 
         {/* Call to Action */}
         <div className="max-w-4xl mx-auto text-center">
-          <Card className="bg-purple-700 border-purple-900 shadow-lg">
+          <Card className="bg-purple-500 border-0 dark:bg-purple-900 shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-3xl font-bold mb-4 text-white">Ready to Create Amazing Content?</h2>
               <p className="text-lg text-gray-300 mb-8">
@@ -421,7 +421,7 @@ export default function ContentCreationPage() {
                 <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-900 dark:hover:bg-purple-900/50" asChild>
+              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-900 dark:hover:bg-purple-950/50" asChild>
                 <Link href="/contribute/guidelines">
                 View Creator Guidelines
                 <ExternalLink className="ml-2 h-4 w-4" />

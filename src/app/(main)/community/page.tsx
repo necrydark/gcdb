@@ -162,7 +162,7 @@ export default async function CommunityPage() {
             {communityPlatforms.map((platform) => (
               <Card
                 key={platform.id}
-                className="overflow-hidden rounded-[5px]  border-0 flex flex-col"
+                className="overflow-hidden rounded-[5px]  border-0 flex flex-col bg-purple-500 dark:bg-purple-900"
               >
                 <CardHeader className={`${platform.colour} text-white`}>
                   <div className="flex items-center gap-3">
@@ -170,7 +170,7 @@ export default async function CommunityPage() {
                     <CardTitle>{platform.name}</CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent className="pt-6 flex-grow bg-purple-500 dark:bg-purple-700">
+                <CardContent className="pt-6 flex-grow ">
                   <p className="mb-4">{platform.description}</p>
                   <div className="flex items-center text-sm text-gray-500 dark:text-gray-300">
                     <Users className="h-4 w-4 mr-1" />
@@ -181,7 +181,7 @@ export default async function CommunityPage() {
                     </span>
                   </div>
                 </CardContent>
-                <CardFooter className="mt-auto bg-purple-500 dark:bg-purple-700">
+                <CardFooter className="mt-auto ">
                   <Button
                     variant="purple"
                     className="w-full rounded-[5px]"
@@ -289,14 +289,14 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
       {/* How To Contribute */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="mt-12 bg-purple-950 rounded-md">
+          <div className="mt-12 bg-purple-500 dark:bg-purple-900 shadow-lg rounded-md">
             <div className="p-8 max-w-2xl text-center mx-auto">
               <h3 className="text-2xl font-bold mb-2">How To Contribute</h3>
               <p className="mb-6">
                 There are many ways to help improve the website and community. Find the perfect fit for your skills and interests
               </p>
               <Button variant="purple" 
-                className=" mt-6 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"  asChild>
+                className=" mt-6"  asChild>
                       <Link href={"/contribute"}>
                       Learn More
                       </Link>
@@ -334,7 +334,7 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
 
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="mt-12 text-center bg-purple-950 rounded-md">
+          <div className="mt-12 text-center bg-purple-900 shadow-lg rounded-md">
             <div className="p-8 max-w-2xl mx-auto">
               <Heart className="w-12 h-12 text-white mx-auto p-4" />
               <h3 className="text-2xl font-bold mb-2">Become a Team Member</h3>
@@ -360,7 +360,7 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
       <section className="py-12 px-4">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-8">Community Guidelines</h2>
-          <Card className="bg-purple-700 dark:bg-purple-950 rounded-[5px] border-0">
+          <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] shadow-lg border-0">
             <CardContent className="pt-6 space-y-4">
               <div className="prose prose-sm max-w-none dark:prose-invert  ">
                 <p className="lead">

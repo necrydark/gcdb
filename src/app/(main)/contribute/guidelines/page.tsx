@@ -51,7 +51,7 @@ export default function ContributeGuidelinesPage() {
           </Button>
 
           <div className="flex items-center gap-4 mb-4">
-            <div className="bg-purple-500 p-3 rounded-lg">
+            <div className="bg-purple-700 border-purple-900 p-3 rounded-lg">
               <FileText className="h-8 w-8 text-white" />
             </div>
             <div>
@@ -67,7 +67,7 @@ export default function ContributeGuidelinesPage() {
         </div>
 
         {/* Quick Overview */}
-        <Alert className="mb-8 bg-purple-700 border-purple-900 text-white">
+        <Alert className="mb-8 bg-purple-500 border-0 dark:bg-purple-900 text-white">
         <Star className="h-4 w-4" />
           <AlertDescription>
             <strong>New to contributing?</strong> Start with our{" "}
@@ -91,7 +91,7 @@ export default function ContributeGuidelinesPage() {
 
           {/* General Guidelines */}
           <TabsContent value="general">
-            <Card className="bg-purple-700 border-purple-900 text-white">
+            <Card className="bg-purple-500 border-0 dark:bg-purple-900 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Target className="mr-2 h-5 w-5" />
@@ -160,7 +160,7 @@ export default function ContributeGuidelinesPage() {
 
           {/* Data Entry Guidelines */}
           <TabsContent value="data">
-            <Card className="bg-purple-700 border-purple-900 text-white">
+            <Card className="bg-purple-500 border-0 dark:bg-purple-900 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Users className="mr-2 h-5 w-5" />
@@ -216,7 +216,7 @@ export default function ContributeGuidelinesPage() {
 
           {/* Guide Writing Guidelines */}
           <TabsContent value="guides">
-            <Card className="bg-purple-700 border-purple-900 text-white">
+            <Card className="bg-purple-500 border-0 dark:bg-purple-900 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <BookOpen className="mr-2 h-5 w-5" />
@@ -283,7 +283,7 @@ export default function ContributeGuidelinesPage() {
 
           {/* Code Contribution Guidelines */}
           <TabsContent value="code">
-            <Card className="bg-purple-700 border-purple-900 text-white">
+            <Card className="bg-purple-500 border-0 dark:bg-purple-900 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Code className="mr-2 h-5 w-5" />
@@ -340,7 +340,7 @@ export default function ContributeGuidelinesPage() {
 
           {/* Moderation Guidelines */}
           <TabsContent value="moderation">
-            <Card className="bg-purple-700 border-purple-900 text-white">
+            <Card className="bg-purple-500 border-0 dark:bg-purple-900 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Shield className="mr-2 h-5 w-5" />
@@ -396,7 +396,7 @@ export default function ContributeGuidelinesPage() {
 
           {/* Content Creation Guidelines */}
           <TabsContent value="content">
-            <Card className="bg-purple-700 border-purple-900 text-white">
+            <Card className="bg-purple-500 border-0 dark:bg-purple-900 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Palette className="mr-2 h-5 w-5" />
@@ -452,7 +452,7 @@ export default function ContributeGuidelinesPage() {
         </Tabs>
 
         {/* Review Process */}
-        <Card className="mt-8 mb-8 bg-purple-700 border-purple-900 text-white">
+        <Card className="mt-8 mb-8 bg-purple-500 border-0 dark:bg-purple-900 text-white">
           <CardHeader>
             <CardTitle>Review and Approval Process</CardTitle>
             <CardDescription className="text-gray-300">How contributions are reviewed and published</CardDescription>
@@ -519,7 +519,7 @@ export default function ContributeGuidelinesPage() {
         </Card>
 
         {/* Getting Help */}
-        <Card className="mb-8 bg-purple-700 border-purple-900 text-white">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900 text-white">
           <CardHeader>
             <CardTitle>Getting Help</CardTitle>
             <CardDescription className="text-gray-300">Resources and support for contributors</CardDescription>
@@ -581,7 +581,7 @@ export default function ContributeGuidelinesPage() {
         </Card>
 
         {/* Call to Action */}
-        <Card className="bg-purple-700 border-purple-900 text-white">
+        <Card className="bg-purple-500 border-0 dark:bg-purple-900 text-white">
           <CardContent className="pt-6 text-center">
             <FileText className="h-12 w-12 text-white mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>

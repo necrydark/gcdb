@@ -165,15 +165,15 @@ export default function CodeContributionPage() {
           </Button>
 
           <div className="flex items-center gap-4 mb-4">
-            <div className="bg-purple-500 p-3 rounded-lg">
+            <div className="bg-purple-700 border-purple-900 p-3 rounded-lg">
                 <Code className="h-8 w-8 text-white" />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-white">Code Contribution</h1>
               <div className="flex items-center gap-2 mt-1">
-                <Badge variant={"secondary"} className="bg-purple-600 hover:bg-purple-600/50 text-white">Hard</Badge>
-                <Badge variant={"outline"} className="border-purple-600 text-white">Whenever You Can</Badge>
-                <Badge variant={"outline"} className="border-purple-600 text-white">Advanced</Badge>
+                <Badge variant={"secondary"} className="bg-purple-700 hover:bg-purple-700/50 text-white">Hard</Badge>
+                <Badge variant={"outline"} className="border-purple-700 text-white">Whenever You Can</Badge>
+                <Badge variant={"outline"} className="border-purple-700 text-white">Advanced</Badge>
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@ export default function CodeContributionPage() {
           <p className="text-lg dark:text-gray-300 text-muted-foreground">Help build and improve our open-source tools, website and infrastructure. Perfect for developers who want to contribute their technical skills to create better tools for the community.</p>
         </div>
 
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Terminal className="mr-2 w-5 h-5" />
@@ -191,14 +191,14 @@ export default function CodeContributionPage() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {stack.map((stack, idx) => (
-                <div key={idx} className="border rounded-md text-white border-purple-900 p-4">
+                <div key={idx} className="border rounded-md text-white border-purple-950 p-4">
                          <h3 className="font-semibold mb-2 flex items-center">
                     {stack.icon}
                     {stack.name}
                   </h3>
                   <div className="flex flex-wrap gap-1">
                     {stack.skills.map((tech) => (
-                      <Badge key={tech.name} className="border-purple-900 text-white" variant={"outline"}>
+                      <Badge key={tech.name} className="border-purple-950 text-white" variant={"outline"}>
                         {tech.name}
                       </Badge>
                     ))}
@@ -211,7 +211,7 @@ export default function CodeContributionPage() {
 
 
         {/* Type Of Contribution */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Terminal className="mr-2 w-5 h-5" />
@@ -222,7 +222,7 @@ export default function CodeContributionPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {contribution.map((type, idx) => (
               <div key={idx} className="space-y-4">
-                <div className="border rounded-md text-white border-purple-900 p-4">
+                <div className="border rounded-md text-white border-purple-950 p-4">
                   <div className="flex items-center gap-2 mb-2">
                     {type.icon}
                   <h3 className="font-semibold ">
@@ -233,7 +233,7 @@ export default function CodeContributionPage() {
                   <p className="text-gray-300 text-sm mb-2">{type.description}</p>            
                   <div className="flex flex-wrap gap-1">
                    {type.tag.map((tag) => (
-                    <Badge key={tag.name}  className="bg-purple-900 hover:bg-purple-900/50 text-white">{tag.name}</Badge>
+                    <Badge key={tag.name}  className="bg-purple-950 hover:bg-purple-950/50 text-white">{tag.name}</Badge>
                    ))}
                   </div>
                 </div>
@@ -245,7 +245,7 @@ export default function CodeContributionPage() {
         </Card>
 
         {/* Development Workflow */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <GitBranch className="mr-2 w-5 h-5" />
@@ -399,7 +399,7 @@ npm run dev`}</code>
         </Card>
 
         {/* Code Standards */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Settings className="mr-2 w-5 h-5" />
@@ -464,7 +464,7 @@ npm run dev`}</code>
 
 
           {/* Recognition */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Award className="mr-2 w-5 h-5" />
@@ -474,15 +474,15 @@ npm run dev`}</code>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Developer Badge</Badge>
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Developer Badge</Badge>
                 <p className="text-sm text-white">Displayed on your GitHub and profile</p>
               </div>
               <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Contribution Stats</Badge>
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Contribution Stats</Badge>
                 <p className="text-sm text-white">Track your impact and contributions</p>
               </div>
               <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Open Source Credit</Badge>
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Open Source Credit</Badge>
                 <p className="text-sm text-white">Build your open source portfolio</p>
               </div>
             </div>
@@ -495,19 +495,19 @@ npm run dev`}</code>
                 responsibilities and recognition.
               </p>
               <div className="flex justify-center gap-2 flex-wrap">
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Star className="h-3 w-3 mr-1" />
                   Core Maintainer
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Users className="h-3 w-3 mr-1" />
                   Technical Lead
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Shield className="h-3 w-3 mr-1" />
                   Security Reviewer
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Rocket className="h-3 w-3 mr-1" />
                   DevOps Engineer
                 </Badge>
@@ -516,7 +516,7 @@ npm run dev`}</code>
           </CardContent>
         </Card>
 
-        <Alert className=" bg-purple-700 border-purple-900 mb-8 text-white">
+        <Alert className=" bg-purple-500 border-0 dark:bg-purple-900 mb-8 text-white">
           <AlertDescription>
           <strong>Code of Conduct:</strong> All contributors must follow our code of conduct. We maintain a welcoming,
             inclusive environment for developers of all skill levels. Harassment, discrimination, or toxic behavior will
@@ -524,7 +524,7 @@ npm run dev`}</code>
           </AlertDescription>
         </Alert>
 
-        <Card className="bg-purple-700 border-purple-900 mb-8 text-white">
+        <Card className="bg-purple-500 border-0 dark:bg-purple-900 mb-8 text-white">
           <CardContent className="pt-6 text-center">
             <Code className="h-12 w-12 text-white mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-4">Ready to Start Coding?</h2>
@@ -536,7 +536,7 @@ npm run dev`}</code>
               <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-800/50 transition-all duration-300 rounded-[5px]" asChild>
                 <Link href="https://github.com/necrydark/gcdb">View on GitHub</Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-900/50" asChild>
+              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-950/50" asChild>
                 <Link href="/contribute/guidelines">Development Guidelines</Link>
               </Button>
             </div>

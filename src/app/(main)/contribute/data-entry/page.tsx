@@ -35,15 +35,15 @@ export default function DataEntryPage() {
           </Button>
 
           <div className="flex items-center gap-4 mb-4">
-            <div className="bg-purple-500 p-3 rounded-lg">
+            <div className="bg-purple-700 border-purple-900 p-3 rounded-lg">
                 <Users className="h-8 w-8 text-white" />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-white">Data Entry</h1>
               <div className="flex items-center gap-2 mt-1">
-                <Badge variant={"secondary"} className="bg-purple-600 hover:bg-purple-600/50 text-white">Easy</Badge>
-                <Badge variant={"outline"} className="border-purple-600 text-white">Whenever You Can</Badge>
-                <Badge variant={"outline"} className="border-purple-600 text-white">Beginner</Badge>
+                <Badge variant={"secondary"} className="bg-purple-700 hover:bg-purple-700/50 text-white">Easy</Badge>
+                <Badge variant={"outline"} className="border-purple-700 text-white">Whenever You Can</Badge>
+                <Badge variant={"outline"} className="border-purple-700 text-white">Beginner</Badge>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function DataEntryPage() {
           <p className="text-lg dark:text-gray-300 text-muted-foreground">Help us maintain the most accurate and up-to-date game database by contributing character stats, skills, and equipment information. Perfect for players who love attention to detail and want to help the community.</p>
         </div>
 
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Settings className="mr-2 w-5 h-5" />
@@ -115,8 +115,8 @@ export default function DataEntryPage() {
         </Card>
 
 
-        {/* Code Standards */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        {/* Requirements */}
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Settings className="mr-2 w-5 h-5" />
@@ -181,7 +181,7 @@ export default function DataEntryPage() {
 
 
           {/* Recognition */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Award className="mr-2 w-5 h-5" />
@@ -190,16 +190,16 @@ export default function DataEntryPage() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Developer Badge</Badge>
+              <div className="text-center p-4 rounded-lg">
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Developer Badge</Badge>
                 <p className="text-sm text-white">Displayed on your GitHub and profile</p>
               </div>
-              <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Contribution Stats</Badge>
+              <div className="text-center p-4  rounded-lg">
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Contribution Stats</Badge>
                 <p className="text-sm text-white">Track your impact and contributions</p>
               </div>
-              <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-900 hover:bg-purple-900/50 text-white mb-2">Open Source Credit</Badge>
+              <div className="text-center p-4  rounded-lg">
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Open Source Credit</Badge>
                 <p className="text-sm text-white">Build your open source portfolio</p>
               </div>
             </div>
@@ -212,19 +212,19 @@ export default function DataEntryPage() {
                 responsibilities and recognition.
               </p>
               <div className="flex justify-center gap-2 flex-wrap">
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Star className="h-3 w-3 mr-1" />
                   Core Maintainer
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Users className="h-3 w-3 mr-1" />
                   Technical Lead
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Shield className="h-3 w-3 mr-1" />
                   Security Reviewer
                 </Badge>
-                <Badge variant="outline" className="border-purple-900 text-white">
+                <Badge variant="outline" className="border-purple-950 text-white">
                   <Rocket className="h-3 w-3 mr-1" />
                   DevOps Engineer
                 </Badge>
@@ -234,7 +234,7 @@ export default function DataEntryPage() {
         </Card>
 
              {/* Process */}
-             <Card className="mb-8 bg-purple-700 border-purple-900">
+             <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Database className="mr-2 h-5 w-5" />
@@ -298,7 +298,7 @@ export default function DataEntryPage() {
         </Card>
 
         {/* Tools & Resources */}
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <BookOpen className="mr-2 h-5 w-5" />
@@ -361,7 +361,7 @@ export default function DataEntryPage() {
           </CardContent>
         </Card>
 
-        <Card className="mb-8 bg-purple-700 border-purple-900">
+        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Award className="mr-2 h-5 w-5" />
@@ -398,7 +398,7 @@ export default function DataEntryPage() {
           </CardContent>
         </Card>
 
-        <Alert className=" bg-purple-700 border-purple-900 mb-8 text-white">
+        <Alert className=" bg-purple-500 border-0 dark:bg-purple-900  mb-8 text-white">
           <AlertDescription>
           <strong>Code of Conduct:</strong> All contributors must follow our code of conduct. We maintain a welcoming,
             inclusive environment for developers of all skill levels. Harassment, discrimination, or toxic behavior will
@@ -406,7 +406,7 @@ export default function DataEntryPage() {
           </AlertDescription>
         </Alert>
 
-        <Card className="bg-purple-700 border-purple-900 mb-8 text-white">
+        <Card className="bg-purple-500 border-0 dark:bg-purple-900 mb-8  text-white">
           <CardContent className="pt-6 text-center">
             <Users className="h-12 w-12 text-white mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-4">Ready to Start Contributing?</h2>
@@ -418,7 +418,7 @@ export default function DataEntryPage() {
               <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-800/50 transition-all duration-300 rounded-[5px]" asChild>
                 <Link href={"/"}>Apply Now</Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-900/50" asChild>
+              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-950/50" asChild>
                 <Link href="/contribute/guidelines">Read Guidelines</Link>
               </Button>
             </div>

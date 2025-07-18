@@ -73,7 +73,7 @@ export default async function ContributePage() {
         
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {contributionAreas.map((area) => (
-                <Card key={area.id} className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
+                <Card key={area.id} className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 border-purple-700 dark:bg-purple-900 rounded-[5px] border-0">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{area.icon}</span>
@@ -105,7 +105,7 @@ export default async function ContributePage() {
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold mb-8 text-center text-white">Why Contribute?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
+            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 border-purple-700 dark:bg-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <Star className="h-8 w-8 text-white mb-2" />
                 <CardTitle>Build Your Portfolio</CardTitle>
@@ -118,7 +118,7 @@ export default async function ContributePage() {
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
+            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 border-purple-700 dark:bg-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <Users className="h-8 w-8 text-white mb-2" />
                 <CardTitle>Join a Community</CardTitle>
@@ -131,7 +131,7 @@ export default async function ContributePage() {
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-700 border-purple-900 rounded-[5px] border-0">
+            <Card className="overflow-hidden flex flex-col flex-1 basis-0 bg-purple-500 border-purple-700 dark:bg-purple-900 rounded-[5px] border-0">
               <CardHeader>
                 <Lightbulb className="h-8 w-8 text-white mb-2" />
                 <CardTitle>Learn & Grow</CardTitle>
@@ -149,7 +149,7 @@ export default async function ContributePage() {
 
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-4xl">
-          <Card className="bg-purple-700 border-purple-900">
+          <Card className="bg-purple-500 border-0 dark:bg-purple-900">
             <CardContent className="pt-8 text-center">
               <Heart className="h-12 w-12 text-white mx-auto mb-4" />
               <h2 className="text-3xl font-bold mb-4 text-white">Ready to Make a Difference?</h2>
@@ -162,7 +162,7 @@ export default async function ContributePage() {
                 <Link href="/contribute">
                 Start Contributing <ArrowRight className="ml-2 h-5 w-5" /></Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-900 dark:hover:bg-purple-900/50" asChild>
+              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-900 dark:hover:bg-purple-950/50" asChild>
                 <Link href="/contribute/guidelines">Read Guidelines</Link>
               </Button>
             </div>
