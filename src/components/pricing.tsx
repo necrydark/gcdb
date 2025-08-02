@@ -1,13 +1,11 @@
 'use client'
 
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { loadStripe } from "@stripe/stripe-js"
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { toast } from "./ui/use-toast";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { useState } from "react";
 import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { toast } from "./ui/use-toast";
 
 
 export default function Pricing() {
@@ -72,17 +70,17 @@ export default function Pricing() {
     
           <div className="grid grid-cols-1 gap-8">
             {/* Basic Plan */}
-            <Card  className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0">
-                <CardHeader>
-                    <CardTitle className="text-white">
-                        SR Plan (Supporter)
+            <Card  className="rounded-lg border text-card-foreground max-w-xl mx-auto bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl">
+                <CardHeader className="text-center">
+                    <CardTitle className=" bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        SR Plan
                     </CardTitle>
-                    <CardDescription  className="text-gray-300">
-                        Support the website!
+                    <CardDescription  className="text-sm">
+                    Help keep the wiki running and growing
                     </CardDescription>
                 </CardHeader>
              <CardContent>
-              <p className="text-4xl font-bold mb-6 text-white">£3.99 / month</p>
+              <p className="text-4xl font-bold mb-6 text-center text-black dark:text-white">£3.99 <span className="text-sm text-muted-foreground">/ month</span></p>
              </CardContent>
              <CardFooter>
              {isBasic ? (
@@ -97,7 +95,8 @@ export default function Pricing() {
                   onClick={() =>
                     handleSubscribe(process.env.NEXT_PUBLIC_BASIC_PRICE_ID!)
                   }
-                  className="w-full rounded-[5px] bg-purple-700 hover:opacity-75 dark:bg-purple-950 text-white" 
+                  className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                  
                   disabled={loading}
                 >
                   {loading ? "Loading..." : "Become an SR member"}

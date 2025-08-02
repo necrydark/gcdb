@@ -1,18 +1,16 @@
 import { auth } from "@/src/auth";
-import Footer from "@/src/components/footer";
-import Navbar from "@/src/components/navbar";
 import { Toaster } from "@/src/components/ui/sonner";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import { extractRouterConfig } from "uploadthing/server";
-import AuthNavbar from "../components/auth/auth-nav";
 import "./globals.css";
 import { Providers } from "./providers";
 
 import { ourFileRouter } from "@/src/app/api/uploadthing/core";
 import { ContextProvider } from "../components/eng-jp";
+import { PostHogProvider } from "../components/ph-providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +31,8 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <Providers>
             <ContextProvider>
-  
+            <PostHogProvider>
+
             <div className="flex-1 flex-col flex">
               <div  suppressHydrationWarning>
                 <NextSSRPlugin
@@ -50,6 +49,8 @@ export default async function RootLayout({
               </div>
               <Toaster closeButton />
             </div>
+            </PostHogProvider>
+
                  </ContextProvider>
 
           </Providers>

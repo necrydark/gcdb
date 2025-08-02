@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef, useTransition } from 'react'
-import { useRouter } from 'next/navigation'
-import { 
+import { useDebounce } from '@/hooks/debounce'
+import { searchItems, type SearchResult } from '@/src/actions/search'
+import { Button } from "@/src/components/ui/button"
+import {
   Command,
   CommandDialog,
   CommandEmpty,
@@ -11,11 +12,10 @@ import {
   CommandItem,
   CommandList,
 } from "@/src/components/ui/command"
-import { Button } from "@/src/components/ui/button"
-import { Search, User, Book, Diamond } from "lucide-react"
-import { searchItems, type SearchResult } from '@/src/actions/search'
-import { useDebounce } from '@/hooks/debounce'
+import { User } from "lucide-react"
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState, useTransition } from 'react'
 
 export default function CommandSearch() {
   const [open, setOpen] = useState(false)
@@ -70,18 +70,19 @@ export default function CommandSearch() {
     <>
       <Button 
         variant="outline" 
-        className="relative w-full justify-start text-sm  rounded-[5px] bg-purple-500 text-white dark:bg-purple-700 hover:bg-purple-600 dark:hover:bg-purple-800 sm:pr-12"
+        className="w-full px-6 py-4 rounded-2xl border justify-start border-border/50 bg-background/80 glass-effect focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all shadow-lg relative"
         onClick={() => setOpen(true)}
       >
-        <span className="hidden lg:inline-flex text-white">Search characters, users...</span>
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 pointer-events-none" />
+        <span className="hidden lg:inline-flex text-black dark:text-white">Search characters, users...</span>
         <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-[10px] hidden h-5 select-none items-center gap-1 rounded-[5px] text-white bg-purple-600 dark:bg-purple-950 px-1.5 font-mono text-xs font-medium opacity-100 sm:flex">
+        <kbd className="pointer-events-none absolute right-2 top-[10px] hidden h-5 select-none items-center gap-1 rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-1.5 font-mono text-xs font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <Command className='rounded-[5px] text-white bg-purple-500 dark:bg-purple-700' shouldFilter={false}>
+        <Command className='rounded-[5px] text-white bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 glass-effect' shouldFilter={false}>
           <CommandInput 
             placeholder="Search characters, users..." 
             value={query}
@@ -90,13 +91,9 @@ export default function CommandSearch() {
             autoFocus
           />
           <CommandList>
-            
-            
             {!isPending && query.length > 0 && results.length === 0 && (
               <CommandEmpty>No results found.</CommandEmpty>
             )}
-            
-
             
             {/* Characters */}
             {characters.length > 0 && (

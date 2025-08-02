@@ -1,21 +1,11 @@
-'use client'
-import MaxStatsTable from "@/src/components/Tables/maxStats";
-import GearTable from "@/src/components/Tables/table";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/src/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
+"use client"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table"; // Corrected import path
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs"; // Corrected import path
 import { Star } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function Page() {
-  const [activeTab, setActiveTab] = useState("gear-sets");
+  const [activeTab, setActiveTab] = useState("gear-sets")
   const gearData = [
     {
       id: 1,
@@ -89,7 +79,7 @@ export default function Page() {
       set: "2",
       setBonus: "+15% LIFESTEAL",
     },
-  ];
+  ]
 
   const columns = [
     {
@@ -116,7 +106,7 @@ export default function Page() {
       key: "SSR",
       label: "SSR",
     },
-  ];
+  ]
 
   const baseStats = [
     {
@@ -179,7 +169,7 @@ export default function Page() {
       SR: "1500-2000",
       SSR: "2100-2800",
     },
-  ];
+  ]
 
   const maxStats = [
     {
@@ -242,7 +232,7 @@ export default function Page() {
       SR: "3900-4400",
       SSR: "5700-6400",
     },
-  ];
+  ]
 
   const subStatsColumns = [
     {
@@ -257,193 +247,213 @@ export default function Page() {
       key: "MinMaxRolls",
       label: "Min Max Rolls",
     },
-  ];
-  const subStatList = [
-    {
-      gearPiece: "Attack",
-      gearPieceJP: "攻撃力",
-      minMaxRolls: "1% - 3%",
-    },
-  ];
-
+  ]
 
   return (
-    <div className="container mx-auto max-w-7xl pt-[7rem] p-5 space-y-5">
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full">
-        <TabsList className="grid grid-cols-1 md:grid-cols-4 bg-purple-400 h-full w-full rounded-[5px] text-white">
-          <TabsTrigger value="gear-sets" className={activeTab === "gear-sets" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Gear Sets</TabsTrigger>
-          <TabsTrigger value="gear-subsets" className={activeTab === "gear-subsets"  ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Gear Subsets</TabsTrigger>
-          <TabsTrigger value="main-base-0" className={activeTab === "main-base-0" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Main Base 0 <Star className="w-4 h-4 pl-1" /></TabsTrigger>
-          <TabsTrigger value="main-base-5" className={activeTab === "main-base-5" ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent"}>Main Base 5 <Star className="w-4 h-4 pl-1" /></TabsTrigger>
-
+    <main className="container mx-auto max-w-7xl pt-[7rem] p-5 space-y-8">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid grid-cols-1 md:grid-cols-4 h-full w-full bg-muted/50 dark:bg-muted/30 border rounded-[5px] border-border/50 shadow-lg">
+          <TabsTrigger
+            value="gear-sets"
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+          >
+            Gear Sets
+          </TabsTrigger>
+          <TabsTrigger
+            value="gear-subsets"
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+          >
+            Gear Subsets
+          </TabsTrigger>
+          <TabsTrigger
+            value="main-base-0"
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+          >
+            Main Base 0 <Star className="w-4 h-4 ml-1" />
+          </TabsTrigger>
+          <TabsTrigger
+            value="main-base-5"
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+          >
+            Main Base 5 <Star className="w-4 h-4 ml-1" />
+          </TabsTrigger>
         </TabsList>
-     
-     <TabsContent value="gear-sets">
-     <div>
-      <h1 className="text-3xl pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Gear Sets</h1>
-      <GearTable
-        headers={["Gear", "JP", "EN", "Set", "Set Bonus"]}
-        data={gearData}
-      />
-      </div>
-     </TabsContent>
 
-      <TabsContent value="gear-subsets">
-      <div>
-        {/* TODO: Make table unique */}
-        <h1 className="text-3xl  pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Gear Substats</h1>
+        <TabsContent value="gear-sets" className="mt-8">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            Gear Sets
+          </h1>
+          <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">
+            <Table>
+              <TableHeader className="bg-muted/50 dark:bg-muted/30">
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground">Gear</TableHead>
+                  <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground">JP</TableHead>
+                  <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground">EN</TableHead>
+                  <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground">Set</TableHead>
+                  <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground">Set Bonus</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {gearData.map((gear, idx) => (
+                  <TableRow key={gear.id} className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                    <TableCell className="px-6 py-4 font-medium text-foreground">{gear.gearIcon}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{gear.jpName}</TableCell>
+                    <TableCell className="px-6 py-4 text-foreground">{gear.name}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{gear.set}</TableCell>
+                    <TableCell className="px-6 py-4 text-foreground">{gear.setBonus}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
 
-        <table className="w-full text-sm mt-[15px] rtl:text-right text-white font-bold">
-          <thead className="text-xs text-purple-700 uppercase bg-purple-50 dark:bg-purple-700 dark:text-purple-400">
-            <tr className="dark:text-white text-purple-600">
-              {subStatsColumns.map((col) => {
-                return (
-                  <th className="px-6 py-3" key={col.key}>
-                    {col.label}
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td
-                rowSpan={4}
-                className="border-r-1 border-purple-500 dark:border-purple-600"
-              >
-                Bracelet &amp; Ring / 腕輪 &amp; リング
-              </td>
-              <td className="px-6 py-4">Attack / 攻撃力</td>
-              <td className="px-6 py-4">1% - 3%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900 text-purple-900 dark:text-white  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Pierce Rate / 貫通率</td>
-              <td className="px-6 py-4">2% - 6%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Crit Chance / クリティカル確率</td>
-              <td className="px-6 py-4">1.5% - 4.5%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border text-purple-900 dark:text-white border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Crit Damage / クリティカルダメージ</td>
-              <td className="px-6 py-4">2% - 6%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td
-                rowSpan={4}
-                className="border-r-1 border-purple-500 dark:border-purple-600"
-              >
-                Necklace &amp; Earrings / 首飾り &amp; 耳飾り
-              </td>
-              <td className="px-6 py-4">Defense / 防御力</td>
-              <td className="px-6 py-4">1% - 3%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500 text-purple-900 dark:text-white  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Resistance / 忍耐率</td>
-              <td className="px-6 py-4">2% - 6%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Crit Resistance / クリティカル耐性</td>
-              <td className="px-6 py-4">1.5% - 4.5%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 text-purple-900 dark:text-white even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Crit Defense / クリティカル防御</td>
-              <td className="px-6 py-4">2% - 6%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td
-                rowSpan={4}
-                className="border-r-1 border-purple-500 dark:border-purple-600"
-              >
-                Belt &amp; Rune / ベルト &amp; ルーン
-              </td>
-              <td className="px-6 py-4">HP</td>
-              <td className="px-6 py-4">1% - 3%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500 text-purple-900 dark:text-white  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Regeneration / 再生率</td>
-              <td className="px-6 py-4">2% - 6%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Recovery / 回復率</td>
-              <td className="px-6 py-4">2% - 6%</td>
-            </tr>
-            <tr className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500 text-purple-900 dark:text-white  even:bg-purple-50 even:dark:bg-purple-700 border-b dark:border-purple-600">
-              <td className="px-6 py-4">Lifesteal / HP吸収率</td>
-              <td className="px-6 py-4">1.5% - 4.5%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <TabsContent value="gear-subsets" className="mt-8">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            Gear Substats
+          </h1>
+          <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">
+            <Table>
+              <TableHeader className="bg-muted/50 dark:bg-muted/30">
+                <TableRow className="hover:bg-transparent">
+                  {subStatsColumns.map((col) => (
+                    <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground" key={col.key}>
+                      {col.label}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {/* Bracelet & Ring */}
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell rowSpan={4} className="px-6 py-4 font-medium text-foreground border-r border-border/50">
+                    Bracelet &amp; Ring / 腕輪 &amp; リング
+                  </TableCell>
+                  <TableCell className="px-6 py-4 text-foreground">Attack / 攻撃力</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">1% - 3%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Pierce Rate / 貫通率</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">2% - 6%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Crit Chance / クリティカル確率</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">1.5% - 4.5%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Crit Damage / クリティカルダメージ</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">2% - 6%</TableCell>
+                </TableRow>
 
-      </TabsContent>
-    <TabsContent value="main-base-0">
-    <div>
-        <h1 className="text-3xl  pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Main Stat Base Stats (0★)</h1>
-        <Table className="w-full text-sm mt-[15px]  rtl:text-right text-purple-700 dark:text-white font-bold">
-          <TableHeader className="text-xs text-purple-700 uppercase bg-purple-300 dark:bg-purple-700 dark:text-purple-400">
-            <TableRow className="odd:bg-purple-400 odd:dark:bg-purple-900 text-white   border border-purple-500  even:bg-purple-300 even:dark:bg-purple-700 border-b dark:border-purple-700">
-              {columns.map((column) => (
-                <TableHead className="px-6 py-3 text-white" key={column.key}>
-                  {column.label}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {baseStats.map((row) => (
-              <TableRow 
-                key={row.key}
-                className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-white even:dark:bg-purple-700 border-b dark:border-purple-600"
-              >
-                <TableCell className="px-6 py-4">{row.equipment}</TableCell>
-                <TableCell className="px-6 py-4">{row.mainStat}</TableCell>
-                <TableCell className="px-6 py-4">{row.C}</TableCell>
-                <TableCell className="px-6 py-4">{row.R}</TableCell>
-                <TableCell className="px-6 py-4">{row.SR}</TableCell>
-                <TableCell className="px-6 py-4">{row.SSR}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </TabsContent>
+                {/* Necklace & Earrings */}
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell rowSpan={4} className="px-6 py-4 font-medium text-foreground border-r border-border/50">
+                    Necklace &amp; Earrings / 首飾り &amp; 耳飾り
+                  </TableCell>
+                  <TableCell className="px-6 py-4 text-foreground">Defense / 防御力</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">1% - 3%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Resistance / 忍耐率</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">2% - 6%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Crit Resistance / クリティカル耐性</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">1.5% - 4.5%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Crit Defense / クリティカル防御</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">2% - 6%</TableCell>
+                </TableRow>
 
-    <TabsContent value="main-base-5">
-    <div>
-        <h1 className="text-3xl  pt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4 text-white">Main Stat Max Stats (5★ +5)</h1>
-        <Table className="w-full text-sm mt-[15px]  rtl:text-right text-purple-700 dark:text-white font-bold">
-          <TableHeader className="text-xs text-purple-700 uppercase bg-purple-300 dark:bg-purple-700 dark:text-purple-400">
-            <TableRow className="odd:bg-purple-400 odd:dark:bg-purple-900 text-white   border border-purple-500  even:bg-purple-300 even:dark:bg-purple-700 border-b dark:border-purple-700">
-              {columns.map((column) => (
-                <TableHead className="px-6 py-3 text-white" key={column.key}>
-                  {column.label}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {maxStats.map((row) => (
-              <TableRow
-                key={row.key}
-                className="odd:bg-purple-400 text-center odd:dark:bg-purple-900  border border-purple-500  even:bg-white even:dark:bg-purple-700 border-b dark:border-purple-600"
-              >
-                <TableCell className="px-6 py-4">{row.equipment}</TableCell>
-                <TableCell className="px-6 py-4">{row.mainStat}</TableCell>
-                <TableCell className="px-6 py-4">{row.C}</TableCell>
-                <TableCell className="px-6 py-4">{row.R}</TableCell>
-                <TableCell className="px-6 py-4">{row.SR}</TableCell>
-                <TableCell className="px-6 py-4">{row.SSR}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </TabsContent>
-    </Tabs>
+                {/* Belt & Rune */}
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell rowSpan={4} className="px-6 py-4 font-medium text-foreground border-r border-border/50">
+                    Belt &amp; Rune / ベルト &amp; ルーン
+                  </TableCell>
+                  <TableCell className="px-6 py-4 text-foreground">HP</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">1% - 3%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Regeneration / 再生率</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">2% - 6%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Recovery / 回復率</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">2% - 6%</TableCell>
+                </TableRow>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                  <TableCell className="px-6 py-4 text-foreground">Lifesteal / HP吸収率</TableCell>
+                  <TableCell className="px-6 py-4 text-muted-foreground">1.5% - 4.5%</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
 
-      {/* <MaxStatsTable /> */}
-    </div>
-  );
+        <TabsContent value="main-base-0" className="mt-8">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            Main Stat Base Stats (0★)
+          </h1>
+          <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">
+            <Table>
+              <TableHeader className="bg-muted/50 dark:bg-muted/30">
+                <TableRow className="hover:bg-transparent">
+                  {columns.map((column) => (
+                    <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground" key={column.key}>
+                      {column.label}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {baseStats.map((row) => (
+                  <TableRow key={row.key} className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                    <TableCell className="px-6 py-4 font-medium text-foreground">{row.equipment}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{row.mainStat}</TableCell>
+                    <TableCell className="px-6 py-4 text-foreground">{row.C}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{row.R}</TableCell>
+                    <TableCell className="px-6 py-4 text-foreground">{row.SR}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{row.SSR}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="main-base-5" className="mt-8">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            Main Stat Max Stats (5★ +5)
+          </h1>
+          <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">
+            <Table>
+              <TableHeader className="bg-muted/50 dark:bg-muted/30">
+                <TableRow className="hover:bg-transparent">
+                  {columns.map((column) => (
+                    <TableHead className="px-6 py-3 text-left text-sm font-semibold text-foreground" key={column.key}>
+                      {column.label}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {maxStats.map((row) => (
+                  <TableRow key={row.key} className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
+                    <TableCell className="px-6 py-4 font-medium text-foreground">{row.equipment}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{row.mainStat}</TableCell>
+                    <TableCell className="px-6 py-4 text-foreground">{row.C}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{row.R}</TableCell>
+                    <TableCell className="px-6 py-4 text-foreground">{row.SR}</TableCell>
+                    <TableCell className="px-6 py-4 text-muted-foreground">{row.SSR}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </main>
+  )
 }
-

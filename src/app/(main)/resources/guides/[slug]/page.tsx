@@ -148,7 +148,7 @@ export default async function GuidePostPage({
       link: (({ children, value }) => (
         <a
           href={value?.href || '#'}
-          className="text-primary hover:underline"
+          className="text-primary underline"
           target="_blank"
           rel="noopener noreferrer"
         >
