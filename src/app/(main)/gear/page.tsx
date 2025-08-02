@@ -252,28 +252,28 @@ export default function Page() {
   return (
     <main className="container mx-auto max-w-7xl pt-[7rem] p-5 space-y-8">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-1 md:grid-cols-4 h-full w-full bg-muted/50 dark:bg-muted/30 border rounded-[5px] border-border/50 shadow-lg">
+        <TabsList className="grid grid-cols-1 md:grid-cols-4 h-full w-full">
           <TabsTrigger
             value="gear-sets"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+            className="text-black dark:text-white transition-all duration-300"
           >
             Gear Sets
           </TabsTrigger>
           <TabsTrigger
             value="gear-subsets"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+            className="text-black dark:text-white transition-all duration-300"
           >
             Gear Subsets
           </TabsTrigger>
           <TabsTrigger
             value="main-base-0"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+            className=" text-black dark:text-white  transition-all duration-300"
           >
             Main Base 0 <Star className="w-4 h-4 ml-1" />
           </TabsTrigger>
           <TabsTrigger
             value="main-base-5"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 text-black dark:text-white data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300"
+            className=" text-black dark:text-white   transition-all duration-300"
           >
             Main Base 5 <Star className="w-4 h-4 ml-1" />
           </TabsTrigger>

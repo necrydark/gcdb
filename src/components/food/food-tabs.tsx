@@ -1,10 +1,9 @@
 'use client'
 // import { Character, Food, Meal } from '@prisma/client';
-import { Food } from '@/src/types/food';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
-import React, { useState } from 'react'
-import Foods from './food';
 import { Character, Ingredient, Towns } from '@prisma/client';
+import { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import Foods from './food';
 
 export interface food {
     id: string;
@@ -30,13 +29,19 @@ export default function FoodTabs({food}: Props) {
 
   return (
         <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full h-full'>
-        <TabsList className='h-full grid grid-cols-1 md:grid-cols-6 mb-6 bg-purple-400 dark:bg-purple-700'>
-        <TabsTrigger className={activeTab === Towns.Vanya  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Towns.Vanya  as string}>Vanya</TabsTrigger>
-        <TabsTrigger className={activeTab === Towns.Dalmally  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Towns.Dalmally as string}>Dalmally</TabsTrigger>
-        <TabsTrigger className={activeTab === Towns.PostTownTala  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Towns.PostTownTala  as string}>Post Town Tala</TabsTrigger>
-        <TabsTrigger className={activeTab === Towns.Vaziel  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Towns.Vaziel  as string}>Vaziel</TabsTrigger>
-        <TabsTrigger className={activeTab === Towns.OrdanVillage  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Towns.OrdanVillage  as string}>Ordan Village</TabsTrigger>
-        <TabsTrigger className={activeTab === Towns.LionesCastle  as string ? "data-[state=active]:bg-purple-600 data-[state=active]:text-white" : "bg-transparent text-white"}  value={Towns.LionesCastle  as string}>Liones Castle</TabsTrigger>
+        <TabsList className="h-full grid grid-cols-1 md:grid-cols-6 mb-6 rounded-[5px] bg-muted/50 dark:bg-muted/30 border border-border/50 shadow-lg">
+        <TabsTrigger className={activeTab === Towns.Vanya  as string   ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300 text-foreground"
+              : "bg-transparent text-foreground"}  value={Towns.Vanya  as string}>Vanya</TabsTrigger>
+        <TabsTrigger className={activeTab === Towns.Dalmally  as string   ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300 text-foreground"
+              : "bg-transparent text-foreground"}  value={Towns.Dalmally as string}>Dalmally</TabsTrigger>
+        <TabsTrigger className={activeTab === Towns.PostTownTala  as string   ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300 text-foreground"
+              : "bg-transparent text-foreground"}  value={Towns.PostTownTala  as string}>Post Town Tala</TabsTrigger>
+        <TabsTrigger className={activeTab === Towns.Vaziel  as string   ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300 text-foreground"
+              : "bg-transparent text-foreground"}  value={Towns.Vaziel  as string}>Vaziel</TabsTrigger>
+        <TabsTrigger className={activeTab === Towns.OrdanVillage  as string   ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300 text-foreground"
+              : "bg-transparent text-foreground"}  value={Towns.OrdanVillage  as string}>Ordan Village</TabsTrigger>
+        <TabsTrigger className={activeTab === Towns.LionesCastle  as string   ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-[5px] transition-all duration-300 text-foreground"
+              : "bg-transparent text-foreground"}  value={Towns.LionesCastle  as string}>Liones Castle</TabsTrigger>
 
         </TabsList>
 
