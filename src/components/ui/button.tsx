@@ -30,6 +30,7 @@ const buttonVariants = cva(
         " bg-orange-500 dark:bg-orange-800 border-orange-800  hover:bg-orange-600  dark:hover:bg-orange-900  dark:border-orange-500 !text-white",
       pink: " bg-pink-500 dark:bg-pink-800 border-pink-800  hover:bg-pink-600  dark:hover:bg-pink-900  dark:border-pink-500 !text-white",
       cyan: " bg-cyan-500 dark:bg-cyan-800 border-cyan-800  hover:bg-cyan-600  dark:hover:bg-cyan-900  dark:border-cyan-500 !text-white",
+      gradient: "text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
       },
       size: {
         default: "h-10 px-4 py-2",

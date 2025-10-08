@@ -70,10 +70,10 @@ export default function CommandSearch() {
     <>
       <Button 
         variant="outline" 
-        className="w-full px-6 py-4 rounded-2xl border justify-start border-border/50 bg-background/80 glass-effect focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all shadow-lg relative"
+        className="w-full px-6 py-4 rounded-[5px] border justify-start border-border/50 bg-background/80 glass-effect focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all shadow-lg relative"
         onClick={() => setOpen(true)}
       >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 pointer-events-none" />
+            <div className="absolute inset-0 rounded-[5px] bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 pointer-events-none" />
         <span className="hidden lg:inline-flex text-black dark:text-white">Search characters, users...</span>
         <span className="inline-flex lg:hidden">Search...</span>
         <kbd className="pointer-events-none absolute right-2 top-[10px] hidden h-5 select-none items-center gap-1 rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-1.5 font-mono text-xs font-medium opacity-100 sm:flex">

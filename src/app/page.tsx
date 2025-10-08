@@ -1,6 +1,13 @@
 import { getCharacterCount } from "@/data/character";
 import { getRelicCount } from "@/data/relics";
-import { ExternalLink, Shield, Sparkles, Star, Users } from "lucide-react";
+import {
+  ExternalLink,
+  Notebook,
+  Shield,
+  Sparkles,
+  Star,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import MonthlyActiveUsers from "../components/analytics/mau";
@@ -71,16 +78,16 @@ export default async function HomePage() {
           <div className="text-center mb-12">
             <div className="flex items-center mb-8 bg-background/90 glass-effect text-foreground rounded-2xl w-fit gap-3 mx-auto p-4 shadow-xl border border-border/50">
               <div className="p-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg">
-              <Sparkles className="h-4 w-4 text-white" />
+                <Sparkles className="h-4 w-4 text-white" />
               </div>
               <p className="font-medium">
                 Looking for moderators, admins and helpers!
               </p>
               <Button
-                    variant="default"
-                    className="rounded-[5px] bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
-                    size="sm"
-                    asChild
+                variant="default"
+                className="rounded-[5px] bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
+                size="sm"
+                asChild
               >
                 <Link href={"/contact"}>Join Team</Link>
               </Button>
@@ -99,10 +106,10 @@ export default async function HomePage() {
           </div>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Button
-  variant="default"
-  className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
-  asChild
-  size="lg"
+              variant="default"
+              className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
+              asChild
+              size="lg"
             >
               <Link href={"/characters"}>
                 <Users className="mr-2 h-5 w-5" />
@@ -110,10 +117,10 @@ export default async function HomePage() {
               </Link>
             </Button>
             <Button
-           variant="default"
-           className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
-           asChild
-           size="lg"
+              variant="default"
+              className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
+              asChild
+              size="lg"
             >
               <Link href={"/relics"}>
                 <Shield className="mr-2 h-5 w-5" />
@@ -203,11 +210,13 @@ export default async function HomePage() {
             <PageViews />
             <Card className="bg-gradient-to-br from-green-500/10 via-card to-green-600/20 dark:from-green-900/20 dark:to-green-800/30 border-green-200/50 dark:border-green-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3">
               <CardContent className="pt-6">
-              <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-4 mb-4">
                   <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg">
                     <Users className="h-6 w-6 text-white" />
                   </div>
-                  <p className="text-sm font-medium text-muted-foreground">Total Characters</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Total Characters
+                  </p>
                 </div>
                 <p className="text-4xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent  mt-2">
                   {charactersCount}
@@ -216,11 +225,13 @@ export default async function HomePage() {
             </Card>
             <Card className="bg-gradient-to-br from-orange-500/10 via-card to-orange-600/20 dark:from-orange-900/20 dark:to-orange-800/30 border-orange-200/50 dark:border-orange-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3">
               <CardContent className="pt-6">
-              <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-4 mb-4">
                   <div className="p-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-lg">
                     <Shield className="h-6 w-6 text-white" />
                   </div>
-                  <p className="text-sm font-medium text-muted-foreground">Total Relics</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Total Relics
+                  </p>
                 </div>
                 <p className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent mt-2">
                   {relicCount}
@@ -236,26 +247,26 @@ export default async function HomePage() {
       {/* Latest Content Additions */}
       <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
         <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               Latest Updates
             </h2>
-            <p className="text-muted-foreground text-lg">Stay up to date with the latest changes and improvements</p>
+            <p className="text-muted-foreground text-lg">
+              Stay up to date with the latest changes and improvements
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {changelogs?.slice(0, 2).map((changelog, idx) => (
               <Card
-             className="bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 group"
+                className="bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 group"
                 key={idx}
               >
                 <CardHeader>
                   <CardTitle className="text-foreground">
                     {changelog.data.title}
                   </CardTitle>
-                  <CardDescription >
-                    {changelog.data.date}
-                  </CardDescription>
+                  <CardDescription>{changelog.data.date}</CardDescription>
                 </CardHeader>
                 <CardFooter>
                   <Button
@@ -273,28 +284,43 @@ export default async function HomePage() {
               </Card>
             ))}
           </div>
+          <div className="mt-8 flex justify-center items-center">
+            <Button
+              variant="default"
+              className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
+              asChild
+              size="lg"
+            >
+              <Link href={"/changelogs"}>
+                <Notebook className="mr-2 h-5 w-5" />
+                View All
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* Community & Resources */}
       <section className="py-20 px-4 gradient-mesh">
         <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
-
-        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               Community & Resources
             </h2>
-            <p className="text-muted-foreground text-lg">Stay up to date with the latest changes and improvements</p>
-
-        </div>
+            <p className="text-muted-foreground text-lg">
+              Stay up to date with the latest changes and improvements
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="flex flex-col bg-gradient-to-br from-card via-card to-yellow-50/30 dark:to-yellow-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500">
               <CardHeader>
-              <div className="flex items-center gap-3 mb-2">
+                <div className="flex items-center gap-3 mb-2">
                   <div className="p-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl shadow-lg">
                     <Star className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-xl dark:text-white text-black">Game Guides</CardTitle>
+                  <CardTitle className="text-xl dark:text-white text-black">
+                    Game Guides
+                  </CardTitle>
                 </div>
                 <CardDescription>
                   Helpful guides for beginners & advanced players.
@@ -302,9 +328,18 @@ export default async function HomePage() {
               </CardHeader>
               <CardContent className="space-y-4 flex-grow">
                 {[
-                  { title: "Beginner's Guide", desc: "Essential tips for new players" },
-                  { title: "Character Building", desc: "How to build effective character teams" },
-                  { title: "Holy Relic Guide", desc: "Best relics for each character type" },
+                  {
+                    title: "Beginner's Guide",
+                    desc: "Essential tips for new players",
+                  },
+                  {
+                    title: "Character Building",
+                    desc: "How to build effective character teams",
+                  },
+                  {
+                    title: "Holy Relic Guide",
+                    desc: "Best relics for each character type",
+                  },
                 ].map((guide, idx) => (
                   <div
                     key={idx}
@@ -315,13 +350,19 @@ export default async function HomePage() {
                     </div>
                     <div>
                       <h4 className="font-medium">{guide.title}</h4>
-                      <p className="text-sm text-muted-foreground">{guide.desc}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {guide.desc}
+                      </p>
                     </div>
                   </div>
                 ))}
               </CardContent>
               <CardFooter className="mt-auto">
-              <Button disabled variant="outline" className="w-full rounded-xl opacity-50 text-black dark:text-white bg-transparent">
+                <Button
+                  disabled
+                  variant="outline"
+                  className="w-full rounded-xl opacity-50 text-black dark:text-white bg-transparent"
+                >
                   View All Guides (Coming Soon)
                 </Button>
               </CardFooter>
@@ -333,15 +374,28 @@ export default async function HomePage() {
                   <div className="p-3 bg-gradient-to-r from-red-500 to-pink-500 rounded-xl shadow-lg">
                     <Star className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-xl text-black dark:text-white">Tier Lists</CardTitle>
+                  <CardTitle className="text-xl text-black dark:text-white">
+                    Tier Lists
+                  </CardTitle>
                 </div>
-                <CardDescription>Current rankings of characters and equipment</CardDescription>
+                <CardDescription>
+                  Current rankings of characters and equipment
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 flex-grow">
                 {[
-                  { title: "PvP Tier List", desc: "Best characters for player vs player" },
-                  { title: "PvE Tier List", desc: "Best characters for story and events" },
-                  { title: "Holy Relic Rankings", desc: "Top relics by category" },
+                  {
+                    title: "PvP Tier List",
+                    desc: "Best characters for player vs player",
+                  },
+                  {
+                    title: "PvE Tier List",
+                    desc: "Best characters for story and events",
+                  },
+                  {
+                    title: "Holy Relic Rankings",
+                    desc: "Top relics by category",
+                  },
                 ].map((tier, idx) => (
                   <div
                     key={idx}
@@ -352,13 +406,19 @@ export default async function HomePage() {
                     </div>
                     <div>
                       <h4 className="font-medium">{tier.title}</h4>
-                      <p className="text-sm text-muted-foreground">{tier.desc}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {tier.desc}
+                      </p>
                     </div>
                   </div>
                 ))}
               </CardContent>
               <CardFooter className="mt-auto">
-                <Button disabled variant="outline" className="w-full rounded-xl text-black dark:text-white opacity-50 bg-transparent">
+                <Button
+                  disabled
+                  variant="outline"
+                  className="w-full rounded-xl text-black dark:text-white opacity-50 bg-transparent"
+                >
                   View Tier Lists (Coming Soon)
                 </Button>
               </CardFooter>
@@ -370,15 +430,28 @@ export default async function HomePage() {
                   <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl shadow-lg">
                     <ExternalLink className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-xl text-black dark:text-white">Community</CardTitle>
+                  <CardTitle className="text-xl text-black dark:text-white">
+                    Community
+                  </CardTitle>
                 </div>
-                <CardDescription>Join the conversation and get help</CardDescription>
+                <CardDescription>
+                  Join the conversation and get help
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 flex-grow">
                 {[
-                  { title: "Discord Server", desc: "Chat with other players and get help" },
-                  { title: "Reddit Community", desc: "Discussions, memes, and strategies" },
-                  { title: "YouTube Channels", desc: "Video guides and gameplay" },
+                  {
+                    title: "Discord Server",
+                    desc: "Chat with other players and get help",
+                  },
+                  {
+                    title: "Reddit Community",
+                    desc: "Discussions, memes, and strategies",
+                  },
+                  {
+                    title: "YouTube Channels",
+                    desc: "Video guides and gameplay",
+                  },
                 ].map((community, idx) => (
                   <div
                     key={idx}
@@ -389,7 +462,9 @@ export default async function HomePage() {
                     </div>
                     <div>
                       <h4 className="font-medium">{community.title}</h4>
-                      <p className="text-sm text-muted-foreground">{community.desc}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {community.desc}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -410,11 +485,13 @@ export default async function HomePage() {
       {/* Pricing */}
       <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
         <div className="container mx-auto max-w-6xl">
-           <div className="text-center mb-16">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               Support GCWiki
             </h2>
-            <p className="text-muted-foreground text-lg">Help us keep the wiki running and growing</p>
+            <p className="text-muted-foreground text-lg">
+              Help us keep the wiki running and growing
+            </p>
           </div>
           <Pricing />
         </div>

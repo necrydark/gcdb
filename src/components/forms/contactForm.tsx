@@ -32,7 +32,7 @@
 //     },
 //   });
 
-// 
+//
 
 //   const [isMounted, setIsMounted] = useState(false);
 //   useEffect(() => {
@@ -165,28 +165,34 @@
 import { sendEmail } from "@/src/actions/send-email";
 import { formSchema } from "@/src/schemas/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
+import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import { useToast } from "../ui/use-toast";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { useTransition } from "react";
 import { Textarea } from "../ui/textarea";
 
 export type ContactFormInputs = z.infer<typeof formSchema>;
 
 export function ContactForm() {
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       message: "",
-      subject: ""
-    }
-  })
+      subject: "",
+    },
+  });
   // const {
   //   register,
   //   handleSubmit,
@@ -196,29 +202,25 @@ export function ContactForm() {
 
   const [isPending, startTransition] = useTransition();
 
-
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     startTransition(() => {
       sendEmail(data).then((data) => {
-          if(data?.success) {
-            toast({
-              title: "Success",
-              description: "Email Sent!",
-              duration: 5000,
-              draggable: true,
-              variant: "purple"
-            });
-            form.reset();
-          } else {
-            toast({
-              variant: "purple",
-              title: "Error",
-              description: "Failed to send email",
-              duration: 5000,
-            });
-          }
-      })
-    })
+        if (data?.success) {
+          toast("Success", {
+            description: "Email Sent!",
+            duration: 5000,
+            className: "bg-purple-700 text-white",
+          });
+          form.reset();
+        } else {
+          toast("Error", {
+            description: "Failed to send email",
+            duration: 5000,
+            className: "bg-purple-700 text-white",
+          });
+        }
+      });
+    });
     // const result = await sendEmail(data);
 
     // if (result?.success) {
@@ -239,47 +241,47 @@ export function ContactForm() {
   };
 
   return (
-      <Form {...form}>
-          <form className="space-y-6 pt-6" onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="space-y-4">
-                <FormField
-                control={form.control}
-                name="email"
-                render={({ field}) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input 
-                      placeholder="johndoe@example.com"
-                      type="text"
-                      disabled={isPending}
-                      {...field}
+    <Form {...form}>
+      <form className="space-y-6 pt-6" onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="johndoe@example.com"
+                    type="text"
+                    disabled={isPending}
+                    {...field}
                     className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}/>
-                         <FormField
-                control={form.control}
-                name="subject"
-                render={({ field}) => (
-                  <FormItem>
-                    <FormLabel>Subject</FormLabel>
-                    <FormControl>
-                      <Input 
-                      placeholder="Your Subject"
-                      type="text"
-                      disabled={isPending}
-                      {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="subject"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Subject</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Your Subject"
+                    type="text"
+                    disabled={isPending}
+                    {...field}
                     className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}/>
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="message"
@@ -293,21 +295,23 @@ export function ContactForm() {
                     maxLength={255}
                     placeholder="Your Message"
                     className="border-purple-900 h-64 min-h-[80px] bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 resize-none focus-visible:ring-0"
-
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-                
-              </div>
-            <div className="flex justify-end">
-            <Button type="submit" disabled={isPending} className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-500 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-800 transition-all duration-250">
-          Submit <MoveRight className="ml-2 h-4 w-4" />
-        </Button>
-            </div>
-          </form>
-      </Form>
+        </div>
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-500 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-800 transition-all duration-250"
+          >
+            Submit <MoveRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }

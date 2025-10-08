@@ -19,13 +19,10 @@ export async function POST(request: NextRequest) {
           kind: 'HogQLQuery',
           query: `
             SELECT 
-              toDate(timestamp) AS date,
               count() AS pageviews
             FROM events
             WHERE 
               event = '$pageview'
-            GROUP BY date
-            ORDER BY date DESC
           `
         }
       }),

@@ -27,35 +27,33 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <html lang="en" className="dark">
-        <body className={inter.className}>
+      <body className={inter.className}>
         <SessionProvider session={session}>
           <Providers>
             <ContextProvider>
-            <PostHogProvider>
+              <PostHogProvider>
+                <div className="flex-1 flex-col flex">
+                  <div suppressHydrationWarning>
+                    <NextSSRPlugin
+                      /**
+                       * The `extractRouterConfig` will extract **only** the route configs
+                       * from the router to prevent additional information from being
+                       * leaked to the client. The data passed to the client is the same
+                       * as if you were to fetch `/api/uploadthing` directly.
+                       */
+                      routerConfig={extractRouterConfig(ourFileRouter)}
+                    />
 
-            <div className="flex-1 flex-col flex">
-              <div  suppressHydrationWarning>
-                <NextSSRPlugin
-                  /**
-                   * The `extractRouterConfig` will extract **only** the route configs
-                   * from the router to prevent additional information from being
-                   * leaked to the client. The data passed to the client is the same
-                   * as if you were to fetch `/api/uploadthing` directly.
-                  */
-                 routerConfig={extractRouterConfig(ourFileRouter)}
-                 />
-          
-                {children}
-              </div>
-              <Toaster closeButton />
-            </div>
-            </PostHogProvider>
-
-                 </ContextProvider>
-
+                    {children}
+                    <Toaster />
+                  </div>
+                  <Toaster closeButton />
+                </div>
+              </PostHogProvider>
+            </ContextProvider>
           </Providers>
-    </SessionProvider>
-        </body>
-      </html>
+        </SessionProvider>
+      </body>
+    </html>
   );
 }

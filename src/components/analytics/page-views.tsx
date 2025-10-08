@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent } from '../ui/card';
 
 export default function PageViews() {
-  const [pageviews, setPageviews] = useState<Array<{date: string, views: number}>>([]);
+  const [pageviews, setPageviews] = useState<Array<{views: number}>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
 
@@ -21,10 +21,11 @@ export default function PageViews() {
       if(response.length > 0) {
         setIsLoading(false);
       }
-      const formattedData = response.map(([date, views]: [string, number]) => ({
-        date,
-        views
+      const formattedData = response.map(([views]: [number]) => ({
+        views,
       }));
+
+      console.log(formattedData);
 
       setPageviews(formattedData);
     } catch (error: any) {
@@ -50,9 +51,9 @@ export default function PageViews() {
                 </div>
       <div>
       {Array.isArray(pageviews) && !isLoading ? (
-  pageviews.map((day) => (
-    <div key={day.date}>
-      <p className='text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mt-2'>2</p>
+  pageviews.map((day,idx) => (
+    <div key={idx}>
+      <p className='text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mt-2'>{day.views}</p>
     </div>
   ))
 ) :  (<div className='text-xl dark:text-white font-bold mt-2 flex items-center gap-2'>

@@ -51,9 +51,6 @@ export default function Pricing() {
         }
     }
 
-    console.log("Session Status:", status);
-    console.log("Session User:", session?.user);
-    console.log("Basic Price ID:", process.env.NEXT_PUBLIC_BASIC_PRICE_ID);
     // console.log("Premium Price ID:", process.env.NEXT_PUBLIC_PREMIUM_PRICE_ID);
 
   // const isPremium =
