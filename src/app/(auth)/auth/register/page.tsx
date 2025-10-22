@@ -1,11 +1,10 @@
 import RegisterForm from "@/src/components/auth/registerForm";
 import Link from "next/link";
-import React from "react";
 
 function RegisterPage() {
   return (
-    <div className="container mx-auto p-4 relative pt-[1rem] pb-20 flex-col items-center justify-center z-10 flex">
-      <div className="shadow-md bg-purple-400 dark:bg-purple-700 p-10 rounded-[5px]  border">
+    <div className="container mx-auto p-4 relative py-20 flex-col items-center justify-center z-10 flex">
+      <div className="shadow-md bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 p-10 rounded-[5px]  border">
         <h1 className="text-3xl text-center p-4">Register</h1>
         <RegisterForm />
         <div className="flex items-center my-8 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">

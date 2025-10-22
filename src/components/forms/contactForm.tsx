@@ -256,7 +256,7 @@ export function ContactForm() {
                     type="text"
                     disabled={isPending}
                     {...field}
-                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                    className="border-border/50  bg-background/80 glass-effect rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white   focus:border-purple-900 focus-visible:ring-0"
                   />
                 </FormControl>
                 <FormMessage />
@@ -275,7 +275,7 @@ export function ContactForm() {
                     type="text"
                     disabled={isPending}
                     {...field}
-                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                    className="border-border/50  bg-background/80 glass-effect rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white   focus:border-purple-900 focus-visible:ring-0"
                   />
                 </FormControl>
                 <FormMessage />
@@ -294,7 +294,7 @@ export function ContactForm() {
                     disabled={isPending}
                     maxLength={255}
                     placeholder="Your Message"
-                    className="border-purple-900 h-64 min-h-[80px] bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 resize-none focus-visible:ring-0"
+                    className="border-border/50  bg-background/80 glass-effect   h-64 min-h-[80px] rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white   focus:border-purple-900 resize-none focus-visible:ring-0"
                   />
                 </FormControl>
                 <FormMessage />
@@ -306,7 +306,7 @@ export function ContactForm() {
           <Button
             type="submit"
             disabled={isPending}
-            className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-500 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-800 transition-all duration-250"
+            className="text-white rounded-[5px] border-border/50 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700  border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250"
           >
             Submit <MoveRight className="ml-2 h-4 w-4" />
           </Button>

@@ -25,9 +25,9 @@ export const publicRoutes = [
   /^\/resources\/guides\/[a-zA-Z0-9_-]+$/,
   /^\/changelog\/[a-zA-Z0-9_-]+$/,
   "/changelog",
-  "/community"
-
-
+  "/community",
+  "/terms",
+  "/privacy",
 ];
 
 /**
