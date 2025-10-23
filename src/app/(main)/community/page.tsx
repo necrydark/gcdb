@@ -5,7 +5,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/src/components/ui/card";
 import { formatDate } from "@/src/lib/date-format";
 import { formatYoutubeDuration } from "@/src/lib/youtube-duration";
@@ -19,41 +19,41 @@ import {
   MessageSquare,
   Users,
   Youtube,
-  YoutubeIcon
+  YoutubeIcon,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export type YoutubeRes = {
   kind: string;
-  etag: string
+  etag: string;
   items: Video[];
-}
+};
 
 export type Video = {
   kind: string;
-  etag: string; 
-  id: string; 
+  etag: string;
+  id: string;
   snippet: {
-    title:string;
+    title: string;
     publishedAt: string;
     description: string;
 
     thumbnails: {
       high: {
         url: string;
-      }
-    }
-  }
-contentDetails:{
-  duration: string;
-  caption: string;
-}
-statistics: {
-  viewCount: string
-  commentCount: string;
-}
-}
+      };
+    };
+  };
+  contentDetails: {
+    duration: string;
+    caption: string;
+  };
+  statistics: {
+    viewCount: string;
+    commentCount: string;
+  };
+};
 
 export default async function CommunityPage() {
   const communityPlatforms = [
@@ -162,7 +162,7 @@ export default async function CommunityPage() {
             {communityPlatforms.map((platform) => (
               <Card
                 key={platform.id}
-                className="overflow-hidden rounded-[5px]  border-0 flex flex-col bg-purple-500 dark:bg-purple-900"
+                className="overflow-hidden rounded-[5px]  border-0 flex flex-col bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50"
               >
                 <CardHeader className={`${platform.colour} text-white`}>
                   <div className="flex items-center gap-3">
@@ -206,101 +206,116 @@ export default async function CommunityPage() {
       {/* Youtube videos */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-           <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-8">
             <div>
-            <h3 className="text-2xl font-bold">Latest Youtube Videos - Amazing</h3>
-              <p>
-                Check out the latest videos from Amazing on his channel.
-              </p>
+              <h3 className="text-2xl font-bold">
+                Latest Youtube Videos - Amazing
+              </h3>
+              <p>Check out the latest videos from Amazing on his channel.</p>
             </div>
-              <Button
-                variant="purple"
-                className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"
-                size="lg"
-                asChild
+            <Button
+              variant="purple"
+              className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 rounded-[5px]"
+              size="lg"
+              asChild
+            >
+              <Link
+                href="https://www.youtube.com/@AmazingGrandCross"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Link href="https://www.youtube.com/@AmazingGrandCross" target="_blank" rel="noopener noreferrer">
                 <YoutubeIcon className="mr-2 h-5 w-5" /> Visit Channel
-                </Link>
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {videos.map((video: Video) => (
-                <Card key={video.id} className="overflow-hidden  group-hover:shadow-lg transition-shadow bg-purple-500 dark:bg-purple-900 rounded-[5px] border-0">
-                  <div className="relative">
-                    <Image src={video.snippet.thumbnails.high.url || ""}
+              </Link>
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {videos.map((video: Video) => (
+              <Card
+                key={video.id}
+                className="overflow-hidden  group-hover:shadow-lg transition-shadow bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-[5px] border-0"
+              >
+                <div className="relative">
+                  <Image
+                    src={video.snippet.thumbnails.high.url || ""}
                     alt={video.snippet.title || "Youtube video thumbnail"}
                     width={320}
                     height={160}
-                    className="w-full h-[160px] object-cover group-hover:scale-105 transition-transform duration-300" />         
-                    <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded-[5px] text-xs font-medium">
+                    className="w-full h-[160px] object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded-[5px] text-xs font-medium">
                     {formatYoutubeDuration(video.contentDetails.duration)}
-                    </div>     
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                  </div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="bg-red-600 rounded-full p-3">
-                      <svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-6 h-6 text-white ml-1"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path d="M8 5v14l11-7z" />
                         </svg>
                       </div>
                     </div>
-                    
-                    </div>  
                   </div>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
-                      {video.snippet.title}
-                    </CardTitle>
-                    <div className="flex items-center gap-4 text-sm text-gray-300">
-                      <div className="flex items-center">
-                        <Eye className="h-4 w-4 mr-1" />
-                        {video.statistics.viewCount}
-                      </div>
-                      <div className="flex items-center">
-                        <Calendar className="h-4 w-4 mr-1" />
-                        {formatDate(video.snippet.publishedAt)}
-                      </div>
-                      <div className="flex items-center">
-                        <MessageCircle className="h-4 w-4 mr-1" />
-                        {video.statistics.commentCount}
-                      </div>
+                </div>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                    {video.snippet.title}
+                  </CardTitle>
+                  <div className="flex items-center gap-4 text-sm text-gray-300">
+                    <div className="flex items-center">
+                      <Eye className="h-4 w-4 mr-1" />
+                      {video.statistics.viewCount}
                     </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-sm text-gray-300 line-clamp-2 mb-4">
-                      {video.snippet.description}
-                    </p>
-                    <Button variant={"purple"} 
-  asChild
-className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 w-full rounded-[5px]"
->
-  <Link href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener noreferrer">
-  <ExternalLink className="mr-2 h-4 w-4" />
-  Watch Video
-  </Link>
-</Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    <div className="flex items-center">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      {formatDate(video.snippet.publishedAt)}
+                    </div>
+                    <div className="flex items-center">
+                      <MessageCircle className="h-4 w-4 mr-1" />
+                      {video.statistics.commentCount}
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-sm text-gray-300 line-clamp-2 mb-4">
+                    {video.snippet.description}
+                  </p>
+                  <Button
+                    variant={"purple"}
+                    asChild
+                    className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-300 w-full rounded-[5px]"
+                  >
+                    <Link
+                      href={`https://www.youtube.com/watch?v=${video.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      Watch Video
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* How To Contribute */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="mt-12 bg-purple-500 dark:bg-purple-900 shadow-lg rounded-md">
+          <div className="mt-12 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-lg rounded-md">
             <div className="p-8 max-w-2xl text-center mx-auto">
               <h3 className="text-2xl font-bold mb-2">How To Contribute</h3>
               <p className="mb-6">
-                There are many ways to help improve the website and community. Find the perfect fit for your skills and interests
+                There are many ways to help improve the website and community.
+                Find the perfect fit for your skills and interests
               </p>
-              <Button variant="purple" 
-                className=" mt-6"  asChild>
-                      <Link href={"/contribute"}>
-                      Learn More
-                      </Link>
-            </Button>
+              <Button variant="purple" className=" mt-6" asChild>
+                <Link href={"/contribute"}>Learn More</Link>
+              </Button>
             </div>
             {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {contributionAreas.map((area) => (
@@ -331,10 +346,9 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
         </div>
       </section>
 
-
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="mt-12 text-center bg-purple-900 shadow-lg rounded-md">
+          <div className="mt-12 text-center bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-lg rounded-md">
             <div className="p-8 max-w-2xl mx-auto">
               <Heart className="w-12 h-12 text-white mx-auto p-4" />
               <h3 className="text-2xl font-bold mb-2">Become a Team Member</h3>
@@ -358,9 +372,9 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
       </section>
 
       <section className="py-12 px-4">
-        <div className="container mx-auto">
+        <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold mb-8">Community Guidelines</h2>
-          <Card className="bg-purple-500 dark:bg-purple-900 rounded-[5px] shadow-lg border-0">
+          <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-[5px] shadow-lg border-0">
             <CardContent className="pt-6 space-y-4">
               <div className="prose prose-sm max-w-none dark:prose-invert  ">
                 <p className="lead">
@@ -393,8 +407,8 @@ className="dark:hover:bg-purple-950 hover:bg-purple-700 transition-all duration-
                 <h3>No Cheating or Exploits</h3>
                 <p>
                   Discussions about cheating, hacking, or exploiting game
-                  mechanics are prohibited. We support fair play and the game&apos;s
-                  terms of service.
+                  mechanics are prohibited. We support fair play and the
+                  game&apos;s terms of service.
                 </p>
 
                 <h3>Respect Privacy</h3>

@@ -23,6 +23,7 @@ export const publicRoutes = [
   "/resources/tierlist",
   "/resources/calculators",
   /^\/resources\/guides\/[a-zA-Z0-9_-]+$/,
+  "/resources/guides",
   /^\/changelog\/[a-zA-Z0-9_-]+$/,
   "/changelog",
   "/community",
