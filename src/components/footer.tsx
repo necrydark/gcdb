@@ -93,6 +93,12 @@ function Footer() {
                 YouTube
               </a>
             </li>
+            <li>
+              <a href="https://github.com/necrydark/gcdb" className=" text-gray-300  hover:underline hover:text-foreground">
+                GitHub
+              </a>
+            </li>
+
           </ul>
         </div>
       </div>

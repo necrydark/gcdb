@@ -29,6 +29,7 @@ const AdminPage = async () => {
   const foodCount = await getFoodCount();
   const ingredientCount = await getIngredientCount()
 
+
   return (
     <div className=" text-white px-10 container mx-auto py-20">
       <div className="flex justify-between items-center">
@@ -87,7 +88,7 @@ const AdminPage = async () => {
             <CardTitle className="font-bold">Total Characters</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{charCount}</p>
+            <p className="text-2xl font-bold">{charCount ?? 0}</p>
           </CardContent>
         </Card>
         <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
@@ -95,7 +96,7 @@ const AdminPage = async () => {
             <CardTitle className="font-bold">Total Relics</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{relicCount}</p>
+            <p className="text-2xl font-bold">{relicCount ?? 0}</p>
           </CardContent>
         </Card>
         <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg  border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
