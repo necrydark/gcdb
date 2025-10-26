@@ -286,7 +286,9 @@ const technicalFAQs = [
   {
     question: "Is there an API available for the database?",
     answer:
-      "Yes, we offer a REST API for developers who want to access our database programmatically. The API is currently in beta and available to approved partners. If you're interested in using our API, please fill out the API request form on our Developer page.",
+    "There is not a public API at the moment for the database. Future plans may include developing an API for developers to access the data programmatically. Stay tuned for updates on our website, join our Discord for announcements or view our roadmap about future features and updates we want to add.",
+    // answer:
+    //   "Yes, we offer a REST API for developers who want to access our database programmatically. The API is currently in beta and available to approved partners. If you're interested in using our API, please fill out the API request form on our Developer page.",
   },
   {
     question: "Why is the website slow to load sometimes?",
@@ -358,7 +360,8 @@ export default function FaqPage() {
             />
             <Input
               placeholder="Search questions..."
-              className="bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 glass-effect rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white  pl-10 h-12 text-lg  focus:border-purple-900 focus-visible:ring-0"
+              className="h-12 rounded-[5px] border-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full pl-10 pr-10 py-3 border-border/50 glass-effect ring-0 focus:ring-0 placeholder:text-white text-white focus:border-purple-700 focus-visible:ring-0 shadow-lg"
+
               // className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 pl-10 h-12 text-lg"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -377,7 +380,7 @@ export default function FaqPage() {
                 {searchQuery}
               </p>
               {totalFilteredLength === 0 && (
-                <div className="mt-4 p-4 bg-muted rounded-lg text-center">
+                <div className="mt-4 p-4 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg text-center">
                   <p className="mb-2 font-medium">No FAQs match your search</p>
                   <p className="text-gray-300">
                     Try different keywords or check our contact section below
@@ -498,7 +501,7 @@ export default function FaqPage() {
             Popular Questions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg border-0 flex flex-col flex-1">
+            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg  flex flex-col flex-1">
               <CardHeader>
                 <CardTitle>How do I add a new character?</CardTitle>
               </CardHeader>
@@ -522,7 +525,7 @@ export default function FaqPage() {
               </CardFooter>
             </Card>
 
-            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg border-0 flex flex-col flex-1">
+            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg  flex flex-col flex-1">
               <CardHeader>
                 <CardTitle>How do I track my collection?</CardTitle>
               </CardHeader>
@@ -545,7 +548,7 @@ export default function FaqPage() {
               </CardFooter>
             </Card>
 
-            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg border-0 flex flex-col flex-1">
+            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg  flex flex-col flex-1">
               <CardHeader>
                 <CardTitle>How do I report incorrect information?</CardTitle>
               </CardHeader>
@@ -583,7 +586,7 @@ export default function FaqPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg border-0">
+            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg ">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Mail className="mr-2 h-5 w-5" /> Email Support
@@ -607,7 +610,7 @@ export default function FaqPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg border-0">
+            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 rounded-lg ">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <MessageSquare className="mr-2 h-5 w-5" /> Community Discord

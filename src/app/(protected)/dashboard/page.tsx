@@ -38,9 +38,9 @@ const AdminPage = async () => {
         </h1>
       </div>
       <div className="grid gap-6 md:grid-cols-3">
-      <Card className="bg-purple-500 dark:bg-purple-900 border-0 rounded-lg shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+      <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl" >
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="text-primary dark:text-white">
         User Growth
         </CardTitle>
       </CardHeader>
@@ -83,7 +83,7 @@ const AdminPage = async () => {
             <p>{count}</p>
           </CardContent>
         </Card> */}
-        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
           <CardHeader>
             <CardTitle className="font-bold">Total Characters</CardTitle>
           </CardHeader>
@@ -91,7 +91,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{charCount ?? 0}</p>
           </CardContent>
         </Card>
-        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
           <CardHeader>
             <CardTitle className="font-bold">Total Relics</CardTitle>
           </CardHeader>
@@ -99,7 +99,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{relicCount ?? 0}</p>
           </CardContent>
         </Card>
-        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg  border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
           <CardHeader>
             <CardTitle className="font-bold">Total Materials</CardTitle>
           </CardHeader>
@@ -107,7 +107,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{materialCount}</p>
           </CardContent>
         </Card>
-        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
           <CardHeader>
             <CardTitle className="font-bold">Total Food</CardTitle>
           </CardHeader>
@@ -115,7 +115,7 @@ const AdminPage = async () => {
             <p className="text-2xl font-bold">{foodCount}</p>
           </CardContent>
         </Card>
-        <Card className="bg-purple-500 dark:bg-purple-900 rounded-lg border-0 shadow-[4px_4px_11px_2px_rgba(128,0,128,1)]">
+        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
           <CardHeader>
             <CardTitle className="font-bold">Total Ingredients</CardTitle>
           </CardHeader>

@@ -193,9 +193,23 @@ const isBasic =
           ))}
                 </div></>
           ): (
-              <div className="bg-purple-950 p-6">
+              <div className="bg-purple-950 p-6 flex flex-col justify-center items-center rounded-md">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-3xl mb-4 text-white text-center">You have not added a character to your collection.</h2>
-                <p className="text-center">Visit the character page to add a character to your collection!</p>
+                <Button variant={           colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined}>
+                <Link href={"/characters"}>
+                  Add A Character
+                </Link>
+               </Button>
                 </div>
           )}
         </div>
@@ -260,9 +274,23 @@ const isBasic =
           ))}
                 </div></>
           ): (
-              <div className="bg-purple-950 p-6">
+              <div className="bg-purple-950 p-6 flex flex-col justify-center items-center rounded-md">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-3xl mb-4 text-white text-center">You have not added a relic to your collection.</h2>
-                <p className="text-center">Visit the relic page to add a relic to your collection!</p>
+               <Button variant={           colour as
+                          | "red"
+                          | "green"
+                          | "blue"
+                          | "yellow"
+                          | "orange"
+                          | "pink"
+                          | "cyan"
+                          | "purple"
+                          | null
+                          | undefined}>
+                <Link href={"/relics"}>
+                  Add A Relic
+                </Link>
+               </Button>
                 </div>
           )}
         </div>
@@ -394,7 +422,7 @@ const isBasic =
            ))}
          </div></>
        ): (
-        <div className="w-full  bg-purple-950 p-6">
+        <div className="w-full  bg-purple-950 p-6 rounded-md">
             <p>  You have not commented on any characters</p>
           </div>
        )}
