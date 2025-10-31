@@ -1,123 +1,116 @@
 import { cn } from "@/lib/utils";
-import { ArrowRight, Box, Star } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { Star, Trophy } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-
-
-
 
 interface Achievement {
   name: string;
   description: string;
   imageUrl: string;
-
 }
 
 type Props = {
-    username?: string | string[];
-    imageUrl: string | undefined;
-    role?: string;
-    colour?: string;
-    boxCC?: string;
-    inGameRank?: string
-    achievements?: Achievement[];
-    isBasic?: boolean;
-    // isPremium? :boolean;
-}
+  username?: string | string[];
+  imageUrl: string | undefined;
+  role?: string;
+  boxCC?: string;
+  inGameRank?: string;
+  achievements?: Achievement[];
+  isBasic?: boolean;
+  ownProfile?: boolean;
+  // isPremium? :boolean;
+};
 
-export const UserBanner = ({username, imageUrl, role, colour, boxCC, inGameRank, achievements, isBasic}: Props) => {
-    return (
-        <div className={`dark:bg-${colour}-950 bg-${colour}-800  shadow-md  rounded-[5px] flex flex-col p-12`}>
-           <div className="flex md:flex-row flex-col justify-between md:gap-4 gap-8">
-           <div className="flex md:flex-row md:justify-start justify-center items-center flex-col gap-2">
-           <Avatar className={`w-24 h-24 border-3 border-white`}>
-            <AvatarImage  src={
-            imageUrl ??
-            "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
-          } />
+export const UserBanner = ({
+  username,
+  imageUrl,
+  role,
+  boxCC,
+  inGameRank,
+  achievements,
+  ownProfile,
+  isBasic,
+}: Props) => {
+  return (
+    <div
+      className={`bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl border rounded-[5px] flex flex-col p-12`}
+    >
+      <div className="flex md:flex-row flex-col justify-between md:gap-4 gap-8">
+        <div className="flex md:flex-row md:justify-start justify-center items-center flex-col gap-2">
+          <Avatar className={`w-24 h-24 border-3 border-white`}>
+            <AvatarImage
+              src={
+                imageUrl ??
+                "https://gcdatabase.com/images/characters/queen_diane/ssrr_portrait.png"
+              }
+            />
             <AvatarFallback>{username?.slice(0, 2)}</AvatarFallback>
           </Avatar>
-        <div className="flex flex-col md:items-start items-center gap-y-2">
-            <h2 className="text-3xl pr-[10px] font-extrabold text-center text-white tracking-tight">{username}</h2>
-            <div className="flex flex-row gap-2">
-            <Badge
-            className=" w-fit text-white "
-            variant={
-              colour as
-                | "red"
-                | "green"
-                | "blue"
-                | "yellow"
-                | "orange"
-                | "pink"
-                | "cyan"
-                | "purple"  
-                | null
-                | undefined
-            }
-          >
-            {role === "USER"
-              ? "User"
-              : role === "ADMIN"
-              ? "Admin"
-              : role === "OWNER"
-              ? "Owner"
-              : null}
-          </Badge>
-          <Badge
-            className={cn("w-fit text-white hidden",
-              isBasic && "bg-[#ae4e12]",
-              // isPremium && "bg-[#9b7ddf]"
-            )}
-         
-          >
-            {isBasic ? "SR" : ""}
-            {/* {isPremium ? "SSR" : ""} */}
-            
-          </Badge>
+          <div className="flex flex-col md:items-start items-center gap-y-2">
+            <div className="flex items-center gap-2">
+              <h2 className="text-3xl pr-[10px] font-extrabold text-center dark:text-white tracking-tight">
+                {username}
+              </h2>
+              <Badge
+                variant="default"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-fit shadow-md w-fit"
+              >
+                {role === "USER"
+                  ? "User"
+                  : role === "ADMIN"
+                    ? "Admin"
+                    : role === "OWNER"
+                      ? "Owner"
+                      : null}
+              </Badge>
+              {ownProfile && <Badge variant={"outline"}>Your Profile</Badge>}
+              <Badge
+                className={cn(
+                  "w-fit text-white hidden",
+                  isBasic && "bg-[#ae4e12]"
+                  // isPremium && "bg-[#9b7ddf]"
+                )}
+              >
+                {isBasic ? "SR" : ""}
+                {/* {isPremium ? "SSR" : ""} */}
+              </Badge>
             </div>
-          <div className="flex flex-row gap-4 ">
-             <TooltipProvider>
-             {boxCC && (
-                  <Tooltip>
-                    <TooltipTrigger
-                    className="text-white"
-                    asChild>
-                    <div className="flex gap-1 items-center">
-                    <Box className="w-4 h-4" />
-                    <p>{boxCC}</p>
+            <span className="ml-1 text-xs text-muted-foreground">
+              @{username}
+            </span>
+            <div className="flex flex-row gap-2"></div>
+            <div className="flex flex-row items-center gap-4 ">
+              {boxCC && (
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-lg bg-chart-1/10">
+                    <Trophy className="h-5 w-5 text-chart-1" />
                   </div>
-                    </TooltipTrigger>
-                    <TooltipContent className={`bg-${colour}-400 dark:bg-${colour}-700 text-white`}>
-                      <p>{username}&apos;s Box CC</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Box CC</p>
+                    <p className="text-lg font-bold text-foreground">
+                      {boxCC.toLocaleString()}
+                    </p>
+                  </div>
+                </div>
               )}
               {inGameRank && (
-                <Tooltip>
-                  <TooltipTrigger
-                    className="text-white"
-                  
-                  asChild>
-                  <div className="flex gap-1 items-center">
-                   <Star className="w-4 h-4" />
-                  <p>{inGameRank}</p>
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-lg bg-chart-4/10">
+                    <Star className="h-5 w-5 text-chart-4" />
                   </div>
-                  </TooltipTrigger>
-                  <TooltipContent className={`bg-${colour}-400 dark:bg-${colour}-700 text-white`}>
-                    <p>{username}&apos;s ingame rank</p>
-                  </TooltipContent>
-                </Tooltip>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Rank</p>
+                    <p className="text-lg font-bold text-foreground">
+                      {inGameRank}
+                    </p>
+                  </div>
+                </div>
               )}
-             </TooltipProvider>
+            </div>
           </div>
         </div>
-           </div>
-           {/* Achievements */}
-           <div>
+        {/* Achievements */}
+        {/* <div>
               {achievements && achievements.length > 0 && (
                 <>
                   <div className="flex flex-row md:justify-between md:gap-4 justify-center gap-[4rem]  items-center">
@@ -155,8 +148,8 @@ export const UserBanner = ({username, imageUrl, role, colour, boxCC, inGameRank,
                   </div>
                 </>
               )}
-           </div>
-           </div>
-        </div>
-    )
-}
+           </div> */}
+      </div>
+    </div>
+  );
+};

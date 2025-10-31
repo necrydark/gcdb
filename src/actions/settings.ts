@@ -1,11 +1,11 @@
 "use server";
 
 import { getUserByEmail, getUserById } from "@/data/user";
+import { currentUser } from "@/src/utils/auth";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import * as z from "zod";
 import { unstable_update } from "../auth";
-import { currentUser } from "@/src/utils/auth";
 import db from "../lib/db";
 import { sendVerificationEmail } from "../lib/mail";
 import { generateVerificationToken } from "../lib/token";
@@ -26,7 +26,9 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
       return { error: "Email already in use" };
     }
 
-    const verificationToken = await generateVerificationToken(values.email  as string);
+    const verificationToken = await generateVerificationToken(
+      values.email as string
+    );
     await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token
@@ -35,7 +37,10 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
   }
 
   if (values.password && values.newPassword) {
-    const passwordMatch = bcrypt.compare(values.password, dbUser?.password as string);
+    const passwordMatch = bcrypt.compare(
+      values.password,
+      dbUser?.password as string
+    );
 
     if (!passwordMatch) {
       return { error: "Incorrect Password" };
@@ -89,10 +94,8 @@ export const settings = async (values: z.infer<typeof settingsSchema>) => {
       isTwoFactorEnabled: updatedUser.isTwoFactorEnabled as boolean,
       username: updatedUser.username as string,
       role: updatedUser.role,
-      profileColor: updatedUser.profileColour,
       boxCC: updatedUser.boxCC as string,
       ingameRank: updatedUser.ingameRank as string,
-      
     },
   });
 

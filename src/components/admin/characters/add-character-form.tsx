@@ -47,7 +47,7 @@ import {
   Race,
   Rarity,
   StatLevel,
-  UniqueDisplayInfo
+  UniqueDisplayInfo,
 } from "@prisma/client";
 import { toast } from "sonner";
 
@@ -59,10 +59,7 @@ import {
 } from "@/src/components/ui/popover";
 import { Separator } from "@/src/components/ui/separator";
 import { format } from "date-fns";
-import {
-  ArrowLeft,
-  CalendarIcon, Plus, Trash
-} from "lucide-react";
+import { ArrowLeft, CalendarIcon, Plus, Trash } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -112,11 +109,11 @@ function AddCharacterForm({
   const [isSlugGenerating, setIsSlugGenerating] = useState(false);
 
   const raceOptions = Object.values(Race).map((race) => ({
-    value: race, // The actual enum value (e.g., RaceType.Demon)
+    value: race,
     label: race
       .replace(/([A-Z])/g, " $1")
       .trim()
-      .replace(" ", " / "), // Pretty label (e.g., "HumanGiant" -> "Human / Giant")
+      .replace(" ", " / "),
   }));
 
   const GiftOptions = Gifts?.map((gift) => ({
@@ -200,24 +197,25 @@ function AddCharacterForm({
 
   const changeCombinedUltimate = () => {
     setHasCombinedUltimate(!hasCombinedUltimate);
-  }
+  };
 
   const changeGrace = () => {
     setHasGrace(!hasGrace);
-  }
-
-
+  };
 
   const BonusTypeOptions = Object.values(BonusType).map((type) => {
     let label = type
       .replace(/_/g, " ") // Replace underscores with spaces
       .toLowerCase(); // Convert the entire string to lowercase
-  
+
     // Capitalize the first letter of each word
-    label = label.split(" ").map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(" ");
-  
+    label = label
+      .split(" ")
+      .map((word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(" ");
+
     return {
       value: type,
       //TODO Add image to label using switch case?
@@ -225,18 +223,23 @@ function AddCharacterForm({
     };
   });
 
-  const uniqueDisplayOptions = Object.values(UniqueDisplayInfo).map((unique) => {
-    let label = unique.replace(/_/g, " ").toLowerCase();
+  const uniqueDisplayOptions = Object.values(UniqueDisplayInfo).map(
+    (unique) => {
+      let label = unique.replace(/_/g, " ").toLowerCase();
 
-    label = label.split(" ").map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1)
-    }).join(" ")
+      label = label
+        .split(" ")
+        .map((word) => {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(" ");
 
-    return {
-      value: unique,
-      label: label
+      return {
+        value: unique,
+        label: label,
+      };
     }
-  })
+  );
 
   const form = useForm<z.infer<typeof characterSchema>>({
     resolver: zodResolver(characterSchema),
@@ -326,21 +329,21 @@ function AddCharacterForm({
         jpName: undefined,
         imageUrl: undefined,
         description: undefined,
-        uniqueDisplay: [UniqueDisplayInfo.All_Content]
+        uniqueDisplay: [UniqueDisplayInfo.All_Content],
       },
       characterTalent: {
         description: undefined,
         imageUrl: undefined,
         jpName: undefined,
         name: undefined,
-        uniqueDisplay: [UniqueDisplayInfo.All_Content]
+        uniqueDisplay: [UniqueDisplayInfo.All_Content],
       },
       characterGrace: {
         description: undefined,
         imageUrl: undefined,
         jpName: undefined,
         name: undefined,
-        uniqueDisplay: [UniqueDisplayInfo.All_Content]
+        uniqueDisplay: [UniqueDisplayInfo.All_Content],
       },
       characterPassive: {
         description: undefined,
@@ -348,9 +351,9 @@ function AddCharacterForm({
         jpName: undefined,
         name: undefined,
         ccNeeded: undefined,
-        uniqueDisplay: [UniqueDisplayInfo.All_Content]
+        uniqueDisplay: [UniqueDisplayInfo.All_Content],
       },
-    
+
       characterAssociations: [
         {
           associatedCharacterId: "",
@@ -374,7 +377,6 @@ function AddCharacterForm({
   const currentCrossoverStatus = form.watch("crossover");
   const isCrossoverCharacter =
     currentCrossoverStatus === CrossoverType.Crossover;
-
 
   const { fields: friendshipRewardFields } = useFieldArray({
     control: form.control,
@@ -412,8 +414,6 @@ function AddCharacterForm({
     form,
     friendshipRewardFields.length,
   ]);
-
-
 
   const {
     fields: associationFields,
@@ -461,21 +461,18 @@ function AddCharacterForm({
     }
   };
 
-
   const handleRemoveStat = (idx: number) => {
     statRemove(idx);
   };
 
   const handleAddAssociation = () => {
-    appendAssociation ({
+    appendAssociation({
       bonusType: BonusType.ATTACK_FLAT,
       bonusValue: 0,
       bonusUnit: "",
-      associatedCharacterId: ""
-    })
-  }
-
-
+      associatedCharacterId: "",
+    });
+  };
 
   const currentMainCharacterId = form.watch("id");
   const currentAssociatedCharacters = form.watch("characterAssociations");
@@ -589,9 +586,9 @@ function AddCharacterForm({
         <div className="flex justify-between flex-row items-center pb-5 gap-5">
           <div className="flex gap-2 items-center">
             <Button
-              variant="outline"
+              variant="gradient"
               size="icon"
-              className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
+              className=" border-[2px]  hover:text-white  transition-all duration-250"
               asChild
             >
               <Link href={"/dashboard/characters"}>
@@ -609,7 +606,7 @@ function AddCharacterForm({
         </div>
       </div>
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid md:grid-cols-2 grid-cols-1 mb-8 h-full">
+        <TabsList className="grid md:grid-cols-7 grid-cols-1 mb-8 h-full">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="details">Character Details</TabsTrigger>
           <TabsTrigger value="stats">Stats</TabsTrigger>
@@ -618,13 +615,13 @@ function AddCharacterForm({
           <TabsTrigger value="friendship" disabled={isCrossoverCharacter}>
             Friendship
           </TabsTrigger>
-          <TabsTrigger value="association" className="col-span-2">Associations</TabsTrigger>
+          <TabsTrigger value="association">Associations</TabsTrigger>
         </TabsList>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <TabsContent value="basic" className="space-y-6">
-              <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+              <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
                 <CardHeader>
                   <CardTitle>Basic Information</CardTitle>
                   <CardDescription>
@@ -645,7 +642,7 @@ function AddCharacterForm({
                               placeholder="Character name"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -664,7 +661,7 @@ function AddCharacterForm({
                               placeholder="Japanese name"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -685,7 +682,8 @@ function AddCharacterForm({
                               placeholder="Character tag"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                              // rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950
                             />
                           </FormControl>
                           <FormMessage />
@@ -704,7 +702,7 @@ function AddCharacterForm({
                               placeholder="Japanese tag"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -737,7 +735,7 @@ function AddCharacterForm({
                               placeholder="character-slug"
                               type="text"
                               disabled={isPending || isSlugGenerating}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormDescription>
@@ -760,7 +758,7 @@ function AddCharacterForm({
                               placeholder="https://example.com/image.jpg"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -827,39 +825,39 @@ function AddCharacterForm({
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0">
+                              <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950">
                                 <SelectValue placeholder="Select the units attribute." />
                               </SelectTrigger>
                             </FormControl>
                             <FormMessage />
 
-                            <SelectContent className="bg-purple-600 rounded-[5px]  text-white dark:bg-purple-800">
+                            <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Attribute.HP}
                               >
                                 HP
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Attribute.Speed}
                               >
                                 Speed
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Attribute.Strength}
                               >
                                 Strength
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Attribute.Dark}
                               >
                                 Dark
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Attribute.Light}
                               >
                                 Light
@@ -881,39 +879,39 @@ function AddCharacterForm({
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0">
+                              <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950">
                                 <SelectValue placeholder="Select the units rarity." />
                               </SelectTrigger>
                             </FormControl>
                             <FormMessage />
 
-                            <SelectContent className="bg-purple-600 rounded-[5px]  text-white dark:bg-purple-800">
+                            <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Rarity.R}
                               >
                                 R
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Rarity.SR}
                               >
                                 SR
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Rarity.SSR}
                               >
                                 SSR
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Rarity.UR}
                               >
                                 UR
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Rarity.LR}
                               >
                                 LR
@@ -924,7 +922,7 @@ function AddCharacterForm({
                       )}
                     />
                   </div>
-                  <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
+                  <div className="grid md:grid-cols-7 grid-cols-1 gap-6">
                     <FormField
                       control={form.control}
                       name="game"
@@ -937,76 +935,76 @@ function AddCharacterForm({
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="border-purple-900 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 ">
+                              <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 ">
                                 <SelectValue placeholder="Select the units game." />
                               </SelectTrigger>
                             </FormControl>
                             <FormMessage />
 
-                            <SelectContent className="bg-purple-600 rounded-[5px] text-white dark:bg-purple-800">
+                            <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.Base}
                               >
                                 Base
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.AOT}
                               >
                                 Attack On Titan
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.KOF}
                               >
                                 King Of Fighters
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.Mave}
                               >
                                 MAVE:
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.Mushoku}
                               >
                                 Mushoku Tensei
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.Overlord}
                               >
                                 Overlord
                               </SelectItem>
 
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.ReZero}
                               >
                                 Re:Zero
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.ShieldHero}
                               >
                                 Shield Hero
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.StrangerThings}
                               >
                                 Stranger Things
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.TOG}
                               >
                                 Tower Of God
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Game.Tensura}
                               >
                                 Tensura
@@ -1028,21 +1026,21 @@ function AddCharacterForm({
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0">
+                              <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950">
                                 <SelectValue placeholder="Select if the unit is a crossover or not." />
                               </SelectTrigger>
                             </FormControl>
                             <FormMessage />
 
-                            <SelectContent className="bg-purple-600 rounded-[5px]  text-white dark:bg-purple-800">
+                            <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={CrossoverType.NotCrossover}
                               >
                                 Not Crossover
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={CrossoverType.Crossover}
                               >
                                 Crossover
@@ -1064,33 +1062,33 @@ function AddCharacterForm({
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0">
+                              <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950">
                                 <SelectValue placeholder="Select the units event." />
                               </SelectTrigger>
                             </FormControl>
                             <FormMessage />
 
-                            <SelectContent className="bg-purple-600 rounded-[5px]  text-white dark:bg-purple-800">
+                            <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={GameEvent.None}
                               >
                                 None
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={GameEvent.Summer}
                               >
                                 Summer
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={GameEvent.Christmas}
                               >
                                 Christmas
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={GameEvent.Valentine}
                               >
                                 Valentine
@@ -1110,7 +1108,7 @@ function AddCharacterForm({
                           <FormLabel>Character Release Date</FormLabel>
                           <Popover>
                             <PopoverTrigger
-                              className="bg-purple-600 dark:bg-purple-800 border-purple-900 border-[2px] w-full rounded-[5px]"
+                              className="bg-background border-border border-[2px] w-full rounded-[5px]"
                               asChild
                             >
                               <Button
@@ -1137,7 +1135,7 @@ function AddCharacterForm({
                                 mode="single"
                                 selected={field.value}
                                 onSelect={field.onChange}
-                                className="bg-purple-600 dark:bg-purple-800 rounded-[12px]  text-white"
+                                className="bg-background border-border rounded-[12px]  text-white"
                                 disabled={(releaseDate: Date) =>
                                   releaseDate > new Date() ||
                                   releaseDate < new Date("1900-01-01") ||
@@ -1156,7 +1154,7 @@ function AddCharacterForm({
               </Card>
             </TabsContent>
             <TabsContent value="details" className="space-y-6">
-              <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+              <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
                 <CardHeader>
                   <CardTitle>Character Details</CardTitle>
                   <CardDescription>
@@ -1177,7 +1175,7 @@ function AddCharacterForm({
                               placeholder="A, B, AB, O, etc."
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1196,7 +1194,7 @@ function AddCharacterForm({
                               placeholder="Character age"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1217,7 +1215,7 @@ function AddCharacterForm({
                               placeholder="January 1"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1236,7 +1234,7 @@ function AddCharacterForm({
                               placeholder="175cm"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1257,7 +1255,7 @@ function AddCharacterForm({
                               placeholder="70kg"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1276,7 +1274,7 @@ function AddCharacterForm({
                               placeholder="Character location"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1297,27 +1295,27 @@ function AddCharacterForm({
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0">
+                              <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950">
                                 <SelectValue placeholder="Select the units gender." />
                               </SelectTrigger>
                             </FormControl>
                             <FormMessage />
 
-                            <SelectContent className="bg-purple-600 rounded-[5px]  text-white dark:bg-purple-800">
+                            <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Gender.Male}
                               >
                                 Male
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Gender.Female}
                               >
                                 Female
                               </SelectItem>
                               <SelectItem
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                 value={Gender.Unknown}
                               >
                                 Unknown
@@ -1339,7 +1337,7 @@ function AddCharacterForm({
                               placeholder="Voice actor"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1347,7 +1345,7 @@ function AddCharacterForm({
                       )}
                     />
                   </div>
-                  <Separator className="my-6 bg-purple-900" />
+                  <Separator className="my-6 bg-background" />
                   <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
                     <FormField
                       control={form.control}
@@ -1361,7 +1359,7 @@ function AddCharacterForm({
                               placeholder="Passive Name"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1380,7 +1378,7 @@ function AddCharacterForm({
                               placeholder="Japanese Passive Name"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1401,7 +1399,7 @@ function AddCharacterForm({
                               placeholder="https://example.com/example.jpg"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1420,7 +1418,7 @@ function AddCharacterForm({
                               placeholder="CC Needed to unlock"
                               type="text"
                               disabled={isPending}
-                              className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                              className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 "
                             />
                           </FormControl>
                           <FormMessage />
@@ -1432,7 +1430,9 @@ function AddCharacterForm({
                       name="characterPassive.uniqueDisplay"
                       render={() => (
                         <FormItem>
-                          <FormLabel className="text-white">Passive Unique Display</FormLabel>
+                          <FormLabel className="text-white">
+                            Passive Unique Display
+                          </FormLabel>
                           <FormField
                             control={form.control}
                             name="characterPassive.uniqueDisplay"
@@ -1446,7 +1446,10 @@ function AddCharacterForm({
                                       options={uniqueDisplayOptions}
                                       isMulti
                                       isSearchable={isSearchable}
-                                      isDisabled={isPending}
+                                      isDisabled={
+                                        isPending ||
+                                        !uniqueDisplayOptions.length
+                                      }
                                       onChange={(selectedOptions: any) => {
                                         const newValues = selectedOptions
                                           ? selectedOptions.map(
@@ -1458,10 +1461,18 @@ function AddCharacterForm({
                                       onBlur={field.onBlur}
                                       value={
                                         field.value
-                                          ? uniqueDisplayOptions.filter((option) =>
-                                              field.value?.includes(option.value)
+                                          ? uniqueDisplayOptions.filter(
+                                              (option) =>
+                                                field.value?.includes(
+                                                  option.value
+                                                )
                                             )
                                           : []
+                                      }
+                                      placeholder={
+                                        (uniqueDisplayOptions?.length ?? 0) >= 1
+                                          ? "Select options!"
+                                          : "No options Available!"
                                       }
                                     />
                                   </FormControl>
@@ -1473,7 +1484,6 @@ function AddCharacterForm({
                         </FormItem>
                       )}
                     />
-                          
                   </div>
                   <FormField
                     control={form.control}
@@ -1486,7 +1496,8 @@ function AddCharacterForm({
                             {...field}
                             placeholder="Description of the passive skill."
                             disabled={isPending}
-                            className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                            className=" resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                           />
                         </FormControl>
                       </FormItem>
@@ -1496,7 +1507,7 @@ function AddCharacterForm({
               </Card>
             </TabsContent>
             <TabsContent value="stats" className="space-y-6">
-              <Card className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
+              <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
                 <CardHeader>
                   <CardTitle>Charater Stats</CardTitle>
                   <CardDescription>Enter the characters stats.</CardDescription>
@@ -1528,26 +1539,26 @@ function AddCharacterForm({
                               defaultValue={field.value}
                             >
                               <FormControl>
-                                <SelectTrigger className="border-purple-900 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 ">
+                                <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950">
                                   <SelectValue placeholder="Select a level" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent className="bg-purple-600 rounded-[5px] text-white dark:bg-purple-800">
+                              <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                                 {/* Map over your StatLevel enum */}
                                 <SelectItem
-                                  className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                  className="hover:bg-gradient-to-r hover:from-purple-700 hover:to-blue-700  rounded-[5px]"
                                   value={StatLevel.LEVEL_1}
                                 >
                                   Level 1
                                 </SelectItem>
                                 <SelectItem
-                                  className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                  className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                   value={StatLevel.LEVEL_100}
                                 >
                                   Level 100
                                 </SelectItem>
                                 <SelectItem
-                                  className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                  className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                   value={StatLevel.TRUE_AWAKENING}
                                 >
                                   True Awakening
@@ -1568,7 +1579,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   {...field}
                                   onChange={(event) =>
                                     field.onChange(
@@ -1591,7 +1602,7 @@ function AddCharacterForm({
                                 <Input
                                   type="number"
                                   {...field}
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   onChange={(event) =>
                                     field.onChange(
                                       parseInt(event.target.value, 10)
@@ -1615,7 +1626,7 @@ function AddCharacterForm({
                                 <Input
                                   type="number"
                                   {...field}
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   onChange={(event) =>
                                     field.onChange(
                                       parseInt(event.target.value, 10)
@@ -1636,7 +1647,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   {...field}
                                   onChange={(event) =>
                                     field.onChange(
@@ -1660,7 +1671,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1683,7 +1694,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1708,7 +1719,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1731,7 +1742,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1756,7 +1767,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1779,7 +1790,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1804,7 +1815,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1827,7 +1838,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1852,7 +1863,7 @@ function AddCharacterForm({
                               <FormControl>
                                 <Input
                                   type="number"
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                   step="0.01"
                                   {...field}
                                   onChange={(event) =>
@@ -1872,7 +1883,8 @@ function AddCharacterForm({
                   <div className="flex justify-end">
                     <Button
                       type={"button"}
-                      className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+                      variant={"gradient"}
+                      className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250"
                       onClick={handleAddStat}
                       disabled={isPending || statFields.length >= max_stats}
                     >
@@ -1883,7 +1895,7 @@ function AddCharacterForm({
               </Card>
             </TabsContent>
             <TabsContent value="skills" className="space-y-6">
-              <Card className="container rounded-[5px] mx-auto p-10 bg-purple-400 dark:bg-purple-700 border-0">
+              <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
                 <CardHeader>
                   <CardTitle>Charater Skills</CardTitle>
                   <CardDescription>
@@ -1908,7 +1920,7 @@ function AddCharacterForm({
                                   {...field}
                                   placeholder="Skill Name"
                                   disabled={isPending}
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 />
                               </FormControl>
                             </FormItem>
@@ -1925,7 +1937,7 @@ function AddCharacterForm({
                                   {...field}
                                   placeholder="Japanese Skill Name"
                                   disabled={isPending}
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 />
                               </FormControl>
                             </FormItem>
@@ -1942,7 +1954,7 @@ function AddCharacterForm({
                                   {...field}
                                   placeholder="Image URL"
                                   disabled={isPending}
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 />
                               </FormControl>
                             </FormItem>
@@ -1969,7 +1981,7 @@ function AddCharacterForm({
                                       type="number"
                                       placeholder="Rank"
                                       disabled
-                                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                      className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                       value={rankIndex + 1}
                                     />
                                   </FormControl>
@@ -1988,7 +2000,7 @@ function AddCharacterForm({
                                       {...field}
                                       placeholder="Rank Type"
                                       disabled={isPending}
-                                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                      className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     />
                                   </FormControl>
                                 </FormItem>
@@ -2005,7 +2017,8 @@ function AddCharacterForm({
                                       {...field}
                                       placeholder="Rank Description"
                                       disabled={isPending}
-                                      className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                      className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 "
                                     />
                                   </FormControl>
                                 </FormItem>
@@ -2016,7 +2029,7 @@ function AddCharacterForm({
                       </div>
                     </div>
                   ))}
-                  <Separator className="my-6 bg-purple-900" />
+                  <Separator className="my-6 bg-background" />
                   <div className="space-y-4">
                     <h4 className="text-3xl leading-tight font-extrabold py-3">
                       Ultimate
@@ -2033,7 +2046,7 @@ function AddCharacterForm({
                                 {...field}
                                 placeholder="Ultimate Name"
                                 type="text"
-                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -2051,7 +2064,7 @@ function AddCharacterForm({
                                 {...field}
                                 placeholder="Ultimate JP Name"
                                 type="text"
-                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -2069,7 +2082,7 @@ function AddCharacterForm({
                                 {...field}
                                 placeholder="Ultimate Image URL"
                                 type="text"
-                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -2087,7 +2100,8 @@ function AddCharacterForm({
                             <FormControl>
                               <Textarea
                                 placeholder="Ultimate Description"
-                                className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 "
                                 {...field}
                                 disabled={isPending}
                               />
@@ -2104,7 +2118,8 @@ function AddCharacterForm({
                             <FormControl>
                               <Textarea
                                 placeholder="Extra Info"
-                                className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 {...field}
                                 disabled={isPending}
                               />
@@ -2114,7 +2129,7 @@ function AddCharacterForm({
                       />
                     </div>
                   </div>
-                  <Separator className="my-6 bg-purple-900" />
+                  <Separator className="my-6 bg-background" />
 
                   <div className="space-y-4">
                     <div className="flex flex-row justify-between items-center">
@@ -2125,7 +2140,6 @@ function AddCharacterForm({
                         disabled={isPending}
                         checked={hasCombinedUltimate}
                         onCheckedChange={changeCombinedUltimate}
-                        className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900"
                       />
                     </div>
                     {hasCombinedUltimate === true ? (
@@ -2142,7 +2156,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Combined Ultimate Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2160,7 +2174,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Combined Ultimate JP Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2172,13 +2186,15 @@ function AddCharacterForm({
                             name="combinedCharacterUltimate.imageUrl"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Combined Ultimate Image URL</FormLabel>
+                                <FormLabel>
+                                  Combined Ultimate Image URL
+                                </FormLabel>
                                 <FormControl>
                                   <Input
                                     {...field}
                                     placeholder="Combined Ultimate Image URL"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2187,46 +2203,50 @@ function AddCharacterForm({
                           />
                         </div>
 
-                   <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-                   <FormField
-                          control={form.control}
-                          name="combinedCharacterUltimate.description"
-                          render={({ field }) => (
-                            <FormItem className="mt-2">
-                              <FormLabel>Combined Ultimate Description</FormLabel>
-                              <FormControl>
-                                <Textarea
-                                  placeholder="Combined Ultimate Description"
-                                  className="border-purple-900 resize-none mt-4 h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
-                                  {...field}
-                                  disabled={isPending}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                                  <FormField
-                        control={form.control}
-                        name="combinedCharacterUltimate.extraInfo"
-                        render={({ field }) => (
-                          <FormItem className="mt-2">
-                            <FormLabel>Extra Info</FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder="Extra Info"
-                                className="border-purple-900 resize-none h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
-                                {...field}
-                                disabled={isPending}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                   </div>
+                        <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                          <FormField
+                            control={form.control}
+                            name="combinedCharacterUltimate.description"
+                            render={({ field }) => (
+                              <FormItem className="mt-2">
+                                <FormLabel>
+                                  Combined Ultimate Description
+                                </FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                    placeholder="Combined Ultimate Description"
+                                    className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                                    {...field}
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="combinedCharacterUltimate.extraInfo"
+                            render={({ field }) => (
+                              <FormItem className="mt-2">
+                                <FormLabel>Extra Info</FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                    placeholder="Extra Info"
+                                    className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 "
+                                    {...field}
+                                    disabled={isPending}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </>
                     ) : null}
                   </div>
-                  <Separator className="my-6 bg-purple-900" />
+                  <Separator className="my-6 bg-background" />
                   <div className="space-y-4">
                     <div className="flex flex-row justify-between items-center">
                       <h4 className="text-3xl leading-tight font-extrabold py-3">
@@ -2236,7 +2256,6 @@ function AddCharacterForm({
                         disabled={isPending}
                         checked={hasUnity}
                         onCheckedChange={changeUnity}
-                        className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900"
                       />
                     </div>
                     {hasUnity === true ? (
@@ -2253,7 +2272,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Unity Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2271,7 +2290,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Unity JP Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2289,59 +2308,76 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Unity Image URL"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
                               </FormItem>
                             )}
                           />
-                               <FormField
-                      control={form.control}
-                      name="characterUnity.uniqueDisplay"
-                      render={() => (
-                        <FormItem>
-                          <FormLabel className="text-white">Unity Unique Display</FormLabel>
                           <FormField
                             control={form.control}
                             name="characterUnity.uniqueDisplay"
-                            render={({ field }) => {
-                              return (
-                                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                  <FormControl>
-                                    <ReactSelect
-                                      {...field} // Spread field props
-                                      className="text-black w-full"
-                                      options={uniqueDisplayOptions}
-                                      isMulti
-                                      isSearchable={isSearchable}
-                                      isDisabled={isPending}
-                                      onChange={(selectedOptions: any) => {
-                                        const newValues = selectedOptions
-                                          ? selectedOptions.map(
-                                              (option: any) => option.value
-                                            )
-                                          : [];
-                                        field.onChange(newValues);
-                                      }}
-                                      onBlur={field.onBlur}
-                                      value={
-                                        field.value
-                                          ? uniqueDisplayOptions.filter((option) =>
-                                              field.value?.includes(option.value)
-                                            )
-                                          : []
-                                      }
-                                    />
-                                  </FormControl>
-                                </FormItem>
-                              );
-                            }}
+                            render={() => (
+                              <FormItem>
+                                <FormLabel className="text-white">
+                                  Unity Unique Display
+                                </FormLabel>
+                                <FormField
+                                  control={form.control}
+                                  name="characterUnity.uniqueDisplay"
+                                  render={({ field }) => {
+                                    return (
+                                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                        <FormControl>
+                                          <ReactSelect
+                                            {...field} // Spread field props
+                                            className="text-black w-full"
+                                            options={uniqueDisplayOptions}
+                                            isMulti
+                                            isSearchable={isSearchable}
+                                            isDisabled={
+                                              isPending ||
+                                              !uniqueDisplayOptions.length
+                                            }
+                                            onChange={(
+                                              selectedOptions: any
+                                            ) => {
+                                              const newValues = selectedOptions
+                                                ? selectedOptions.map(
+                                                    (option: any) =>
+                                                      option.value
+                                                  )
+                                                : [];
+                                              field.onChange(newValues);
+                                            }}
+                                            onBlur={field.onBlur}
+                                            value={
+                                              field.value
+                                                ? uniqueDisplayOptions.filter(
+                                                    (option) =>
+                                                      field.value?.includes(
+                                                        option.value
+                                                      )
+                                                  )
+                                                : []
+                                            }
+                                            placeholder={
+                                              (uniqueDisplayOptions?.length ??
+                                                0) >= 1
+                                                ? "Select options!"
+                                                : "No options Available!"
+                                            }
+                                          />
+                                        </FormControl>
+                                      </FormItem>
+                                    );
+                                  }}
+                                />
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
                         </div>
 
                         <FormField
@@ -2353,7 +2389,8 @@ function AddCharacterForm({
                               <FormControl>
                                 <Textarea
                                   placeholder="Unity Description"
-                                  className="border-purple-900 resize-none mt-4 h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                  className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 "
                                   {...field}
                                   disabled={isPending}
                                 />
@@ -2364,7 +2401,7 @@ function AddCharacterForm({
                       </>
                     ) : null}
                   </div>
-                  <Separator className="my-6 bg-purple-900" />
+                  <Separator className="my-6 bg-background" />
                   <div className="space-y-4">
                     <div className="flex flex-row justify-between items-center">
                       <h4 className="text-3xl leading-tight font-extrabold py-3">
@@ -2374,7 +2411,6 @@ function AddCharacterForm({
                         disabled={isPending}
                         checked={hasTalent}
                         onCheckedChange={changeTalent}
-                        className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900"
                       />
                     </div>
                     {hasTalent === true ? (
@@ -2391,7 +2427,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Talent Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2409,7 +2445,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Talent JP Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2427,7 +2463,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Unity Image URL"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2435,53 +2471,69 @@ function AddCharacterForm({
                             )}
                           />
 
-<FormField
-                      control={form.control}
-                      name="characterTalent.uniqueDisplay"
-                      render={() => (
-                        <FormItem>
-                          <FormLabel className="text-white">Talent Unique Display</FormLabel>
                           <FormField
                             control={form.control}
                             name="characterTalent.uniqueDisplay"
-                            render={({ field }) => {
-                              return (
-                                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                  <FormControl>
-                                    <ReactSelect
-                                      {...field} // Spread field props
-                                      className="text-black w-full"
-                                      options={uniqueDisplayOptions}
-                                      isMulti
-                                      isSearchable={isSearchable}
-                                      isDisabled={isPending}
-                                      onChange={(selectedOptions: any) => {
-                                        const newValues = selectedOptions
-                                          ? selectedOptions.map(
-                                              (option: any) => option.value
-                                            )
-                                          : [];
-                                        field.onChange(newValues);
-                                      }}
-                                      onBlur={field.onBlur}
-                                      value={
-                                        field.value
-                                          ? uniqueDisplayOptions.filter((option) =>
-                                              field.value?.includes(option.value)
-                                            )
-                                          : []
-                                      }
-                                    />
-                                  </FormControl>
-                                </FormItem>
-                              );
-                            }}
+                            render={() => (
+                              <FormItem>
+                                <FormLabel className="text-white">
+                                  Talent Unique Display
+                                </FormLabel>
+                                <FormField
+                                  control={form.control}
+                                  name="characterTalent.uniqueDisplay"
+                                  render={({ field }) => {
+                                    return (
+                                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                        <FormControl>
+                                          <ReactSelect
+                                            {...field} // Spread field props
+                                            className="text-black w-full"
+                                            options={uniqueDisplayOptions}
+                                            isMulti
+                                            isSearchable={isSearchable}
+                                            isDisabled={
+                                              isPending ||
+                                              !uniqueDisplayOptions.length
+                                            }
+                                            onChange={(
+                                              selectedOptions: any
+                                            ) => {
+                                              const newValues = selectedOptions
+                                                ? selectedOptions.map(
+                                                    (option: any) =>
+                                                      option.value
+                                                  )
+                                                : [];
+                                              field.onChange(newValues);
+                                            }}
+                                            onBlur={field.onBlur}
+                                            value={
+                                              field.value
+                                                ? uniqueDisplayOptions.filter(
+                                                    (option) =>
+                                                      field.value?.includes(
+                                                        option.value
+                                                      )
+                                                  )
+                                                : []
+                                            }
+                                            placeholder={
+                                              (uniqueDisplayOptions?.length ??
+                                                0) >= 1
+                                                ? "Select options!"
+                                                : "No options Available!"
+                                            }
+                                          />
+                                        </FormControl>
+                                      </FormItem>
+                                    );
+                                  }}
+                                />
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                          
                         </div>
 
                         <FormField
@@ -2493,7 +2545,8 @@ function AddCharacterForm({
                               <FormControl>
                                 <Textarea
                                   placeholder="Talent Description"
-                                  className="border-purple-900 resize-none mt-4 h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                  className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 "
                                   {...field}
                                   disabled={isPending}
                                 />
@@ -2504,7 +2557,7 @@ function AddCharacterForm({
                       </>
                     ) : null}
                   </div>
-                  <Separator className="my-6 bg-purple-900" />
+                  <Separator className="my-6 bg-background" />
                   <div className="space-y-4">
                     <div className="flex flex-row justify-between items-center">
                       <h4 className="text-3xl leading-tight font-extrabold py-3">
@@ -2514,7 +2567,6 @@ function AddCharacterForm({
                         disabled={isPending}
                         checked={hasGrace}
                         onCheckedChange={changeGrace}
-                        className="data-[state=checked]:bg-purple-400 rounded-[5px] data-[state=unchecked]:bg-purple-900"
                       />
                     </div>
                     {hasGrace === true ? (
@@ -2531,7 +2583,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Grace Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2549,7 +2601,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Grace JP Name"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2567,7 +2619,7 @@ function AddCharacterForm({
                                     {...field}
                                     placeholder="Grace Image URL"
                                     type="text"
-                                    className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
+                                    className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                     disabled={isPending}
                                   />
                                 </FormControl>
@@ -2575,53 +2627,69 @@ function AddCharacterForm({
                             )}
                           />
 
-<FormField
-                      control={form.control}
-                      name="characterGrace.uniqueDisplay"
-                      render={() => (
-                        <FormItem>
-                          <FormLabel className="text-white">Grace Unique Display</FormLabel>
                           <FormField
                             control={form.control}
                             name="characterGrace.uniqueDisplay"
-                            render={({ field }) => {
-                              return (
-                                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                  <FormControl>
-                                    <ReactSelect
-                                      {...field} // Spread field props
-                                      className="text-black w-full"
-                                      options={uniqueDisplayOptions}
-                                      isMulti
-                                      isSearchable={isSearchable}
-                                      isDisabled={isPending}
-                                      onChange={(selectedOptions: any) => {
-                                        const newValues = selectedOptions
-                                          ? selectedOptions.map(
-                                              (option: any) => option.value
-                                            )
-                                          : [];
-                                        field.onChange(newValues);
-                                      }}
-                                      onBlur={field.onBlur}
-                                      value={
-                                        field.value
-                                          ? uniqueDisplayOptions.filter((option) =>
-                                              field.value?.includes(option.value)
-                                            )
-                                          : []
-                                      }
-                                    />
-                                  </FormControl>
-                                </FormItem>
-                              );
-                            }}
+                            render={() => (
+                              <FormItem>
+                                <FormLabel className="text-white">
+                                  Grace Unique Display
+                                </FormLabel>
+                                <FormField
+                                  control={form.control}
+                                  name="characterGrace.uniqueDisplay"
+                                  render={({ field }) => {
+                                    return (
+                                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                        <FormControl>
+                                          <ReactSelect
+                                            {...field} // Spread field props
+                                            className="text-black w-full"
+                                            options={uniqueDisplayOptions}
+                                            isMulti
+                                            isSearchable={isSearchable}
+                                            isDisabled={
+                                              isPending ||
+                                              !uniqueDisplayOptions.length
+                                            }
+                                            onChange={(
+                                              selectedOptions: any
+                                            ) => {
+                                              const newValues = selectedOptions
+                                                ? selectedOptions.map(
+                                                    (option: any) =>
+                                                      option.value
+                                                  )
+                                                : [];
+                                              field.onChange(newValues);
+                                            }}
+                                            onBlur={field.onBlur}
+                                            value={
+                                              field.value
+                                                ? uniqueDisplayOptions.filter(
+                                                    (option) =>
+                                                      field.value?.includes(
+                                                        option.value
+                                                      )
+                                                  )
+                                                : []
+                                            }
+                                            placeholder={
+                                              (uniqueDisplayOptions?.length ??
+                                                0) >= 1
+                                                ? "Select options!"
+                                                : "No options Available!"
+                                            }
+                                          />
+                                        </FormControl>
+                                      </FormItem>
+                                    );
+                                  }}
+                                />
+                                <FormMessage />
+                              </FormItem>
+                            )}
                           />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                          
                         </div>
 
                         <FormField
@@ -2633,7 +2701,8 @@ function AddCharacterForm({
                               <FormControl>
                                 <Textarea
                                   placeholder="Grace Description"
-                                  className="border-purple-900 resize-none mt-4 h-32 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 "
+                                  className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 "
                                   {...field}
                                   disabled={isPending}
                                 />
@@ -2648,7 +2717,7 @@ function AddCharacterForm({
               </Card>
             </TabsContent>
             <TabsContent value="extras" className="space-y-6">
-              <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+              <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
                 <CardHeader>
                   <CardTitle>Extra Info</CardTitle>
                   <CardDescription>
@@ -2737,7 +2806,6 @@ function AddCharacterForm({
                       )}
                     />
                   </div>
-                
                 </CardContent>
               </Card>
             </TabsContent>
@@ -2750,7 +2818,7 @@ function AddCharacterForm({
                   </p>
                 </div>
               ) : (
-                <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+                <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
                   <CardHeader>
                     <CardTitle>Friendship Rewards</CardTitle>
                     <CardDescription>
@@ -2773,9 +2841,8 @@ function AddCharacterForm({
                           >
                             <h4 className="text-lg font-semibold text-white">
                               Level {genericLevel?.level}: Reward Type:{" "}
-                              {genericLevel?.rewardType.replace(/_/g, " ")}{" "}
-                              ({genericLevel?.requiredAffinity}{" "}
-                              Affinity)
+                              {genericLevel?.rewardType.replace(/_/g, " ")} (
+                              {genericLevel?.requiredAffinity} Affinity)
                             </h4>
                             {genericLevel?.rewardType ===
                               FriendshipRewardType.HERO_ARTWORK && (
@@ -2789,8 +2856,7 @@ function AddCharacterForm({
                                       <Input
                                         {...inputField}
                                         placeholder="e.g., https://example.com/artwork.png"
-                        className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
-
+                                        className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                         disabled={isPending}
                                       />
                                     </FormControl>
@@ -2799,135 +2865,137 @@ function AddCharacterForm({
                                 )}
                               />
                             )}
-                             {genericLevel?.rewardType ===
-              FriendshipRewardType.VOICE_LINE && (
-              <>
-                <FormField
-                  control={form.control}
-                  name={`characterFriendshipRewards.${index}.voiceLineText`}
-                  render={({ field: inputField }) => (
-                    <FormItem>
-                      <FormLabel>Voice Line Text</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          {...inputField}
-                          placeholder="e.g., 'Thank you for your kindness!'"
-                          disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`characterFriendshipRewards.${index}.voiceLineAudioUrl`}
-                  render={({ field: inputField }) => (
-                    <FormItem>
-                      <FormLabel>Voice Line Audio URL</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...inputField}
-                          placeholder="e.g., https://example.com/voice.mp3"
-                          disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-            
-            {genericLevel?.rewardType ===
-              FriendshipRewardType.DIAMOND && (
-              <FormField
-                control={form.control}
-                name={`characterFriendshipRewards.${index}.diamondAmount`}
-                render={({ field: inputField }) => (
-                  <FormItem>
-                    <FormLabel>Diamond Amount</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...inputField}
-                        type="number"
-                        placeholder="e.g., 1"
-                        disabled={isPending}
-                        className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+                            {genericLevel?.rewardType ===
+                              FriendshipRewardType.VOICE_LINE && (
+                              <>
+                                <FormField
+                                  control={form.control}
+                                  name={`characterFriendshipRewards.${index}.voiceLineText`}
+                                  render={({ field: inputField }) => (
+                                    <FormItem>
+                                      <FormLabel>Voice Line Text</FormLabel>
+                                      <FormControl>
+                                        <Textarea
+                                          {...inputField}
+                                          placeholder="e.g., 'Thank you for your kindness!'"
+                                          disabled={isPending}
+                                          className="resize-none h-32   focus:ring-0 placeholder:text-white text-white 
+                            rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                                        />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                                <FormField
+                                  control={form.control}
+                                  name={`characterFriendshipRewards.${index}.voiceLineAudioUrl`}
+                                  render={({ field: inputField }) => (
+                                    <FormItem>
+                                      <FormLabel>
+                                        Voice Line Audio URL
+                                      </FormLabel>
+                                      <FormControl>
+                                        <Input
+                                          {...inputField}
+                                          placeholder="e.g., https://example.com/voice.mp3"
+                                          disabled={isPending}
+                                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                                        />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                              </>
+                            )}
 
-            {genericLevel?.rewardType ===
-              FriendshipRewardType.HERO_MOTION && (
-              <FormField
-                control={form.control}
-                name={`characterFriendshipRewards.${index}.motionUrl`}
-                render={({ field: inputField }) => (
-                  <FormItem>
-                    <FormLabel>Motion URL</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...inputField}
-                        placeholder="e.g., https://example.com/motion.mp4"
-                        disabled={isPending}
-                        className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+                            {genericLevel?.rewardType ===
+                              FriendshipRewardType.DIAMOND && (
+                              <FormField
+                                control={form.control}
+                                name={`characterFriendshipRewards.${index}.diamondAmount`}
+                                render={({ field: inputField }) => (
+                                  <FormItem>
+                                    <FormLabel>Diamond Amount</FormLabel>
+                                    <FormControl>
+                                      <Input
+                                        {...inputField}
+                                        type="number"
+                                        placeholder="e.g., 1"
+                                        disabled={isPending}
+                                        className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            )}
 
-            {genericLevel?.rewardType ===
-              FriendshipRewardType.HEAD_COSMETIC && (
-              <>
-                <FormField
-                  control={form.control}
-                  name={`characterFriendshipRewards.${index}.cosmeticName`}
-                  render={({ field: inputField }) => (
-                    <FormItem>
-                      <FormLabel>Cosmetic Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...inputField}
-                          placeholder="e.g., King's Outfit"
-                          disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`characterFriendshipRewards.${index}.cosmeticUrl`}
-                  render={({ field: inputField }) => (
-                    <FormItem>
-                      <FormLabel>Cosmetic URL</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...inputField}
-                          placeholder="e.g., https://example.com/cosmetic.png"
-                          disabled={isPending}
-                          className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-                            
+                            {genericLevel?.rewardType ===
+                              FriendshipRewardType.HERO_MOTION && (
+                              <FormField
+                                control={form.control}
+                                name={`characterFriendshipRewards.${index}.motionUrl`}
+                                render={({ field: inputField }) => (
+                                  <FormItem>
+                                    <FormLabel>Motion URL</FormLabel>
+                                    <FormControl>
+                                      <Input
+                                        {...inputField}
+                                        placeholder="e.g., https://example.com/motion.mp4"
+                                        disabled={isPending}
+                                        className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            )}
+
+                            {genericLevel?.rewardType ===
+                              FriendshipRewardType.HEAD_COSMETIC && (
+                              <>
+                                <FormField
+                                  control={form.control}
+                                  name={`characterFriendshipRewards.${index}.cosmeticName`}
+                                  render={({ field: inputField }) => (
+                                    <FormItem>
+                                      <FormLabel>Cosmetic Name</FormLabel>
+                                      <FormControl>
+                                        <Input
+                                          {...inputField}
+                                          placeholder="e.g., King's Outfit"
+                                          disabled={isPending}
+                                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                                        />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                                <FormField
+                                  control={form.control}
+                                  name={`characterFriendshipRewards.${index}.cosmeticUrl`}
+                                  render={({ field: inputField }) => (
+                                    <FormItem>
+                                      <FormLabel>Cosmetic URL</FormLabel>
+                                      <FormControl>
+                                        <Input
+                                          {...inputField}
+                                          placeholder="e.g., https://example.com/cosmetic.png"
+                                          disabled={isPending}
+                                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                                        />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                              </>
+                            )}
                           </div>
                         );
                       })}
@@ -2937,7 +3005,7 @@ function AddCharacterForm({
               )}
             </TabsContent>
             <TabsContent value="association" className="space-y-6">
-              <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+              <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
                 <CardHeader>
                   <CardTitle>Character Associations</CardTitle>
                   <CardDescription>
@@ -2965,7 +3033,10 @@ function AddCharacterForm({
                                   idx
                                 )}
                                 isSearchable={isSearchable}
-                                isDisabled={isPending}
+                                isDisabled={
+                                  isPending ||
+                                  !CharacterAssociationsOptions?.length
+                                }
                                 onChange={(selectedOption: any) => {
                                   assocCharacterIdField.onChange(
                                     selectedOption ? selectedOption.value : ""
@@ -2979,6 +3050,12 @@ function AddCharacterForm({
                                       assocCharacterIdField.value
                                   ) || null
                                 }
+                                placeholder={
+                                  (CharacterAssociationsOptions?.length ?? 0) >=
+                                  1
+                                    ? "Select associations!"
+                                    : "No associations Available!"
+                                }
                               />
                             </FormControl>
                             <FormMessage />
@@ -2986,23 +3063,27 @@ function AddCharacterForm({
                         )}
                       />
 
-
-<FormField
+                      <FormField
                         control={form.control}
                         name={`characterAssociations.${idx}.bonusType`}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Bonus Type</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
                               <FormControl>
-                                <SelectTrigger  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0">
+                                <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950">
                                   <SelectValue placeholder="Select bonus type" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent  className="bg-purple-600 rounded-[5px]  text-white dark:bg-purple-800">
+                              <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
                                 {BonusTypeOptions.map((option) => (
-                                  <SelectItem key={option.value} value={option.value}
-                                className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
+                                  <SelectItem
+                                    key={option.value}
+                                    value={option.value}
+                                    className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
                                   >
                                     {option.label}
                                   </SelectItem>
@@ -3027,7 +3108,7 @@ function AddCharacterForm({
                                 step="any"
                                 placeholder="e.g., 10"
                                 disabled={isPending}
-                                className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
+                                className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 onChange={(e) =>
                                   field.onChange(
                                     e.target.value === ""
@@ -3055,7 +3136,7 @@ function AddCharacterForm({
                                   {...field}
                                   placeholder="e.g., % or flat"
                                   disabled={isPending}
-                                  className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0"
+                                  className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                                 />
                               </FormControl>
                               <FormMessage />
@@ -3065,8 +3146,8 @@ function AddCharacterForm({
                         <Button
                           type="button"
                           onClick={() => removeAssociation(idx)}
-                          variant={"purple"}
-                          className="text-white rounded-[5px] mt-6 dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+                          variant={"gradient"}
+                          className="text-white rounded-[5px] mt-6 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
                           size={"icon"}
                           disabled={isPending}
                         >
@@ -3075,34 +3156,38 @@ function AddCharacterForm({
                       </div>
                     </div>
                   ))}
-               <div className="flex justify-end">
-               <Button                 
-                  disabled={isPending}
-                  onClick={handleAddAssociation}
-                  type="button"
-                className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250">
-                  <Plus className="w-4 h-4 mr-2"/>
-                  Association
-                </Button>
-               </div>
+                  <div className="flex justify-end">
+                    <Button
+                      disabled={isPending}
+                      onClick={handleAddAssociation}
+                      type="button"
+                      variant={"gradient"}
+                      className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Association
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
             <div className="flex flex-row gap-4 justify-end items-center">
               <Button
                 type="button"
+                variant={"gradient"}
                 disabled={isPending || isSlugGenerating}
-                className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+                className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250"
               >
                 <Link href={"/dashboard/characters"}>Cancel</Link>
               </Button>
               <Button
                 type="submit"
                 disabled={isPending || isSlugGenerating}
-                className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
+                variant={"gradient"}
+                className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250"
               >
                 {isPending ? (
-                  <>Saving Character...</>
+                  <>Adding Character...</>
                 ) : (
                   <>
                     <Plus className="h-4 w-4 mr-2" />

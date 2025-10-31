@@ -1,29 +1,24 @@
-
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 
 // Assuming useCurrentUser correctly uses useSession internally (you can remove this if you access session directly)
 // import { useCurrentUser } from "@/hooks/use-current-user";
+import { auth } from "@/src/auth";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/src/components/ui/avatar";
 import { cn } from "@/src/lib/utils";
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { FaCog, FaHeart, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaCog, FaUser } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
-import { auth } from "@/src/auth";
-import { Button } from "../ui/button";
 import SignOutBtn from "./sign-out-btn";
 
 type Props = {
@@ -31,7 +26,7 @@ type Props = {
 };
 
 export const UserButton = async ({ className }: Props) => {
-  const session =  await auth();
+  const session = await auth();
 
   const user = session?.user;
 
@@ -46,38 +41,57 @@ export const UserButton = async ({ className }: Props) => {
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="center" side="bottom" className="dark:bg-purple-950 bg-purple-700 rounded-[5px]" sideOffset={15}>
-          {user?.username && <p className="text-center text-white p-2">{user.username}</p>}
-          <DropdownMenuSeparator  className="bg-white" />
+        <DropdownMenuContent
+          align="center"
+          side="bottom"
+          className="dark:bg-purple-950 bg-purple-700 rounded-[5px]"
+          sideOffset={15}
+        >
+          {user?.username && (
+            <p className="text-center text-white p-2">{user.username}</p>
+          )}
+          <DropdownMenuSeparator className="bg-white" />
           <DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-              <Link className="text-white inline-flex items-center" href={"/profile"}>
-              <FaUser className="mr-2 text-white" />
-              
-              Profile</Link>
+              <Link
+                className="text-white inline-flex items-center"
+                href={`/profile/${user?.username}`}
+              >
+                <FaUser className="mr-2 text-white" />
+                Profile
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-              <Link className="text-white inline-flex items-center" href={"/profile/collection"}>
-              <FaHeart className="mr-2 text-white" />
-              
-              Collection</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-              <Link className="text-white inline-flex items-center" href={"/settings"}>
-              <FaCog className="mr-2 text-white" />
-              
-              Settings</Link>
+            {/* <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+              <Link
+                className="text-white inline-flex items-center"
+                href={"/profile/collection"}
+              >
+                <FaHeart className="mr-2 text-white" />
+                Collection
+              </Link>
+            </DropdownMenuItem> */}
+            <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+              <Link
+                className="text-white inline-flex items-center"
+                href={`/profile/${user?.username}/settings`}
+              >
+                <FaCog className="mr-2 text-white" />
+                Settings
+              </Link>
             </DropdownMenuItem>
             {(user?.role === "ADMIN" || user?.role === "OWNER") && (
-              <DropdownMenuItem  className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
-                <Link className="text-white inline-flex items-center" href={"/dashboard"}>
-                <MdAdminPanelSettings className="mr-2 text-white" />
-                
-                Admin</Link>
+              <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
+                <Link
+                  className="text-white inline-flex items-center"
+                  href={"/dashboard"}
+                >
+                  <MdAdminPanelSettings className="mr-2 text-white" />
+                  Admin
+                </Link>
               </DropdownMenuItem>
             )}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator  className="bg-white" />
+          <DropdownMenuSeparator className="bg-white" />
           <DropdownMenuItem className="cursor-pointer dark:focus:bg-purple-900 rounded-[5px] focus:text-white focus:bg-purple-600">
             <SignOutBtn />
           </DropdownMenuItem>
