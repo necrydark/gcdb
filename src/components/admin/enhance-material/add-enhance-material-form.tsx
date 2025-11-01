@@ -77,8 +77,8 @@ const AddEnhanceMaterialForm = () => {
       <div className="flex justify-between flex-row items-center pb-5 gap-5">
         <div className="flex flex-row gap-2 items-center">
           <Button
-            variant="gradient"
             size="icon"
+            variant="gradient"
             className=" border-[2px]  hover:text-white  transition-all duration-250"
             asChild
           >
@@ -165,8 +165,8 @@ const AddEnhanceMaterialForm = () => {
           </Card>
           <div className="flex flex-row gap-4 justify-end items-center">
             <Button
-              variant={"gradient"}
               type="button"
+              variant={"gradient"}
               className=" rounded-[5px]  border-[2px] flex flex-row items-center text-white  hover:text-white  transition-all duration-250"
             >
               <Link href={"/dashboard/enhance-materials"}>Cancel</Link>
