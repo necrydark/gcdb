@@ -1,6 +1,5 @@
 "use client";
 
-import { addMaterial, updateMaterial } from "@/src/actions/materials";
 import { Button } from "@/src/components/ui/button";
 
 import {
@@ -15,20 +14,23 @@ import { Input } from "@/src/components/ui/input";
 
 import { toast } from "sonner";
 
-
-import { addRelicMaterials } from "@/src/schemas/schema";
+import { updateGift } from "@/src/actions/admin";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
+import { giftSchema } from "@/src/schemas/admin/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Gift, Material, ProfileColour, UserRole } from "@prisma/client";
+import { Gift } from "@prisma/client";
+import { ArrowLeft } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
-import { ArrowLeft, MoveLeft } from "lucide-react";
-import { giftSchema } from "@/src/schemas/admin/schema";
-import { updateGift } from "@/src/actions/admin";
 
 interface FormProps {
   giftsEdit: Gift;
@@ -40,7 +42,6 @@ const EditGiftForm = ({ giftsEdit }: FormProps) => {
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
 
-
   const form = useForm<z.infer<typeof giftSchema>>({
     resolver: zodResolver(giftSchema),
     defaultValues: {
@@ -50,7 +51,6 @@ const EditGiftForm = ({ giftsEdit }: FormProps) => {
     },
   });
 
-
   const router = useRouter();
 
   const onSubmit = (values: z.infer<typeof giftSchema>) => {
@@ -59,66 +59,62 @@ const EditGiftForm = ({ giftsEdit }: FormProps) => {
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast.error("An error has occured",{
+            toast.error("An error has occured", {
               description: data.error,
-              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+              className:
+                "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white",
             });
           }
 
           if (data.success) {
             update();
             setSuccess(data.success);
-            toast.success("Form submitted",{
-       
+            toast.success("Form submitted", {
               description: data.success,
-              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
-      
+              className:
+                "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white",
             });
             setTimeout(() => {
-              router.push('/dashboard/gifts')
-            }, 1500)
+              router.push("/dashboard/gifts");
+            }, 1500);
           }
         })
         .catch((err) => setError(err));
     });
   };
 
-  
-
   return (
     <div className="flex flex-col gap-6 p-6">
-        <div className="flex justify-between flex-row items-center pb-5 gap-5">
-          <div className="flex flex-row gap-2 items-center">
-            <Button
-              variant="outline"
-              size="icon"
-              className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
-              asChild
-            >
-              <Link href={"/dashboard/gifts"}>
-                <ArrowLeft className="h-4 w-4" />
-                <span className="sr-only">Back</span>
-              </Link>
-            </Button>
-            <div className="flex flex-col">
-              <h1 className="text-2xl leading-tight font-bold text-white">
-                Edit Gift
-              </h1>
-              <span className="text-gray-500 dark:text-gray-300">
-                Update info for {giftsEdit.name}
-              </span>
-            </div>
+      <div className="flex justify-between flex-row items-center pb-5 gap-5">
+        <div className="flex flex-row gap-2 items-center">
+          <Button
+            size="icon"
+            variant="gradient"
+            className=" border-[2px]  hover:text-white  transition-all duration-250"
+            asChild
+          >
+            <Link href={"/dashboard/gifts"}>
+              <ArrowLeft className="h-4 w-4" />
+              <span className="sr-only">Back</span>
+            </Link>
+          </Button>
+          <div className="flex flex-col">
+            <h1 className="text-2xl leading-tight font-bold text-white">
+              Edit Gift
+            </h1>
+            <span className="text-gray-500 dark:text-gray-300">
+              Update info for {giftsEdit.name}
+            </span>
           </div>
         </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-      <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
             <CardHeader>
-              <CardTitle>
-                Gift Information
-              </CardTitle>
+              <CardTitle>Gift Information</CardTitle>
             </CardHeader>
-            
+
             <CardContent className="space-y-4">
               <FormField
                 control={form.control}
@@ -144,9 +140,7 @@ const EditGiftForm = ({ giftsEdit }: FormProps) => {
                 name="imageUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">
-                      Gift Image URL
-                    </FormLabel>
+                    <FormLabel className="text-white">Gift Image URL</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -184,23 +178,24 @@ const EditGiftForm = ({ giftsEdit }: FormProps) => {
             </CardContent>
             {/* <FormError message={error} />
               <FormSuccess message={success} /> */}
-      </Card>
+          </Card>
 
-            <div className="flex flex-row gap-4 justify-end items-center">
-              <Button
-                type="button"
-                className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px] hover:bg-purple-600 border-[2px] flex flex-row items-center text-white  hover:text-white dark:bg-purple-700 transition-all duration-250"
-              >
-                <Link href={"/dashboard/gifts"}>Cancel</Link>
-              </Button>
-              <Button
-                type="submit"
-className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px] hover:bg-purple-600 border-[2px] flex flex-row items-center text-white  hover:text-white dark:bg-purple-700 transition-all duration-250"              >
-                Save Changes
-              </Button>
-            </div>
-          </form>
-        </Form>
+          <div className="flex flex-row gap-4 justify-end items-center">
+            <Button
+              type="button"
+              className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px] hover:bg-purple-600 border-[2px] flex flex-row items-center text-white  hover:text-white dark:bg-purple-700 transition-all duration-250"
+            >
+              <Link href={"/dashboard/gifts"}>Cancel</Link>
+            </Button>
+            <Button
+              type="submit"
+              className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 rounded-[5px] hover:bg-purple-600 border-[2px] flex flex-row items-center text-white  hover:text-white dark:bg-purple-700 transition-all duration-250"
+            >
+              Save Changes
+            </Button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 };

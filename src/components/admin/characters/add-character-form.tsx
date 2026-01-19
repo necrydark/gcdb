@@ -1114,8 +1114,8 @@ function AddCharacterForm({
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "pl-3 w-full text-left font-normal",
-                                  !field.value && "text-muted-foreground"
+                                  "w-[240px] pl-3 text-left !border-purple-900  font-normal",
+                                  !field.value && "text-white"
                                 )}
                               >
                                 {" "}

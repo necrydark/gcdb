@@ -280,7 +280,7 @@ export default function Page() {
         </TabsList>
 
         <TabsContent value="gear-sets" className="mt-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
             Gear Sets
           </h1>
           <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">
@@ -310,7 +310,7 @@ export default function Page() {
         </TabsContent>
 
         <TabsContent value="gear-subsets" className="mt-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 ">
             Gear Substats
           </h1>
           <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">
@@ -393,7 +393,7 @@ export default function Page() {
         </TabsContent>
 
         <TabsContent value="main-base-0" className="mt-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 ">
             Main Stat Base Stats (0★)
           </h1>
           <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">
@@ -424,7 +424,7 @@ export default function Page() {
         </TabsContent>
 
         <TabsContent value="main-base-5" className="mt-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
             Main Stat Max Stats (5★ +5)
           </h1>
           <div className="rounded-xl border border-border/50 shadow-lg overflow-hidden">

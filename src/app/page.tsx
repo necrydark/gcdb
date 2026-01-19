@@ -71,7 +71,7 @@ export default async function HomePage() {
     <div className="min-h-screen flex flex-col  bg-background transition-all duration-300">
       {user && <AuthNavbar />}
       {!user && <Navbar />}
-      <section className="relative gradient-mesh pt-[8rem] py-24 px-4 overflow-hidden">
+      <section className="relative  pt-[8rem] py-24 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-grid-16"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background"></div>
         <div className="container mx-auto max-w-6xl relative">
@@ -85,7 +85,7 @@ export default async function HomePage() {
               </p>
               <Button
                 variant="default"
-                className="rounded-[5px] bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
+                className="rounded-[5px]  bg-purple-600  hover:bg-purple-700  text-white shadow-lg"
                 size="sm"
                 asChild
               >
@@ -93,7 +93,7 @@ export default async function HomePage() {
               </Button>
             </div>
 
-            <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-800 dark:from-purple-400 dark:via-blue-400 dark:to-purple-300 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-clip-text  leading-tight">
               GCWiki
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
@@ -107,7 +107,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Button
               variant="default"
-              className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
+              className="rounded-[5px] bg-gradient-to-r bg-purple-600  hover:bg-purple-700 shadow-xl px-8 py-6 text-lg"
               asChild
               size="lg"
             >
@@ -118,7 +118,7 @@ export default async function HomePage() {
             </Button>
             <Button
               variant="default"
-              className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
+              className="rounded-[5px] bg-gradient-to-r bg-purple-600  hover:bg-purple-700 shadow-xl px-8 py-6 text-lg"
               asChild
               size="lg"
             >
@@ -203,7 +203,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 px-4 gradient-mesh">
+      <section className="py-20 px-4 ">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <MonthlyActiveUsers />
@@ -248,7 +248,7 @@ export default async function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 ">
               Latest Updates
             </h2>
             <p className="text-muted-foreground text-lg">
@@ -270,7 +270,7 @@ export default async function HomePage() {
                 </CardHeader>
                 <CardFooter>
                   <Button
-                    className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                    className="w-full rounded-[5px] text-white bg-purple-600  hover:bg-purple-700 shadow-lg"
                     asChild
                   >
                     <Link
@@ -287,7 +287,7 @@ export default async function HomePage() {
           <div className="mt-8 flex justify-center items-center">
             <Button
               variant="default"
-              className="rounded-[5px] bg-gradient-to-r from-purple-600 text-white to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-xl px-8 py-6 text-lg"
+              className="rounded-[5px] bg-gradient-to-r bg-purple-600  hover:bg-purple-700 shadow-xl px-8 py-6 text-lg"
               asChild
               size="lg"
             >
@@ -301,10 +301,10 @@ export default async function HomePage() {
       </section>
 
       {/* Community & Resources */}
-      <section className="py-20 px-4 gradient-mesh">
+      <section className="py-20 px-4 ">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 ">
               Community & Resources
             </h2>
             <p className="text-muted-foreground text-lg">
@@ -471,7 +471,7 @@ export default async function HomePage() {
               </CardContent>
               <CardFooter className="mt-auto">
                 <Button
-                  className="w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 shadow-lg"
+                  className="w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 shadow-lg"
                   asChild
                 >
                   <Link href="/community">Join Community</Link>
@@ -486,7 +486,7 @@ export default async function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 ">
               Support GCWiki
             </h2>
             <p className="text-muted-foreground text-lg">

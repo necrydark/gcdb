@@ -22,7 +22,7 @@ export default async function RootLayout({
     <>
       {session && <AuthNavbar />}
       {!session && <Navbar />}
-      <div className="min-h-screen flex flex-col text-gray-900 gradient-mesh transition-all duration-300 dark:text-white">
+      <div className="min-h-screen flex flex-col text-gray-900   transition-all duration-300 dark:text-white">
         <div className="flex-1 min-h-screen  transition-all duration-300">
           {children}
         </div>

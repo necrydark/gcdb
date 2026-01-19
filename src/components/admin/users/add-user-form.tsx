@@ -1,15 +1,24 @@
-
 "use client";
 
-import { getUserById } from "@/data/user";
-import { ExtendedUser } from "@/src/next-auth";
+import { addUser } from "@/src/actions/user";
 import { userSchema } from "@/src/schemas/admin/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProfileColour, User, UserRole } from "@prisma/client";
-import React, { useState, useTransition } from "react";
+import { UserRole } from "@prisma/client";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 import { Button } from "../../ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../ui/card";
 import {
   Form,
   FormControl,
@@ -27,23 +36,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { Switch } from "../../ui/switch";
-import { toast } from "sonner";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { addUser } from "@/src/actions/user";
 import { Separator } from "../../ui/separator";
-import { useRouter } from "next/navigation";
+import { Switch } from "../../ui/switch";
 
-interface UserInterface {
-}
+interface UserInterface {}
 
 function AddUserForm() {
   const [error, setError] = useState<string | undefined>("");
@@ -66,7 +62,6 @@ function AddUserForm() {
       boxCC: undefined,
       ingameRank: undefined,
       role: UserRole.USER,
-      profileColour: ProfileColour.PURPLE
     },
   });
 
@@ -78,23 +73,23 @@ function AddUserForm() {
         .then((data) => {
           if (data.error) {
             setError(data.error);
-            toast.error("An error has occured",{
+            toast.error("An error has occured", {
               description: data.error,
-              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
+              className:
+                "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white",
             });
           }
 
           if (data.success) {
             setSuccess(data.success);
-            toast.success("Form submitted",{
-       
+            toast.success("Form submitted", {
               description: data.success,
-              className: "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white"
-      
+              className:
+                "bg-purple-400 border-purple-500 dark:bg-purple-700 dark:border-purple-800 text-white",
             });
             setTimeout(() => {
-              router.push('/dashboard/users')
-            }, 1500)
+              router.push("/dashboard/users");
+            }, 1500);
           }
         })
         .catch((err) => setError(err));
@@ -107,9 +102,9 @@ function AddUserForm() {
         <div className="flex justify-between flex-row items-center pb-5 gap-5">
           <div className="flex gap-2 items-center">
             <Button
-              variant="outline"
               size="icon"
-              className="dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px]  hover:text-white dark:bg-purple-700 transition-all duration-250"
+              variant="gradient"
+              className=" border-[2px]  hover:text-white  transition-all duration-250"
               asChild
             >
               <Link href={"/dashboard/users"}>
@@ -131,7 +126,7 @@ function AddUserForm() {
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <Card className="container mx-auto p-10 bg-purple-400 dark:bg-purple-700 rounded-[5px] border-0">
+          <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
             <CardHeader>
               <CardTitle>Basic Information</CardTitle>
               <CardDescription>
@@ -152,8 +147,7 @@ function AddUserForm() {
                           type="text"
                           placeholder="John Doe"
                           disabled={isPending}
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                      
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                         />
                       </FormControl>
                     </FormItem>
@@ -171,8 +165,7 @@ function AddUserForm() {
                           type="email"
                           placeholder="John Doe"
                           disabled={isPending}
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                         />
                       </FormControl>
                     </FormItem>
@@ -190,8 +183,7 @@ function AddUserForm() {
                         <Input
                           {...field}
                           type="text"
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                           placeholder="John Doe"
                           disabled={isPending}
                         />
@@ -211,8 +203,7 @@ function AddUserForm() {
                           type="text"
                           placeholder="John Doe"
                           disabled={isPending}
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                         />
                       </FormControl>
                       <FormDescription>
@@ -233,8 +224,7 @@ function AddUserForm() {
                         <Input
                           {...field}
                           type="password"
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                           placeholder="*********"
                           disabled={isPending}
                         />
@@ -254,8 +244,7 @@ function AddUserForm() {
                           type="password"
                           placeholder="*******"
                           disabled={isPending}
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                         />
                       </FormControl>
                       <FormDescription>
@@ -277,8 +266,7 @@ function AddUserForm() {
                         type="text"
                         placeholder="Enter profile image URL (optional)"
                         disabled={isPending}
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-
+                        className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
                       />
                     </FormControl>
                     <FormDescription>
@@ -301,7 +289,6 @@ function AddUserForm() {
                           disabled={isPending}
                           checked={field.value}
                           onCheckedChange={field.onChange}
-                          className="data-[state=checked]:bg-purple-700 data-[state=unchecked]:bg-purple-600 dark:data-[state=checked]:bg-purple-950 dark:data-[state=unchecked]:bg-purple-800  rounded-[5px]"
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none">
@@ -323,8 +310,6 @@ function AddUserForm() {
                           disabled={isPending}
                           checked={field.value}
                           onCheckedChange={field.onChange}
-                          className="data-[state=checked]:bg-purple-700 rounded-[5px] data-[state=unchecked]:bg-purple-600 dark:data-[state=checked]:bg-purple-950 dark:data-[state=unchecked]:bg-purple-800 "
-
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none">
@@ -364,7 +349,7 @@ function AddUserForm() {
             </CardContent>
           </Card>
 
-          <Card className="container mx-auto p-10 bg-purple-400 rounded-[5px] dark:bg-purple-700 border-0">
+          <Card className="container mx-auto p-10 bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
             <CardHeader>
               <CardTitle>Game Information</CardTitle>
               <CardDescription>
@@ -373,38 +358,40 @@ function AddUserForm() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <FormField
-                    control={form.control}
-                    name="boxCC"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Box CC</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter box CC (optional)"
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                          
-                          {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                        <FormField
-                    control={form.control}
-                    name="ingameRank"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>In-game Rank</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter in-game rank (optional)"
-                      className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0"
-                          
-                          {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <FormField
+                  control={form.control}
+                  name="boxCC"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Box CC</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter box CC (optional)"
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="ingameRank"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>In-game Rank</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter in-game rank (optional)"
+                          className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -420,106 +407,65 @@ function AddUserForm() {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger
-                      className="border-purple-900 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 "
-                      >
+                          <SelectTrigger className="rounded-[5px] bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border focus:border-purple-950 ">
                             <SelectValue placeholder="Select the role for the user!" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className="bg-purple-600  text-white dark:bg-purple-800">
-                        <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                          
-                          value={UserRole.USER}>User</SelectItem>
-                          
-                          <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                          
-                          value={UserRole.ADMIN}>Admin</SelectItem>
-      
-                          <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                          
-                          value={UserRole.OWNER}>Owner</SelectItem>
+                        <SelectContent className="bg-background border-border ring-0 dark:text-white dark:placeholder:text-white focus-visible:ring-0 border rounded-[5px] text-white">
+                          <SelectItem
+                            className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
+                            value={UserRole.USER}
+                          >
+                            User
+                          </SelectItem>
+
+                          <SelectItem
+                            className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
+                            value={UserRole.ADMIN}
+                          >
+                            Admin
+                          </SelectItem>
+                          <SelectItem
+                            className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
+                            value={UserRole.COOWNER}
+                          >
+                            Co-Owner
+                          </SelectItem>
+                          <SelectItem
+                            className="focus:bg-gradient-to-r focus:from-purple-700 focus:to-blue-700 rounded-[5px]"
+                            value={UserRole.OWNER}
+                          >
+                            Owner
+                          </SelectItem>
                         </SelectContent>
                       </Select>
-                  <FormDescription>The user&apos;s permission level</FormDescription>
+                      <FormDescription>
+                        The user&apos;s permission level
+                      </FormDescription>
 
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
-              control={form.control}
-              name="profileColour"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Profile Colour</FormLabel>
-                  <Select
-                    disabled={isPending}
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger 
-                      className="border-purple-900 bg-purple-600 border-[2px] rounded-[5px]  text-white dark:bg-purple-800  focus:border-purple-900 "
-                      >
-                        <SelectValue placeholder="Select a colour" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent 
-                     className="bg-purple-600  text-white dark:bg-purple-800">
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      
-                      value={ProfileColour.RED}>Red</SelectItem>
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      value={ProfileColour.BLUE}>Blue</SelectItem>
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      value={ProfileColour.GREEN}>Green</SelectItem>
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      value={ProfileColour.YELLOW}>
-                        Yellow
-                      </SelectItem>
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      
-                      value={ProfileColour.PURPLE}>
-                        Purple
-                      </SelectItem>
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      value={ProfileColour.ORANGE}>
-                        Orange
-                      </SelectItem>
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      value={ProfileColour.PINK}>Pink</SelectItem>
-                      <SelectItem 
-                      className="hover:bg-purple-400 rounded-[5px] dark:hover:bg-purple-950"
-                      value={ProfileColour.CYAN}>Cyan</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>The user&apos;s profile accent colour</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
               </div>
             </CardContent>
           </Card>
-         <div className="flex justify-end gap-3 items-center">
-         
-         <Button type="button"                   className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
-              >
-                <Link href={"/dashboard/users"}>Cancel</Link>
-              </Button>
-              <Button type="submit"                   className="text-white rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 hover:bg-purple-600 border-[2px] flex flex-row items-center  hover:text-white dark:bg-purple-700 transition-all duration-250"
-              >Save Changes</Button>
-         </div>
+          <div className="flex justify-end gap-3 items-center">
+            <Button
+              type="button"
+              variant={"gradient"}
+              className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250"
+            >
+              <Link href={"/dashboard/users"}>Cancel</Link>
+            </Button>
+            <Button
+              type="submit"
+              variant={"gradient"}
+              className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250"
+            >
+              Save Changes
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

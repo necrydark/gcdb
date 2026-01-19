@@ -1,7 +1,8 @@
-import { ProfileColour, Towns, UserRole } from "@prisma/client"
-import * as z from "zod"
+import { Towns, UserRole } from "@prisma/client";
+import * as z from "zod";
 
-export const userSchema = z.object({
+export const userSchema = z
+  .object({
     name: z.string().min(2, {
       message: "Name must be at least 2 characters.",
     }),
@@ -20,73 +21,77 @@ export const userSchema = z.object({
     boxCC: z.string().optional(),
     ingameRank: z.string().optional(),
     bio: z.string().optional(),
-    role: z.enum([UserRole.ADMIN, UserRole.USER, UserRole.OWNER, UserRole.COOWNER]),
-    profileColour: z.enum([    ProfileColour.RED,
-        ProfileColour.BLUE,
-        ProfileColour.GREEN,
-        ProfileColour.YELLOW,
-        ProfileColour.PURPLE,
-        ProfileColour.ORANGE,
-        ProfileColour.PINK,
-        ProfileColour.CYAN,]),
-  })  .refine((data) => data.password === data.confirmPassword, {
+    role: z.enum([
+      UserRole.ADMIN,
+      UserRole.USER,
+      UserRole.OWNER,
+      UserRole.COOWNER,
+    ]),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
     message: "Passwords do not match!",
   });
-  
 
-  export const ingredientSchema = z.object({
-    id: z.string().optional(),
-    name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
-    }),
-    imageUrl: z.string().min(2, {
+export const ingredientSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  imageUrl: z
+    .string()
+    .min(2, {
       message: "Image URL must be at least 2 characters.",
-    }).optional(),
-    location: z.string().min(2, {
+    })
+    .optional(),
+  location: z
+    .string()
+    .min(2, {
       message: "Location must be at least 2 characters.",
-    }).optional(),
-  })
+    })
+    .optional(),
+});
 
+export const mealSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  imageUrl: z.string().min(2, {
+    message: "Image URL must be at least 2 characters.",
+  }),
+});
 
-  
+export const giftSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  imageUrl: z.string().min(2, {
+    message: "Image URL must be at least 2 characters.",
+  }),
+  description: z.string().min(2, {
+    message: "Description must be at least 2 characters.",
+  }),
+});
 
-  export const mealSchema = z.object({
-    name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
-    }),
-    imageUrl: z.string().min(2, {
-      message: "Image URL must be at least 2 characters.",
-    }),
-  })
-
-  export const giftSchema = z.object({
-    id: z.string().optional(),
-    name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
-    }),
-    imageUrl: z.string().min(2, {
-      message: "Image URL must be at least 2 characters.",
-    }),
-    description: z.string().min(2, {
-      message: "Description must be at least 2 characters.",
-    }),
-  })
-
-
-  export const foodSchema = z.object({
-    id: z.string().optional(),
-    name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
-    }),
-    imageUrl: z.string().min(2, {
-      message: "Image URL must be at least 2 characters.",
-    }),
-    location: z.enum([Towns.Dalmally, Towns.LionesCastle, Towns.OrdanVillage, Towns.PostTownTala, Towns.Vanya, Towns.Vaziel]),
-    effect: z.string().min(2, {
-      message: "Effect must be at least 2 characters.",
-    }),
-    ingredients: z.array(
-      ingredientSchema
-    ),
-  })
+export const foodSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  imageUrl: z.string().min(2, {
+    message: "Image URL must be at least 2 characters.",
+  }),
+  location: z.enum([
+    Towns.Dalmally,
+    Towns.LionesCastle,
+    Towns.OrdanVillage,
+    Towns.PostTownTala,
+    Towns.Vanya,
+    Towns.Vaziel,
+  ]),
+  effect: z.string().min(2, {
+    message: "Effect must be at least 2 characters.",
+  }),
+  ingredients: z.array(ingredientSchema),
+});

@@ -69,7 +69,7 @@ export default function Pricing() {
             {/* Basic Plan */}
             <Card  className="rounded-lg border text-card-foreground max-w-xl mx-auto bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl">
                 <CardHeader className="text-center">
-                    <CardTitle className=" bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    <CardTitle>
                         SR Plan
                     </CardTitle>
                     <CardDescription  className="text-sm">
@@ -92,7 +92,7 @@ export default function Pricing() {
                   onClick={() =>
                     handleSubscribe(process.env.NEXT_PUBLIC_BASIC_PRICE_ID!)
                   }
-                  className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                  className="w-full rounded-[5px] text-white bg-purple-600  hover:bg-purple-700 shadow-lg"
                   
                   disabled={loading}
                 >

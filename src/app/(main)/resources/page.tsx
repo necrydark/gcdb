@@ -38,7 +38,7 @@ export default function ResourcesPage() {
   return (
     <div className="pt-[10rem]">
       <section className="container mx-auto px-12 py-6">
-        <h1 className="text-4xl md:text-5xl bg-gradient-to-r from-purple-600 via-blue-600 to-purple-800 dark:from-purple-400 dark:via-blue-400 dark:to-purple-300 bg-clip-text text-transparent leading-tight font-bold mb-8 text-center">
+        <h1 className="text-4xl md:text-5xl  leading-tight font-bold mb-8 text-center">
           Resources
         </h1>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
@@ -57,8 +57,8 @@ export default function ResourcesPage() {
                 <Link href={resource.link}>
                   <Button
                     size="lg"
-                    className="w-full rounded-[5px] "
-                    variant={"gradient"}
+                    className="w-full rounded-[5px] bg-purple-600 hover:bg-purple-700"
+                  
                   >
                     Visit
                     <ArrowRight className="w-4 h-4 ml-2" />
@@ -81,8 +81,8 @@ export default function ResourcesPage() {
             <Link href="/community">
               <Button
                 size="lg"
-                variant="gradient"
-                className="w-full rounded-[5px]"
+             
+                className="w-full rounded-[5px] bg-purple-600 hover:bg-purple-700"
               >
                 Visit
                 <ArrowRight className="w-4 h-4 ml-2" />
