@@ -4,7 +4,6 @@ import db from "@/src/lib/db";
 import { cn } from "@/src/lib/utils";
 import { signOut } from "next-auth/react";
 import React from "react";
-import { ThemeToggleMobile } from "./theme-toggle-mobile";
 import { UserButtonMobile } from "./auth/user-button-mobile";
 import { SidebarItem } from "./sidebarItem";
 
@@ -19,7 +18,7 @@ const Sidebar = async ({ className, links }: Props) => {
   return (
     <div
       className={cn(
-        "flex bg-card h-full lg:w-[256px] lg:fixed left-0 top-0 px-4 dark:border-r-[1px] border-r-2 flex-col",
+        "flex bg-card h-full lg:w-[256px] lg:fixed left-0 top-0 px-4 dark:border-r-[1px] border-r-2  bg-purple-950 flex-col",
         className
       )}
     >
@@ -28,11 +27,8 @@ const Sidebar = async ({ className, links }: Props) => {
       </div>
       <div className="flex flex-col pt-[20px]  gap-y-2 flex-1">
         {links?.map((link, idx) => (
-          <SidebarItem title={link.title} url={link.url} key={idx} />
+          <SidebarItem title={link.title} url={link.url} key={idx} className="hover:bg-purple-800 rounded-md" />
         ))}
-      </div>
-      <div className="py-4 flex flex-row justify-between">
-        <ThemeToggleMobile />
       </div>
     </div>
   );

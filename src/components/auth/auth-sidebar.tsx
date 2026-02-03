@@ -1,7 +1,6 @@
 import Logo from "@/src/components/logo";
 import { cn } from "@/src/lib/utils";
 import React from "react";
-import { ThemeToggleMobile } from "../theme-toggle-mobile";
 import { UserButtonMobile } from "./user-button-mobile";
 import { SidebarItem } from "../sidebarItem";
 
@@ -50,7 +49,6 @@ const AuthSidebar = async ({ className }: Props) => {
       </div>
       <div className="py-4 flex flex-row items-center justify-between">
         <UserButtonMobile />
-        <ThemeToggleMobile />
       </div>
     </div>
   );

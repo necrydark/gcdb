@@ -50,7 +50,7 @@ export default function GuideSearch({ initialQuery = "" }: GuideSearchProps) {
             placeholder="Search guides by title or description..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="h-full rounded-[5px] border-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full pl-10 pr-10 py-3 border-border/50 glass-effect ring-0 focus:ring-0 placeholder:text-white text-white focus:border-purple-700 focus-visible:ring-0 shadow-lg"
+            className="h-full rounded-[5px] border-2 border-purple-900 bg-purple-800 w-full pl-10 pr-10 py-3 border-border/50 glass-effect ring-0 focus:ring-0 placeholder:text-white text-white focus:border-purple-700 focus-visible:ring-0 shadow-lg"
           />
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-white" />
           {query && (
@@ -59,7 +59,7 @@ export default function GuideSearch({ initialQuery = "" }: GuideSearchProps) {
               onClick={handleClear}
               variant="ghost"
               size="sm"
-              className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0 text-white hover:bg-purple-700/50 rounded-full"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 p-0 h-full text-white hover:bg-purple-700/50 rounded-full"
             >
               <XCircle className="h-5 w-5" />
             </Button>

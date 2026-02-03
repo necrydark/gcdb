@@ -56,7 +56,7 @@ export const LoginForm = () => {
             setShowTwoFactor(true);
           }
         })
-        .catch(() => setErr("Something went wrong"));
+        .catch(() => setErr("Something went wrong."));
     });
   };
 
@@ -132,7 +132,7 @@ export const LoginForm = () => {
                       size={"sm"}
                       variant={"link"}
                       asChild
-                      className="px-0 font-normal text-white"
+                      className="px-0 font-normal text-white "
                     >
                       <Link href={"/auth/reset"}>Forgot Password?</Link>
                     </Button>
@@ -148,7 +148,7 @@ export const LoginForm = () => {
         <Button
           type="submit"
           disabled={isPending}
-          className="text-white rounded-[5px] border-border/50 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250 w-full"
+          className="text-white rounded-[5px] border-border/50 bg-purple-600  hover:bg-purple-700 border-[2px] flex flex-row items-center  hover:text-white  transition-all duration-250 w-full"
         >
           {showTwoFactor ? "Verify" : "Login"}
         </Button>

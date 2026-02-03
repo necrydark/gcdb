@@ -68,10 +68,10 @@ export default function DifficultyFilter({
           value={currentSelectedDifficulty}
           onValueChange={handleDifficultyChange}
         >
-          <SelectTrigger className="w-[180px] border-2 focus:ring-0 focus-visible:ring-0 bg-gradient-to-r from-purple-600 to-blue-600 border-purple-700/50 rounded-[5px] text-white hover:from-purple-700 hover:to-blue-700 focus:border-purple-700 shadow-lg">
+          <SelectTrigger className="w-[180px] border-2 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-purple-700/50 rounded-[5px] text-white shadow-lg">
             <SelectValue placeholder="Select Difficulty" />
           </SelectTrigger>
-          <SelectContent className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 rounded-[5px] border border-border/50 shadow-xl">
+          <SelectContent className=" rounded-[5px] border border-border/50 shadow-xl">
             {difficultyOptions.map((option) => (
               <SelectItem
                 key={option.value}

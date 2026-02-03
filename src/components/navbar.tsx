@@ -1,4 +1,3 @@
-import ThemeToggle from "@/src/components/theme-toggle";
 import Link from "next/link";
 import React from "react";
 import { MobileSidebar } from "./mobileSidebar";
@@ -38,7 +37,7 @@ export default async function Navbar() {
 
   return (
     <>
-      <div className="w-full bg-purple-600 dark:bg-purple-950 border-b-[1px] border-b-divider">
+      <div className="w-full  dark:bg-purple-950 border-b-[1px] border-b-divider">
         <div className="max-w-[1280px] mx-auto flex justify-between px-2">
           <div className="flex">
             <Link
@@ -58,7 +57,6 @@ export default async function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <ThemeToggle />
           </div>
           <div className="md:hidden items-center flex cursor-pointer">
             <MobileSidebar />

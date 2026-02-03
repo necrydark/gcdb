@@ -29,6 +29,7 @@ export const publicRoutes = [
   "/community",
   "/terms",
   "/privacy",
+  "/contribute/characters"
 ];
 
 /**

@@ -49,7 +49,7 @@ export const RegisterForm = () => {
     }
 
     if (values.ingameRank && !isNaN(Number(values.ingameRank))) {
-      setErr("Ingame Rank must be a number.");
+      setErr("In game rank must be a number.");
     }
 
     startTransition(() => {
@@ -138,7 +138,7 @@ export const RegisterForm = () => {
                       type="text"
                     />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-[9px]">
                     This will be the username displayed to users.
                   </FormDescription>
                   <FormMessage />
@@ -255,7 +255,7 @@ export const RegisterForm = () => {
         <Button
           type="submit"
           disabled={isPending}
-          className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white border-border/50 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-250 w-full"
+          className="text-white rounded-[5px]  border-[2px] flex flex-row items-center  hover:text-white border-border/50 bg-purple-600  hover:bg-purple-700 transition-all duration-250 w-full"
         >
           Register
         </Button>

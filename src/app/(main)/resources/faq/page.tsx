@@ -360,9 +360,9 @@ export default function FaqPage() {
             />
             <Input
               placeholder="Search questions..."
-              className="h-12 rounded-[5px] border-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full pl-10 pr-10 py-3 border-border/50 glass-effect ring-0 focus:ring-0 placeholder:text-white text-white focus:border-purple-700 focus-visible:ring-0 shadow-lg"
+              // className="h-12 rounded-[5px] border-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full pl-10 pr-10 py-3 border-border/50 glass-effect ring-0 focus:ring-0 placeholder:text-white text-white focus:border-purple-700 focus-visible:ring-0 shadow-lg"
 
-              // className="border-purple-900 bg-purple-600 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white dark:bg-purple-800  focus:border-purple-900 focus-visible:ring-0 pl-10 h-12 text-lg"
+              className="border-purple-900 bg-purple-800 rounded-[5px] border-[2px] ring-0 focus:ring-0 placeholder:text-white text-white  focus-visible:ring-0 pl-10 h-12 text-lg"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -514,7 +514,7 @@ export default function FaqPage() {
               </CardContent>
               <CardFooter>
                 <Button
-                  className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                  className="w-full rounded-[5px] text-white bg-purple-600  hover:bg-purple-700 shadow-lg"
                   asChild
                 >
                   <Link href="/contribute/characters">
@@ -538,7 +538,7 @@ export default function FaqPage() {
               </CardContent>
               <CardFooter>
                 <Button
-                  className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                  className="w-full rounded-[5px] text-white bg-purple-600  hover:bg-purple-700 shadow-lg"
                   asChild
                 >
                   <Link href="/collection">
@@ -561,7 +561,7 @@ export default function FaqPage() {
               </CardContent>
               <CardFooter>
                 <Button
-                  className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                  className="w-full rounded-[5px] text-white bg-purple-600  hover:bg-purple-700 shadow-lg"
                   asChild
                 >
                   <Link href="/report">
@@ -602,7 +602,7 @@ export default function FaqPage() {
                   can to help us assist you better.
                 </p>
                 <Button
-                  className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                  className="w-full rounded-[5px] text-white bg-purple-600  hover:bg-purple-700 shadow-lg"
                   asChild
                 >
                   <a href="mailto:necrydark@gmail.com">Contact Support</a>
@@ -626,7 +626,7 @@ export default function FaqPage() {
                   different types of questions.
                 </p>
                 <Button
-                  className="w-full rounded-[5px] text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg"
+                  className="w-full rounded-[5px] text-white bg-purple-600  hover:bg-purple-700 shadow-lg"
                   asChild
                 >
                   <a

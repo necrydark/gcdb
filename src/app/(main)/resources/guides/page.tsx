@@ -249,7 +249,7 @@ export default async function GuidesPage({
                           <div className="flex flex-row gap-2 flex-wrap">
                             <Badge
                               variant="default"
-                              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md"
+                              className="bg-purple-600 text-white shadow-md"
                             >
                               {guide.category?.title}
                             </Badge>
@@ -257,7 +257,7 @@ export default async function GuidesPage({
                         </div>
                         <Badge
                           variant="default"
-                          className="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md"
+                          className="bg-purple-600 text-white shadow-md"
                         >
                           {switchDifficulties(guide.difficulty)}
                         </Badge>
@@ -287,7 +287,7 @@ export default async function GuidesPage({
                           <Badge
                             key={idx}
                             variant="secondary"
-                            className="text-xs bg-muted/50 hover:bg-purple-600/20 transition-colors cursor-default"
+                            className="text-xs bg-purple-600 hover:bg-purple-600/75 transition-colors cursor-default"
                           >
                             {tag.title}
                           </Badge>
@@ -319,7 +319,7 @@ export default async function GuidesPage({
                       </div>
                       <Button
                         size="lg"
-                        className="rounded-[5px] bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg"
+                        className="rounded-[5px] bg-purple-600  hover:bg-purple-700 text-white shadow-lg"
                         asChild
                       >
                         <Link href={`/resources/guides/${guide.slug.current}`}>
@@ -348,13 +348,13 @@ export default async function GuidesPage({
         </section>
         <section className="py-12 px-4">
           <div className="container mx-auto max-w-6xl">
-            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 border-0 shadow-2xl rounded-xl overflow-hidden">
+            <Card className="bg-background/90 glass-effect shadow-xl border border-border/50 shadow-2xl rounded-xl overflow-hidden">
               <CardContent className="flex md:flex-row flex-col p-8 justify-between items-center gap-6">
                 <div className="text-white">
                   <h2 className="text-2xl font-semibold mb-2">
                     Got Knowledge?
                   </h2>
-                  <p className="text-purple-100 text-sm max-w-xl">
+                  <p className="text-white text-sm max-w-xl">
                     Have strategies or insights to share? Write a guide and help
                     other players improve their game. The community appreciates
                     quality content from experienced players.
@@ -362,7 +362,7 @@ export default async function GuidesPage({
                 </div>
                 <Button
                   size="lg"
-                  className="rounded-xl bg-white text-purple-600 hover:bg-purple-50 shadow-lg min-w-[150px]"
+                  className="rounded-xl bg-purple-600  hover:bg-purple-700 text-white shadow-lg min-w-[150px]"
                   asChild
                 >
                   <Link href="/contact">

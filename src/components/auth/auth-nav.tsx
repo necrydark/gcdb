@@ -1,4 +1,3 @@
-import ThemeToggle from "@/src/components/theme-toggle";
 import Link from "next/link";
 import React from "react";
 import { AuthMobileSidebar } from "./auth-mobile-sidebar";
@@ -50,8 +49,7 @@ export default function AuthNavbar() {
                 {link.name}
               </Link>
             ))}
-            <UserButton className="" />
-            <ThemeToggle />
+            <UserButton  />
           </div>
           <div className="md:hidden items-center  flex cursor-pointer">
             <AuthMobileSidebar />
