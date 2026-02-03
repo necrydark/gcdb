@@ -130,11 +130,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/20">
+      1
+      <section className="py-20 px-4 bg-gradient-to-b from-background to-background">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
+            <Card className="bg-purple-900  border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
               <CardContent className="pt-6">
                 <div className="flex dark:text-white items-center gap-2">
                   <Users className="h-5 w-5 dark:text-white" />
@@ -169,7 +169,7 @@ export default async function HomePage() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
+            <Card className="bg-purple-900 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 dark:text-white" />
@@ -202,8 +202,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      <section className="py-20 px-4 ">
+      <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/20 ">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <MonthlyActiveUsers />
@@ -241,16 +240,12 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Latest News */}
-
       {/* Latest Content Additions */}
       <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 ">
-              Latest Updates
-            </h2>
+            <h2 className="text-4xl font-bold mb-4 ">Latest Updates</h2>
             <p className="text-muted-foreground text-lg">
               Stay up to date with the latest changes and improvements
             </p>
@@ -259,7 +254,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {changelogs?.slice(0, 2).map((changelog, idx) => (
               <Card
-                className="bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 group"
+                className="bg-purple-900 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 group"
                 key={idx}
               >
                 <CardHeader>
@@ -299,14 +294,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Community & Resources */}
-      <section className="py-20 px-4 ">
+      <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/20 ">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 ">
-              Community & Resources
-            </h2>
+            <h2 className="text-4xl font-bold mb-4 ">Community & Resources</h2>
             <p className="text-muted-foreground text-lg">
               Stay up to date with the latest changes and improvements
             </p>
@@ -481,14 +473,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Pricing */}
-      <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
+      <section className="py-20 px-4 bg-gradient-to-b from-muted/20 via-muted/20 to-purple-950">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 ">
-              Support GCWiki
-            </h2>
+            <h2 className="text-4xl font-bold mb-4 ">Support GCWiki</h2>
             <p className="text-muted-foreground text-lg">
               Help us keep the wiki running and growing
             </p>

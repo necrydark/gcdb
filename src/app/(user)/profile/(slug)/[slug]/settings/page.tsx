@@ -93,7 +93,7 @@ const SettingsPage = () => {
   return (
     <div className="container mx-auto  p-10 pt-[5rem] min-h-screen">
       <Card
-        className={`bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 shadow-xl  rounded-[5px]`}
+        className={`bg-gradient-to-br from-card via-card  to-muted/20 border-border/50 shadow-xl  rounded-[5px]`}
       >
         <CardHeader>
           <CardTitle className="text-white">Settings</CardTitle>
@@ -345,8 +345,7 @@ const SettingsPage = () => {
                 <Button
                   type="submit"
                   size="lg"
-                  variant="gradient"
-                  className="rounded-[5px] flex justify-end"
+                  className="rounded-[5px] bg-purple-600  hover:bg-purple-700 flex justify-end"
                 >
                   Update Settings
                   <ArrowRight className="w-4 h-4 ml-2" />

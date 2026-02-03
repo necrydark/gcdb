@@ -6,11 +6,7 @@ type Props = {
 };
 
 const UserLayout: React.FC<Props> = ({ user, children }: Props) => {
-  return (
-    <main className={`transition-all duration-300 gradient-mesh`}>
-      {children}
-    </main>
-  );
+  return <main className={`transition-all duration-300 `}>{children}</main>;
 };
 
 export default UserLayout;

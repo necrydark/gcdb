@@ -53,7 +53,7 @@ export const UserBanner = ({
               </h2>
               <Badge
                 variant="default"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white h-fit shadow-md w-fit"
+                className="bg-gradient-to-r bg-purple-700 hover:bg-purple-800 text-white h-fit shadow-md w-fit"
               >
                 {role === "USER"
                   ? "User"
