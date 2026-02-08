@@ -42,7 +42,7 @@ const ExportButton = ({ data }: ExportButtonProps) => {
     <Button 
       variant="outline" 
       size="sm" 
-      className="dark:hover:bg-purple-950 rounded-[5px] border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600"
+      className=" rounded-[5px]  border-[2px] hover:text-white transition-all duration-250"
       onClick={handleExport}
     >
       <Download className="mr-2 h-4 w-4" />

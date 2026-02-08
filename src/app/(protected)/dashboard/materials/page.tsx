@@ -74,7 +74,7 @@ const AdminMaterialsPage = async () => {
       <UniversalDataTable 
         columns={materialColumns} 
         data={data}
-        searchColumns={["name", "slug"]}
+        searchableColumns={["name", "slug", "type"]}
       />
     </div>
   );

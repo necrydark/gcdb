@@ -74,7 +74,7 @@ const AdminRelicsPage = async () => {
       <UniversalDataTable 
         columns={relicColumns} 
         data={data}
-        searchColumns={["name", "slug"]}
+        searchableColumns={["name", "slug", "description"]}
       />
     </div>
   );

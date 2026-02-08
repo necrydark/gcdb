@@ -82,7 +82,7 @@ const AdminUserPage = async () => {
       <UniversalDataTable 
         columns={userColumns} 
         data={data}
-        searchColumns={["email", "username"]}
+        searchableColumns={["email", "username", "name"]}
       />
     </div>
   );

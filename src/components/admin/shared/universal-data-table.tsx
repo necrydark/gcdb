@@ -31,17 +31,17 @@ import { useState } from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  searchColumns?: string[];
+  searchableColumns?: string[];
   className?: string;
 }
 
 export function UniversalDataTable<TData, TValue>({
   columns,
   data,
-  searchColumns = ["email", "username"],
+  searchableColumns = ["email", "username"],
   className = "",
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const table = useReactTable({
@@ -50,32 +50,53 @@ export function UniversalDataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     state: {
-      columnFilters,
+      columnFilters: searchTerm ? [
+        {
+          id: "global-search",
+          value: searchTerm,
+        }
+      ] : [],
       columnVisibility,
+    },
+    getRowId: (row) => (row as any).id,
+    globalFilterFn: (row, searchTerm, column) => {
+      if (!searchTerm) return true;
+      
+      return searchableColumns.some((columnId) => {
+        const value = (row as any)[columnId];
+        return value && 
+          typeof value === 'string' 
+            ? value.toLowerCase().includes(searchTerm.toLowerCase())
+            : String(value).toLowerCase().includes(searchTerm.toLowerCase());
+      });
     },
   });
 
-  const commonInputClass = "max-w-sm border-purple-900 bg-purple-600 border-[2px] ring-0 focus:ring-0 rounded-[5px] placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0";
+  const commonInputClass = "max-w-md border-purple-900 bg-purple-600 border-[2px] ring-0 focus:ring-0 rounded-[5px] placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0";
   const commonButtonClass = "dark:hover:bg-purple-950 rounded-[5px] border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600";
 
   return (
     <div className={className}>
-      <div className="flex items-center flex-wrap gap-5">
-        {searchColumns.map((columnName) => (
-          <div key={columnName} className="flex items-center py-4">
-            <Input
-              placeholder={`Filter ${columnName}...`}
-              value={(table.getColumn(columnName)?.getFilterValue() as string) ?? ""}
-              onChange={(event) =>
-                table.getColumn(columnName)?.setFilterValue(event.target.value)
-              }
-              className={commonInputClass}
-            />
-          </div>
-        ))}
+      <div className="flex items-center justify-between gap-5 pb-4">
+        <div className="flex items-center gap-2">
+          <Input
+            placeholder={`Search across ${searchableColumns.join(", ")}...`}
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            className={commonInputClass}
+          />
+          {searchTerm && (
+            <Button 
+              variant="outline" 
+              className={commonButtonClass}
+              onClick={() => setSearchTerm("")}
+            >
+              Clear
+            </Button>
+          )}
+        </div>
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

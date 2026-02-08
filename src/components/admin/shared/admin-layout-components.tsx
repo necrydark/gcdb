@@ -50,8 +50,7 @@ export function AdminPageHeader({
         {actionText && actionHref && (
           <Button
             size="sm"
-            variant="outline"
-            className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600"
+            className="rounded-[5px]   border-[2px] hover:text-white  transition-all duration-250 "
             asChild
           >
             <Link href={actionHref}>

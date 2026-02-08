@@ -55,7 +55,7 @@ export function CharactersPageClient({ data }: CharactersPageClientProps) {
         actionText="Add Character"
         actionHref="/dashboard/characters/new"
       >
-        <ExportButton data={data} />
+        {data.length > 0 && <ExportButton data={data} />}
       </AdminPageHeader>
       
       <UniversalDataTable 
