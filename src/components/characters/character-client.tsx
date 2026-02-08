@@ -194,7 +194,7 @@ export default function CharacterClient({
         <h1 className="text-3xl font-bold mb-6 text-white">Characters</h1>
 
         {/* Filters */}
-        <div className="dark:bg-purple-900 bg-purple-800 shadow-md p-4 rounded-[5px] mb-6">
+        <div className="bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl p-4 rounded-[5px] mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-4">
             <div className="lg:col-span-2">
               <Input
@@ -321,7 +321,7 @@ export default function CharacterClient({
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 rounded-[5px] dark:bg-purple-900 bg-purple-800">
+              <div className="text-center py-12 rounded-[5px] bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl">
                 <h3 className="text-lg font-medium text-white mb-2">
                   No characters found
                 </h3>

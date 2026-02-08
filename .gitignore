@@ -29,6 +29,19 @@ yarn-error.log*
 .env*.local
 .env
 
+# Database
+*.sqlite
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+
 # vercel
 .vercel
 

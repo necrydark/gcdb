@@ -12,8 +12,14 @@ import {
 import { getUserGrowthStats } from "@/src/actions/get-user-stats";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 import { getFoodCount, getIngredientCount } from "@/data/food";
+import React from "react";
 
 
+type Props = {
+  title: string;
+  value: number | string;
+  extra?: React.ReactNode;
+}
 
 
 const AdminPage = async () => {
@@ -30,26 +36,11 @@ const AdminPage = async () => {
   const ingredientCount = await getIngredientCount()
 
 
-  return (
-    <div className=" text-white px-10 container mx-auto py-20">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl leading-tight font-extrabold pb-5">
-          Dashboard
-        </h1>
-      </div>
-      <div className="grid gap-6 md:grid-cols-3">
-      <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl" >
-      <CardHeader>
-        <CardTitle className="text-primary dark:text-white">
-        User Growth
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-2xl font-bold">{data.currentMonthUsers}</p>
-
-
-      
-      {data.percentageChange !== null && (
+  const cards: Props[] = [
+    {
+      title: "User Growth",
+      value: data.currentMonthUsers,
+      extra: data.percentageChange !== null && (
         <div className="mt-2 flex items-center">
           {data.percentageChange > 0 ? (
             <>
@@ -71,58 +62,51 @@ const AdminPage = async () => {
             </span>
           )}
         </div>
-      )}
-      </CardContent>
+      )
+    },
+     {
+      title: "Total Characters",
+      value: charCount ?? 0,
+     },
+     {
+      title: "Total Relics",
+      value: relicCount ?? 0
+     },
+     {
+      title: "Total Materials",
+      value: materialCount ?? 0
+     },
+      {
+      title: "Total Food",
+      value: foodCount ?? 0
+     },
+      {
+      title: "Total Ingredients",
+      value: ingredientCount ?? 0
+     },
+     
+  ]
 
-    </Card>
-        {/* <Card>
+  return (
+    <div className=" text-white px-10 container mx-auto py-20">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl leading-tight font-extrabold pb-5">
+          Dashboard
+        </h1>
+      </div>
+      <div className="grid gap-6 md:grid-cols-3">
+      {cards.map((card) => (
+        <Card key={card.title} className="bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl rounded-lg shadow-xl">
           <CardHeader>
-            <CardTitle>Total Users:</CardTitle>
+            <CardTitle className="font-bold">{card.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{count}</p>
-          </CardContent>
-        </Card> */}
-        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
-          <CardHeader>
-            <CardTitle className="font-bold">Total Characters</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{charCount ?? 0}</p>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
-          <CardHeader>
-            <CardTitle className="font-bold">Total Relics</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{relicCount ?? 0}</p>
+            <p className="text-2xl font-bold">{card.value}</p>
+            {card.extra}
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
-          <CardHeader>
-            <CardTitle className="font-bold">Total Materials</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{materialCount}</p>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
-          <CardHeader>
-            <CardTitle className="font-bold">Total Food</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{foodCount}</p>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 rounded-lg shadow-xl">
-          <CardHeader>
-            <CardTitle className="font-bold">Total Ingredients</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{ingredientCount}</p>
-          </CardContent>
-        </Card>
+      ))}
+       
       </div>
       {/* <DataTable columns={columns} data={data} /> */}
     </div>
@@ -130,3 +114,5 @@ const AdminPage = async () => {
 };
 
 export default AdminPage;
+
+

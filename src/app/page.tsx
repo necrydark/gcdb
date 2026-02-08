@@ -130,7 +130,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-      1
       <section className="py-20 px-4 bg-gradient-to-b from-background to-background">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

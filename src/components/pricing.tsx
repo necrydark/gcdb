@@ -67,7 +67,7 @@ export default function Pricing() {
     
           <div className="grid grid-cols-1 gap-8">
             {/* Basic Plan */}
-            <Card  className="rounded-lg border text-card-foreground max-w-xl mx-auto bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl">
+            <Card  className="rounded-lg border text-card-foreground max-w-xl mx-auto bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl">
                 <CardHeader className="text-center">
                     <CardTitle>
                         SR Plan

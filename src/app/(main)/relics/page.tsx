@@ -1,6 +1,8 @@
 import RelicTabs from "@/src/components/relics/relics-tab";
 import db from "@/src/lib/db";
 import { currentUser } from "@/src/utils/auth";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/src/components/ui/empty";
+import { Book } from "lucide-react";
 
 async function HolyRelicsPage() {
   const relics = await db.holyRelic.findMany({
@@ -31,9 +33,18 @@ async function HolyRelicsPage() {
         <RelicTabs holyRelic={JSON.parse(JSON.stringify(formattedRelics))} />
       ) : (
         <div className="flex w-full justify-center">
-          <h1 className=" text-3xl font-bold">
-            There are currently no relics available.
-          </h1>
+             <Empty className="border border-dashed">
+      <EmptyHeader>
+        <EmptyMedia className="bg-primary/50" variant="icon">
+          <Book />
+        </EmptyMedia>
+        <EmptyTitle>No Relics Available</EmptyTitle>
+        <EmptyDescription>
+          There are currently no relics available.
+        </EmptyDescription>
+      </EmptyHeader>
+ 
+    </Empty>
         </div>
       )}
     </div>

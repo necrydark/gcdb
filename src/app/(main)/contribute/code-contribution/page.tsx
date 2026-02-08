@@ -1,272 +1,199 @@
-import { Alert, AlertDescription } from "@/src/components/ui/alert";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs";
-import { ArrowLeft, Award, Bug, CheckCircle, Code, Database, GitBranch, Plus, Rocket, Settings, Shield, Star, Terminal, Users, Zap } from "lucide-react";
-import Link from "next/link";
+"use client"
+
+import {
+  BreadcrumbNav,
+  ChecklistGrid,
+  CtaBanner,
+  InfoAlert,
+  PageHero,
+  RewardsBadgeGrid,
+  SectionCard,
+  StepTimeline,
+} from "@/src/components/contribute"
+import { Badge } from "@/src/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs"
+import {
+  Award,
+  Bug,
+  CheckCircle,
+  Code,
+  Database,
+  GitBranch,
+  Plus,
+  Rocket,
+  Settings,
+  Shield,
+  Star,
+  Terminal,
+  Users,
+  Zap,
+} from "lucide-react"
 
 const stack = [
   {
     name: "Frontend",
-    icon: <Code className="h-4 w-4 mr-2 text-blue-500" />,
-    skills: [
-      {
-        name: "React",
-      },
-      {
-        name: "Next.js"
-      },
-      {
-        name: "TypeScript"
-      },
-      {
-        name: "Tailwind CSS"
-      },
-      {
-        name: "shadcn/ui"
-      }
-    ]
+    icon: <Code className="h-4 w-4 text-purple-400" />,
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
   },
   {
     name: "Backend",
-    icon: <Database className="h-4 w-4 mr-2 text-blue-500" />,
-    skills: [
-      {
-        name: "Node.js",
-      },
-      {
-        name: "PostgreSQL"
-      },
-      {
-        name: "Prisma"
-      },
-      {
-        name: "tRPC (Changing)"
-      },
-      {
-        name: "NextAuth.js"
-      },
-      {
-        name: "Stripe"
-      }
-    ]
+    icon: <Database className="h-4 w-4 text-purple-400" />,
+    skills: ["Node.js", "PostgreSQL", "Prisma", "tRPC (Changing)", "NextAuth.js", "Stripe"],
   },
   {
     name: "Tools",
-    icon: <Settings className="h-4 w-4 mr-2 text-blue-500" />,
-    skills: [
-      {
-        name: "Git",
-      },
-      {
-        name: "GitHub"
-      },
-      {
-        name: "Vercel"
-      },
-      {
-        name: "Docker (Adding)"
-      },
-      {
-        name: "Jest (Adding)"
-      }
-    ]
+    icon: <Settings className="h-4 w-4 text-purple-400" />,
+    skills: ["Git", "GitHub", "Vercel", "Docker (Adding)", "Jest (Adding)"],
   },
-  
 ]
 
-const contribution = [
+const contributions = [
   {
     name: "Bug Fixes",
     difficulty: "Good First Issue",
-    icon: <Bug className="h-5 w-5 text-red-500" />,
-    description: "Fix reported bug and issues in the codebase. Great way to get familiar with the project.",
-    tag: [
-      {
-        name: "Frontend"
-      }, 
-      {
-        name: "Backend"
-      }
-    ]
+    icon: <Bug className="h-5 w-5 text-red-400" />,
+    description: "Fix reported bugs and issues in the codebase. Great way to get familiar with the project.",
+    tags: ["Frontend", "Backend"],
   },
   {
     name: "New Features",
     difficulty: "Medium",
-    icon: <Plus className="h-5 w-5 text-green-500" />,
+    icon: <Plus className="h-5 w-5 text-emerald-400" />,
     description: "Implement new functionality and features requested by the community.",
-    tag: [
-      {
-        name: "Full Stack"
-      }, 
-      {
-        name: "UI/UX"
-      }
-    ]
+    tags: ["Full Stack", "UI/UX"],
   },
   {
     name: "Performance",
     difficulty: "Advanced",
-    icon: <Zap className="h-5 w-5 text-yellow-500" />,
+    icon: <Zap className="h-5 w-5 text-amber-400" />,
     description: "Optimize application performance, reduce load times and improve user experience.",
-    tag: [
-      {
-        name: "Optimization"
-      }, 
-      {
-        name: "Database"
-      }
-    ]
+    tags: ["Optimization", "Database"],
   },
   {
     name: "Security",
     difficulty: "Critical",
-    icon: <Shield className="h-5 w-5 text-blue-500" />,
+    icon: <Shield className="h-5 w-5 text-blue-400" />,
     description: "Identify and fix security vulnerabilities, implement security best practices.",
-    tag: [
-      {
-        name: "Security"
-      }, 
-      {
-        name: "Authentication"
-      }
-    ]
+    tags: ["Security", "Authentication"],
   },
-  
 ]
 
 export default function CodeContributionPage() {
   return (
-    <div className="pt-[3.75rem]">
-      <div className="border-b bg-muted/30">
-        <div className="container mx-auto max-w-6xl px-4 py-4">
-          <nav className="flex items-center space-x-2 text-sm">
-            <Link href={"/"} className="text-muted-foreground hover:text-foreground">
-              Home
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <Link href="/contribute" className="text-muted-foreground hover:text-foreground">
-              Contribute
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="font-medium">Code Contribution</span>
-          </nav>
-        </div>
-      </div>
+    <div className="min-h-screen bg-background pt-15">
+      <BreadcrumbNav
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Contribute", href: "/contribute" },
+          { label: "Code Contribution" },
+        ]}
+      />
 
-      <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="mb-8">
-          <Button variant={"ghost"} className="mb-4 hover:bg-purple-600 text-white hover:text-white" asChild> 
-            <Link href={"/contribute"}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back To Contribute
-            </Link>
-          </Button>
+      <PageHero
+        icon={<Code className="h-8 w-8 text-purple-400" />}
+        title="Code Contribution"
+        description="Help build and improve our open-source tools, website and infrastructure. Perfect for developers who want to contribute their technical skills to create better tools for the community."
+        badges={[
+          { label: "Hard", variant: "filled" },
+          { label: "Whenever You Can", variant: "outline" },
+          { label: "Advanced", variant: "outline" },
+        ]}
+      />
 
-          <div className="flex items-center gap-4 mb-4">
-            <div className="bg-purple-700 border-purple-900 p-3 rounded-lg">
-                <Code className="h-8 w-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-white">Code Contribution</h1>
-              <div className="flex items-center gap-2 mt-1">
-                <Badge variant={"secondary"} className="bg-purple-700 hover:bg-purple-700/50 text-white">Hard</Badge>
-                <Badge variant={"outline"} className="border-purple-700 text-white">Whenever You Can</Badge>
-                <Badge variant={"outline"} className="border-purple-700 text-white">Advanced</Badge>
-              </div>
-            </div>
-          </div>
-          
-          <p className="text-lg dark:text-gray-300 text-muted-foreground">Help build and improve our open-source tools, website and infrastructure. Perfect for developers who want to contribute their technical skills to create better tools for the community.</p>
-        </div>
-
-        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Terminal className="mr-2 w-5 h-5" />
-              Our Tech Stack
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {stack.map((stack, idx) => (
-                <div key={idx} className="border rounded-md text-white border-purple-950 p-4">
-                         <h3 className="font-semibold mb-2 flex items-center">
-                    {stack.icon}
-                    {stack.name}
+      <main className="container mx-auto max-w-4xl px-4 py-10">
+        <div className="flex flex-col gap-8">
+          {/* Tech Stack */}
+          <SectionCard
+            icon={<Terminal className="h-5 w-5" />}
+            title="Our Tech Stack"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {stack.map((s) => (
+                <div
+                  key={s.name}
+                  className="border border-border/50 rounded-lg p-4 hover:border-primary transition-colors"
+                >
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-foreground">
+                    {s.icon}
+                    {s.name}
                   </h3>
-                  <div className="flex flex-wrap gap-1">
-                    {stack.skills.map((tech) => (
-                      <Badge key={tech.name} className="border-purple-950 text-white" variant={"outline"}>
-                        {tech.name}
+                  <div className="flex flex-wrap gap-1.5">
+                    {s.skills.map((tech) => (
+                      <Badge
+                        key={tech}
+                        variant="outline"
+                        className="bg-transparent border-primary text-purple-300 text-xs"
+                      >
+                        {tech}
                       </Badge>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </SectionCard>
 
-
-        {/* Type Of Contribution */}
-        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Terminal className="mr-2 w-5 h-5" />
-              Types Of Contribution
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {contribution.map((type, idx) => (
-              <div key={idx} className="space-y-4">
-                <div className="border rounded-md text-white border-purple-950 p-4">
+          {/* Types of Contribution */}
+          <SectionCard
+            icon={<Terminal className="h-5 w-5" />}
+            title="Types of Contribution"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {contributions.map((type) => (
+                <div
+                  key={type.name}
+                  className="border border-border/50 rounded-lg p-4 hover:border-primary transition-colors"
+                >
                   <div className="flex items-center gap-2 mb-2">
                     {type.icon}
-                  <h3 className="font-semibold ">
-                    {type.name}
-                  </h3>
-                  <Badge variant={"outline"} className="border-purple-900 text-white text-xs">{type.difficulty}</Badge>
-                  </div>      
-                  <p className="text-gray-300 text-sm mb-2">{type.description}</p>            
-                  <div className="flex flex-wrap gap-1">
-                   {type.tag.map((tag) => (
-                    <Badge key={tag.name}  className="bg-purple-950 hover:bg-purple-950/50 text-white">{tag.name}</Badge>
-                   ))}
+                    <h3 className="font-semibold text-foreground">
+                      {type.name}
+                    </h3>
+                    <Badge
+                      variant="outline"
+                      className="bg-transparent border-primary/30 text-purple-300 text-xs ml-auto"
+                    >
+                      {type.difficulty}
+                    </Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {type.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {type.tags.map((tag) => (
+                      <Badge
+                        key={tag}
+                        className="bg-primary/20 text-purple-300 hover:bg-primary/30 border-0 text-xs"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
                   </div>
                 </div>
-              </div>
               ))}
-
             </div>
-          </CardContent>
-        </Card>
+          </SectionCard>
 
-        {/* Development Workflow */}
-        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <GitBranch className="mr-2 w-5 h-5" />
-              Development Workflow
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-              <Tabs defaultValue="setup" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="setup">Setup</TabsTrigger>
-                    <TabsTrigger value="development">Development</TabsTrigger>
-                    {/* <TabsTrigger value="setup">Testing</TabsTrigger> */}
-                    <TabsTrigger value="submission">Submission</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="setup" className="mt-6 text-white">
-                    <div className="space-y-4">
-                      <h3 className="font-semibold">Getting Started</h3>
-                      <div className="bg-purple-800/50 rounded-lg p-4">
-                        <pre className="text-sm">
-                          <code>{`# Clone the repository
+          {/* Development Workflow */}
+          <SectionCard
+            icon={<GitBranch className="h-5 w-5" />}
+            title="Development Workflow"
+          >
+            <Tabs defaultValue="setup" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="setup">Setup</TabsTrigger>
+                <TabsTrigger value="development">Development</TabsTrigger>
+                <TabsTrigger value="submission">Submission</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="setup" className="mt-6">
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-foreground">
+                    Getting Started
+                  </h3>
+                  <div className="bg-secondary/50 rounded-lg p-4 font-mono text-sm">
+                    <pre className="text-foreground/80">
+                      <code>{`# Clone the repository
 git clone https://github.com/necrydark/gcdb.git
 cd holy-relics
 
@@ -275,275 +202,199 @@ npm install
 
 # Set up environment variables
 cp .env.example .env.local
-# Edit .env.local with your configuration
 
 # Run the development server
 npm run dev`}</code>
-                        </pre>
-                      </div>
-                      <div className="space-y-2">
-                        <h4 className="font-medium">Prerequisites:</h4>
-                        <ul className="text-sm space-y-1 ml-4">
-                            <li>Node.js 18+ and npm</li>
-                            <li>PostgreSQL database (local or cloud)</li>
-                            <li>Git configured with your GitHub account</li>
-                            <li>IDE (VSCode Recommended)</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </TabsContent>
-                  <TabsContent value="development" className="mt-6">
-                  <div className="space-y-4">
-                  <h3 className="font-semibold text-white">Development Process</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-purple-900/50 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                        1
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-white">Choose an Issue</h4>
-                        <p className="text-sm text-gray-300">
-                          Browse our GitHub issues and pick one that matches your skill level. Look for &quot;good first
-                          issue&quot; labels if you&apos;re new.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="bg-purple-900/50 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                        2
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-white">Create a Branch</h4>
-                        <p className="text-sm text-gray-300">
-                          Create a feature branch from main with a descriptive name like &quot;fix/login-bug&quot; or
-                          &quot;feature/user-dashboard&quot;.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="bg-purple-900/50 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                        3
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-white">Implement Changes</h4>
-                        <p className="text-sm text-gray-300">
-                          Write your code following our style guide and best practices. Make small, focused commits with
-                          clear messages.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="bg-purple-900/50 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                        4
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-white">Update Documentation</h4>
-                        <p className="text-sm text-gray-300">
-                          Update relevant documentation, comments, and README files as needed for your changes.
-                        </p>
-                      </div>
-                    </div>
+                    </pre>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-foreground">
+                      Prerequisites:
+                    </h4>
+                    <ul className="text-sm space-y-1 ml-4 text-muted-foreground">
+                      <li>Node.js 18+ and npm</li>
+                      <li>PostgreSQL database (local or cloud)</li>
+                      <li>Git configured with your GitHub account</li>
+                      <li>IDE (VSCode Recommended)</li>
+                    </ul>
                   </div>
                 </div>
-                  </TabsContent>
-                  <TabsContent value="submission" className="mt-6 text-white">
+              </TabsContent>
+
+              <TabsContent value="development" className="mt-6">
                 <div className="space-y-4">
-                  <h3 className="font-semibold">Submitting Your Contribution</h3>
+                  <h3 className="font-semibold text-foreground">
+                    Development Process
+                  </h3>
+                  <StepTimeline
+                    steps={[
+                      {
+                        title: "Choose an Issue",
+                        description:
+                          'Browse our GitHub issues and pick one that matches your skill level. Look for "good first issue" labels if you\'re new.',
+                      },
+                      {
+                        title: "Create a Branch",
+                        description:
+                          'Create a feature branch from main with a descriptive name like "fix/login-bug" or "feature/user-dashboard".',
+                      },
+                      {
+                        title: "Implement Changes",
+                        description:
+                          "Write your code following our style guide and best practices. Make small, focused commits with clear messages.",
+                      },
+                      {
+                        title: "Update Documentation",
+                        description:
+                          "Update relevant documentation, comments, and README files as needed for your changes.",
+                      },
+                    ]}
+                  />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="submission" className="mt-6">
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-foreground">
+                    Submitting Your Contribution
+                  </h3>
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-medium mb-2">Pull Request Template:</h4>
-                      <div className="bg-purple-800/50 rounded-lg p-4 text-sm">
-                        <div className="space-y-2">
-                          <p>
-                            <strong>Description:</strong> Brief description of changes
-                          </p>
-                          <p>
-                            <strong>Type of Change:</strong> Bug fix / New feature / Performance / Documentation
-                          </p>
-                          <p>
-                            <strong>Testing:</strong> How you tested your changes
-                          </p>
-                          <p>
-                            <strong>Screenshots:</strong> If applicable, add screenshots
-                          </p>
-                          <p>
-                            <strong>Checklist:</strong>
-                          </p>
-                          <ul className="ml-4 space-y-1">
-                            <li>□ Tests pass locally</li>
-                            <li>□ Code follows style guidelines</li>
-                            <li>□ Documentation updated</li>
-                            <li>□ No breaking changes</li>
-                          </ul>
-                        </div>
+                      <h4 className="font-medium mb-2 text-foreground">
+                        Pull Request Template:
+                      </h4>
+                      <div className="bg-secondary/50 rounded-lg p-4 text-sm text-muted-foreground space-y-2">
+                        <p>
+                          <strong className="text-foreground">
+                            Description:
+                          </strong>{" "}
+                          Brief description of changes
+                        </p>
+                        <p>
+                          <strong className="text-foreground">
+                            Type of Change:
+                          </strong>{" "}
+                          Bug fix / New feature / Performance / Documentation
+                        </p>
+                        <p>
+                          <strong className="text-foreground">Testing:</strong>{" "}
+                          How you tested your changes
+                        </p>
+                        <p>
+                          <strong className="text-foreground">
+                            Screenshots:
+                          </strong>{" "}
+                          If applicable, add screenshots
+                        </p>
                       </div>
                     </div>
-
                     <div>
-                      <h4 className="font-medium mb-2">Review Process:</h4>
-                      <ul className="text-sm space-y-1">
-                        <li>• Automated checks run on your PR</li>
-                        <li>• Code review by maintainers</li>
-                        <li>• Address feedback and make changes</li>
-                        <li>• Final approval and merge</li>
+                      <h4 className="font-medium mb-2 text-foreground">
+                        Review Process:
+                      </h4>
+                      <ul className="text-sm space-y-1 text-muted-foreground">
+                        <li>Automated checks run on your PR</li>
+                        <li>Code review by maintainers</li>
+                        <li>Address feedback and make changes</li>
+                        <li>Final approval and merge</li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </TabsContent>
-              </Tabs>
-          </CardContent>
-        </Card>
+            </Tabs>
+          </SectionCard>
 
-        {/* Code Standards */}
-        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Settings className="mr-2 w-5 h-5" />
-              Code Standard & Best Practices
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold mb-3 text-white">Code Quality:</h3>
-                <ul className="space-y-2 text-white">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                    <span className="text-sm">Use TypeScript for type safety</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                    <span className="text-sm">Follow ESLint and Prettier configurations</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                    <span className="text-sm">Write self-documenting code with clear names</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                    <span className="text-sm">Keep functions small and focused</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
-                    <span className="text-sm">Use consistent error handling patterns</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-3 text-white">Performance:</h3>
-                <ul className="space-y-2 text-white">
-                  <li className="flex items-start gap-2">
-                    <Zap className="h-4 w-4 text-yellow-500 mt-0.5" />
-                    <span className="text-sm">Optimize database queries and indexes</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Zap className="h-4 w-4 text-yellow-500 mt-0.5" />
-                    <span className="text-sm">Use React best practices (memo, useMemo, etc.)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Zap className="h-4 w-4 text-yellow-500 mt-0.5" />
-                    <span className="text-sm">Implement proper caching strategies</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Zap className="h-4 w-4 text-yellow-500 mt-0.5" />
-                    <span className="text-sm">Optimize images and assets</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Zap className="h-4 w-4 text-yellow-500 mt-0.5" />
-                    <span className="text-sm">Monitor and measure performance impacts</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
+          {/* Code Standards */}
+          <SectionCard
+            icon={<Settings className="h-5 w-5" />}
+            title="Code Standards & Best Practices"
+          >
+            <ChecklistGrid
+              columns={[
+                {
+                  title: "Code Quality",
+                  icon: <CheckCircle className="h-4 w-4 text-emerald-500" />,
+                  items: [
+                    "Use TypeScript for type safety",
+                    "Follow ESLint and Prettier configurations",
+                    "Write self-documenting code with clear names",
+                    "Keep functions small and focused",
+                    "Use consistent error handling patterns",
+                  ],
+                },
+                {
+                  title: "Performance",
+                  icon: <Zap className="h-4 w-4 text-amber-500" />,
+                  items: [
+                    "Optimize database queries and indexes",
+                    "Use React best practices (memo, useMemo, etc.)",
+                    "Implement proper caching strategies",
+                    "Optimize images and assets",
+                    "Monitor and measure performance impacts",
+                  ],
+                },
+              ]}
+            />
+          </SectionCard>
 
           {/* Recognition */}
-        <Card className="mb-8 bg-purple-500 border-0 dark:bg-purple-900">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Award className="mr-2 w-5 h-5" />
-              Recognition & Career Growth
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Developer Badge</Badge>
-                <p className="text-sm text-white">Displayed on your GitHub and profile</p>
-              </div>
-              <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Contribution Stats</Badge>
-                <p className="text-sm text-white">Track your impact and contributions</p>
-              </div>
-              <div className="text-center p-4 border rounded-lg">
-                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white mb-2">Open Source Credit</Badge>
-                <p className="text-sm text-white">Build your open source portfolio</p>
-              </div>
-            </div>
+          <SectionCard
+            icon={<Award className="h-5 w-5" />}
+            title="Recognition & Career Growth"
+          >
+            <RewardsBadgeGrid
+              rewards={[
+                {
+                  label: "Developer Badge",
+                  description: "Displayed on your GitHub and profile",
+                },
+                {
+                  label: "Contribution Stats",
+                  description: "Track your impact and contributions",
+                },
+                {
+                  label: "Open Source Credit",
+                  description: "Build your open source portfolio",
+                },
+              ]}
+              advancementDescription="Outstanding contributors may be invited to join our core development team with additional responsibilities and recognition."
+              advancementBadges={[
+                { label: "Core Maintainer", icon: <Star className="h-3 w-3" /> },
+                { label: "Technical Lead", icon: <Users className="h-3 w-3" /> },
+                { label: "Security Reviewer", icon: <Shield className="h-3 w-3" /> },
+                { label: "DevOps Engineer", icon: <Rocket className="h-3 w-3" /> },
+              ]}
+            />
+          </SectionCard>
 
+          {/* Code of Conduct */}
+          <InfoAlert>
+            <strong>Code of Conduct:</strong> All contributors must follow our
+            code of conduct. We maintain a welcoming, inclusive environment for
+            developers of all skill levels. Harassment, discrimination, or toxic
+            behavior will not be tolerated.
+          </InfoAlert>
 
-            <div className="text-center">
-              <h3 className="font-semibold mb-2 text-white">Advancement Opportunities</h3>
-              <p className="text-gray-300 mb-4">
-                Outstanding contributors may be invited to join our core development team with additional
-                responsibilities and recognition.
-              </p>
-              <div className="flex justify-center gap-2 flex-wrap">
-                <Badge variant="outline" className="border-purple-950 text-white">
-                  <Star className="h-3 w-3 mr-1" />
-                  Core Maintainer
-                </Badge>
-                <Badge variant="outline" className="border-purple-950 text-white">
-                  <Users className="h-3 w-3 mr-1" />
-                  Technical Lead
-                </Badge>
-                <Badge variant="outline" className="border-purple-950 text-white">
-                  <Shield className="h-3 w-3 mr-1" />
-                  Security Reviewer
-                </Badge>
-                <Badge variant="outline" className="border-purple-950 text-white">
-                  <Rocket className="h-3 w-3 mr-1" />
-                  DevOps Engineer
-                </Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Alert className=" bg-purple-500 border-0 dark:bg-purple-900 mb-8 text-white">
-          <AlertDescription>
-          <strong>Code of Conduct:</strong> All contributors must follow our code of conduct. We maintain a welcoming,
-            inclusive environment for developers of all skill levels. Harassment, discrimination, or toxic behavior will
-            not be tolerated.
-          </AlertDescription>
-        </Alert>
-
-        <Card className="bg-purple-500 border-0 dark:bg-purple-900 mb-8 text-white">
-          <CardContent className="pt-6 text-center">
-            <Code className="h-12 w-12 text-white mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-4">Ready to Start Coding?</h2>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Join our development team and help build the tools that thousands of gamers rely on. Your code can make a
-              real difference in the gaming community while building your open source portfolio.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-800/50 transition-all duration-300 rounded-[5px]" asChild>
-                <Link href="https://github.com/necrydark/gcdb">View on GitHub</Link>
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-600 dark:hover:bg-purple-950/50" asChild>
-                <Link href="/contribute/guidelines">Development Guidelines</Link>
-              </Button>
-            </div>
-   
-          </CardContent>
-        </Card>
-      </div>
+          {/* CTA */}
+          <CtaBanner
+            icon={<Code className="h-8 w-8 text-purple-400" />}
+            title="Ready to Start Coding?"
+            description="Join our development team and help build the tools that thousands of gamers rely on. Your code can make a real difference in the gaming community while building your open source portfolio."
+            buttons={[
+              {
+                label: "View on GitHub",
+                href: "https://github.com/necrydark/gcdb",
+              },
+              {
+                label: "Development Guidelines",
+                href: "/contribute/guidelines",
+                variant: "outline",
+              },
+            ]}
+          />
+        </div>
+      </main>
     </div>
   )
 }

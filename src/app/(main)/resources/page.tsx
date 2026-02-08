@@ -9,8 +9,15 @@ import {
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+type Resource = {
+  name: string;
+  description: string;
+  link: string;
+
+}
+
 export default function ResourcesPage() {
-  const resources = [
+  const resources: Resource[] = [
     {
       name: "FAQ",
       description:
@@ -34,9 +41,19 @@ export default function ResourcesPage() {
         "View our calculators for calculating CC for teams or stats for characters.",
       link: "/resources/calculators",
     },
+    {
+      name: "Community",
+      description: "View community resources and how to get involved in the community.",
+      link: "/community"
+    },
+       {
+      name: "Contribute",
+      description: "View how to contribute to the website.",
+      link: "/contribute"
+    },
   ];
   return (
-    <div className="pt-[10rem]">
+    <div className="pt-[7rem]">
       <section className="container mx-auto px-12 py-6">
         <h1 className="text-4xl md:text-5xl  leading-tight font-bold mb-8 text-center">
           Resources
@@ -45,7 +62,7 @@ export default function ResourcesPage() {
           {resources.map((resource, idx) => (
             <Card
               key={idx}
-              className=" flex flex-col bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]"
+              className=" flex flex-col bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl transition-all duration-500 rounded-[5px]"
             >
               <CardHeader>
                 <CardTitle>{resource.name}</CardTitle>
@@ -57,7 +74,7 @@ export default function ResourcesPage() {
                 <Link href={resource.link}>
                   <Button
                     size="lg"
-                    className="w-full rounded-[5px] bg-purple-600 hover:bg-purple-700"
+                    className="w-full rounded-[5px]"
                   
                   >
                     Visit
@@ -68,28 +85,7 @@ export default function ResourcesPage() {
             </Card>
           ))}
         </div>
-        <Card className="bg-gradient-to-br from-card via-card to-purple-50/50 dark:to-purple-900/10 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px] mt-6">
-          <CardHeader>
-            <CardTitle>Community</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-white text-sm">
-              View community resources and how to get involved in the community.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <Link href="/community">
-              <Button
-                size="lg"
-             
-                className="w-full rounded-[5px] bg-purple-600 hover:bg-purple-700"
-              >
-                Visit
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
+   
       </section>
     </div>
   );

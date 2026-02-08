@@ -17,7 +17,7 @@ const initialState = {
 
 function BioForm({ bio }: { bio: string | null | undefined }) {
   const [state, formAction] = useFormState(updateBio, initialState);
-
+  const { toast } = useToast();
 
   useEffect(() => {
     if (state?.status === "green") {
@@ -35,7 +35,7 @@ function BioForm({ bio }: { bio: string | null | undefined }) {
         duration: 5000,
       });
     }
-  }, [state, toast]);
+  }, [state, toast]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <form action={formAction} className="mt-6">

@@ -11,7 +11,7 @@ const AdminLayout = ({ children }: Props) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="gradient-mesh  flex flex-col">
+      <SidebarInset className="bg-gradient-to-b from-background to-muted/20   flex flex-col">
         <DashboardHeader />
         <main className="pt-6 flex-1 overflow-auto">{children}</main>
       </SidebarInset>

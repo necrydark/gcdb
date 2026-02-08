@@ -139,13 +139,13 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" className="bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50">
+    <Sidebar collapsible="icon" className="bg-card border border-border/50">
       <SidebarHeader>
-      <div className="flex items-center gap-2 py-2 px-4 transition-all duration-200 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0">
+      <div className="flex items-center gap-2 py-2 px-4 transition-all duration-200 justify-center group-data-[collapsible=icon]:px-0">
           <Shield className="h-6 w-6 text-white shrink-0" />
-          <h1 className="text-xl font-bold transition-opacity duration-200 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:overflow-hidden">
+          {/* <h1 className="text-xl font-bold transition-opacity duration-200 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:overflow-hidden">
             Admin Portal
-          </h1>
+          </h1> */}
         </div>
       </SidebarHeader>  
       <SidebarContent>

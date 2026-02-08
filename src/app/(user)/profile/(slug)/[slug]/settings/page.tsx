@@ -345,7 +345,7 @@ const SettingsPage = () => {
                 <Button
                   type="submit"
                   size="lg"
-                  className="rounded-[5px] bg-purple-600  hover:bg-purple-700 flex justify-end"
+                  className="rounded-[5px]  flex justify-end"
                 >
                   Update Settings
                   <ArrowRight className="w-4 h-4 ml-2" />

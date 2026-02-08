@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
-const { nextui } = require("@nextui-org/react");
 
 const config = {
   darkMode: ["class"],
@@ -118,7 +117,6 @@ const config = {
     require("tailwindcss-animate"),
     require("@tailwindcss/forms"),
 	require("@tailwindcss/typography"),
-    nextui(),
   ],
 } satisfies Config;
 

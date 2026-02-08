@@ -1,6 +1,19 @@
+"use client"
+
+import {
+  BreadcrumbNav,
+  CtaBanner,
+  PageHero,
+  SectionCard,
+} from "@/src/components/contribute"
 import { Badge } from "@/src/components/ui/badge"
-import { Button } from "@/src/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/src/components/ui/tabs"
 import {
   ArrowRight,
@@ -24,418 +37,406 @@ import {
   Users,
   Video,
   Youtube,
-  Zap
+  Zap,
 } from "lucide-react"
-import Link from "next/link"
+import type { ReactNode } from "react"
+
+interface ContentItem {
+  icon: ReactNode
+  title: string
+  description: string
+}
+
+function ContentItemRow({ icon, title, description }: ContentItem) {
+  return (
+    <div className="flex items-start gap-3">
+      <span className="mt-0.5 shrink-0">{icon}</span>
+      <div>
+        <p className="font-medium text-foreground">{title}</p>
+        <p className="text-sm text-muted-foreground">{description}</p>
+      </div>
+    </div>
+  )
+}
+
+function ToolRow({ icon, title, description }: ContentItem) {
+  return (
+    <div className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+      <span className="shrink-0">{icon}</span>
+      <div>
+        <p className="font-medium text-foreground text-sm">{title}</p>
+        <p className="text-xs text-muted-foreground">{description}</p>
+      </div>
+    </div>
+  )
+}
+
+const overviewCards = [
+  {
+    icon: <Video className="h-7 w-7 text-red-400" />,
+    title: "Video Tutorials",
+    description: "Create step-by-step guides and educational content",
+  },
+  {
+    icon: <Camera className="h-7 w-7 text-purple-400" />,
+    title: "Live Streaming",
+    description: "Host live sessions, Q&As, and interactive content",
+  },
+  {
+    icon: <Share2 className="h-7 w-7 text-blue-400" />,
+    title: "Social Content",
+    description: "Share updates, tips, and community highlights",
+  },
+]
+
+const creatorTiers = [
+  {
+    icon: <Video className="h-7 w-7 text-emerald-400" />,
+    bg: "bg-emerald-500/15 border-emerald-500/20",
+    title: "Emerging Creator",
+    description: "New creators building their audience",
+    range: "0-1K subscribers",
+    perks: ["Emerging Creator Badge", "Emerging Creator Achievement"],
+  },
+  {
+    icon: <Star className="h-7 w-7 text-blue-400" />,
+    bg: "bg-blue-500/15 border-blue-500/20",
+    title: "Rising Creator",
+    description: "Growing creators with engaged audiences",
+    range: "1K-10K subscribers",
+    perks: ["Rising Creator Achievement", "Rising Creator Badge"],
+  },
+  {
+    icon: <Award className="h-7 w-7 text-purple-400" />,
+    bg: "bg-primary/15 border-primary/20",
+    title: "Partner Creator",
+    description: "Established creators and community leaders",
+    range: "10K+ subscribers",
+    perks: ["Partner Creator Badge", "Partner Creator Achievement"],
+  },
+]
 
 export default function ContentCreationPage() {
   return (
-    <div className="pt-[3.75rem]">
-      {/* Hero Section */}
-      <div className="border-b bg-muted/30">
-        <div className="container mx-auto max-w-6xl px-4 py-4">
-          <nav className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-muted-foreground hover:text-foreground">
-              Home
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <Link href="/contribute" className="text-muted-foreground hover:text-foreground">
-              Contribute
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="font-medium">Content Creation</span>
-          </nav>
-        </div>
-      </div>
-      <div className=" text-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <div className="bg-purple-700 border-purple-900 p-4 rounded-full">
-                <Video className="h-12 w-12" />
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Content Creation</h1>
-            <p className="text-xl md:text-2xl mb-8 text-white">
-              Create engaging videos, streams, and tutorials to help the community grow
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-700 hover:bg-purple-700/50 text-white">
-                <Video className="h-4 w-4 mr-2" />
-                Video Production
-              </Badge>
-              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-700 hover:bg-purple-700/50 text-white" >
-                <Camera className="h-4 w-4 mr-2" />
-                Live Streaming
-              </Badge>
-              <Badge variant="secondary" className="text-lg px-4 py-2 bg-purple-700 hover:bg-purple-700/50 text-white">
-                <BookOpen className="h-4 w-4 mr-2" />
-                Tutorial Creation
-              </Badge>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-background 
+pt-15
+    ">
+      <BreadcrumbNav
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Contribute", href: "/contribute" },
+          { label: "Content Creation" },
+        ]}
+      />
 
-      <div className="container mx-auto px-4 py-12">
-        {/* Overview Section */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <Card className=" shadow-lg bg-purple-500 border-0 dark:bg-purple-900">
-            <CardHeader className="text-center pb-8">
-              <CardTitle className="text-3xl mb-4">What is Content Creation?</CardTitle>
-              <CardDescription className="text-lg text-gray-300">
-                Content creators produce educational, entertaining, and engaging material that helps community members
-                learn, improve their skills, and stay connected with the latest developments.
+      <PageHero
+        icon={<Video className="h-8 w-8 text-purple-400" />}
+        title="Content Creation"
+        description="Create engaging videos, streams, and tutorials to help the community grow."
+        badges={[
+          { label: "Video Production", variant: "filled" },
+          { label: "Live Streaming", variant: "outline" },
+          { label: "Tutorial Creation", variant: "outline" },
+        ]}
+      />
+
+      <main className="container mx-auto max-w-4xl px-4 py-10">
+        <div className="flex flex-col gap-8">
+          {/* What is Content Creation */}
+          <Card className="bg-gradient-to-t from-card via-card to-muted/20 rounded-[5px] border-0">
+            <CardHeader className="text-center pb-6">
+              <CardTitle className="text-2xl text-foreground mb-2">
+                What is Content Creation?
+              </CardTitle>
+              <CardDescription className="text-muted-foreground text-base max-w-2xl mx-auto">
+                Content creators produce educational, entertaining, and engaging
+                material that helps community members learn, improve their
+                skills, and stay connected with the latest developments.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="bg-red-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                    <Video className="h-8 w-8 text-red-600" />
+                {overviewCards.map((card) => (
+                  <div key={card.title} className="text-center">
+                    <div className="bg-primary/15 border border-primary/20 p-3 rounded-xl w-14 h-14 mx-auto mb-3 flex items-center justify-center">
+                      {card.icon}
+                    </div>
+                    <h3 className="font-semibold mb-1 text-foreground">
+                      {card.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {card.description}
+                    </p>
                   </div>
-                  <h3 className="font-semibold mb-2 text-white">Video Tutorials</h3>
-                  <p className="text-sm text-gray-300">Create step-by-step guides and educational content</p>
-                </div>
-                <div className="text-center">
-                  <div className="bg-purple-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                    <Camera className="h-8 w-8 text-purple-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2 text-white">Live Streaming</h3>
-                  <p className="text-sm text-gray-300">Host live sessions, Q&As, and interactive content</p>
-                </div>
-                <div className="text-center">
-                  <div className="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                    <Share2 className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2 text-white">Social Content</h3>
-                  <p className="text-sm text-gray-300">Share updates, tips, and community highlights</p>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
-        </div>
 
-        {/* Content Types & Process */}
-        <div className="max-w-6xl mx-auto mb-16">
-          <Tabs defaultValue="types" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="types">Content Types</TabsTrigger>
-              <TabsTrigger value="tools">Tools & Resources</TabsTrigger>
-              <TabsTrigger value="distribution">Distribution</TabsTrigger>
-            </TabsList>
+          {/* Content Types & Tools Tabs */}
+          <SectionCard
+            icon={<Video className="h-5 w-5" />}
+            title="Content Types & Resources"
+          >
+            <Tabs defaultValue="types" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="types">Content Types</TabsTrigger>
+                <TabsTrigger value="tools">Tools & Resources</TabsTrigger>
+                <TabsTrigger value="distribution">Distribution</TabsTrigger>
+              </TabsList>
 
-            <TabsContent value="types" className="mt-8">
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Video className="h-5 w-5 text-red-600" />
+              <TabsContent value="types" className="mt-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="font-semibold flex items-center gap-2 text-foreground">
+                      <Video className="h-4 w-4 text-red-400" />
                       Video Content
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <Play className="h-5 w-5 text-blue-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Tutorial Videos</p>
-                        <p className="text-sm text-gray-300">Step-by-step guides for game mechanics and strategies</p>
-                      </div>
+                    </h3>
+                    <div className="space-y-3">
+                      <ContentItemRow
+                        icon={<Play className="h-4 w-4 text-blue-400" />}
+                        title="Tutorial Videos"
+                        description="Step-by-step guides for game mechanics and strategies"
+                      />
+                      <ContentItemRow
+                        icon={<Eye className="h-4 w-4 text-emerald-400" />}
+                        title="Gameplay Reviews"
+                        description="Analysis of builds, strategies, and character performances"
+                      />
+                      <ContentItemRow
+                        icon={<Lightbulb className="h-4 w-4 text-amber-400" />}
+                        title="Tips & Tricks"
+                        description="Quick tips and advanced techniques"
+                      />
+                      <ContentItemRow
+                        icon={<Star className="h-4 w-4 text-purple-400" />}
+                        title="Character Showcases"
+                        description="Detailed character builds and optimization guides"
+                      />
                     </div>
-                    <div className="flex items-start gap-3">
-                      <Eye className="h-5 w-5 text-green-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Gameplay Reviews</p>
-                        <p className="text-sm text-gray-300">
-                          Analysis of builds, strategies, and character performances
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-semibold flex items-center gap-2 text-foreground">
+                      <Camera className="h-4 w-4 text-purple-400" />
+                      Live Content
+                    </h3>
+                    <div className="space-y-3">
+                      <ContentItemRow
+                        icon={<Users className="h-4 w-4 text-blue-400" />}
+                        title="Community Streams"
+                        description="Interactive gameplay sessions with community"
+                      />
+                      <ContentItemRow
+                        icon={<Mic className="h-4 w-4 text-emerald-400" />}
+                        title="Q&A Sessions"
+                        description="Answer community questions and provide guidance"
+                      />
+                      <ContentItemRow
+                        icon={<Target className="h-4 w-4 text-red-400" />}
+                        title="Challenge Runs"
+                        description="Attempt difficult challenges with community input"
+                      />
+                      <ContentItemRow
+                        icon={<BookOpen className="h-4 w-4 text-amber-400" />}
+                        title="Educational Workshops"
+                        description="In-depth teaching sessions on complex topics"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="tools" className="mt-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="font-semibold flex items-center gap-2 text-foreground">
+                      <Edit className="h-4 w-4 text-blue-400" />
+                      Production Tools
+                    </h3>
+                    <div className="space-y-3">
+                      <ToolRow
+                        icon={<Video className="h-4 w-4 text-red-400" />}
+                        title="OBS Studio Pro License"
+                        description="Professional streaming and recording"
+                      />
+                      <ToolRow
+                        icon={<Edit className="h-4 w-4 text-purple-400" />}
+                        title="Adobe Creative Suite"
+                        description="Premiere Pro, After Effects, Photoshop"
+                      />
+                      <ToolRow
+                        icon={<Mic className="h-4 w-4 text-emerald-400" />}
+                        title="Audio Enhancement Tools"
+                        description="Noise reduction and audio optimization"
+                      />
+                      <ToolRow
+                        icon={<Palette className="h-4 w-4 text-amber-400" />}
+                        title="Graphics & Assets Library"
+                        description="Branded templates and visual assets"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-semibold flex items-center gap-2 text-foreground">
+                      <Headphones className="h-4 w-4 text-emerald-400" />
+                      Support & Training
+                    </h3>
+                    <div className="space-y-3">
+                      <ToolRow
+                        icon={<BookOpen className="h-4 w-4 text-blue-400" />}
+                        title="Content Creation Masterclass"
+                        description="Comprehensive video production training"
+                      />
+                      <ToolRow
+                        icon={<Users className="h-4 w-4 text-purple-400" />}
+                        title="Creator Mentorship Program"
+                        description="One-on-one guidance from experienced creators"
+                      />
+                      <ToolRow
+                        icon={<Share2 className="h-4 w-4 text-emerald-400" />}
+                        title="Collaboration Network"
+                        description="Connect with other creators for joint projects"
+                      />
+                      <ToolRow
+                        icon={<Zap className="h-4 w-4 text-amber-400" />}
+                        title="Technical Support"
+                        description="24/7 help with tools and technical issues"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="distribution" className="mt-6">
+                <div className="space-y-3">
+                  {[
+                    {
+                      icon: <Youtube className="h-5 w-5 text-red-500" />,
+                      name: "YouTube",
+                      desc: "Long-form tutorials and guides",
+                      badge: "Primary",
+                    },
+                    {
+                      icon: <Twitch className="h-5 w-5 text-purple-400" />,
+                      name: "Twitch",
+                      desc: "Live streaming and community interaction",
+                      badge: "Live",
+                    },
+                    {
+                      icon: <Instagram className="h-5 w-5 text-pink-500" />,
+                      name: "Instagram",
+                      desc: "Short clips and community highlights",
+                      badge: "Social",
+                    },
+                    {
+                      icon: <Twitter className="h-5 w-5 text-blue-400" />,
+                      name: "Twitter/X",
+                      desc: "Quick tips and community updates",
+                      badge: "Updates",
+                    },
+                  ].map((platform) => (
+                    <div
+                      key={platform.name}
+                      className="flex items-center gap-3 p-3 border border-border/50 rounded-lg hover:border-primary transition-colors"
+                    >
+                      {platform.icon}
+                      <div className="flex-1">
+                        <p className="font-medium text-foreground">
+                          {platform.name}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {platform.desc}
                         </p>
                       </div>
+                      <Badge
+                        variant="outline"
+                        className="bg-transparent border-primary text-purple-300"
+                      >
+                        {platform.badge}
+                      </Badge>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <Lightbulb className="h-5 w-5 text-yellow-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Tips & Tricks</p>
-                        <p className="text-sm text-gray-300">Quick tips and advanced techniques</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Star className="h-5 w-5 text-purple-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Character Showcases</p>
-                        <p className="text-sm text-gray-300">Detailed character builds and optimization guides</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </SectionCard>
 
-                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Camera className="h-5 w-5 text-purple-600" />
-                      Live Content
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <Users className="h-5 w-5 text-blue-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Community Streams</p>
-                        <p className="text-sm text-gray-300">Interactive gameplay sessions with community</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Mic className="h-5 w-5 text-green-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Q&A Sessions</p>
-                        <p className="text-sm text-gray-300">Answer community questions and provide guidance</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Target className="h-5 w-5 text-red-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Challenge Runs</p>
-                        <p className="text-sm text-gray-300">Attempt difficult challenges with community input</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <BookOpen className="h-5 w-5 text-orange-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-white">Educational Workshops</p>
-                        <p className="text-sm text-gray-300">In-depth teaching sessions on complex topics</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-
-
-            <TabsContent value="tools" className="mt-8">
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Edit className="h-5 w-5 text-blue-600" />
-                      Production Tools
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <Video className="h-5 w-5 text-red-600" />
-                      <div>
-                        <p className="font-medium text-white">OBS Studio Pro License</p>
-                        <p className="text-sm text-gray-300">Professional streaming and recording</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <Edit className="h-5 w-5 text-purple-600" />
-                      <div>
-                        <p className="font-medium text-white">Adobe Creative Suite</p>
-                        <p className="text-sm text-gray-300">Premiere Pro, After Effects, Photoshop</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <Mic className="h-5 w-5 text-green-600" />
-                      <div>
-                        <p className="font-medium text-white">Audio Enhancement Tools</p>
-                        <p className="text-sm text-gray-300">Noise reduction and audio optimization</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <Palette className="h-5 w-5 text-orange-600" />
-                      <div>
-                        <p className="font-medium text-white">Graphics & Assets Library</p>
-                        <p className="text-sm text-gray-300">Branded templates and visual assets</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Headphones className="h-5 w-5 text-green-600" />
-                      Support & Training
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <BookOpen className="h-5 w-5 text-blue-600" />
-                      <div>
-                        <p className="font-medium text-white">Content Creation Masterclass</p>
-                        <p className="text-sm text-gray-300">Comprehensive video production training</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <Users className="h-5 w-5 text-purple-600" />
-                      <div>
-                        <p className="font-medium text-white">Creator Mentorship Program</p>
-                        <p className="text-sm text-gray-300">One-on-one guidance from experienced creators</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <Share2 className="h-5 w-5 text-green-600" />
-                      <div>
-                        <p className="font-medium text-white">Collaboration Network</p>
-                        <p className="text-sm text-gray-300">Connect with other creators for joint projects</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-purple-800 rounded-lg">
-                      <Zap className="h-5 w-5 text-yellow-600" />
-                      <div>
-                        <p className="font-medium text-white">Technical Support</p>
-                        <p className="text-sm text-gray-300">24/7 help with tools and technical issues</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="distribution" className="mt-8">
-              <div className="grid md:grid-cols-1 gap-6">
-                <Card className="bg-purple-500 border-0 dark:bg-purple-900">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Share2 className="h-5 w-5 text-blue-600" />
-                      Platform Strategy
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center gap-3 p-3 border rounded-lg">
-                      <Youtube className="h-6 w-6 text-red-600" />
-                      <div className="flex-1">
-                        <p className="font-medium text-white">YouTube</p>
-                        <p className="text-sm text-gray-300">Long-form tutorials and guides</p>
-                      </div>
-                      <Badge variant="outline" className="text-white">Primary</Badge>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 border rounded-lg">
-                      <Twitch className="h-6 w-6 text-purple-300" />
-                      <div className="flex-1">
-                        <p className="font-medium text-white">Twitch</p>
-                        <p className="text-sm text-gray-300">Live streaming and community interaction</p>
-                      </div>
-                      <Badge variant="outline" className="text-white">Live</Badge>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 border rounded-lg">
-                      <Instagram className="h-6 w-6 text-pink-600" />
-                      <div className="flex-1">
-                        <p className="font-medium text-white">Instagram</p>
-                        <p className="text-sm text-gray-300">Short clips and community highlights</p>
-                      </div>
-                      <Badge variant="outline" className="text-white">Social</Badge>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 border rounded-lg">
-                      <Twitter className="h-6 w-6 text-blue-500" />
-                      <div className="flex-1">
-                        <p className="font-medium text-white">Twitter/X</p>
-                        <p className="text-sm text-gray-300">Quick tips and community updates</p>
-                      </div>
-                      <Badge variant="outline" className="text-white">Updates</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-
-             
-              </div>
-            </TabsContent>
-          </Tabs>
-        </div>
-
-        {/* Requirements */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <Card  className="bg-purple-500 border-0 dark:bg-purple-900 shadow-lg">
+          {/* Creator Requirements */}
+          <Card className="bg-gradient-to-t from-card via-card to-muted/20 rounded-[5px] border-0">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl mb-4">Creator Requirements</CardTitle>
+              <CardTitle className="text-xl text-foreground">
+                Creator Requirements
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-center text-xl text-white">Anyone can become a creator!</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Creator Tiers & Benefits */}
-        <div className="max-w-6xl mx-auto mb-16">
-          <Card className="bg-purple-500 border-0 dark:bg-purple-900 shadow-lg">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl mb-4">Creator Program Tiers</CardTitle>
-              <CardDescription>Advance through our creator program and unlock exclusive benefits</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="bg-green-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                    <Video className="h-8 w-8 text-green-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2 text-white">Emerging Creator</h3>
-                  <p className="text-sm text-gray-300 mb-3">New creators building their audience</p>
-                  <Badge variant="outline" className="text-white">0-1K subscribers</Badge>
-                  <ul className="text-xs text-left mt-4 space-y-1 text-white">
-                    <li>• Emerging Creator Badge</li>
-                    <li>• Emerging Creator Achievement</li>
-                  </ul>
-                </div>
-                <div className="text-center">
-                  <div className="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                    <Star className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2 text-white">Rising Creator</h3>
-                  <p className="text-sm text-gray-300 mb-3">Growing creators with engaged audiences</p>
-                  <Badge variant="outline" className="text-white">1K-10K subscribers</Badge>
-                  <ul className="text-xs text-left mt-4 text-white space-y-1">
-                    <li>• Rising Creator Achievement</li>
-                    <li>• Rising Creator Badge</li>
-
-                  </ul>
-                </div>
-                <div className="text-center">
-                  <div className="bg-purple-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                    <Award className="h-8 w-8 text-purple-600" />
-                  </div>
-                  <h3 className="font-semibold mb-2 text-white">Partner Creator</h3>
-                  <p className="text-sm text-gray-300 mb-3">Established creators and community leaders</p>
-                  <Badge variant="outline" className="text-white">10K+ subscribers</Badge>
-                  <ul className="text-xs text-left mt-4 text-white space-y-1">
-                  <li>• Partner Creator Badge</li>
-                  <li>• Partner Creator Achievement</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Call to Action */}
-        <div className="max-w-4xl mx-auto text-center">
-          <Card className="bg-purple-500 border-0 dark:bg-purple-900 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-3xl font-bold mb-4 text-white">Ready to Create Amazing Content?</h2>
-              <p className="text-lg text-gray-300 mb-8">
-                Join our creator program and help educate, entertain, and inspire the community
+              <p className="text-center text-lg text-foreground font-medium">
+                Anyone can become a creator!
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="purple" className="dark:hover:bg-purple-950 hover:bg-purple-800/50 transition-all duration-300 rounded-[5px]" asChild>
-                <Link href="/contribute">
-                Apply to Create
-                <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-[5px]  hover:text-white text-white dark:text-white dark:border-purple-800 hover:bg-purple-800/50 border-purple-900 dark:hover:bg-purple-950/50" asChild>
-                <Link href="/contribute/guidelines">
-                View Creator Guidelines
-                <ExternalLink className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Creator Tiers */}
+          <SectionCard
+            icon={<Award className="h-5 w-5" />}
+            title="Creator Program Tiers"
+          >
+            <div className="grid md:grid-cols-3 gap-5">
+              {creatorTiers.map((tier) => (
+                <div key={tier.title} className="text-center">
+                  <div
+                    className={`${tier.bg} border p-3 rounded-xl w-14 h-14 mx-auto mb-3 flex items-center justify-center`}
+                  >
+                    {tier.icon}
+                  </div>
+                  <h3 className="font-semibold mb-1 text-foreground">
+                    {tier.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {tier.description}
+                  </p>
+                  <Badge
+                    variant="outline"
+                    className="bg-transparent border-primary/30 text-purple-300 mb-3"
+                  >
+                    {tier.range}
+                  </Badge>
+                  <ul className="text-xs text-left mt-2 space-y-1 text-muted-foreground">
+                    {tier.perks.map((perk) => (
+                      <li key={perk} className="flex items-center gap-1.5">
+                        <span className="w-1 h-1 rounded-full bg-primary/60" />
+                        {perk}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
+          </SectionCard>
 
-              <p className="text-sm text-gray-300 mt-4">
-                Creator applications are reviewed bi-weekly. Portfolio review takes 3-5 business days.
-              </p>
-            </CardContent>
-          </Card>
+          {/* CTA */}
+          <CtaBanner
+            icon={<Video className="h-8 w-8 text-purple-400" />}
+            title="Ready to Create Amazing Content?"
+            description="Join our creator program and help educate, entertain, and inspire the community."
+            buttons={[
+              {
+                label: "Apply to Create",
+                href: "/contribute",
+                icon: <ArrowRight className="ml-2 h-4 w-4" />,
+              },
+              {
+                label: "View Creator Guidelines",
+                href: "/contribute/guidelines",
+                variant: "outline",
+                icon: <ExternalLink className="ml-2 h-4 w-4" />,
+              },
+            ]}
+            footnote="Creator applications are reviewed bi-weekly. Portfolio review takes 3-5 business days."
+          />
         </div>
-      </div>
+      </main>
     </div>
   )
 }
