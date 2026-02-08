@@ -1,20 +1,55 @@
-import { Button } from "@/src/components/ui/button";
 import { currentRole } from "@/src/utils/auth";
-import db from "@/src/lib/db";
+import { getPaginatedData } from "@/src/lib/admin-queries";
 import { UserRole } from "@prisma/client";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
-import { Materials, columns } from "./columns";
-import { MaterialDataTable } from "./data-table";
-import { Plus } from "lucide-react";
+import { UniversalDataTable } from "@/src/components/admin/shared/universal-data-table";
+import { AdminPageHeader } from "@/src/components/admin/shared/admin-layout-components";
+import { createActionsColumn } from "@/src/components/admin/shared/data-table-actions";
+import db from "@/src/lib/db";
 import ExportButton from "./export-button";
+import { ColumnDef } from "@tanstack/react-table";
 
-async function getRelics(): Promise<Materials[]> {
-  const data = await db.material.findMany();
+// Define material columns
+const materialColumns: ColumnDef<any>[] = [
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "slug",
+    header: "Slug",
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
+  },
+  {
+    accessorKey: "rarity",
+    header: "Rarity",
+  },
+  createActionsColumn({
+    viewPath: "/dashboard/materials/view",
+    editPath: "/dashboard/materials/edit",
+  }),
+];
 
+async function getMaterials() {
+  const { data } = await getPaginatedData({
+    model: db.material,
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      type: true,
+      rarity: true,
+    },
+  });
 
-  return data as Materials[];
+  return data;
 }
 
 const AdminMaterialsPage = async () => {
@@ -23,27 +58,24 @@ const AdminMaterialsPage = async () => {
     redirect("/");
   }
 
-  const data = await getRelics();
+  const data = await getMaterials();
 
   return (
-    <div className=" px-10 container flex flex-col gap-6 mx-auto py-4">
-    
-      <div className="flex justify-between items-center">
-      <div>
-      <h1 className="text-2xl font-bold tracking-tight text-white">Materials</h1>
-      <p className="text-gray-500 dark:text-gray-300">Manage your inventory of materials and resources</p>
-        </div>
-        <div className="flex items-center gap-2">
+    <div className="px-10 container flex flex-col gap-6 mx-auto py-4">
+      <AdminPageHeader
+        title="Materials"
+        description="Manage your inventory of materials and resources"
+        actionText="Add Material"
+        actionHref="/dashboard/materials/new"
+      >
         <ExportButton data={data} />
-        <Button size="sm" variant="outline" className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600" asChild>
-        <Link href={"/dashboard/materials/new"} ><Plus className="mr-2 h-4 w-4"  />
-        Add Material</Link>
-
-        </Button>
-
-        </div>
-      </div>
-      <MaterialDataTable columns={columns} data={data} />
+      </AdminPageHeader>
+      
+      <UniversalDataTable 
+        columns={materialColumns} 
+        data={data}
+        searchColumns={["name", "slug"]}
+      />
     </div>
   );
 };

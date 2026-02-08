@@ -6,12 +6,13 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { UserRole } from "@prisma/client";
 import NextAuth from "next-auth";
 import Stripe from "stripe";
-
+   
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-04-30.basil",
 });
 
 export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
+    secret:  process.env.AUTH_SECRET,
   pages: {
     signIn: "/auth/login",
   },

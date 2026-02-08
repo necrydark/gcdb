@@ -1,23 +1,52 @@
-import { useCurrentRole } from "@/hooks/use-current-role";
-import { Button } from "@/src/components/ui/button";
-import { toast } from "sonner";
-
-
 import { currentRole } from "@/src/utils/auth";
-import db from "@/src/lib/db";
+import { getPaginatedData } from "@/src/lib/admin-queries";
 import { UserRole } from "@prisma/client";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { User, columns } from "./columns";
-import { DataTable } from "./data-table";
-import { getCharacterCount } from "@/data/character";
-import { getRelicCount } from "@/data/relics";
-import { Dialog, DialogContent, DialogTrigger } from "@/src/components/ui/dialog";
-import { Download, Plus } from "lucide-react";
+import { UniversalDataTable } from "@/src/components/admin/shared/universal-data-table";
+import { AdminPageHeader } from "@/src/components/admin/shared/admin-layout-components";
+import { createActionsColumn } from "@/src/components/admin/shared/data-table-actions";
+import { deleteUser } from "@/src/actions/user";
+import db from "@/src/lib/db";
 import ExportButton from "./export-button";
+import Link from "next/link";
+import { ColumnDef } from "@tanstack/react-table";
 
-async function getUsers(): Promise<User[]> {
-  const data = await db.user.findMany({
+// Define user columns with reusability in mind
+const userColumns: ColumnDef<any>[] = [
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "username",
+    header: "Username",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "role",
+    header: "Role",
+  },
+  {
+    accessorKey: "isTwoFactorEnabled",
+    header: "Two Factor Enabled",
+  },
+  createActionsColumn({
+    viewPath: "/dashboard/users/view",
+    editPath: "/dashboard/users/edit",
+    onDelete: deleteUser,
+  }),
+];
+
+async function getUsers() {
+  const { data } = await getPaginatedData({
+    model: db.user,
     select: {
       id: true,
       name: true,
@@ -28,7 +57,7 @@ async function getUsers(): Promise<User[]> {
     },
   });
 
-  return data as User[];
+  return data;
 }
 
 const AdminUserPage = async () => {
@@ -40,27 +69,21 @@ const AdminUserPage = async () => {
   const data = await getUsers();
 
   return (
-    <div className=" px-10 container mx-auto py-20">
-      <div className="flex justify-between items-center">
-        <div>
-        <h1 className="text-2xl leading-tight font-bold">
-          Users
-        </h1>
-      <p className="text-gray-500 dark:text-gray-300">Manage your users.</p>
-
-          </div>
-        <div className="flex items-center gap-2">
-     <ExportButton data={data} />
-        <Button size="sm" variant="outline" className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600" asChild>
-        <Link href={"/dashboard/users/new"} ><Plus className="mr-2 h-4 w-4"  />
-        Add User</Link>
-
-        </Button>
-
-        </div>
-   
-      </div>
-      <DataTable columns={columns} data={data} />
+    <div className="px-10 container mx-auto py-20">
+      <AdminPageHeader
+        title="Users"
+        description="Manage your users"
+        actionText="Add User"
+        actionHref="/dashboard/users/new"
+      >
+        <ExportButton data={data} />
+      </AdminPageHeader>
+      
+      <UniversalDataTable 
+        columns={userColumns} 
+        data={data}
+        searchColumns={["email", "username"]}
+      />
     </div>
   );
 };

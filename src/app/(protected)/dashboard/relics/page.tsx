@@ -1,20 +1,56 @@
-import { Button } from "@/src/components/ui/button";
 import { currentRole } from "@/src/utils/auth";
-import db from "@/src/lib/db";
+import { getPaginatedData } from "@/src/lib/admin-queries";
 import { UserRole } from "@prisma/client";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
-import { HolyRelic, columns } from "./columns";
-import { RelicDataTable } from "./data-table";
-import { Download, Plus } from "lucide-react";
+import { UniversalDataTable } from "@/src/components/admin/shared/universal-data-table";
+import { AdminPageHeader } from "@/src/components/admin/shared/admin-layout-components";
+import { createActionsColumn } from "@/src/components/admin/shared/data-table-actions";
+import db from "@/src/lib/db";
 import ExportButton from "./export-button";
+import { ColumnDef } from "@tanstack/react-table";
 
-async function getRelics(): Promise<HolyRelic[]> {
-  const data = await db.holyRelic.findMany();
+async function getRelics() {
+  const { data } = await getPaginatedData({
+    model: db.holyRelic,
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      rarity: true,
+      description: true,
+    },
+  });
 
-  return data as HolyRelic[];
+  return data;
 }
+
+// Define relic columns
+const relicColumns: ColumnDef<any>[] = [
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "slug",
+    header: "Slug",
+  },
+  {
+    accessorKey: "rarity",
+    header: "Rarity",
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
+  },
+  createActionsColumn({
+    viewPath: "/dashboard/relics/view",
+    editPath: "/dashboard/relics/edit",
+  }),
+];
 
 const AdminRelicsPage = async () => {
   const role = await currentRole();
@@ -25,24 +61,21 @@ const AdminRelicsPage = async () => {
   const data = await getRelics();
 
   return (
-    <div className=" px-10 container mx-auto py-20">
-      
-      <div className="flex justify-between items-center">
-      <div>
-      <h1 className="text-2xl font-bold tracking-tight text-white">Relics</h1>
-      <p className="text-gray-500 dark:text-gray-300">Manage your Relics.</p>
-        </div>
-        <div className="flex items-center gap-2">
+    <div className="px-10 container mx-auto py-20">
+      <AdminPageHeader
+        title="Relics"
+        description="Manage your relics"
+        actionText="Add Relic"
+        actionHref="/dashboard/relics/new"
+      >
         <ExportButton data={data} />
-        <Button size="sm" variant="outline" className="rounded-[5px] dark:hover:bg-purple-950 border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600" asChild>
-        <Link href={"/dashboard/relics/new"} ><Plus className="mr-2 h-4 w-4"  />
-        Add Relic</Link>
-
-        </Button>
-
-        </div>
-      </div>
-      <RelicDataTable columns={columns} data={data} />
+      </AdminPageHeader>
+      
+      <UniversalDataTable 
+        columns={relicColumns} 
+        data={data}
+        searchColumns={["name", "slug"]}
+      />
     </div>
   );
 };
