@@ -74,8 +74,7 @@ export function UniversalDataTable<TData, TValue>({
     },
   });
 
-  const commonInputClass = "max-w-md border-purple-900 bg-purple-600 border-[2px] ring-0 focus:ring-0 rounded-[5px] placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0";
-  const commonButtonClass = "dark:hover:bg-purple-950 rounded-[5px] border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600";
+  const commonInputClass = "max-w-md border-purple-900 bg-purple-950 border-[2px] ring-0 focus:ring-0 rounded-[5px] placeholder:text-white text-white max-w-[400px] w-[300px] focus:border-purple-900 focus-visible:ring-0";
 
   return (
     <div className={className}>
@@ -89,9 +88,8 @@ export function UniversalDataTable<TData, TValue>({
           />
           {searchTerm && (
             <Button 
-              variant="outline" 
-              className={commonButtonClass}
               onClick={() => setSearchTerm("")}
+              className="h-fit"
             >
               Clear
             </Button>
@@ -100,7 +98,7 @@ export function UniversalDataTable<TData, TValue>({
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className={commonButtonClass}>
+            <Button>
               Columns
             </Button>
           </DropdownMenuTrigger>
@@ -123,12 +121,12 @@ export function UniversalDataTable<TData, TValue>({
       </div>
 
       <div className="rounded-[5px] border">
-        <Table className="bg-purple-400 dark:bg-purple-700 border-0">
+        <Table className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead className="text-white" key={header.id}>
+                  <TableHead  key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())
@@ -141,7 +139,7 @@ export function UniversalDataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow className="even:bg-card odd:bg-muted/20 hover:bg-muted/40 transition-colors" key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="text-center text-white" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -162,18 +160,14 @@ export function UniversalDataTable<TData, TValue>({
       
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
-          variant="outline"
           size="sm"
-          className={commonButtonClass}
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
         </Button>
         <Button
-          variant="outline"
           size="sm"
-          className={commonButtonClass}
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >

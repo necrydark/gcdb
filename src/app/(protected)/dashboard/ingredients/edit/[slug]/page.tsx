@@ -1,5 +1,6 @@
 import { getIngredientById } from "@/data/food";
 import EditIngredientForm from "@/src/components/admin/ingredients/edit-ingredient-form";
+import { AdminPageLayout } from "@/src/components/admin/shared/admin-page-layout";
 
 type Params = Promise<{slug: string}>
 
@@ -12,11 +13,14 @@ async function EditIngredientPage({params}: { params: Params}) {
     }
 
     return (
-        <div className="container mx-auto py-10 px-4">
-            <div>
-                <EditIngredientForm ingredient={ingredient} />
-            </div>
-        </div>
+        <AdminPageLayout 
+            title="Edit Ingredient"
+            description="Update ingredient information"
+            backButtonHref="/dashboard/ingredients"
+            backButtonLabel="Back to Ingredients"
+        >
+            <EditIngredientForm ingredient={ingredient} />
+        </AdminPageLayout>
     )
 }
 

@@ -29,8 +29,7 @@ function ActionsDropdown({ item, props }: { item: any; props: DataTableActionsPr
       <DropdownMenuTrigger asChild>
         <Button 
           size="sm" 
-          variant="outline" 
-          className="dark:hover:bg-purple-950 bg-purple-600 dark:bg-purple-900 border-purple-400 border-[2px] rounded-[5px] hover:text-white hover:bg-purple-700"
+  
         >
           <MoreHorizontal className="text-white" size={20} />
         </Button>

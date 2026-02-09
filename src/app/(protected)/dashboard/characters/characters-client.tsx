@@ -1,13 +1,21 @@
 "use client";
 
-import { UniversalDataTable } from "@/src/components/admin/shared/universal-data-table";
-import { AdminPageHeader } from "@/src/components/admin/shared/admin-layout-components";
+import { AdminPageClient } from "@/src/components/admin/shared/admin-page-client";
 import { createActionsColumn } from "@/src/components/admin/shared/data-table-actions";
-import ExportButton from "./export-button";
 import { ColumnDef } from "@tanstack/react-table";
 
+interface Character {
+  id: string;
+  name: string;
+  slug: string;
+  jpName: string;
+  rarity: string;
+  attribute: string;
+  race: string;
+}
+
 // Define character columns with reusability in mind
-const characterColumns: ColumnDef<any>[] = [
+const characterColumns: ColumnDef<Character>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -39,30 +47,32 @@ const characterColumns: ColumnDef<any>[] = [
   createActionsColumn({
     viewPath: "/dashboard/characters/view",
     editPath: "/dashboard/characters/edit",
-  }),
+  }) as ColumnDef<Character>,
 ];
 
 interface CharactersPageClientProps {
-  data: any[];
+  data: Character[];
 }
 
 export function CharactersPageClient({ data }: CharactersPageClientProps) {
   return (
-    <div className="px-10 container mx-auto py-20">
-      <AdminPageHeader
-        title="Characters"
-        description="Manage your characters"
-        actionText="Add Character"
-        actionHref="/dashboard/characters/new"
-      >
-        {data.length > 0 && <ExportButton data={data} />}
-      </AdminPageHeader>
-      
-      <UniversalDataTable 
-        columns={characterColumns} 
-        data={data}
-        searchColumns={["name", "jpName", "slug"]}
-      />
-    </div>
+    <AdminPageClient
+      title="Characters"
+      description="Manage your characters"
+      actionText="Add Character"
+      actionHref="/dashboard/characters/new"
+      data={data}
+      columns={characterColumns}
+      searchableColumns={["name", "jpName", "slug"]}
+      exportHeaders={[
+        "id",
+        "name",
+        "slug",
+        "jpName",
+        "rarity",
+        "attribute",
+        "race",
+      ]}
+    />
   );
 }

@@ -17,7 +17,7 @@ import Link from "next/link";
 export type Ingredients = {
   id: string;
   name: string;
-  imageUrl: string;
+  imageUrl: string | null;
   location: string | null;
 };
 
@@ -56,7 +56,7 @@ export const columns: ColumnDef<Ingredients>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button size="sm" variant="outline" className="dark:hover:bg-purple-950 rounded-[5px] bg-purple-600 dark:bg-purple-900 border-purple-400 border-[2px] hover:text-white hover:bg-purple-700">
+            <Button>
               <MoreHorizontal className=" text-white" size={20} />
             </Button>
           </DropdownMenuTrigger>
