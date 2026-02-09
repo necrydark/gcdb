@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { AdminPageClient } from "@/src/components/admin/shared/admin-page-client";
 import { columns, Ingredients } from "./columns";
 
@@ -16,7 +16,7 @@ export function IngredientsPageClient({ data }: IngredientsPageClientProps) {
       data={data}
       columns={columns}
       searchableColumns={["name", "location"]}
-      exportHeaders={['id', 'name', 'imageUrl', 'location']}
+      exportHeaders={["id", "name", "imageUrl", "location"]}
     />
   );
 }

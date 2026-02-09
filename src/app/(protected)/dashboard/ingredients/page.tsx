@@ -1,12 +1,20 @@
-import { currentRole } from "@/src/utils/auth";
+import { AdminPageHeader } from "@/src/components/admin/shared/admin-layout-components";
 import db from "@/src/lib/db";
+import { currentRole } from "@/src/utils/auth";
 import { UserRole } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { IngredientsPageClient } from "./ingredients-client";
-import { Ingredients } from "./columns";
 
 async function getIngredients() {
-  const data = await db.ingredient.findMany();
+  const data = await db.ingredient.findMany({
+    select: {
+      id: true,
+      name: true,
+      imageUrl: true,
+      location: true,
+    },
+  });
+
   return data;
 }
 
@@ -18,7 +26,18 @@ const AdminIngredientsPage = async () => {
 
   const data = await getIngredients();
 
-  return <IngredientsPageClient data={data} />;
+  return (
+    <div className="px-10 container flex flex-col gap-6 mx-auto py-4">
+      <AdminPageHeader
+        title="Ingredients"
+        description="Manage your inventory of ingredients and resources"
+        actionText="Add Ingredient"
+        actionHref="/dashboard/ingredients/new"
+      >
+        <IngredientsPageClient data={data} />
+      </AdminPageHeader>
+    </div>
+  );
 };
 
 export default AdminIngredientsPage;

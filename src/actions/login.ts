@@ -92,7 +92,7 @@ export const login = async (values: z.infer<typeof signInSchema>) => {
       email,
       password,
       redirect: true,
-      redirectTo: "/profile",
+      redirectTo: `/profile/${existingUser.username}`,
       
     });
   } catch (err) {

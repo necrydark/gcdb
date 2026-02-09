@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { AdminPageClient } from "@/src/components/admin/shared/admin-page-client";
 import { createActionsColumn } from "@/src/components/admin/shared/data-table-actions";
 import { ColumnDef } from "@tanstack/react-table";
@@ -43,7 +43,7 @@ export function MaterialsPageClient({ data }: MaterialsPageClientProps) {
       data={data}
       columns={materialColumns}
       searchableColumns={["name", "location"]}
-      exportHeaders={['id', 'name', 'imageUrl', 'location']}
+      exportHeaders={["id", "name", "imageUrl", "location"]}
     />
   );
 }
