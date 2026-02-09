@@ -1,8 +1,15 @@
 "use client";
+import { deleteIngredient } from "@/src/actions/food";
+import {
+  InfoSection,
+  type InfoItem,
+} from "@/src/components/admin/shared/info-section";
 import { Character, Food, Ingredient } from "@prisma/client";
-import { useState } from "react";
-import Link from "next/link";
 import { ArrowLeft, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "../../ui/button";
 import {
   Dialog,
@@ -13,13 +20,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../ui/dialog";
-import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { Separator } from "../../ui/separator";
-import { InfoSection, type InfoItem } from "@/src/components/admin/shared/info-section";
-import { deleteIngredient } from "@/src/actions/food";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 interface FoodInterface {
   characters?: Character[] | null;
@@ -31,14 +31,15 @@ interface FoodInterface {
 
 export default function ViewIngredientPageRefactored({
   foodIngredients,
-  characters
+  characters,
 }: FoodInterface) {
-  if (!foodIngredients) {
-    return <div>Ingredient not found.</div>;
-  }
   const router = useRouter();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  if (!foodIngredients) {
+    return <div>Ingredient not found.</div>;
+  }
 
   const handleDelete = () => {
     setIsDeleting(true);
@@ -87,7 +88,7 @@ export default function ViewIngredientPageRefactored({
   const relatedFoodInfo: InfoItem[] = [
     {
       label: "Related Food Items",
-      value: foodIngredients.foods?.map(food => food.name) || [],
+      value: foodIngredients.foods?.map((food) => food.name) || [],
       type: "array",
     },
   ];
@@ -95,7 +96,10 @@ export default function ViewIngredientPageRefactored({
   const relatedCharactersInfo: InfoItem[] = [
     {
       label: "Characters Using This Ingredient",
-      value: foodIngredients.characters?.map(char => char.name || '').filter(Boolean) || [],
+      value:
+        foodIngredients.characters
+          ?.map((char) => char.name || "")
+          .filter(Boolean) || [],
       type: "array",
     },
   ];
@@ -112,7 +116,7 @@ export default function ViewIngredientPageRefactored({
             Detailed information about this ingredient
           </p>
         </div>
-        
+
         <div className="flex gap-2">
           <Link href={`/dashboard/ingredients/edit/${foodIngredients.id}`}>
             <Button
@@ -122,13 +126,13 @@ export default function ViewIngredientPageRefactored({
               Edit
             </Button>
           </Link>
-          
-          <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+
+          <Dialog
+            open={isDeleteDialogOpen}
+            onOpenChange={setIsDeleteDialogOpen}
+          >
             <DialogTrigger asChild>
-              <Button
-                variant="destructive"
-                disabled={isDeleting}
-              >
+              <Button variant="destructive" disabled={isDeleting}>
                 {isDeleting ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
@@ -146,7 +150,8 @@ export default function ViewIngredientPageRefactored({
               <DialogHeader>
                 <DialogTitle>Delete Ingredient</DialogTitle>
                 <DialogDescription className="text-gray-300">
-                  Are you sure you want to delete "{foodIngredients.name}"? This action cannot be undone.
+                  Are you sure you want to delete &quot;{foodIngredients.name}
+                  &quot;? This action cannot be undone.
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
@@ -172,12 +177,8 @@ export default function ViewIngredientPageRefactored({
 
       {/* Information Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <InfoSection
-          title="Basic Information"
-          items={basicInfo}
-          columns={1}
-        />
-        
+        <InfoSection title="Basic Information" items={basicInfo} columns={1} />
+
         {foodIngredients.foods && foodIngredients.foods.length > 0 && (
           <InfoSection
             title="Related Food Items"
@@ -185,14 +186,15 @@ export default function ViewIngredientPageRefactored({
             columns={1}
           />
         )}
-        
-        {foodIngredients.characters && foodIngredients.characters.length > 0 && (
-          <InfoSection
-            title="Characters Using This Ingredient"
-            items={relatedCharactersInfo}
-            columns={1}
-          />
-        )}
+
+        {foodIngredients.characters &&
+          foodIngredients.characters.length > 0 && (
+            <InfoSection
+              title="Characters Using This Ingredient"
+              items={relatedCharactersInfo}
+              columns={1}
+            />
+          )}
       </div>
 
       {/* Navigation */}

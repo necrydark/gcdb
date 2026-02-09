@@ -1,4 +1,3 @@
-import { AdminPageHeader } from "@/src/components/admin/shared/admin-layout-components";
 import db from "@/src/lib/db";
 import { currentRole } from "@/src/utils/auth";
 import { UserRole } from "@prisma/client";
@@ -28,14 +27,7 @@ const AdminIngredientsPage = async () => {
 
   return (
     <div className="px-10 container flex flex-col gap-6 mx-auto py-4">
-      <AdminPageHeader
-        title="Ingredients"
-        description="Manage your inventory of ingredients and resources"
-        actionText="Add Ingredient"
-        actionHref="/dashboard/ingredients/new"
-      >
-        <IngredientsPageClient data={data} />
-      </AdminPageHeader>
+      <IngredientsPageClient data={data} />
     </div>
   );
 };

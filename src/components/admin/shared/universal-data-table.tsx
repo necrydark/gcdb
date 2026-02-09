@@ -75,9 +75,7 @@ export function UniversalDataTable<TData, TValue>({
   });
 
   const commonInputClass =
-    "max-w-md border-purple-900 bg-purple-600 border-[2px] ring-0 focus:ring-0 rounded-[5px] placeholder:text-white text-white dark:bg-purple-800 focus:border-purple-900 focus-visible:ring-0";
-  const commonButtonClass =
-    "dark:hover:bg-purple-950 rounded-[5px] border-purple-900 bg-purple-400 border-[2px] hover:text-white dark:bg-purple-700 transition-all duration-250 hover:bg-purple-600";
+    "max-w-md border-purple-900 bg-purple-950 border-[2px] ring-0 focus:ring-0 rounded-[5px] placeholder:text-white text-white w-[300px] max-w-[300px] focus:border-purple-900 focus-visible:ring-0";
 
   return (
     <div className={className}>

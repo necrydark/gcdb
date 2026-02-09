@@ -1,14 +1,14 @@
-import { currentRole } from "@/src/utils/auth";
-import { getCachedDashboardStats } from "@/src/lib/admin-queries";
-import { UserRole } from "@prisma/client";
-import { redirect } from "next/navigation";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
+import { getCachedDashboardStats } from "@/src/lib/admin-queries";
+import { currentRole } from "@/src/utils/auth";
+import { UserRole } from "@prisma/client";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { redirect } from "next/navigation";
 
 interface DashboardCard {
   title: string;
@@ -21,7 +21,7 @@ const AdminPage = async () => {
   if (role !== UserRole.ADMIN && role !== UserRole.OWNER) {
     redirect("/");
   }
-  
+
   // Use optimized cached stats
   const stats = await getCachedDashboardStats();
 
@@ -51,7 +51,7 @@ const AdminPage = async () => {
             </span>
           )}
         </div>
-      )
+      ),
     },
     {
       title: "Total Characters",
@@ -59,19 +59,19 @@ const AdminPage = async () => {
     },
     {
       title: "Total Relics",
-      value: stats.counts.relics
+      value: stats.counts.relics,
     },
     {
       title: "Total Materials",
-      value: stats.counts.materials
+      value: stats.counts.materials,
     },
     {
       title: "Total Food",
-      value: stats.counts.food
+      value: stats.counts.food,
     },
     {
       title: "Total Ingredients",
-      value: stats.counts.ingredients
+      value: stats.counts.ingredients,
     },
   ];
 
@@ -84,9 +84,9 @@ const AdminPage = async () => {
       </div>
       <div className="grid gap-6 md:grid-cols-3">
         {cards.map((card) => (
-          <Card 
-            key={card.title} 
-            className="bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+          <Card
+            key={card.title}
+            className="bg-gradient-to-br from-card via-card to-muted/20 border-border/50 shadow-xl rounded-lg  hover:shadow-2xl transition-all duration-300"
           >
             <CardHeader>
               <CardTitle className="font-bold">{card.title}</CardTitle>
@@ -103,5 +103,3 @@ const AdminPage = async () => {
 };
 
 export default AdminPage;
-
-
