@@ -1,64 +1,98 @@
-import db from "../../../lib/db";
-import { NextResponse } from "next/server";
+import { ApiHandler } from "../../../lib/api-handler";
+import { characterRepository } from "../../../lib/repository";
 
+export async function OPTIONS() {
+  return ApiHandler.cors();
+}
 
-const ALLOWED_ORIGIN =
-  process.env.NODE_ENV === 'production'
-    ? 'http://gcwiki.vercel.app'
-    : 'http://localhost:3333';
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '50');
+    const sortBy = searchParams.get('sortBy') || 'name';
+    const sortOrder = searchParams.get('sortOrder') as 'asc' | 'desc' || 'asc';
+    
+    const search = searchParams.get('search');
+    const game = searchParams.get('game');
+    const rarity = searchParams.get('rarity');
+    const attribute = searchParams.get('attribute');
 
-    export async function OPTIONS() {
-        return new Response(null, {
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Origin": "http://localhost:3333",
-            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Credentials": "true"
-          }
-        });
-      }
-export async function GET() {
-    try {
-        const characters = await db.character.findMany({
-            select: {
-                id: true,
-                name: true,
-                imageUrl:true,
-                tag: true,
-                slug: true,
-                attribute: true,
-                race: true,
-                rarity: true,
-                game: true,
-                Crossover: true,
-                collection: true,
-            }
-        })
-        
-        const formattedCharacters = characters.map((char => ({
-            id: char.id,
-            name: char.name,
-            imageUrl: char.imageUrl,
-            tag: char.tag,
-            slug: char.slug,
-            attribute: char.attribute,
-            race: char.race,
-            rarity: char.rarity,
-            game: char.game,
-            crossover: char.Crossover,
-            collection: char.collection
-        })));
-
-        return NextResponse.json(formattedCharacters, {
-            status: 200,
-            headers: {
-                "Access-Control-Allow-Origin": "http://localhost:3333",
-                "Content-Type": "application/json"
-              }
-        });
-    } catch (err) {
-        console.error("Error fetching characters", err);
-        return NextResponse.json({ error: "Failed to fetch characters"}, { status: 500});
+    let filters: any = {};
+    
+    if (search) {
+      const searchResult = await characterRepository.search(search, {
+        page,
+        limit,
+        sortBy,
+        sortOrder
+      });
+      return ApiHandler.withCorsHeaders(
+        ApiHandler.success(
+          searchResult.data,
+          undefined,
+          searchResult.pagination
+        )
+      );
     }
+
+    if (game) {
+      filters.game = game;
+    }
+    
+    if (rarity) {
+      filters.rarity = rarity;
+    }
+    
+    if (attribute) {
+      filters.attribute = attribute;
+    }
+
+    const result = await characterRepository.findWithFilters(filters, {
+      page,
+      limit,
+      sortBy,
+      sortOrder,
+      select: {
+        id: true,
+        name: true,
+        imageUrl: true,
+        tag: true,
+        slug: true,
+        attribute: true,
+        race: true,
+        rarity: true,
+        game: true,
+        Crossover: true,
+        collection: true
+      }
+    });
+
+    const formattedCharacters = result.data.map((char: any) => ({
+      id: char.id,
+      name: char.name,
+      imageUrl: char.imageUrl,
+      tag: char.tag,
+      slug: char.slug,
+      attribute: char.attribute,
+      race: char.race,
+      rarity: char.rarity,
+      game: char.game,
+      crossover: char.Crossover,
+      collection: char.collection
+    }));
+
+    const response = ApiHandler.success(
+      formattedCharacters,
+      undefined,
+      result.pagination
+    );
+
+    return ApiHandler.withCorsHeaders(response);
+  } catch (err) {
+    console.error("Error fetching characters", err);
+    return ApiHandler.withCorsHeaders(
+      ApiHandler.serverError("Failed to fetch characters", err)
+    );
+  }
 }

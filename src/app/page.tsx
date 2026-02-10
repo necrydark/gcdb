@@ -45,8 +45,8 @@ async function getCharactersByDate(limit: number = 6) {
         slug: true,
         imageUrl: true,
         rarity: true,
-        releaseDate: true
-      }
+        releaseDate: true,
+      },
     });
 
     return res;
@@ -67,8 +67,8 @@ async function getRelicsByReleaseDate(limit: number = 6) {
         id: true,
         name: true,
         imageUrl: true,
-        releaseDate: true
-      }
+        releaseDate: true,
+      },
     });
     return res;
   } catch (err) {
@@ -151,7 +151,7 @@ export default async function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-b from-background to-background">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl inset-2 shadow-purple-400 hover:shadow-2xl transition-all duration-500 rounded-[5px]">
+            <Card className="bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
               <CardContent className="pt-6">
                 <div className="flex dark:text-white items-center gap-2">
                   <Users className="h-5 w-5 dark:text-white" />
@@ -186,7 +186,7 @@ export default async function HomePage() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-purple-900 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
+            <Card className="bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px]">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-2">
                   <Shield className="h-5 w-5 dark:text-white" />
@@ -271,7 +271,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {changelogs?.slice(0, 2).map((changelog, idx) => (
               <Card
-                className="bg-purple-900 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 group"
+                className="bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 group"
                 key={idx}
               >
                 <CardHeader>
