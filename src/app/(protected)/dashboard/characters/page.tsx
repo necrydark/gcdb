@@ -1,9 +1,9 @@
-import { currentRole } from "@/src/utils/auth";
 import { getPaginatedData } from "@/src/lib/admin-queries";
+import db from "@/src/lib/db";
+import { currentRole } from "@/src/utils/auth";
 import { UserRole } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { CharactersPageClient } from "./characters-client";
-import db from "@/src/lib/db";
 
 async function getCharacters() {
   const { data } = await getPaginatedData({

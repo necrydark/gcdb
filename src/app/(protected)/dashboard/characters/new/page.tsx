@@ -1,26 +1,22 @@
 import { getFood } from "@/data/food";
 import { getGifts } from "@/src/actions/admin";
 import { getRelics } from "@/src/actions/relics";
-import AddCharacterForm from "@/src/components/admin/characters/add-character-form";
-import db from "@/src/lib/db";
+import { getCharacters } from "@/data/character";
+import AddCharacterFormNew from "@/src/components/admin/characters/add-character-form-new";
 
 const AddCharacterPage = async () => {
-  const genericFriendshipLevels = await db.friendshipLevel.findMany({
-    orderBy: {
-      level: 'asc' // Order by level to ensure consistent display
-    }
-  });
   const relics = await getRelics();
   const gifts = await getGifts();
   const food = await getFood();
+  const characters = await getCharacters();
 
   return (
     <div className="mx-auto container py-20">
-      <AddCharacterForm
-        Relics={relics}
-        Gifts={gifts ?? []}
-        Foods={food ?? []}
-        genericFriendshipLevels={genericFriendshipLevels}
+      <AddCharacterFormNew
+        relics={relics ?? []}
+        gifts={gifts ?? []}
+        food={food ?? []}
+        characters={characters ?? []}
       />
     </div>
   );
