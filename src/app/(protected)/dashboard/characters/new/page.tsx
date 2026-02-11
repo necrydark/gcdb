@@ -1,8 +1,8 @@
+import { getCharacters } from "@/data/character";
 import { getFood } from "@/data/food";
 import { getGifts } from "@/src/actions/admin";
 import { getRelics } from "@/src/actions/relics";
-import { getCharacters } from "@/data/character";
-import AddCharacterFormNew from "@/src/components/admin/characters/add-character-form-new";
+import AddCharacterFormNew from "@/src/components/admin/characters/add-character-form";
 
 const AddCharacterPage = async () => {
   const relics = await getRelics();

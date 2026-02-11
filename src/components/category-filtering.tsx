@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Button } from '@/src/components/ui/button';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
+import { Button } from "@/src/components/ui/button";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 interface Category {
   _id: string;
@@ -15,36 +15,42 @@ interface CategoryFilterProps {
   selectedCategory: string;
 }
 
-export default function CategoryFilter({ categories, selectedCategory }: CategoryFilterProps) {
+export default function CategoryFilter({
+  categories,
+  selectedCategory,
+}: CategoryFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleCategoryChange = useCallback((categorySlug: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    
-    if (categorySlug === 'all') {
-      params.delete('category');
-    } else {
-      params.set('category', categorySlug);
-    }
+  const handleCategoryChange = useCallback(
+    (categorySlug: string) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-    const queryString = params.toString();
-    const url = queryString ? `?${queryString}` : '';
-    
-    router.push(`/resources/guides${url}`);
-  }, [router, searchParams]);
+      if (categorySlug === "all") {
+        params.delete("category");
+      } else {
+        params.set("category", categorySlug);
+      }
+
+      const queryString = params.toString();
+      const url = queryString ? `?${queryString}` : "";
+
+      router.push(`/resources/guides${url}`);
+    },
+    [router, searchParams],
+  );
 
   return (
-    <div className="mb-8 border-b-[1px] border-b-white px-8 py-12">
+    <div className="mb-8  px-8 py-12">
       <div className="flex flex-wrap gap-3 justify-center">
         {/* All Categories Button */}
         <Button
-          onClick={() => handleCategoryChange('all')}
-          variant={selectedCategory === 'all' ? 'default' : 'purple'}
+          onClick={() => handleCategoryChange("all")}
+          variant={selectedCategory === "all" ? "default" : "purple"}
           className={`rounded-full ${
-            selectedCategory === 'all'
-              ? 'bg-purple-600 hover:bg-purple-700 text-white border-purple-600 rounded-[5px]'
-              : 'bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-[5px]'
+            selectedCategory === "all"
+              ? "bg-purple-600 hover:bg-purple-700 text-white border-purple-600 rounded-[5px]"
+              : "bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-[5px]"
           }`}
         >
           All Guides
@@ -55,11 +61,13 @@ export default function CategoryFilter({ categories, selectedCategory }: Categor
           <Button
             key={category._id}
             onClick={() => handleCategoryChange(category.slug.current)}
-            variant={selectedCategory === category.slug.current ? 'default' : 'purple'}
+            variant={
+              selectedCategory === category.slug.current ? "default" : "purple"
+            }
             className={`rounded-full ${
               selectedCategory === category.slug.current
-                ? 'bg-purple-600 hover:bg-purple-700 text-white border-purple-600 rounded-[5px]'
-                : 'bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-[5px]'
+                ? "bg-purple-600 hover:bg-purple-700 text-white border-purple-600 rounded-[5px]"
+                : "bg-transparent border-purple-400 text-purple-400 hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-[5px]"
             }`}
           >
             {category.title}

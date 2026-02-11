@@ -39,7 +39,7 @@ export default function SortOptions({
   return (
     <div className="flex justify-center">
       <Select value={selectedSort} onValueChange={handleSortChange}>
-        <SelectTrigger className="w-[180px] border-2 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-purple-700/50 rounded-[5px] text-white  shadow-lg">
+        <SelectTrigger className="w-[180px] border-2 focus:ring-0 focus-visible:ring-0 bg-purple-950 border-purple-950/50 rounded-[5px] text-white  shadow-lg">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent className=" rounded-[5px] border border-border/50 shadow-xl">

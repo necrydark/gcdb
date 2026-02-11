@@ -1,4 +1,8 @@
 import {
+  TabConfig,
+  UniversalFormProps,
+} from "@/src/components/ui/universal-form";
+import {
   Attribute,
   BonusType,
   CrossoverType,
@@ -10,7 +14,6 @@ import {
   StatLevel,
 } from "@prisma/client";
 import { z } from "zod";
-import { TabConfig, UniversalFormProps } from "../components/ui/universal-form";
 
 // Enum options for selects
 const gameOptions = [
@@ -319,121 +322,121 @@ export const characterTabs: TabConfig[] = [
         arrayConfig: {
           addButtonLabel: "Add Stat Level",
           fields: {
-          level: {
-            key: "level",
-            name: "level",
-            type: "select",
-            label: "Stat Level",
-            required: true,
-            options: statLevelOptions,
-            default: StatLevel.LEVEL_1,
-          },
-          combatClass: {
-            key: "combatClass",
-            name: "combatClass",
-            type: "number",
-            label: "Combat Class",
-            required: true,
-            placeholder: "40",
-          },
-          attack: {
-            key: "attack",
-            name: "attack",
-            type: "number",
-            label: "Attack",
-            required: true,
-            placeholder: "500",
-          },
-          defense: {
-            key: "defense",
-            name: "defense",
-            type: "number",
-            label: "Defense",
-            required: true,
-            placeholder: "300",
-          },
-          hp: {
-            key: "hp",
-            name: "hp",
-            type: "number",
-            label: "HP",
-            required: true,
-            placeholder: "2500",
-          },
-          pierceRate: {
-            key: "pierceRate",
-            name: "pierceRate",
-            type: "number",
-            label: "Pierce Rate",
-            required: true,
-            placeholder: "10",
-          },
-          resistance: {
-            key: "resistance",
-            name: "resistance",
-            type: "number",
-            label: "Resistance",
-            required: true,
-            placeholder: "10",
-          },
-          regeneration: {
-            key: "regeneration",
-            name: "regeneration",
-            type: "number",
-            label: "Regeneration",
-            required: true,
-            placeholder: "20",
-          },
-          critChance: {
-            key: "critChance",
-            name: "critChance",
-            type: "number",
-            label: "Crit Chance",
-            required: true,
-            placeholder: "10",
-          },
-          critDamage: {
-            key: "critDamage",
-            name: "critDamage",
-            type: "number",
-            label: "Crit Damage",
-            required: true,
-            placeholder: "150",
-          },
-          critResistance: {
-            key: "critResistance",
-            name: "critResistance",
-            type: "number",
-            label: "Crit Resistance",
-            required: true,
-            placeholder: "50",
-          },
-          critDefense: {
-            key: "critDefense",
-            name: "critDefense",
-            type: "number",
-            label: "Crit Defense",
-            required: true,
-            placeholder: "50",
-          },
-          recoveryRate: {
-            key: "recoveryRate",
-            name: "recoveryRate",
-            type: "number",
-            label: "Recovery Rate",
-            required: true,
-            placeholder: "100",
-          },
-          lifesteal: {
-            key: "lifesteal",
-            name: "lifesteal",
-            type: "number",
-            label: "Lifesteal",
-            required: true,
-            placeholder: "0",
+            level: {
+              key: "level",
+              name: "level",
+              type: "select",
+              label: "Stat Level",
+              required: true,
+              options: statLevelOptions,
+              default: StatLevel.LEVEL_1,
+            },
+            combatClass: {
+              key: "combatClass",
+              name: "combatClass",
+              type: "number",
+              label: "Combat Class",
+              required: true,
+              placeholder: "40",
+            },
+            attack: {
+              key: "attack",
+              name: "attack",
+              type: "number",
+              label: "Attack",
+              required: true,
+              placeholder: "500",
+            },
+            defense: {
+              key: "defense",
+              name: "defense",
+              type: "number",
+              label: "Defense",
+              required: true,
+              placeholder: "300",
+            },
+            hp: {
+              key: "hp",
+              name: "hp",
+              type: "number",
+              label: "HP",
+              required: true,
+              placeholder: "2500",
+            },
+            pierceRate: {
+              key: "pierceRate",
+              name: "pierceRate",
+              type: "number",
+              label: "Pierce Rate",
+              required: true,
+              placeholder: "10",
+            },
+            resistance: {
+              key: "resistance",
+              name: "resistance",
+              type: "number",
+              label: "Resistance",
+              required: true,
+              placeholder: "10",
+            },
+            regeneration: {
+              key: "regeneration",
+              name: "regeneration",
+              type: "number",
+              label: "Regeneration",
+              required: true,
+              placeholder: "20",
+            },
+            critChance: {
+              key: "critChance",
+              name: "critChance",
+              type: "number",
+              label: "Crit Chance",
+              required: true,
+              placeholder: "10",
+            },
+            critDamage: {
+              key: "critDamage",
+              name: "critDamage",
+              type: "number",
+              label: "Crit Damage",
+              required: true,
+              placeholder: "150",
+            },
+            critResistance: {
+              key: "critResistance",
+              name: "critResistance",
+              type: "number",
+              label: "Crit Resistance",
+              required: true,
+              placeholder: "50",
+            },
+            critDefense: {
+              key: "critDefense",
+              name: "critDefense",
+              type: "number",
+              label: "Crit Defense",
+              required: true,
+              placeholder: "50",
+            },
+            recoveryRate: {
+              key: "recoveryRate",
+              name: "recoveryRate",
+              type: "number",
+              label: "Recovery Rate",
+              required: true,
+              placeholder: "100",
+            },
+            lifesteal: {
+              key: "lifesteal",
+              name: "lifesteal",
+              type: "number",
+              label: "Lifesteal",
+              required: true,
+              placeholder: "0",
+            },
           },
         },
-      },
       },
     },
   },
@@ -448,71 +451,74 @@ export const characterTabs: TabConfig[] = [
         name: "skills",
         type: "array",
         label: "Character Skills",
+
         required: true,
         fixedLength: 2,
         arrayConfig: {
+          removeButtonLabel: "Remove Skill",
+          addButtonLabel: "Add Skill",
           fields: {
-          name: {
-            key: "name",
-            name: "name",
-            type: "text",
-            label: "Skill Name",
-            required: true,
-            placeholder: "Skill name",
-          },
-          jpName: {
-            key: "jpName",
-            name: "jpName",
-            type: "text",
-            label: "Japanese Name",
-            required: true,
-            placeholder: "Skill name in Japanese",
-          },
-          imageUrl: {
-            key: "imageUrl",
-            name: "imageUrl",
-            type: "url",
-            label: "Skill Image",
-            required: true,
-            placeholder: "Skill image URL",
-          },
-          skillRanks: {
-            key: "skillRanks",
-            name: "skillRanks",
-            type: "array",
-            label: "Skill Ranks",
-            required: true,
-            fixedLength: 3,
-            arrayConfig: {
-              fields: {
-                rank: {
-                  key: "rank",
-                  name: "rank",
-                  type: "number",
-                  label: "Rank",
-                  required: true,
-                  placeholder: "1",
+            name: {
+              key: "name",
+              name: "name",
+              type: "text",
+              label: "Skill Name",
+              required: true,
+              placeholder: "Skill name",
+            },
+            jpName: {
+              key: "jpName",
+              name: "jpName",
+              type: "text",
+              label: "Japanese Name",
+              required: true,
+              placeholder: "Skill name in Japanese",
+            },
+            imageUrl: {
+              key: "imageUrl",
+              name: "imageUrl",
+              type: "url",
+              label: "Skill Image",
+              required: true,
+              placeholder: "Skill image URL",
+            },
+            skillRanks: {
+              key: "skillRanks",
+              name: "skillRanks",
+              type: "array",
+              label: "Skill Ranks",
+              required: true,
+              fixedLength: 3,
+              arrayConfig: {
+                fields: {
+                  rank: {
+                    key: "rank",
+                    name: "rank",
+                    type: "number",
+                    label: "Rank",
+                    required: true,
+                    placeholder: "1",
+                  },
+                  description: {
+                    key: "description",
+                    name: "description",
+                    type: "textarea",
+                    label: "Description",
+                    required: true,
+                    placeholder: "Skill description for this rank",
+                  },
+                  type: {
+                    key: "type",
+                    name: "type",
+                    type: "text",
+                    label: "Type",
+                    required: true,
+                    placeholder: "Attack/Support/Debuff",
+                  },
                 },
-                description: {
-                  key: "description",
-                  name: "description",
-                  type: "textarea",
-                  label: "Description",
-                  required: true,
-                  placeholder: "Skill description for this rank",
-                },
-                type: {
-                  key: "type",
-                  name: "type",
-                  type: "text",
-                  label: "Type",
-                  required: true,
-                  placeholder: "Attack/Support/Debuff",
-        },
-      },
-      },
-    },
-    },
+              },
+            },
+          },
         },
       },
     },
@@ -846,6 +852,8 @@ export const characterTabs: TabConfig[] = [
         required: false,
         fixedLength: 5,
         arrayConfig: {
+          addButtonLabel: "Add Friendship Level",
+          removeButtonLabel: "Remove Friendship Level",
           fields: {
             level: {
               key: "level",
@@ -920,7 +928,7 @@ export const characterTabs: TabConfig[] = [
     id: "associations",
     label: "Associations",
     description: "Character-to-character relationship bonuses",
-    columns: 4,
+    columns: 1,
     fields: {
       characterAssociations: {
         key: "characterAssociations",
@@ -929,6 +937,8 @@ export const characterTabs: TabConfig[] = [
         label: "Character Associations",
         required: false,
         arrayConfig: {
+          addButtonLabel: "Add Association",
+          removeButtonLabel: "Remove Association",
           fields: {
             associatedCharacterId: {
               key: "associatedCharacterId",
@@ -982,6 +992,8 @@ export const characterTabs: TabConfig[] = [
         label: "Character Gifts",
         required: false,
         arrayConfig: {
+          addButtonLabel: "Add Gift",
+          removeButtonLabel: "Remove Gift",
           fields: {
             name: {
               key: "name",
@@ -1025,6 +1037,8 @@ export const characterTabs: TabConfig[] = [
         label: "Character Food",
         required: false,
         arrayConfig: {
+          addButtonLabel: "Add Food",
+          removeButtonLabel: "Remove Food",
           fields: {
             name: {
               key: "name",
@@ -1093,10 +1107,10 @@ export function getCharacterFormProps(
   return {
     schema: z.object({}), // This will be replaced with actual character schema
     defaultValues: character,
-    action: async (values) => {
+    action: async (values: any) => {
       // This will use the server actions we created
       const { createCharacter, updateCharacter } = await import(
-        "../lib/server-actions"
+        "../server-actions"
       );
 
       if (character?.id) {
@@ -1115,11 +1129,11 @@ export function getCharacterFormProps(
       holyRelics: allHolyRelics || [],
     },
     submitText: character?.id ? "Update Character" : "Create Character",
-    onSuccess: (message) => {
+    onSuccess: (message: any) => {
       // Handle success - could show toast, redirect, etc.
       console.log("Character form success:", message);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       // Handle error - could show toast, log error, etc.
       console.error("Character form error:", error);
     },

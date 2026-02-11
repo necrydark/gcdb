@@ -3,7 +3,13 @@
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon, PlusIcon, TrashIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PlusIcon,
+  TrashIcon,
+} from "lucide-react";
 import React, { useCallback } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
@@ -18,6 +24,7 @@ import {
 } from "./card";
 import { CustomMultiSelect } from "./custom-multi-select";
 import {
+  Form,
   FormControl,
   FormDescription,
   FormField,
@@ -35,7 +42,6 @@ import {
   SelectValue,
 } from "./select";
 import { Switch } from "./switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 import { Textarea } from "./textarea";
 
 export type FieldType =
@@ -579,7 +585,7 @@ export function UniversalForm<T extends z.ZodSchema>({
   onError,
 }: UniversalFormProps<T>) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState(tabs[0]?.id);
+  const [currentStep, setCurrentStep] = React.useState(0);
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues,
@@ -605,56 +611,121 @@ export function UniversalForm<T extends z.ZodSchema>({
     [action, onSuccess, onError],
   );
 
+  const nextStep = useCallback(() => {
+    if (currentStep < tabs.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  }, [currentStep, tabs.length]);
+
+  const prevStep = useCallback(() => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  }, [currentStep]);
+
+  const goToStep = useCallback(
+    (step: number) => {
+      if (step >= 0 && step < tabs.length) {
+        setCurrentStep(step);
+      }
+    },
+    [tabs.length],
+  );
+
+  const currentTab = tabs[currentStep];
+
   return (
     <div className={cn("w-full max-w-6xl mx-auto", className)}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-7">
-            {tabs.map((tab) => (
-              <TabsTrigger
-                key={tab.id}
-                value={tab.id}
-                disabled={tab.disabled}
-                className="text-xs"
-              >
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
-          {tabs.map((tab) => (
-            <TabsContent key={tab.id} value={tab.id} className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>{tab.label}</CardTitle>
-                  {tab.description && (
-                    <CardDescription>{tab.description}</CardDescription>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          {/* Progress indicator */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold">
+                Step {currentStep + 1} of {tabs.length}
+              </h2>
+              <span className="text-sm text-muted-foreground">
+                {Math.round(((currentStep + 1) / tabs.length) * 100)}% complete
+              </span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div
+                className="bg-primary h-2 rounded-full transition-all duration-300"
+                style={{ width: `${((currentStep + 1) / tabs.length) * 100}%` }}
+              />
+            </div>
+            {/* Step indicators */}
+            <div className="flex justify-between mt-4">
+              {tabs.map((tab, index) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => goToStep(index)}
+                  className={cn(
+                    "flex items-center justify-center w-8 h-8 rounded-full text-xs font-medium transition-colors",
+                    index === currentStep
+                      ? "bg-primary text-primary-foreground"
+                      : index < currentStep
+                        ? "bg-primary/50 text-white"
+                        : "bg-gray-200 text-gray-500 hover:bg-gray-300",
                   )}
-                </CardHeader>
-                <CardContent>
-                  <FormLayout
-                    fields={tab.fields}
-                    form={form}
-                    dataSources={dataSources}
-                    layout={layout}
-                    columns={tab.columns || (multiColumn ? 2 : 1)}
-                  />
-                </CardContent>
-              </Card>
-            </TabsContent>
-          ))}
-        </Tabs>
+                  disabled={tab.disabled}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        <div className="flex justify-end mt-8">
-          <Button
-            type="submit"
-            disabled={disabled || isSubmitting || loading}
-            size="lg"
-          >
-            {isSubmitting || loading ? "Saving..." : submitText}
-          </Button>
-        </div>
-      </form>
+          {/* Current step content */}
+          <Card>
+            <CardHeader>
+              <CardTitle>{currentTab.label}</CardTitle>
+              {currentTab.description && (
+                <CardDescription>{currentTab.description}</CardDescription>
+              )}
+            </CardHeader>
+            <CardContent>
+              <FormLayout
+                fields={currentTab.fields}
+                form={form}
+                dataSources={dataSources}
+                layout={layout}
+                columns={currentTab.columns || (multiColumn ? 2 : 1)}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Navigation buttons */}
+          <div className="flex justify-between mt-8">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={prevStep}
+              disabled={currentStep === 0}
+            >
+              <ChevronLeftIcon className="w-4 h-4 mr-2" />
+              Previous
+            </Button>
+            <div className="flex gap-2">
+              {currentStep < tabs.length - 1 ? (
+                <Button type="button" onClick={nextStep}>
+                  Next
+                  <ChevronRightIcon className="w-4 h-4 ml-2" />
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={disabled || isSubmitting || loading}
+                  size="lg"
+                >
+                  {isSubmitting || loading ? "Saving..." : submitText}
+                </Button>
+              )}
+            </div>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

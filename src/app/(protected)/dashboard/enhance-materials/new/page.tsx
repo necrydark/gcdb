@@ -1,4 +1,4 @@
-import AddEnhanceMaterialForm from "@/src/components/admin/enhance-material/add-enhance-material-form";
+import AddEnhanceMaterialForm from "@/src/components/admin/enhance-material/add-enhance-material-form-old";
 
 const AddEnhanceMaterialPage = () => {
   return (

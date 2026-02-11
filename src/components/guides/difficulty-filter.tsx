@@ -34,7 +34,7 @@ export default function DifficultyFilter({
   ];
 
   const [currentSelectedDifficulty, setCurrentSelectedDifficulty] = useState(
-    initialSelectedDifficulty || "all"
+    initialSelectedDifficulty || "all",
   );
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function DifficultyFilter({
 
       router.push(`/resources/guides${url}`);
     },
-    [router, searchParams]
+    [router, searchParams],
   );
 
   return (
@@ -68,7 +68,7 @@ export default function DifficultyFilter({
           value={currentSelectedDifficulty}
           onValueChange={handleDifficultyChange}
         >
-          <SelectTrigger className="w-[180px] border-2 focus:ring-0 focus-visible:ring-0 bg-purple-600 border-purple-700/50 rounded-[5px] text-white shadow-lg">
+          <SelectTrigger className="w-[180px] border-2 focus:ring-0 focus-visible:ring-0 bg-purple-950 border-purple-950/50 rounded-[5px] text-white shadow-lg">
             <SelectValue placeholder="Select Difficulty" />
           </SelectTrigger>
           <SelectContent className=" rounded-[5px] border border-border/50 shadow-xl">

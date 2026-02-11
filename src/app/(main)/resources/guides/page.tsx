@@ -20,7 +20,14 @@ import {
 } from "@/src/components/ui/card";
 import { client } from "@/src/sanity/lib/client";
 import { urlFor } from "@/src/sanity/lib/image";
-import { ArrowRight, Clock, Eye } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Clock,
+  Eye,
+  Star,
+  TrendingUp,
+} from "lucide-react";
 import { SanityDocument } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
@@ -60,7 +67,6 @@ interface Category extends SanityDocument {
 
 async function getGuidesData(categorySlug?: string) {
   if (categorySlug && categorySlug !== "all") {
-    // Filter guides that reference the specific category
     const query = `*[
       _type == "guide"
       && defined(slug.current)
@@ -95,7 +101,6 @@ async function getGuidesData(categorySlug?: string) {
     const data = await client.fetch<Guide[]>(query, {}, option);
     return data;
   } else {
-    // Get all guides
     const query = `*[
       _type == "guide"
       && defined(slug.current)
@@ -166,10 +171,7 @@ export default async function GuidesPage({
   const { category, query, sort, difficulty } = await searchParams;
   const selectedCategory = category || "all";
 
-  const [categories] = await Promise.all([
-    // getGuidesData(selectedCategory),
-    getCategoriesData(),
-  ]);
+  const [categories] = await Promise.all([getCategoriesData()]);
 
   const searchQuery = query || "";
   const searchSort = sort || "recent";
@@ -178,201 +180,243 @@ export default async function GuidesPage({
     searchQuery,
     searchSort,
     category,
-    searchDifficulty
+    searchDifficulty,
   );
 
-  console.log("Guides Data:", guides);
-
   return (
-    <div className="pt-[5rem]">
-      <div className="mb-[1.1rem]">
-        <h1 className="text-4xl md:text-5xl text-white font-bold text-center mb-4">
-          Game Guides
-        </h1>
-        <p className="text-xl text-gray-300 text-center">
-          Comprehensive guides and tutorials to help you master every aspect of
-          the game
-        </p>
-      </div>
-      <GuideSearch initialQuery={query} />
-      <div className="min-h-screen pt-[1rem]">
-        <section>
-          {/* Category Filter */}
-          <CategoryFilter
-            categories={categories}
-            selectedCategory={selectedCategory}
-          />
+    <div className="min-h-screen bg-background">
+      <div className="pt-[5rem]">
+        <div className="mb-[1.1rem] relative overflow-hidden border-b border-border/50">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/60 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="container mx-auto max-w-6xl px-4 pt-20 pb-10 relative z-10 text-center space-y-6">
+            <h1 className="text-4xl md:text-5xl text-white font-bold text-center mb-4">
+              Game Guides
+            </h1>
+            <p className="text-xl text-gray-300 text-center">
+              Comprehensive guides and tutorials to help you master every aspect
+              of the game
+            </p>
 
-          <div className="container max-w-6xl mx-auto px-4 py-6">
-            <div className="flex justify-between items-center flex-row mb-6">
-              <h1 className="text-2xl text-white font-bold text-center">
-                Recent Guides
-              </h1>
+            <GuideSearch initialQuery={query} />
+            {/* Category Filter */}
+            <CategoryFilter
+              categories={categories}
+              selectedCategory={selectedCategory}
+            />
+          </div>
+        </div>
+        <div className="min-h-screen pt-[1rem]">
+          <section>
+            <div className="container max-w-6xl mx-auto px-4 py-6">
+              <div className="flex justify-between items-center flex-row mb-6">
+                <h1 className="text-2xl text-white font-bold text-center">
+                  {searchQuery
+                    ? `Search Results: "${searchQuery}"`
+                    : "Recent Guides"}
+                </h1>
 
-              <div className="flex flex-row gap-4">
-                <DifficultyFilter
-                  initialSelectedDifficulty={searchDifficulty}
-                />
-                <SortOptions currentSort={sort} />
+                <div className="flex flex-row gap-4">
+                  <DifficultyFilter
+                    initialSelectedDifficulty={searchDifficulty}
+                  />
+                  <SortOptions currentSort={sort} />
+                </div>
               </div>
-            </div>
 
-            {/* Results count */}
-            <div className="mb-6">
-              <p className="text-gray-300 text-center">
-                {selectedCategory === "all"
-                  ? `Showing all ${guides.length} guide(s)`
-                  : `Showing ${guides?.length > 0 ? guides.length : 0} guides in "${categories.find((cat) => cat.slug.current === selectedCategory)?.title || selectedCategory}"`}
-              </p>
-            </div>
+              {/* Results count */}
+              <div className="mb-6">
+                <p className="text-gray-300 text-center">
+                  {selectedCategory === "all"
+                    ? `Showing all ${guides.length} guide(s)`
+                    : `Showing ${guides?.length > 0 ? guides.length : 0} guides in "${categories.find((cat) => cat.slug.current === selectedCategory)?.title || selectedCategory}"`}
+                </p>
+              </div>
 
-            {/* Guides Grid */}
-            {guides && guides.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {guides.map((guide: any) => (
-                  <Card
-                    key={guide._id}
-                    className="flex flex-col bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-[5px] overflow-hidden"
-                  >
-                    <Image
-                      src={urlFor(guide.image).url()}
-                      alt={guide.title}
-                      width={500}
-                      height={300}
-                      className="w-full h-64 object-cover rounded-t-[5px]"
-                      priority
-                    />
-
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <div className="flex flex-row gap-2 flex-wrap">
+              {/* Guides Grid */}
+              {guides && guides.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {guides.map((guide: any) => (
+                    <Card
+                      key={guide._id}
+                      className="flex flex-col bg-gradient-to-br from-card via-card to-purple-50/30 dark:to-purple-900/10 border border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 rounded-xl overflow-hidden group"
+                    >
+                      <div className="relative">
+                        <Image
+                          src={urlFor(guide.image).url()}
+                          alt={guide.title}
+                          width={400}
+                          height={250}
+                          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                          priority
+                        />
+                        <div className="absolute top-4 left-4 flex gap-2">
+                          <Badge
+                            variant="default"
+                            className="bg-purple-700 hover:bg-purple-700/50 text-white shadow-md backdrop-blur-sm"
+                          >
+                            {guide.category?.title}
+                          </Badge>
+                          <Badge
+                            variant="default"
+                            className={`${
+                              guide.difficulty <= 2
+                                ? "bg-green-600 hover:bg-green-600/50"
+                                : guide.difficulty === 3
+                                  ? "bg-yellow-600 hover:bg-yellow-600/50"
+                                  : "bg-red-600 hover:bg-red-600/50"
+                            } text-white shadow-md backdrop-blur-sm`}
+                          >
+                            {switchDifficulties(guide.difficulty)}
+                          </Badge>
+                        </div>
+                        {guide.views && guide.views > 1000 && (
+                          <div className="absolute top-4 right-4">
                             <Badge
-                              variant="default"
-                              className="bg-purple-600 text-white shadow-md"
+                              variant="secondary"
+                              className="bg-black/70 text-white backdrop-blur-sm"
                             >
-                              {guide.category?.title}
+                              <Star className="w-3 h-3 mr-1" />
+                              Popular
                             </Badge>
                           </div>
-                        </div>
-                        <Badge
-                          variant="default"
-                          className="bg-purple-600 text-white shadow-md"
-                        >
-                          {switchDifficulties(guide.difficulty)}
-                        </Badge>
-                      </div>
-                      <CardTitle className="text-white mt-2 py-2">
-                        {guide.title}
-                      </CardTitle>
-                      <CardDescription className="flex items-center gap-2">
-                        <Avatar className="h-6 w-6">
-                          <AvatarImage
-                            src={guide.author.image || "/placeholder.svg"}
-                            alt={guide.author.name}
-                          />
-                          <AvatarFallback>
-                            {guide.author.name.substring(0, 2)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span>{guide.author.name}</span>
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-white line-clamp-3 text-lg">
-                        {guide.description || "No description available."}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {guide.tags.map((tag: any, idx: any) => (
-                          <Badge
-                            key={idx}
-                            variant="secondary"
-                            className="text-xs bg-purple-600 hover:bg-purple-600/75 transition-colors cursor-default"
-                          >
-                            {tag.title}
-                          </Badge>
-                        ))}
-                        {guide.tags.length > 3 && (
-                          <Badge variant="purple" className="text-xs">
-                            +{guide.tags.length - 3} more
-                          </Badge>
                         )}
                       </div>
-                    </CardContent>
-                    <CardFooter className="mt-auto flex justify-between items-center flex-wrap gap-4">
-                      <div className="flex flex-row gap-4 text-sm text-muted-foreground">
-                        <p className="flex items-center">
-                          <Clock className="h-4 w-4 mr-1" />
-                          {new Date(guide.publishedAt).toLocaleDateString(
-                            "en-GB",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
+
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-white text-lg line-clamp-2  transition-colors">
+                          {guide.title}
+                        </CardTitle>
+                        <CardDescription className="flex items-center gap-2 text-gray-300">
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage
+                              src={guide.author.image || "/placeholder.svg"}
+                              alt={guide.author.name}
+                            />
+                            <AvatarFallback className="text-xs">
+                              {guide.author.name.substring(0, 2)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="text-sm">{guide.author.name}</span>
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="py-0">
+                        <p className="text-gray-300 line-clamp-3 text-sm mb-4">
+                          {guide.description || "No description available."}
+                        </p>
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {guide.tags.slice(0, 4).map((tag: any, idx: any) => (
+                            <Badge
+                              key={idx}
+                              variant="secondary"
+                              className="text-xs bg-purple-600/20 hover:bg-purple-600/30 transition-colors cursor-default text-purple-300 border border-purple-600/30"
+                            >
+                              {tag.title}
+                            </Badge>
+                          ))}
+                          {guide.tags.length > 4 && (
+                            <Badge variant="purple" className="text-xs">
+                              +{guide.tags.length - 4}
+                            </Badge>
                           )}
-                        </p>
-                        <p className="flex items-center">
-                          <Eye className="h-4 w-4 mr-1" />
-                          {guide.views || 0}
-                        </p>
-                      </div>
-                      <Button
-                        size="lg"
-                        className="rounded-[5px] bg-purple-600  hover:bg-purple-700 text-white shadow-lg"
-                        asChild
-                      >
-                        <Link href={`/resources/guides/${guide.slug.current}`}>
-                          Read More{" "}
-                          <ArrowRight className="text-white w-4 h-4 ml-1" />
-                        </Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-300 text-lg">
-                  No guides found for the selected category.
-                </p>
-                <Link
-                  href="/resources/guides"
-                  className="text-purple-400 hover:text-purple-300 underline mt-2 inline-block"
-                >
-                  View all guides
-                </Link>
-              </div>
-            )}
-          </div>
-        </section>
-        <section className="py-12 px-4">
-          <div className="container mx-auto max-w-6xl">
-            <Card className="bg-background/90 glass-effect shadow-xl border border-border/50 shadow-2xl rounded-xl overflow-hidden">
-              <CardContent className="flex md:flex-row flex-col p-8 justify-between items-center gap-6">
-                <div className="text-white">
-                  <h2 className="text-2xl font-semibold mb-2">
-                    Got Knowledge?
-                  </h2>
-                  <p className="text-white text-sm max-w-xl">
-                    Have strategies or insights to share? Write a guide and help
-                    other players improve their game. The community appreciates
-                    quality content from experienced players.
-                  </p>
+                        </div>
+                      </CardContent>
+                      <CardFooter className="mt-auto flex justify-between items-center pt-3">
+                        <div className="flex flex-row gap-3 text-xs text-gray-400">
+                          <p className="flex items-center">
+                            <Clock className="h-3 w-3 mr-1" />
+                            {new Date(guide.publishedAt).toLocaleDateString(
+                              "en-GB",
+                              { month: "short", day: "numeric" },
+                            )}
+                          </p>
+                          <p className="flex items-center">
+                            <Eye className="h-3 w-3 mr-1" />
+                            {(guide.views || 0).toLocaleString()}
+                          </p>
+                        </div>
+                        <Button
+                          size="sm"
+                          className="rounded-lg  text-white shadow-lg "
+                          asChild
+                        >
+                          <Link
+                            href={`/resources/guides/${guide.slug.current}`}
+                          >
+                            Read{" "}
+                            <ArrowRight className="text-white w-3 h-3 ml-1" />
+                          </Link>
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
                 </div>
-                <Button
-                  size="lg"
-                  className="rounded-xl bg-purple-600  hover:bg-purple-700 text-white shadow-lg min-w-[150px]"
-                  asChild
-                >
-                  <Link href="/contact">
-                    Join Us <ArrowRight className="w-4 h-4 ml-1" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+              ) : (
+                <div className="text-center py-16">
+                  <div className="max-w-md mx-auto">
+                    <BookOpen className="h-16 w-16 text-gray-500 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      No Guides Found
+                    </h3>
+                    <p className="text-gray-300 mb-6">
+                      No guides match your selected criteria. Try adjusting your
+                      filters or browse all guides.
+                    </p>
+                    <Link
+                      href="/resources/guides"
+                      className="inline-flex items-center text-purple-400 hover:text-purple-300 underline"
+                    >
+                      View all guides <ArrowRight className="w-4 h-4 ml-1" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Call to Action */}
+          <section className="py-12 px-4">
+            <div className="container mx-auto max-w-6xl">
+              <Card className="bg-gradient-to-br from-purple-600/10 to-purple-800/10 backdrop-blur-sm border border-purple-500/20 rounded-xl overflow-hidden">
+                <CardContent className="flex md:flex-row flex-col p-8 justify-between items-center gap-6">
+                  <div className="text-white max-w-xl">
+                    <h2 className="text-2xl font-semibold mb-2">
+                      Share Your Knowledge
+                    </h2>
+                    <p className="text-gray-300 text-sm">
+                      Have strategies or insights to share? Write a guide and
+                      help other players improve their game. The community
+                      appreciates quality content from experienced players.
+                    </p>
+                    <div className="flex gap-4 mt-4">
+                      <div className="flex items-center gap-2 text-sm text-purple-300">
+                        <Star className="h-4 w-4" />
+                        <span>Reach thousands of players</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-purple-300">
+                        <TrendingUp className="h-4 w-4" />
+                        <span>Build your reputation</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <Button
+                      size="lg"
+                      className="rounded-xl bg-purple-600 hover:bg-purple-700 text-white shadow-lg min-w-[150px] group-hover:scale-105 transition-transform"
+                      asChild
+                    >
+                      <Link href="/contact">
+                        Join Us <ArrowRight className="w-4 h-4 ml-1" />
+                      </Link>
+                    </Button>
+                    <p className="text-xs text-gray-400 text-center">
+                      No experience needed - we&apos;ll help you get started!
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

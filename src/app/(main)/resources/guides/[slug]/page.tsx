@@ -263,8 +263,8 @@ export default async function GuidePostPage({
       <div className="container mx-auto max-w-6xl px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-8">
-              <Card className="bg-gradient-to-br from-purple-600 to-blue-600 border-0 shadow-xl rounded-xl overflow-hidden">
+            <div className="sticky top-24">
+              <Card className="bg-gradient-to-t from-card via-card to-muted/20 border-border/50 shadow-xl border-0  rounded-xl overflow-hidden">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg text-white">
                     Table of Contents
@@ -324,15 +324,12 @@ export default async function GuidePostPage({
           <div className="lg:col-span-3">
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-4">
-                <Badge
-                  variant="default"
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md"
-                >
+                <Badge className="bg-purple-950 hover:bg-purple-950/50 text-white shadow-md">
                   {guide.category?.title}
                 </Badge>
                 <Badge
                   variant="default"
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md"
+                  className="bg-purple-950 hover:bg-purple-950/50 text-white shadow-md"
                 >
                   {switchDifficulties(guide.difficulty)}
                 </Badge>
@@ -447,7 +444,7 @@ export default async function GuidePostPage({
                                 {member}
                               </p>
                             </div>
-                          )
+                          ),
                         )}
                       </div>
                     </CardContent>

@@ -1,6 +1,6 @@
-import { BreadcrumbNav, CtaBanner } from "@/src/components/contribute"
-import { Badge } from "@/src/components/ui/badge"
-import { Button } from "@/src/components/ui/button"
+import { BreadcrumbNav, CtaBanner } from "@/src/components/contribute";
+import { Badge } from "@/src/components/ui/badge";
+import { Button } from "@/src/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card"
+} from "@/src/components/ui/card";
 import {
   ArrowRight,
   ChevronRight,
@@ -16,8 +16,8 @@ import {
   Lightbulb,
   Star,
   Users,
-} from "lucide-react"
-import Link from "next/link"
+} from "lucide-react";
+import Link from "next/link";
 
 const contributionAreas = [
   {
@@ -37,8 +37,7 @@ const contributionAreas = [
   {
     id: "code-contribution",
     name: "Code Contribution",
-    description:
-      "Contribute to our open-source tools and website on GitHub.",
+    description: "Contribute to our open-source tools and website on GitHub.",
     difficulty: "Hard",
   },
   {
@@ -48,7 +47,7 @@ const contributionAreas = [
       "Create videos, infographics, or other visual content for the community.",
     difficulty: "Medium",
   },
-]
+];
 
 const whyContribute = [
   {
@@ -69,18 +68,18 @@ const whyContribute = [
     description:
       "Develop new skills, learn from experienced contributors, and gain valuable experience in your chosen area.",
   },
-]
+];
 
 function getDifficultyColor(difficulty: string) {
   switch (difficulty) {
     case "Easy":
-      return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
+      return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
     case "Medium":
-      return "bg-amber-500/15 text-amber-400 border-amber-500/30"
+      return "bg-amber-500/15 text-amber-400 border-amber-500/30";
     case "Hard":
-      return "bg-red-500/15 text-red-400 border-red-500/30"
+      return "bg-red-500/15 text-red-400 border-red-500/30";
     default:
-      return "bg-primary/15 text-purple-300 border-primary/30"
+      return "bg-primary/15 text-purple-300 border-primary/30";
   }
 }
 
@@ -88,10 +87,7 @@ export default function ContributePage() {
   return (
     <div className="min-h-screen bg-background  pt-15">
       <BreadcrumbNav
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Contribute" },
-        ]}
+        items={[{ label: "Home", href: "/" }, { label: "Contribute" }]}
       />
 
       {/* Hero */}
@@ -99,7 +95,7 @@ export default function ContributePage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/60 rounded-full blur-3xl pointer-events-none" />
         <div className="container mx-auto max-w-4xl px-4 py-20 relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            Community
+            Contribute
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Join our thriving community of players, contributors, and
@@ -202,5 +198,5 @@ export default function ContributePage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
