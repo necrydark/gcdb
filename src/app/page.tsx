@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getCharacterCount } from "@/data/character";
 import { getRelicCount } from "@/data/relics";
 import {
@@ -17,6 +18,7 @@ import Footer from "../components/footer";
 import CommandSearch from "../components/home/search-bar";
 import Navbar from "../components/navbar";
 import Pricing from "../components/pricing";
+import { CharacterCardSkeleton, RelicCardSkeleton, StatsCardSkeleton } from "../components/ui/loading-skeletons";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import {
@@ -78,12 +80,21 @@ async function getRelicsByReleaseDate(limit: number = 6) {
 }
 
 export default async function HomePage() {
-  const user = await currentUser();
-  const charactersCount = await getCharacterCount();
-  const relicCount = await getRelicCount();
-  const releasedCharacters = await getCharactersByDate();
-  const releasedRelics = await getRelicsByReleaseDate();
-  const changelogs = getAllPosts();
+  const [
+    user,
+    charactersCount,
+    relicCount,
+    releasedCharacters,
+    releasedRelics,
+    changelogs
+  ] = await Promise.all([
+    currentUser(),
+    getCharacterCount(),
+    getRelicCount(),
+    getCharactersByDate(6),
+    getRelicsByReleaseDate(6),
+    getAllPosts()
+  ]);
 
   return (
     <div className="min-h-screen flex flex-col  bg-background transition-all duration-300">
@@ -222,8 +233,12 @@ export default async function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/20 ">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <MonthlyActiveUsers />
-            <PageViews />
+            <Suspense fallback={<StatsCardSkeleton />}>
+              <MonthlyActiveUsers />
+            </Suspense>
+            <Suspense fallback={<StatsCardSkeleton />}>
+              <PageViews />
+            </Suspense>
             <Card className="bg-gradient-to-br from-green-500/10 via-card to-green-600/20 dark:from-green-900/20 dark:to-green-800/30 border-green-200/50 dark:border-green-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-4 mb-4">
